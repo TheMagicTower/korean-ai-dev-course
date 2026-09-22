@@ -53,3 +53,9 @@ HTML 교재 초판은 index.html에 있습니다. 주차별 120분 본문·시�
 ## 교재 수정·빌드
 
 `course/`는 학생용 본문과 화면 구성, `docs/`는 근거·설계·부록입니다. Python 3에서 `pip install -r requirements-build.txt` 후 `python scripts/build_course.py`로 index.html을 갱신합니다. HTML은 서버 없이도 열 수 있으며 다이어그램의 SVG 렌더링에는 온라인 Mermaid CDN이 필요합니다. 실패 시 텍스트 흐름도가 남습니다.
+
+## 교재 시각 자료
+
+4주 본문과 부록에 12개 그림·차트·개념도를 제공합니다. 2주차에는 조작 가능한 임시 문의 목업, 3주차에는 비용·추가 재시도 산술 그래프가 있습니다. 시간 차트는 교안 시간표에서 자동 생성하며 비용 그래프는 교육용 가정입니다. 이미지와 시각 자료는 HTML에 포함되어 추가 자산 다운로드 없이 표시됩니다. 기존 Mermaid 도해에는 온라인 라이브러리가 필요합니다.
+
+시각 자료 원본: `scripts/course_visuals.py`, 스타일·동작: `course/visuals.css`, `course/visuals.js`. Markdown의 `visual:` 주석을 HTML 빌드 시 치환합니다.

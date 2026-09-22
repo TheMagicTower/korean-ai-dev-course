@@ -42,7 +42,7 @@
 
 [최신 주요 모델 부록](frontier-models.md)에는 GPT-6 Astra와 TypeSafe Jev의 소개·특징·활용 분석을 담습니다. 1주차 기초 시간에는 모델·도구 구분 5분, 사고 수준·선택 기준 5분, Astra·Jev의 대비와 평가 읽기 5분, 디자인·이미지 생성 구분 5분으로 핵심만 다룹니다. 상세 내용은 부록으로 제공하고 3주차에는 개인 프로젝트와 관련된 비교 하나만 수행합니다. 두 모델의 유료 접근이나 제품 내 통합을 필수로 요구하지 않습니다.
 
-[코딩 에이전트 부록](coding-agents-report.md)은 Claude Code·Grok Build·OnDemand·Codex·Pi·Oh My Pi·OpenCode를 비교합니다. 수업에서는 사전 검증한 주력 도구 하나를 사용하며 7개 설치를 요구하지 않습니다.
+[코딩 에이전트 부록](coding-agents-report.md)은 Claude Code·Grok Build·OnDemand·Codex·Pi·Oh My Pi·OpenCode·Replit을 비교합니다. 수업에서는 사전 검증한 주력 도구 하나를 사용하며 8개 설치를 요구하지 않습니다.
 
 ## 1주차 프로젝트 계약
 

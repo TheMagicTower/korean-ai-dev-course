@@ -15,7 +15,7 @@
 5. [한국어 스킬 패키지](docs/korean-skill-package.md): 학생용 스킬 구성, GitHub 배포, 도구별 설치·검증 설계
 6. [최신 주요 모델: Astra와 Jev](docs/frontier-models.md): 모델 소개·활용 분석, AGI 주장과 평가 조건, 범용 작업과 좁은 판단의 차이
 
-7. [코딩 에이전트 조사 부록](docs/coding-agents-report.md): 7개 도구의 차이·스킬 호환·선택 기준과 조사 한계
+7. [코딩 에이전트 조사 부록](docs/coding-agents-report.md): 8개 도구의 차이·스킬 호환·선택 기준과 조사 한계
 8. [프로젝트 수준별 완성 기준](docs/project-completion-levels.md): 개인·팀·외부 사용과 PoC·MVP·운영의 구분, 위험·예산·리뷰 종료
 
 9. [사용자 기본 프로젝트 운영 기준](docs/project-operating-standard.md): 직접 제공한 18단계, 디자인에서 상세 설계를 도출하는 역피라미드 방식, 작업 계층·3단계 리뷰·정기 CD·자동 피드백·속도 경험 기록

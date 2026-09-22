@@ -3,7 +3,7 @@ from pathlib import Path
 import re,html
 import markdown
 ROOT=Path(__file__).resolve().parents[1]
-items=[('start','시작하기','course/start.md'),('week1','01 · 문제와 AI 선택','course/week1.md'),('week2','02 · 목업에서 구현','course/week2.md'),('week3','03 · 진단과 검증','course/week3.md'),('week4','04 · 전달과 회고','course/week4.md'),('templates','워크북 · 복사 서식','docs/templates.md'),('levels','완성 수준','docs/project-completion-levels.md'),('workflow','전체 워크플로우','docs/workflow.md'),('standard','18단계 운영 기준','docs/project-operating-standard.md'),('models','모델·프로바이더 선택','docs/model-selection.md'),('frontier','Astra·Jev 분석','docs/frontier-models.md'),('agents','코딩 에이전트 7종','docs/coding-agents-report.md'),('skills','스킬 패키지 안내','docs/korean-skill-package.md'),('schedule','강사용 과정 설계','docs/course-design.md')]
+items=[('start','시작하기','course/start.md'),('week1','01 · 문제와 AI 선택','course/week1.md'),('week2','02 · 목업에서 구현','course/week2.md'),('week3','03 · 진단과 검증','course/week3.md'),('week4','04 · 전달과 회고','course/week4.md'),('templates','워크북 · 복사 서식','docs/templates.md'),('levels','완성 수준','docs/project-completion-levels.md'),('workflow','전체 워크플로우','docs/workflow.md'),('standard','18단계 운영 기준','docs/project-operating-standard.md'),('models','모델·프로바이더 선택','docs/model-selection.md'),('frontier','Astra·Jev 분석','docs/frontier-models.md'),('agents','코딩 에이전트 8종','docs/coding-agents-report.md'),('skills','스킬 패키지 안내','docs/korean-skill-package.md'),('schedule','강사용 과정 설계','docs/course-design.md')]
 mapping={Path(path).name:id for id,_,path in items}
 sections=[]
 for id,label,path in items:

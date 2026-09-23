@@ -1,0 +1,61 @@
+Initial command: node projects/flyblock/test-realtime.cjs
+PASS ready does not advance; independent falling and actual neural output
+PASS walls, collision, rotation and landing
+PASS soft drop and hard drop lock once per tick; pauses freeze and resume
+node:assert:150
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'회로 승리' !== '무승부'
+
+    at /Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/flyblock/test-realtime.cjs:7:229
+    at test (/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/flyblock/test-realtime.cjs:2:39)
+    at Object.<anonymous> (/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/flyblock/test-realtime.cjs:6:1)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object..js (node:internal/modules/cjs/loader:1913:10)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '회로 승리',
+  expected: '무승부',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.1
+
+Debug: simultaneous top-out fixture had one free downward cell for AI. Corrected settled height from 7 to 8 so both boards lock on same tick.
+Rerun: node projects/flyblock/test-realtime.cjs
+PASS ready does not advance; independent falling and actual neural output
+PASS walls, collision, rotation and landing
+PASS soft drop and hard drop lock once per tick; pauses freeze and resume
+PASS queued garbage applied at lock; simultaneous top-out is draw
+PASS deterministic timed replay, version rejection, terminal time limit
+PASS focused keyboard, editable fields, modifiers, autorepeat, paused/replay controls
+PASS single clock on repeat starts, stale callbacks cancelled, no resume burst, lag pauses
+PASS 7 realtime/input suites
+
+Regression commands: node projects/flyblock/test-realtime.cjs
+FLYBLOCK_EVALUATION_OUTPUT=projects/flyblock/updates/keyboard-realtime-01/legacy-evaluation-regression.json node projects/flyblock/test.cjs
+PASS ready does not advance; independent falling and actual neural output
+PASS walls, collision, rotation and landing
+PASS soft drop and hard drop lock once per tick; pauses freeze and resume
+PASS queued garbage applied at lock; simultaneous top-out is draw
+PASS deterministic timed replay, version rejection, terminal time limit
+PASS focused keyboard, editable fields, modifiers, autorepeat, paused/replay controls
+PASS single clock on repeat starts, stale callbacks cancelled, no resume burst, lag pauses
+PASS 7 realtime/input suites
+PASS: group clear, garbage adjacency, 2-chain, invalid placement, input immutability, garbage/overflow, deterministic simulation, connection ablation, legal neural output, match completion, replay, ended match guard
+{"fixedSeed":2026,"rounds":80,"result":"회로 승리","cleared":[140,144],"neurons":12,"edges":13,"spikes":[29,27,36,20,31,17]}
+[{"baseline":"random","seeds":20,"win":16,"draw":0,"loss":4,"failures":0,"cleared":1921,"moves":1244,"median_ms":0.20058300000000884},{"baseline":"low","seeds":20,"win":3,"draw":1,"loss":16,"failures":0,"cleared":2043,"moves":1381,"median_ms":0.20195800000004738}]
+
+Syntax commands passed without output:
+node --check projects/flyblock/app.js
+node --check projects/flyblock/realtime.js
+node --check projects/flyblock/input.js

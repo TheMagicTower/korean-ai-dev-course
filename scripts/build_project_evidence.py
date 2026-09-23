@@ -34,6 +34,7 @@ def main():
   review_fix_seconds=(times['review_fix_handoff']-times['review_fix_started']).total_seconds() if 'review_fix_handoff' in times and 'review_fix_started' in times else None
   follow_note=f'<p>후속 수정 요청→재인계: <strong>{duration(follow_seconds)}</strong> (최초 인계 시간에 합산하지 않음)</p>' if follow_seconds is not None else ''
   if review_fix_seconds is not None:follow_note+=f'<p>검토 오류 수정 요청→재인계: <strong>{duration(review_fix_seconds)}</strong> (별도 추가 경과)</p>'
+  if slug=='flyblock':follow_note+='<p><a href="flyblock/updates/keyboard-realtime-01/">후속 업데이트: 키보드·실시간 대전의 프롬프트와 별도 측정 시간 →</a></p><p>위 시간과 최초 캡처는 원래 라운드 버전의 기록입니다. 데모 링크는 최신 버전입니다.</p>'
   intervals=[];previous=first
   for key,title in STAGES[1:]:
    stamp=times.get(key)
@@ -84,6 +85,9 @@ def main():
 병렬 실행의 첫 시작→마지막 인계는 **{overall}**, 개별 에이전트 경과 합계는 **{summed}**입니다. 개별 시간의 합을 사용자가 기다린 시간으로 표현하지 않습니다.
 
 주 에이전트의 첫 시각 관찰부터 수정·재검토를 포함한 로컬 통합 검증까지는 **{local_label}**입니다. 데모 첫 공개 확인까지는 **{public_label}**입니다. 최초 공개 이후 이 증거 보고서를 갱신·게시한 시간은 제외합니다. [배포 실행 기록](https://github.com/TheMagicTower/korean-ai-dev-course/actions/runs/35806098688)과 제작실의 통합 기록에서 확인할 수 있습니다.
+
+## 후속 업데이트
+[FlyBlock 키보드·실시간 개선](updates/flyblock-keyboard.md)은 최초 제작과 분리해서 프롬프트·응답·시간을 기록했습니다. 제작실의 최초 화면과 시간은 초기 버전에 해당하며, 게임 실행 링크는 최신 버전입니다.
 
 ## 무엇을 캡처했나요?
 - 실제 위임 메시지와 에이전트가 읽은 작업 프롬프트 원문.

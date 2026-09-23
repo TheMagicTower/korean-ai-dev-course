@@ -18,7 +18,7 @@ function simulate(rates,seed,edges=C.edges){const n=C.neurons.length,dt=.2,steps
   }
  }
  return{spikes,outputs:outputs.map(i=>spikes[i]),trace,duration_ms:steps*dt};}
-function choose(board,colors,seed){const start=performance.now(),moves=E.legal(board);if(!moves.length)throw Error('합법 수가 없습니다.');
+function choose(board,colors,seed,allowedMoves=null){const start=performance.now(),legal=E.legal(board),moves=allowedMoves===null?legal:legal.filter(m=>allowedMoves.some(x=>x.col===m.col&&x.rotation===m.rotation));if(!moves.length)throw Error('합법 수가 없습니다.');
  // Engineered encoder: available space + matching top color. This is not a fly sensory mapping.
  const rates=board.map(c=>40+(10-c.length)*10+(c[c.length-1]===colors[0]?35:0));
  const activity=simulate(rates,seed);if(!activity.outputs.some(x=>x>0))throw Error('부분 회로의 출력 발화가 없습니다.');

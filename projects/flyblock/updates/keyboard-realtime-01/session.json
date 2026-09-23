@@ -1,0 +1,5 @@
+{
+  "root_observed_start_utc": "2026-09-23T01:34:48+00:00",
+  "base_commit": "fb7156981d5b3ec5e10e854e9e67b78e12ee8177",
+  "start_definition": "First root clock observation; not exact user message arrival."
+}

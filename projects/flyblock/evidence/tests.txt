@@ -1,0 +1,40 @@
+Command: node projects/flyblock/test.cjs
+node:assert:150
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+0 !== 2
+
+    at Object.<anonymous> (/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/flyblock/test.cjs:4:79)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object..js (node:internal/modules/cjs/loader:1913:10)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 0,
+  expected: 2,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.1
+
+First 2-chain fixture was invalid; corrected hand-built staggered stack. Rerun command: node projects/flyblock/test.cjs
+PASS: group clear, garbage adjacency, 2-chain, invalid placement, input immutability, garbage/overflow, deterministic simulation, connection ablation, legal neural output, match completion, replay, ended match guard
+{"fixedSeed":2026,"rounds":80,"result":"회로 승리","cleared":[140,144],"neurons":12,"edges":13,"spikes":[29,27,36,20,31,17]}
+[{"baseline":"random","seeds":20,"win":16,"draw":0,"loss":4,"failures":0,"cleared":1921,"moves":1244,"median_ms":0.2004999999999768},{"baseline":"low","seeds":20,"win":3,"draw":1,"loss":16,"failures":0,"cleared":2043,"moves":1381,"median_ms":0.20266700000001947}]
+PASS: group clear, garbage adjacency, 2-chain, invalid placement, input immutability, garbage/overflow, deterministic simulation, connection ablation, legal neural output, match completion, replay, ended match guard
+{"fixedSeed":2026,"rounds":80,"result":"회로 승리","cleared":[140,144],"neurons":12,"edges":13,"spikes":[29,27,36,20,31,17]}
+[{"baseline":"random","seeds":20,"win":16,"draw":0,"loss":4,"failures":0,"cleared":1921,"moves":1244,"median_ms":0.20724999999998772},{"baseline":"low","seeds":20,"win":3,"draw":1,"loss":16,"failures":0,"cleared":2043,"moves":1381,"median_ms":0.2046659999999747}]
+PASS: group clear, garbage adjacency, 2-chain, invalid placement, input immutability, garbage/overflow, deterministic simulation, connection ablation, legal neural output, match completion, replay, ended match guard
+{"fixedSeed":2026,"rounds":80,"result":"회로 승리","cleared":[140,144],"neurons":12,"edges":13,"spikes":[29,27,36,20,31,17]}
+[{"baseline":"random","seeds":20,"win":16,"draw":0,"loss":4,"failures":0,"cleared":1921,"moves":1244,"median_ms":0.40933399999994435},{"baseline":"low","seeds":20,"win":3,"draw":1,"loss":16,"failures":0,"cleared":2043,"moves":1381,"median_ms":0.44724999999994}]
+
+Additional actual commands passed: node --check projects/flyblock/app.js; node --check projects/flyblock/engine.js; node --check projects/flyblock/controller.js; python3 -m py_compile projects/flyblock/prepare.py
+Pinned source SHA256 verified by PYTHONPATH=/tmp/flyblock-pydeps python3 projects/flyblock/prepare.py

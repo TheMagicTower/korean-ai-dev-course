@@ -1,0 +1,13 @@
+(function(root){
+'use strict';
+const clone=x=>JSON.parse(JSON.stringify(x));
+function valid(s){
+ const draft=d=>d&&typeof d.title==='string'&&typeof d.summary==='string'&&typeof d.id==='string'&&Number.isInteger(d.version)&&d.version>0&&['draft','approved','held','published'].includes(d.status)&&Array.isArray(d.claims)&&d.claims.every(c=>c&&typeof c.text==='string'&&typeof c.evidenceId==='string');
+ return !!(s&&s.mode==='recorded-run'&&typeof s.textOrigin==='string'&&s.run&&s.run.usage&&typeof s.run.model==='string'&&s.classification&&Array.isArray(s.sources)&&s.sources.length>0&&s.sources.length<=3&&s.sources.every(x=>x&&typeof x.id==='string'&&typeof x.title==='string'&&typeof x.excerpt==='string'&&/^https:\/\/www\.nasa\.gov\//.test(x.url))&&draft(s.draft)&&Array.isArray(s.editions)&&s.editions.every(e=>e&&typeof e.key==='string'&&draft(e.article))&&Array.isArray(s.corrections)&&s.corrections.every(c=>c&&typeof c.reason==='string'));
+}
+function issues(s){const d=s.draft;return [!d.title.trim()?'제목이 없습니다.':null,!d.summary.trim()?'요약이 없습니다.':null,!d.claims.length?'주장이 없습니다.':null,...d.claims.map(c=>!c.text?.trim()||!s.sources.some(x=>x.id===c.evidenceId&&x.excerpt.trim())?'주장의 원문 근거가 없습니다.':null)].filter(Boolean);}
+function review(s,decision){const n=clone(s);if(decision==='approve'){const errors=issues(n);if(errors.length)throw Error(errors.join(' '));n.draft.status='approved';n.draft.reviewVersion=n.draft.version;}else{n.draft.status='held';n.draft.reviewVersion=null;}return n;}
+function edit(s,title,summary,reason=''){if(!title.trim()||!summary.trim())throw Error('제목과 요약을 입력하세요.');const n=clone(s);const old=clone(n.draft);if(old.title===title.trim()&&old.summary===summary.trim())return n;const published=n.editions.some(e=>e.article.id===old.id);if(published&&!reason.trim())throw Error('발행한 기사는 정정 이유가 필요합니다.');n.draft={...old,title:title.trim(),summary:summary.trim(),version:old.version+1,status:'draft',reviewVersion:null};if(published)n.corrections.push({from:old.version,to:n.draft.version,reason:reason.trim(),at:new Date().toISOString(),previous:{title:old.title,summary:old.summary},next:{title:n.draft.title,summary:n.draft.summary}});return n;}
+function publish(s){const n=clone(s),d=n.draft,key=d.id+':'+d.version;if(n.editions.some(e=>e.key===key))return n;if(d.status!=='approved'||d.reviewVersion!==d.version||issues(n).length)throw Error('현재 버전의 근거 확인과 승인이 필요합니다.');n.editions.push({key,at:new Date().toISOString(),article:clone(d)});n.draft.status='published';return n;}
+const api={valid,issues,review,edit,publish};if(typeof module!=='undefined')module.exports=api;else root.Magazine=api;
+})(typeof window!=='undefined'?window:globalThis);

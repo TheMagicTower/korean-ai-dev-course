@@ -1,0 +1,8 @@
+{
+  "scope": "Observed attempts during this implementation. Exact per-attempt timestamps were not recorded; no duration is inferred.",
+  "generation": [
+    {"provider":"Z.ai","requestedModel":"glm-4.7","endpoint":"https://api.z.ai/api/paas/v4/chat/completions","result":"curl exit 56; response not obtained"},
+    {"provider":"Z.ai","requestedModel":"glm-4.7","transport":"HTTP/1.1","result":"curl exit 22; HTTP error; status not captured"}
+  ],
+  "resolution":"Actual Jev topic classification saved in model-run.json. Actual coding-agent Korean draft saved in agent-draft.json. No successful external text-generation API response is claimed."
+}

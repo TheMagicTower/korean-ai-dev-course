@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-09-23T01:23:00.906277+00:00",
+  "parallel_start_to_last_handoff_seconds": 652.211064,
+  "sum_worker_elapsed_seconds": 1283.258269,
+  "projects": [
+    {
+      "project": "applyflow",
+      "started_at": "2026-09-23T01:08:03+00:00",
+      "handoff_at": "2026-09-23T01:11:32.393329+00:00",
+      "elapsed_seconds": 209.393329,
+      "followup_seconds": 101.821585,
+      "review_fix_seconds": 39.859592,
+      "intervals": [
+        {
+          "stage": "onboarded",
+          "label": "온보딩 보고",
+          "seconds": 26.175554,
+          "ended_at": "2026-09-23T01:08:29.175554+00:00"
+        },
+        {
+          "stage": "plan_ready",
+          "label": "계획 보고",
+          "seconds": 39.513439,
+          "ended_at": "2026-09-23T01:09:08.688993+00:00"
+        },
+        {
+          "stage": "implementation_ready",
+          "label": "구현 보고",
+          "seconds": 112.793927,
+          "ended_at": "2026-09-23T01:11:01.482920+00:00"
+        },
+        {
+          "stage": "tests_passed",
+          "label": "검증 보고",
+          "seconds": 17.435212,
+          "ended_at": "2026-09-23T01:11:18.918132+00:00"
+        },
+        {
+          "stage": "handoff",
+          "label": "인계",
+          "seconds": 13.475197,
+          "ended_at": "2026-09-23T01:11:32.393329+00:00"
+        }
+      ]
+    },
+    {
+      "project": "flyblock",
+      "started_at": "2026-09-23T01:08:15.722913+00:00",
+      "handoff_at": "2026-09-23T01:18:55.211064+00:00",
+      "elapsed_seconds": 639.488151,
+      "followup_seconds": null,
+      "review_fix_seconds": null,
+      "intervals": [
+        {
+          "stage": "onboarded",
+          "label": "온보딩 보고",
+          "seconds": 36.447864,
+          "ended_at": "2026-09-23T01:08:52.170777+00:00"
+        },
+        {
+          "stage": "plan_ready",
+          "label": "계획 보고",
+          "seconds": 110.253146,
+          "ended_at": "2026-09-23T01:10:42.423923+00:00"
+        },
+        {
+          "stage": "implementation_ready",
+          "label": "구현 보고",
+          "seconds": 297.314343,
+          "ended_at": "2026-09-23T01:15:39.738266+00:00"
+        },
+        {
+          "stage": "tests_passed",
+          "label": "검증 보고",
+          "seconds": 160.410253,
+          "ended_at": "2026-09-23T01:18:20.148519+00:00"
+        },
+        {
+          "stage": "handoff",
+          "label": "인계",
+          "seconds": 35.062545,
+          "ended_at": "2026-09-23T01:18:55.211064+00:00"
+        }
+      ]
+    },
+    {
+      "project": "signal-magazine",
+      "started_at": "2026-09-23T01:08:25.627103+00:00",
+      "handoff_at": "2026-09-23T01:15:40.003892+00:00",
+      "elapsed_seconds": 434.376789,
+      "followup_seconds": null,
+      "review_fix_seconds": null,
+      "intervals": [
+        {
+          "stage": "onboarded",
+          "label": "온보딩 보고",
+          "seconds": 23.969787,
+          "ended_at": "2026-09-23T01:08:49.596890+00:00"
+        },
+        {
+          "stage": "plan_ready",
+          "label": "계획 보고",
+          "seconds": 67.12477,
+          "ended_at": "2026-09-23T01:09:56.721660+00:00"
+        },
+        {
+          "stage": "implementation_ready",
+          "label": "구현 보고",
+          "seconds": 203.692193,
+          "ended_at": "2026-09-23T01:13:20.413853+00:00"
+        },
+        {
+          "stage": "tests_passed",
+          "label": "검증 보고",
+          "seconds": 110.572784,
+          "ended_at": "2026-09-23T01:15:10.986637+00:00"
+        },
+        {
+          "stage": "handoff",
+          "label": "인계",
+          "seconds": 29.017255,
+          "ended_at": "2026-09-23T01:15:40.003892+00:00"
+        }
+      ]
+    }
+  ],
+  "root_start_to_local_verified_seconds": 1014.860351
+}

@@ -1,0 +1,29 @@
+{
+  "measured_at": "2026-09-23T01:18:19.917Z",
+  "controller": "flyblock-lif-euler-v1",
+  "description": "20 fixed seeds per baseline. Baseline is player 0; neural circuit is player 1. Engineered encoder/decoder included. Not a biological intelligence benchmark.",
+  "results": [
+    {
+      "baseline": "random",
+      "seeds": 20,
+      "win": 16,
+      "draw": 0,
+      "loss": 4,
+      "failures": 0,
+      "cleared": 1921,
+      "moves": 1244,
+      "median_ms": 0.40933399999994435
+    },
+    {
+      "baseline": "low",
+      "seeds": 20,
+      "win": 3,
+      "draw": 1,
+      "loss": 16,
+      "failures": 0,
+      "cleared": 2043,
+      "moves": 1381,
+      "median_ms": 0.44724999999994
+    }
+  ]
+}

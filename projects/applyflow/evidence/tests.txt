@@ -1,0 +1,144 @@
+2026-09-23T01:08:48.794741+00:00
+$ node projects/applyflow/test-model.cjs
+exit=1
+PASS: trim, persistence, states, blank input, unknown id/status, duplicate, corrupt storage preservation, save failure
+PASS AF-104: company/role, case, trimming, status AND, empty query/results, data unchanged
+node:assert:150
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: 백업 검증 함수가 필요합니다.
++ actual - expected
+
++ 'undefined'
+- 'function'
+
+    at Object.<anonymous> (/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/applyflow/test-model.cjs:25:8)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object..js (node:internal/modules/cjs/loader:1913:10)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'undefined',
+  expected: 'function',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.1
+
+2026-09-23T01:10:14.487548+00:00
+$ node projects/applyflow/test-model.cjs
+exit=0
+PASS: trim, persistence, states, blank input, unknown id/status, duplicate, corrupt storage preservation, save failure
+PASS AF-104: company/role, case, trimming, status AND, empty query/results, data unchanged
+PASS AF-105/106: backup validation/version/size/duplicates/limits/projection, immutable deletion, failed-save preservation
+
+2026-09-23T01:10:14.505115+00:00
+$ node --check projects/applyflow/app.js
+exit=0
+
+2026-09-23T01:15:15.097038+00:00
+$ node projects/applyflow/test-delete-ui.cjs
+exit=1
+evalmachine.<anonymous>:10
+ for(const x of visible){const row=document.createElement('article');row.className='job';const info=document.createElement('div'),title=document.createElement('h3'),role=document.createElement('p');title.textContent=x.company;role.textContent=x.role;info.append(title,role);const control=document.createElement('div'),label=document.createElement('label'),select=document.createElement('select');select.id='status-'+x.id;label.htmlFor=select.id;label.textContent='지원 상태';select.setAttribute('aria-label',x.company+' 지원 상태');for(const s of M.statuses){const o=document.createElement('option');o.value=s;o.textContent=s;select.append(o);}select.value=x.status;select.disabled=blocked;select.addEventListener('change',()=>persist(M.transition(items,x.id,select.value)));const del=document.createElement('button');del.type='button';del.className='danger';del.textContent='삭제';del.setAttribute('aria-label',x.company+' 공고 삭제');del.disabled=blocked;del.addEventListener('click',()=>{if(window.confirm(x.company+' · '+x.role+' 공고를 삭제할까요? 되돌리려면 백업이 필요합니다.'))persist(M.remove(items,x.id));});control.append(label,select,del);row.append(info,control);$('jobs').append(row);}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+
+TypeError: window.confirm is not a function
+    at Object.click (evalmachine.<anonymous>:10:988)
+    at Element.click (/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/applyflow/test-delete-ui.cjs:7:32)
+    at Object.<anonymous> (/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/applyflow/test-delete-ui.cjs:16:16)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object..js (node:internal/modules/cjs/loader:1913:10)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
+
+Node.js v22.23.1
+
+2026-09-23T01:15:23.624415+00:00
+$ node projects/applyflow/test-delete-ui.cjs
+exit=1
+node:assert:150
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+    at Object.<anonymous> (/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/applyflow/test-delete-ui.cjs:16:31)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object..js (node:internal/modules/cjs/loader:1913:10)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.1
+
+2026-09-23T01:15:59.338615+00:00
+$ node projects/applyflow/test-delete-ui.cjs
+exit=0
+PASS deletion UI: visible target, cancel unchanged, failed save preserved, confirm persisted, stale target invalidated
+
+2026-09-23T01:15:59.360708+00:00
+$ node projects/applyflow/test-model.cjs
+exit=0
+PASS: trim, persistence, states, blank input, unknown id/status, duplicate, corrupt storage preservation, save failure
+PASS AF-104: company/role, case, trimming, status AND, empty query/results, data unchanged
+PASS AF-105/106: backup validation/version/size/duplicates/limits/projection, immutable deletion, failed-save preservation
+
+2026-09-23T01:15:59.380115+00:00
+$ node --check projects/applyflow/app.js
+exit=0
+
+2026-09-23T01:20:35.792891+00:00
+$ node projects/applyflow/test-delete-ui.cjs
+exit=1
+PASS deletion UI: visible target, cancel unchanged, failed save preserved, confirm persisted, stale target invalidated
+AssertionError [ERR_ASSERTION]: 새 파일 내용 도착 시 이전 미리보기 무효화
+
+false !== true
+
+    at /Users/caspar/Projects-Codex/TheMagicTower/SkillProject/projects/applyflow/test-delete-ui.cjs:36:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+2026-09-23T01:20:50.291005+00:00
+$ node projects/applyflow/test-delete-ui.cjs
+exit=0
+PASS deletion UI: visible target, cancel unchanged, failed save preserved, confirm persisted, stale target invalidated
+PASS delayed file: stale preview/consent invalidated; replacement requires new preview and consent
+
+2026-09-23T01:20:50.313293+00:00
+$ node projects/applyflow/test-model.cjs
+exit=0
+PASS: trim, persistence, states, blank input, unknown id/status, duplicate, corrupt storage preservation, save failure
+PASS AF-104: company/role, case, trimming, status AND, empty query/results, data unchanged
+PASS AF-105/106: backup validation/version/size/duplicates/limits/projection, immutable deletion, failed-save preservation
+
+2026-09-23T01:20:50.332937+00:00
+$ node --check projects/applyflow/app.js
+exit=0

@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict'),E=require('./engine.js'),N=require('./controller.js');
+let b=E.blank();b[0]=[1,1,1];let x=E.drop(b,[1,2],{col:0,rotation:0});assert.equal(x.cleared,4);assert.deepEqual(x.board[0],[2]);assert.equal(b[0].length,3);
+b=E.blank();b[0]=[1,1,1,1];b[1]=[4];x=E.resolve(b);assert.equal(x.cleared,4);assert.equal(x.board[1].length,0);
+b=E.blank();b[0]=[2];b[1]=[1,2];b[2]=[1,1,2];b[3]=[1,2];x=E.resolve(b);assert.equal(x.chains,2);assert.equal(x.cleared,8);
+b=E.blank();b[5]=Array(9).fill(2);assert(!E.legal(b).some(m=>m.col===5&&[0,1,2].includes(m.rotation)));assert.throws(()=>E.drop(b,[1,2],{col:5,rotation:0}));
+assert.deepEqual(E.garbage(E.blank(),8).board.map(c=>c.length),[2,2,1,1,1,1]);assert(E.garbage(Array.from({length:6},()=>Array(10).fill(4)),1).overflow);
+const nearlyFull=()=>Array.from({length:6},(_,i)=>Array(i===0?8:10).fill(4));let terminal=E.initial(1);terminal.boards=[nearlyFull(),nearlyFull()];assert.equal(E.step(terminal,[{col:0,rotation:0},{col:0,rotation:0}]).result,'무승부');terminal=E.initial(1);terminal.boards=[nearlyFull(),E.blank()];assert.equal(E.step(terminal,[{col:0,rotation:0},{col:0,rotation:0}]).result,'회로 승리');
+const a=N.simulate([100,100,100,100,100,100],12);assert(a.outputs.every(x=>x>0));assert.deepEqual(a,N.simulate([100,100,100,100,100,100],12));assert(N.simulate([100,100,100,100,100,100],12,[]).outputs.every(x=>x===0));
+const d=N.choose(E.blank(),[1,2],22);assert(E.legal(E.blank()).some(m=>JSON.stringify(m)===JSON.stringify(d.move)));assert.equal(d.model_revision,N.VERSION);
+let s=E.initial(2026);while(!s.result){const p=E.pair(s.seed,s.round);s=E.step(s,[N.baseline(s.boards[0],p,s.round),N.choose(s.boards[1],p,s.round+44).move]);}assert(s.round<=80);assert.deepEqual(E.replay(s.seed,s.history),s);assert.throws(()=>E.step(s,[{col:0,rotation:0},{col:0,rotation:0}]));
+console.log('PASS: group clear, garbage adjacency, 2-chain, invalid placement, input immutability, garbage/overflow, deterministic simulation, connection ablation, legal neural output, match completion, replay, ended match guard');
+console.log(JSON.stringify({fixedSeed:2026,rounds:s.round,result:s.result,cleared:s.cleared,neurons:N.circuit.neurons.length,edges:N.circuit.edges.length,spikes:a.outputs}));
+const report=N.evaluate(20);require('node:fs').writeFileSync(__dirname+'/evidence/evaluation.json',JSON.stringify({measured_at:new Date().toISOString(),controller:N.VERSION,description:'20 fixed seeds per baseline. Baseline is player 0; neural circuit is player 1. Engineered encoder/decoder included. Not a biological intelligence benchmark.',results:report},null,2)+'\n');console.log(JSON.stringify(report));assert(report.every(r=>r.failures===0&&r.win+r.draw+r.loss===20));

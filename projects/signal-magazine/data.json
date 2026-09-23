@@ -1,0 +1,54 @@
+{
+  "mode": "recorded-run",
+  "textOrigin": "현재 실행 서브에이전트가 NASA 발췌문을 읽고 작성한 실제 AI 초안입니다. 모델 ID 미확인. Jev API는 주제 분류만 수행했습니다.",
+  "run": {
+    "capturedAt": "2026-09-23T01:10:24.698472+00:00",
+    "provider": "TypeSafe",
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 31
+    }
+  },
+  "classification": {
+    "type": "choice",
+    "choice": "space",
+    "confidence": 0.99,
+    "probabilities": {
+      "space": 0.99,
+      "other": 0.01
+    }
+  },
+  "sources": [
+    {
+      "id": "nasa-1",
+      "title": "NASA’s Chandra Finds Unusual Objects in Pinwheel Galaxy",
+      "url": "https://www.nasa.gov/image-article/nasas-chandra-finds-unusual-objects-in-pinwheel-galaxy/",
+      "publishedAt": "Tue, 22 Sep 2026 15:40:48 +0000",
+      "collectedAt": "2026-09-23T01:10:24.299423+00:00",
+      "excerpt": "Using NASA’s Chandra X-ray Observatory, researchers found mysterious objects that give off unusually low-energy X-rays but intense levels of ultraviolet radiation. One of the",
+      "scope": "NASA RSS description first 24 words; not full article",
+      "sha256": "9ed9745548943e358a9f79683e310a28625eec693c4157869a6f6c2fbebeed11"
+    }
+  ],
+  "draft": {
+    "id": "article-1",
+    "title": "찬드라가 찾은 별난 X선 천체",
+    "summary": "NASA 찬드라 X선 관측소를 활용한 연구에서, 유난히 낮은 에너지의 X선과 강한 자외선을 내는 천체들이 발견됐습니다.",
+    "claims": [
+      {
+        "text": "연구진은 NASA 찬드라 X선 관측소를 사용했습니다.",
+        "evidenceId": "nasa-1"
+      },
+      {
+        "text": "발견한 천체는 유난히 낮은 에너지의 X선과 강한 자외선을 냅니다.",
+        "evidenceId": "nasa-1"
+      }
+    ],
+    "version": 1,
+    "status": "draft",
+    "reviewVersion": null
+  },
+  "editions": [],
+  "corrections": []
+}

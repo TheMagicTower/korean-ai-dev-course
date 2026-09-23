@@ -6,6 +6,10 @@
 
 각자의 아이디어를 하나의 프로젝트로 시작해, 주 1회 2시간씩 4주 뒤 실제 사용할 수 있는 작은 완성품으로 전달하는 과정입니다. AI 활용 개발의 절차, 스킬, 모델 선택, 검증과 인계를 연결합니다.
 
+## 실제 프로젝트 제작실
+
+[세 프로젝트 데모·실제 프롬프트·시간 기록](https://themagictower.github.io/korean-ai-dev-course/projects/) · [실행 기록 안내](docs/execution/2026-09-23/README.md). 프로젝트 구현은 projects/ 아래에 있으며 기존 교안의 설계 사례와 연결합니다.
+
 ## 문서 읽는 순서
 
 1. [개발 운영 체계](docs/workflow.md): 전체 흐름, 역할, 스킬, 산출물과 완료 기준
@@ -22,7 +26,7 @@
 
 10. [ApplyFlow 실행 매뉴얼](docs/playbooks/applyflow-runbook.md): 시작·온보딩·분해·수행·상태 판단의 복사용 프롬프트와 [실제 AF-104 수행 기록](docs/playbooks/applyflow-af104-record.md)
 
-11. [세 가지 프로젝트 사례](course/cases/index.md): ApplyFlow, 초파리 연결지도 기반 대전 게임, AI 뉴스 매거진. 새 두 사례는 설계 단계이며 실행 코드 미제공.
+11. [세 가지 프로젝트 사례](course/cases/index.md): ApplyFlow, 초파리 연결지도 기반 대전 게임, AI 뉴스 매거진. 각 사례의 독립 실행 데모와 실제 제작 기록을 projects/에 제공합니다.
 
 ## 확정된 요구와 설계 가정
 

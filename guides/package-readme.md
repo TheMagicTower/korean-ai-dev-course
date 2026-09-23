@@ -1,4 +1,4 @@
-# 한국어 AI 개발 스킬 0.1.0
+# 한국어 AI 개발 스킬 0.2.0
 
 프로젝트 목적에 맞는 완성 기준과 AI 목업 중심의 개발을 돕는 독립 스킬 8개입니다. 한국어 존댓말로 안내하며 학생·개인 개발자·팀이 필요한 단계만 선택해 사용할 수 있습니다.
 
@@ -6,7 +6,7 @@
 2. 새 세션에서 Codex `$kdev-start` 또는 Claude Code `/kdev-start`를 호출합니다.
 3. `examples/usage.md`에서 단계별 요청을 선택합니다.
 
-한 줄 설치 프롬프트는 `guides/one-line-prompts.md`에 있습니다. 공식 저장소: https://github.com/TheMagicTower/korean-ai-dev-course · 태그: v0.1.0
+한 줄 설치 프롬프트는 `guides/one-line-prompts.md`에 있습니다. 공식 저장소: https://github.com/TheMagicTower/korean-ai-dev-course · 태그: v0.2.0
 
 - kdev-start: 문제·사용자·범위·완료 조건
 - kdev-model: 모델·사고 수준·도구·예산

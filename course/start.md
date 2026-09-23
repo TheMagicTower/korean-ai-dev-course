@@ -17,6 +17,10 @@
 
 학생 각자의 아이디어를 네 주 동안 이어갑니다. 매주 새 프로젝트를 만드는 방식이 아닙니다. 현재는 네 주 전체의 **첫 교안**이며, 녹화 시연이나 환경별 완성 예제 코드가 모두 제공되는 상태는 아닙니다.
 
+## 실제 서비스 사례로 따라가기
+
+[ApplyFlow 사례](case-study.md)는 취업 준비생의 공고 저장·지원 관리 서비스입니다. 문제 발견부터 서비스 MVP의 접근 경계와 실제 사용 검증까지 네 주를 연결합니다. 실행 가능한 브라우저 예제도 함께 제공합니다. 사례를 복제하는 것이 아니라 자신의 아이디어에 같은 판단 질문을 적용합니다.
+
 ## 이 교재를 사용하는 방법
 
 1. 시작하기에서 도구와 스킬을 준비합니다.
@@ -33,18 +37,18 @@
 - 코드 실행에 필요한 환경은 선택한 프로젝트 기술에 맞게 준비합니다. 기술이 미정이면 강사 지원을 받아 가장 작은 실행 방식부터 선택합니다.
 - API 비용이 발생한다면 본인 계정의 사용량과 예산을 확인합니다. 교재에는 API 키를 적지 않습니다.
 
-[스킬 0.1.0 다운로드](https://github.com/TheMagicTower/korean-ai-dev-course/releases/download/v0.1.0/kdev-skills-0.1.0.zip) · [설치 안내](https://github.com/TheMagicTower/korean-ai-dev-course/blob/v0.1.0/INSTALL.md)
+[스킬 0.2.0 다운로드](https://github.com/TheMagicTower/korean-ai-dev-course/releases/download/v0.2.0/kdev-skills-0.2.0.zip) · [설치 안내](https://github.com/TheMagicTower/korean-ai-dev-course/blob/v0.2.0/INSTALL.md)
 
 ## Codex에 붙여 넣는 설치 요청
 
 ```text
-https://github.com/TheMagicTower/korean-ai-dev-course 의 v0.1.0에서 INSTALL.md와 skills/를 읽고 현재 프로젝트 루트를 확인한 뒤 기존 파일·설정과 중복 스킬을 보존하면서 .agents/skills에 설치해 주세요. 설치 출처·파일 목록·검증 결과를 기록하고 새 세션에서 $kdev-start를 호출하는 방법을 알려주세요.
+https://github.com/TheMagicTower/korean-ai-dev-course 의 v0.2.0에서 INSTALL.md와 skills/를 읽고 현재 프로젝트 루트를 확인한 뒤 기존 파일·설정과 중복 스킬을 보존하면서 .agents/skills에 설치해 주세요. 설치 출처·파일 목록·검증 결과를 기록하고 새 세션에서 $kdev-start를 호출하는 방법을 알려주세요.
 ```
 
 ## Claude Code에 붙여 넣는 설치 요청
 
 ```text
-https://github.com/TheMagicTower/korean-ai-dev-course 의 v0.1.0에서 INSTALL.md와 skills/를 읽고 현재 프로젝트 루트를 확인한 뒤 기존 파일·설정과 중복 스킬을 보존하면서 .claude/skills에 설치해 주세요. 설치 출처·파일 목록·검증 결과를 기록하고 새 세션에서 /kdev-start를 호출하는 방법을 알려주세요.
+https://github.com/TheMagicTower/korean-ai-dev-course 의 v0.2.0에서 INSTALL.md와 skills/를 읽고 현재 프로젝트 루트를 확인한 뒤 기존 파일·설정과 중복 스킬을 보존하면서 .claude/skills에 설치해 주세요. 설치 출처·파일 목록·검증 결과를 기록하고 새 세션에서 /kdev-start를 호출하는 방법을 알려주세요.
 ```
 
 설치는 영구 학습이 아닙니다. 에이전트가 필요할 때 읽는 수행 지침을 프로젝트에 두는 방식입니다. 충돌이 있으면 기존 파일을 보존하고 차이를 확인합니다. 발견이 안 되면 프로젝트 위치와 파일명을 확인한 뒤 새 세션에서 명시적으로 호출합니다.

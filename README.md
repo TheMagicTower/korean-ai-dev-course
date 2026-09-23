@@ -1,6 +1,6 @@
 # 한국어 AI 개발 스킬과 4주 프로젝트 교재
 
-[온라인 교재](https://themagictower.github.io/korean-ai-dev-course/) · [스킬 다운로드](https://github.com/TheMagicTower/korean-ai-dev-course/releases/tag/v0.1.0) · [한 줄 설치](guides/one-line-prompts.md)
+[온라인 교재](https://themagictower.github.io/korean-ai-dev-course/) · [스킬 다운로드](https://github.com/TheMagicTower/korean-ai-dev-course/releases/tag/v0.2.0) · [한 줄 설치](guides/one-line-prompts.md)
 
 상태: 문서 설계 초안 v0.5 · 작성일: 2026-09-22
 
@@ -44,7 +44,7 @@
 
 HTML 교재 초판은 index.html에 있습니다. 주차별 120분 본문·시연 절차·실습 프롬프트·강사 메모·워크북·조사 부록을 제공합니다. 실제 수업 파일럿·모든 시연 코드·모델 비교 실측은 아직 수행하지 않았습니다.
 
-한국어 스킬 8개와 로컬 ZIP 0.1.0을 제작했습니다. [설치 안내](INSTALL.md), [한 줄 설치 프롬프트](guides/one-line-prompts.md), [검증 기록](VALIDATION.md), [ZIP](dist/kdev-skills-0.1.0.zip)을 제공합니다. 공개 저장소와 v0.1.0 Release로 배포합니다. 두 제품의 새 세션 호출 검증은 아직 완료하지 않았습니다.
+한국어 스킬 8개와 로컬 ZIP 0.2.0을 제작했습니다. [설치 안내](INSTALL.md), [한 줄 설치 프롬프트](guides/one-line-prompts.md), [검증 기록](VALIDATION.md), [ZIP](dist/kdev-skills-0.2.0.zip)을 제공합니다. 공개 저장소와 v0.2.0 Release로 배포합니다. 두 제품의 새 세션 호출 검증은 아직 완료하지 않았습니다.
 
 ## HTML 교재로 확장할 구성
 
@@ -59,3 +59,9 @@ HTML 교재 초판은 index.html에 있습니다. 주차별 120분 본문·시�
 4주 본문과 부록에 12개 그림·차트·개념도를 제공합니다. 2주차에는 조작 가능한 임시 문의 목업, 3주차에는 비용·추가 재시도 산술 그래프가 있습니다. 시간 차트는 교안 시간표에서 자동 생성하며 비용 그래프는 교육용 가정입니다. 이미지와 시각 자료는 HTML에 포함되어 추가 자산 다운로드 없이 표시됩니다. 기존 Mermaid 도해에는 온라인 라이브러리가 필요합니다.
 
 시각 자료 원본: `scripts/course_visuals.py`, 스타일·동작: `course/visuals.css`, `course/visuals.js`. Markdown의 `visual:` 주석을 HTML 빌드 시 치환합니다.
+
+## 서비스 사례와 수준별 프로세스
+
+[ApplyFlow 사례](https://themagictower.github.io/korean-ai-dev-course/#case) · [실행 예제](https://themagictower.github.io/korean-ai-dev-course/course/examples/applyflow/) · [수준별 적용](https://themagictower.github.io/korean-ai-dev-course/#adaptive)
+
+가상의 취업 준비 서비스를 네 주 동안 발전시키며 사용자·가치·기술 실험·접근 경계·검증을 설명합니다. 데모는 브라우저 저장 기반이고 인증된 다중 사용자 MVP는 설계·검증 과제로 구분합니다. 스킬0.2.0에는 절차 선택·기술 불확실성 확인·사용자 결과 단위 작업·검토 근거 재사용·위험 기반 배정·전달까지 측정을 반영했습니다.

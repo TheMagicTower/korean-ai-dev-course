@@ -1,0 +1,9 @@
+{
+  "at": "2026-09-23T02:26:46.104738+00:00",
+  "route": "greenfield",
+  "command": "python scripts/check_signal_release.py greenfield",
+  "missing_production_config": "refused",
+  "production_deploy_check": "System check identified no issues (0 silenced).",
+  "migration_drift": "No changes detected",
+  "status": "passed"
+}

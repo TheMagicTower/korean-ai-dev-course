@@ -1,0 +1,74 @@
+{
+  "started_at": "2026-09-23T02:20:33.793024+00:00",
+  "finished_at": "2026-09-23T02:20:34.245623+00:00",
+  "base_url": "http://127.0.0.1:8871",
+  "checks": [
+    {
+      "check": "health_and_database_readiness",
+      "status": "passed",
+      "at": "2026-09-23T02:20:33.820454+00:00"
+    },
+    {
+      "check": "anonymous_draft_denied",
+      "status": "passed",
+      "at": "2026-09-23T02:20:33.821361+00:00"
+    },
+    {
+      "check": "csrf_and_publisher_create_denied",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.008986+00:00"
+    },
+    {
+      "check": "invalid_source_and_missing_evidence_rejected",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.011753+00:00"
+    },
+    {
+      "check": "editor_approve_publish_denied_and_unapproved_publish_denied",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.018799+00:00"
+    },
+    {
+      "check": "optimistic_stale_edit_conflict",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.022370+00:00"
+    },
+    {
+      "check": "edit_invalidates_approval",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.028110+00:00"
+    },
+    {
+      "check": "hold_invalidates_approval",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.033045+00:00"
+    },
+    {
+      "check": "idempotent_publication_retry",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.038541+00:00"
+    },
+    {
+      "check": "anonymous_reader_sees_server_publication",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.039952+00:00"
+    },
+    {
+      "check": "correction_requires_reason_and_publishes_new_edition",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.049039+00:00"
+    },
+    {
+      "check": "fresh_authenticated_session_reads_persisted_revision",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.144847+00:00"
+    },
+    {
+      "check": "actual_concurrent_http_edit_one_success_one_conflict",
+      "status": "passed",
+      "at": "2026-09-23T02:20:34.245617+00:00"
+    }
+  ],
+  "status": "passed",
+  "limitations": "Does not replace independent code review, backup restore, TLS staging or browser UI checks."
+}

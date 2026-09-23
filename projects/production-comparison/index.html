@@ -1,0 +1,1606 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>운영 서비스 후보 비교 · 실제 실행 기록</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f2ec;color:#203b32;font:16px/1.75 system-ui}header,main,footer{max-width:1160px;margin:auto;padding:24px}a{color:#226c51}h1{font-size:clamp(34px,5vw,58px);line-height:1.2;max-width:940px}h2{font-size:28px}section,.panel{margin:28px 0;background:white;border:1px solid #d6ded5;border-radius:14px;padding:28px}aside{padding:18px 22px;border-left:4px solid #bd8e35;background:#fff8e8}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:650px}th,td{padding:15px;text-align:left;border-bottom:1px solid #dce3da}.bar-row{display:grid;grid-template-columns:160px 1fr 110px;align-items:center;gap:16px;margin:14px 0}.track{height:24px;background:#edf1e8;border-radius:5px}.track i{display:block;height:100%;background:#357b60;border-radius:5px}.path{display:flex;flex-wrap:wrap;align-items:center;gap:12px}.path strong{padding:12px 18px;background:#edf2e9;border-radius:8px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f0f3ed;padding:20px;font:13px/1.8 monospace}details{margin:14px 0;border-top:1px solid #dce3da;padding-top:12px}summary{cursor:pointer;font-weight:650}.shot{width:100%;max-height:700px;object-fit:contain;object-position:left top;border:1px solid #dce3da}.eyebrow{letter-spacing:.08em;font-size:13px;color:#577260}@media(max-width:650px){header,main,footer{padding:15px}section,.panel{padding:18px}.bar-row{grid-template-columns:110px 1fr 90px;gap:8px}}</style><header><strong>THE MAGIC TOWER / DELIVERY LAB</strong> · <a href="../../index.html#production-comparison">강의로 돌아가기</a></header><main><p class="eyebrow">SIGNAL MAGAZINE · ONE SERVICE, TWO DELIVERY PATHS</p><h1>PoC 다음에는 무엇에<br>시간이 들어갈까요?</h1><p>소규모 편집국의 서버 서비스: 기존 데모를 고도화하는 경로와 같은 계약으로 새로 만드는 경로를 실제 에이전트에게 맡겼습니다.</p><aside><b>측정의 경계</b> · ‘프로덕션 수준’은 정해진 운영 위험의 구현·검증 조건입니다. 이 기록은 실행 가능한 서비스 후보와 로컬 검증을 다룹니다. 외부 운영 도메인·HTTPS·배포 계정·장기 운영은 확인하지 않았으므로 <b>프로덕션 공개 출시 완료 시간은 미측정</b>입니다. GitHub Pages는 보고서와 소스만 제공하며 Django 서버를 실행하지 않습니다.</aside><div class="panel"><h2>실제 최초 인계 시간</h2><div class="bar-row"><span>최초 PoC</span><div class="track"><i style="width:53.2%"></i></div><b>7분 14초</b></div><div class="bar-row"><span>기존 PoC 고도화</span><div class="track"><i style="width:87.2%"></i></div><b>11분 51초</b></div><div class="bar-row"><span>동일 계약 신규 구현</span><div class="track"><i style="width:100.0%"></i></div><b>13분 36초</b></div><p>두 구현의 병렬 시작→마지막 인계: <b>13분 46초</b>. 공통 준비를 포함한 루트 관찰 시작→두 후보 통합 검증: <b>18분 50초</b>. 이후 CI·보고서 게시 작업은 아래 통합 기록에서 별도로 확인합니다.</p><p>막대는 각 구현자의 시작→최초 인계 경과이며 같은 품질 보증을 뜻하지 않습니다. 최종 검증과 후속 수정은 아래 별도 열에 표시합니다. 루트 검증 시각은 두 경로의 공동 검토 종료 시점이어서 대기가 포함되며 순수 작업 속도 순위가 아닙니다.</p><div class="table-wrap"><table><thead><tr><th>경로</th><th>시작→최초 인계</th><th>시작→루트 검증</th><th>관찰 상태</th></tr></thead><tbody><tr><th>최초 PoC</th><td>7분 14초</td><td>기존 기록에 개별 통합 시간 없음</td><td>브라우저 내부 PoC</td></tr><tr><th>기존 PoC 고도화</th><td>11분 51초</td><td>15분 3초</td><td>공통 서버 계약 검증 완료</td></tr><tr><th>동일 계약 신규 구현</th><td>13분 36초</td><td>14분 52초</td><td>공통 서버 계약 검증 완료</td></tr></tbody></table></div><p>과거 PoC 최초 인계 + 이번 고도화 최초 인계의 합성 경과는 19분 5초입니다. 서로 다른 시점의 두 관찰을 더한 값이며 한 번의 연속 실험 시간은 아닙니다.</p></div><section><h2>비교할 수 있도록 고정한 것</h2><div class="path"><strong>과거 PoC</strong><span>→</span><strong>기존 코드 고도화</strong><span>／</span><strong>공통 계약 → 신규 구현</strong></div><p>같은 Python 3.13.12, Django 5.2.17, Gunicorn 26.2.0, SQLite와 같은 기사 입력·인수 검사를 사용했습니다. 두 구현자는 새 컨텍스트의 같은 상속 모델/사고 설정입니다. 정확한 런타임 모델 ID는 노출되지 않아 확정하지 않습니다. 단순 계산 검토는 GPT-5.6 Luna max에 위임했습니다. Jev의 실제 작업분류 요청·응답도 보존했습니다.</p><p>기존 경로는 코드·스타일·검증 지식을 재사용하고, 신규 경로는 공통 계약과 자료만 받았습니다. 신규 코드 격리는 프롬프트 지시이며 OS 샌드박스 강제 격리는 아닙니다. 같은 기기에서 병렬 수행한 단일 표본이므로 자원 경합·모델 변동이 있습니다. 과거 PoC에는 외부 API 시도도 있었고 이번 서비스는 동일 recorded 입력을 재사용합니다. 일반 생산성 배수나 모든 프로젝트에 대한 최적 경로를 입증하지 않습니다.</p><details><summary>공통 완료 계약 원문</summary><pre># Signal Magazine 운영 서비스 비교 계약
+
+## 목적·범위
+사용자 요청: 기존 세 PoC 중 하나를 서비스 레이어에 맞춰 고도화하는 경우와 새로 만드는 경우를 실제 프롬프트로 수행하고 시간을 비교한다.
+선택: 소규모 단일 편집국, 운영자가 발급한 편집자/발행자 계정, 익명 독자. 다중 고객 SaaS·결제·회원가입·메일·완전 자동 AI 발행은 제외. 동시 편집 소수(최대 5명 목표), 단일 서버/로컬 디스크 SQLite, 100개 정도 기사 범위. 높은 가용성이나 부하 목표 달성은 측정 전 주장 금지.
+
+서비스 완료 = 공통 기능/위험 계약을 실제 서버에서 검증한 release candidate. 실제 외부 운영 환경 HTTPS/DNS/계정/복구 목표/운영 책임 수락이 없으므로 운영 출시 시간은 미측정. 외부 환경 전제는 runbook에 명시한다. 장기 soak 미측정. 일반적인 프로덕션 시간 배수나 인과 실험으로 표현하지 않는다.
+
+## 비교 조건
+- Upgrade: 기존 projects/signal-magazine 코드/스타일/테스트/데이터 읽기 가능. 재사용·이식·폐기 파일과 포팅 비용을 명시. 원본 PoC 변경 금지. JS→Python 이식도 고도화 비용으로 포함.
+- Greenfield: 공통 계약과 shared/source-fixture.json만 제공. 기존 PoC 구현/테스트/UI와 상대 구현 열람·복사 금지. 새 코드와 화면을 독립 작성. 프레임워크 재사용은 허용. 소스 격리는 지시 기반이며 파일 접근 샌드박스에 의한 강제 격리는 아니다.
+- 같은 Python 3.13.12 / Django 5.2.17 / Gunicorn 26.2.0 / SQLite, 같은 실행 머신, 독립 새 서브에이전트 동일 상속 모델·사고 수준(정확 런타임 모델 ID 미확인), 동일 검증 목록. 병렬 자원 경합과 단일 표본의 한계 표시.
+- 기록: root 관찰 시작, 공통 준비, 위임, worker started/onboarded/plan_ready/implementation_ready/tests_passed/handoff, review/rework, root 검증을 실제 UTC로 저장. 최초 인계와 후속 수정을 구분. 기존 PoC 7분14초는 과거 다른 범위의 기록. 파생 total=과거 PoC+고도화는 합성 경과로만 표기.
+
+## 구조와 공통 실행 인터페이스
+각 경로 experiments/signal-production/{upgrade,greenfield}/ 독립 Django 프로젝트. manage.py, requirements.txt, migrations, templates, static, tests, README.md, evidence/를 포함. 임시 DB/비밀번호/세션/백업은 git 추적 금지. 공통 가상환경 /tmp/kdev-production-venv/bin/python 사용. shared 파일 수정 금지.
+환경변수 SIGNAL_ENV=local|production, SIGNAL_SECRET_KEY, SIGNAL_DB(절대 DB경로), SIGNAL_ALLOWED_HOSTS. local은 localhost 전용 명시 모드; production은 안전한 필수 설정이 없으면 fail closed. 기본값 production. 외부 입력 HTML escape, CSRF, 서버 세션, HttpOnly, production Secure/HTTPS/HSTS, 호스트 검증, 크기/길이 한도. 로그인 실패 제한(최소 계정/IP 조합 누적, 영구 잠금 금지). 비밀번호는 Django 해싱·validator, 런타임 하드코딩 계정 금지.
+관리 명령: migrate; create_operator --username &lt;name&gt; --role editor|publisher (SIGNAL_OPERATOR_PASSWORD에서 읽음); ingest_recorded &lt;path&gt;; backup_db &lt;output_path&gt;; restore_db &lt;input_path&gt; (오프라인·새 목적지에 복구, 살아 있는 DB 덮어쓰기 금지).
+HTTP: GET / 공개 발행 목록, GET /healthz 생존, GET /readyz DB readiness, GET/POST /accounts/login/ Django form(username,password,csrfmiddlewaretoken), POST /accounts/logout/, GET /desk/ 로그인 편집국.
+JSON API는 Django 세션/CSRF 사용. GET /api/articles/ -&gt; {articles:[{id,title,summary,version,status,...}]}; GET /api/articles/&lt;id&gt;/ -&gt; {id,title,summary,version,status,...}. editor/publisher만 draft 열람. 익명 접근은401/403 또는 로그인 리다이렉트.
+POST /api/articles/ 는 editor만 생성: {title,summary,claims:[{text,evidenceId}],sources:[{id,title,url,excerpt,sha256}],provenance:{...}} -&gt;201 본문 article. 검증 실패400, 권한403.
+POST /api/articles/&lt;id&gt;/edit/ editor만: {version,title,summary,claims,reason}; 이전 발행 있으면 정정 이유 필수. 기존 승인 무효. version은 모든 성공 상태 변경마다 증가하는 서버 낙관적 동시성 번호. stale=409. 편집자 자신 승인 금지.
+POST /api/articles/&lt;id&gt;/approve/ publisher만 {version}; 필수 근거 검사 및 현재 revision 승인. POST /api/articles/&lt;id&gt;/hold/ publisher만 {version,reason}; 승인 철회.
+POST /api/articles/&lt;id&gt;/publish/ publisher만 {version,idempotency_key}; 승인된 정확 revision만 발행, 하나의 트랜잭션으로 공개 snapshot+audit+status. 같은 key/같은 요청 재시도는 같은 edition 반환(200/201), key 다른 기사/요청 충돌409. 공개 snapshot은 immutable, 정정 발행해도 이전 호와 정정 이유 보존. POST 응답 {article:{...},edition:{id,...}}; 편집/승인/보류 응답은 article 객체 직접. API 오류 JSON, 500 스택 공개 금지.
+서버 import도 입력 길이/근거/URL 검증, 중복 import 방지. 공통 seed는 최초 미승인 초안으로 import하고 PoC 승인/발행을 신뢰해 자동 공개하지 않는다. 원본 AI provenance/근거 해시 보존, 클라이언트 값만으로 승인권한 부여 금지. AI는 기존 recorded-run 입력; 라이브 생성/분류/주기적 실행은 이번 서비스 범위 밖이며 UI 명시. 서비스는 실제 서버 저장/권한/공개 URL 제공, 브라우저 localStorage를 권위 상태로 사용 금지.
+
+## 필수 검증
+1. 인증 전 draft 차단·편집자 승인/발행 차단·발행자 draft 편집 차단·CSRF 없는 POST403.
+2. 제목/본문/근거 누락·과도한 입력·unsafe URL 거부. source는 HTTPS만, 허용 호스트 www.nasa.gov; 서버가 임의 URL fetch하지 않음. 의미적 사실 검증은 사람이 수행.
+3. 저장→새 세션/서버 재시작에도 보존. DB 제약/트랜잭션, stale edit409, 동시 수정 중 하나만 성공(실제 스레드/프로세스 시험, DB lock이면 제한 기록 및 graceful 응답).
+4. 미승인 발행 차단, 편집 후 승인 무효, 승인 철회 차단, 중복 요청/동시 발행 중복 방지, 정정 이유/이전 snapshot 보존.
+5. 실제 SQL DB online backup API로 일관 백업, 빈 새 DB 복구, counts+publication snapshot 비교. schema migration/release rollback 절차 실제 disposable DB에서 연습; 데이터 손실 허용하는 downgrade를 무조건 실행하지 않음.
+6. 구조화 audit(actor/action/article/version/time), health/readiness, 에러 로그의 키/본문/비밀번호 비노출, production config check --deploy.
+7. 실제 Gunicorn localhost 시작·로그인 편집→다른 publisher 승인→발행→익명 독자 확인. 한국어 UI와 출처/AI 기록 범위 표시. 데스크톱 스크린샷.
+8. 테스트·운영 README와 환경 서식, 의존성 고정. 공개 운영 체크리스트는 수행/미수행을 명확히.
+
+## 실행 계획
+공통 준비 → 서로 독립 구현/시험 → 동일 HTTP 계약 검사 → 독립 요구/위험 검토 → 발견된 blocker 재현·수정 → 브라우저 E2E → 시간 계산·수준별 차이·한계·소스/실행 안내를 HTML 강의에 게시. 코드/리포트 PR 검토와 병합 후 Pages 검증. backend는 Pages에서 실행할 수 없으므로 실행 가능한 소스와 실제 서버 캡처를 제공한다.
+
+공식 근거 확인일 2026-09-23:
+- https://www.djangoproject.com/download/ (5.2 LTS 최신 패치 5.2.17 확인)
+- https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/ (production 서버·설정·배포 검증 기준)
+</pre></details><p><a href="../../docs/execution/production-comparison-2026-09-23/classification.json">Jev 실제 분류</a> · <a href="../../docs/execution/production-comparison-2026-09-23/dispatch.json">실제 위임 메시지</a></p></section><section><h2>왜 추가 작업이 필요한가요?</h2><div class="table-wrap"><table><tr><th>PoC에서 확인한 것</th><th>서버 서비스에서 추가하는 것</th><th>막으려는 실제 실패</th></tr><tr><td>내 브라우저의 승인 버튼</td><td>서버 세션·역할·CSRF</td><td>누구나 발행 권한을 흉내 내는 문제</td></tr><tr><td>localStorage 기록</td><td>DB·버전 충돌·트랜잭션</td><td>두 편집자의 수정 유실·중복 공개</td></tr><tr><td>정정 화면</td><td>불변 발행본·승인 무효·audit</td><td>검토하지 않은 내용을 승인본처럼 게시</td></tr><tr><td>다시 실행하는 데모</td><td>백업 복구·readiness·운영 설정</td><td>데이터 유실 후 복구 불가·조용한 장애</td></tr></table></div><p>AI는 동일하게 기존 실제 분류·초안 기록을 입력으로 씁니다. 새 라이브 생성/자동 수집·발행 기능의 시간으로 해석하지 않습니다. 고도화의 마이그레이션 비용도 구현 시간에 포함됩니다.</p></section><section id="poc"><h2>최초 PoC</h2><img class="shot" src="../../projects/signal-magazine/evidence/demo.png" alt="최초 PoC 실제 브라우저 화면" loading="lazy"><p><a href="https://github.com/TheMagicTower/korean-ai-dev-course/tree/main/projects/signal-magazine">실행 가능한 소스와 README ↗</a></p><h3>최초 단계 보고 사이의 경과</h3><ul><li>온보딩 보고: 0분 23초</li><li>계획 보고: 1분 7초</li><li>구현 보고: 3분 23초</li><li>검증 보고: 1분 50초</li><li>최초 인계: 0분 29초</li></ul><details><summary>실제 작업 프롬프트 원문</summary><pre>Implement Signal Magazine in projects/signal-magazine only. Read docs/plans/three-project-implementation.md and course/cases/signal-magazine.md. User authorizes actual subagent implementation with captured prompts/responses/times. No commits/shared edits.
+Build polished Korean static editorial demo: small source intake, evidence-linked draft, review/hold, idempotent edition publish, correction history, browser persistence/reset. Local preparation script must fetch a real official source (NASA/JPL suitable) and use actually available model/API for structured Korean draft with claim/evidence. Environment keys only; inspect variable NAMES not values. If general API unavailable inspect installed CLI capabilities, or use Jev for actual AI classification but label template text separately and promptly report limitation. Static Pages can ship dated actual captured outputs with provenance as recorded-run mode, not pretend live API. Save actual safe model input/output, returned version/usage; don&#x27;t redistribute full articles unnecessarily. No external mail or account creation. Local publish produces reader edition and is labeled local preview versus public publication. Tests of missing evidence, duplicate publication, revised approval invalidation, correction. README reproducible steps/failure handling.
+Create evidence/events.jsonl at start with actual UTC timestamps: started, onboarded, plan_ready, implementation_ready, tests_passed, handoff. At each phase send progress message to root and save EXACT same text kind=response with stage and UTC. Save actual test commands/output in evidence/tests.txt. No secrets/internal reasoning/invented timings. Save evidence/response.md exactly matching final returned handoff. Distinguish real model output and sample data. Root captures initial prompt. Implement/test/self-review contract and code, report results/limits.
+</pre></details><details><summary>started · 2026-09-23T01:08:25.627103+00:00</summary><pre>Signal Magazine 구현 작업을 시작했습니다.</pre></details><details><summary>onboarded · 2026-09-23T01:08:49.596890+00:00</summary><pre>Signal Magazine의 기존 계약과 사례를 확인했습니다. 공식 NASA 자료 한 건과 실제 모델 응답을 기록하고, 편집 승인·중복 방지·정정까지 브라우저에서 재현하는 독립 데모를 구현하겠습니다.</pre></details><details><summary>plan_ready · 2026-09-23T01:09:56.721660+00:00</summary><pre>NASA RSS 수집은 성공했습니다. Z_AI_API_KEY 일반 생성 API는 curl 56, HTTP/1.1 재확인 시 HTTP 오류로 실패했습니다. 실제 Jev 분류를 기록하고 한국어 편집 문구를 별도 템플릿으로 명시하는 경로로 전환하며, 편집 UI/검증은 독립 진행하겠습니다.</pre></details><details><summary>implementation_ready · 2026-09-23T01:13:20.413853+00:00</summary><pre>공식 NASA 자료와 Jev 실제 분류(jev-1.13.0, 입력 583·출력 31토큰)를 연결했습니다. 한국어 기사는 현재 서브에이전트가 근거를 읽고 작성한 실제 응답으로 별도 캡처했습니다. 편집·승인·중복 방지·정정·브라우저 저장 구현을 완료하고 검증 중입니다.</pre></details><details><summary>tests_passed · 2026-09-23T01:15:10.986637+00:00</summary><pre>Signal Magazine 계약 테스트가 통과했습니다. 근거 누락·미승인 발행 차단, 중복 발행 방지, 수정 후 승인 무효화, 정정 기록과 이전 발행본 보존을 확인했습니다. 브라우저 시각 검증은 주 에이전트의 통합 검증으로 이어집니다.</pre></details><details><summary>handoff · 2026-09-23T01:15:40.003892+00:00</summary><pre>Signal Magazine 구현을 완료했습니다. `projects/signal-magazine/`의 독립 정적 데모에서 NASA 소스 확인 → 실제 AI 분류·초안 열람 → 편집·보류·승인 → 로컬 발행 → 정정을 체험할 수 있습니다.
+
+- NASA RSS를 실제 수집하고 Jev `jev-1.13.0` 분류 응답(입력583·출력31토큰)을 저장했습니다.
+- 한국어 기사는 현재 실행 서브에이전트가 실제로 작성한 응답입니다. 생성 지시·근거·응답을 `evidence/agent-draft.json`에 보존했습니다. 외부 생성 API는 실패했으며 모델 ID는 미확인으로 표시했습니다.
+- 근거 누락·미승인 발행 차단, 중복 방지, 수정 후 승인 무효화, 정정과 이전 호 보존 테스트를 통과했습니다. 실제 명령·결과는 `evidence/tests.txt`에 있습니다.
+- 개발 단계 시각과 공개 응답은 `evidence/events.jsonl`에 기록했습니다. 브라우저 시각 검증은 주 에이전트의 통합 검증 대상입니다.
+
+발행은 브라우저 내부 미리보기이며 공개 뉴스 서비스나 실시간 생성 API 연동을 구현한 것으로 표시하지 않았습니다. README에 실행·재생성·실패 처리와 제한을 정리했습니다. 커밋하지 않았습니다.</pre></details><details><summary>tests.txt 실제 기록</summary><pre>2026-09-23T01:15:10.793852+00:00
+$ node projects/signal-magazine/test.cjs
+PASS missing evidence; unapproved blocked; idempotent publication; revision invalidates approval; correction history; old edition immutable; hold; seed immutable; storage shape
+exit=0
+
+2026-09-23T01:15:10.811829+00:00
+$ node --check projects/signal-magazine/model.js
+exit=0
+
+2026-09-23T01:15:10.829953+00:00
+$ node --check projects/signal-magazine/app.js
+exit=0
+
+2026-09-23T01:15:10.856843+00:00
+$ python3 -m py_compile projects/signal-magazine/prepare.py
+exit=0
+
+</pre></details><details><summary>response.md 실제 기록</summary><pre>Signal Magazine 구현을 완료했습니다. `projects/signal-magazine/`의 독립 정적 데모에서 NASA 소스 확인 → 실제 AI 분류·초안 열람 → 편집·보류·승인 → 로컬 발행 → 정정을 체험할 수 있습니다.
+
+- NASA RSS를 실제 수집하고 Jev `jev-1.13.0` 분류 응답(입력583·출력31토큰)을 저장했습니다.
+- 한국어 기사는 현재 실행 서브에이전트가 실제로 작성한 응답입니다. 생성 지시·근거·응답을 `evidence/agent-draft.json`에 보존했습니다. 외부 생성 API는 실패했으며 모델 ID는 미확인으로 표시했습니다.
+- 근거 누락·미승인 발행 차단, 중복 방지, 수정 후 승인 무효화, 정정과 이전 호 보존 테스트를 통과했습니다. 실제 명령·결과는 `evidence/tests.txt`에 있습니다.
+- 개발 단계 시각과 공개 응답은 `evidence/events.jsonl`에 기록했습니다. 브라우저 시각 검증은 주 에이전트의 통합 검증 대상입니다.
+
+발행은 브라우저 내부 미리보기이며 공개 뉴스 서비스나 실시간 생성 API 연동을 구현한 것으로 표시하지 않았습니다. README에 실행·재생성·실패 처리와 제한을 정리했습니다. 커밋하지 않았습니다.
+</pre></details><a href="../../projects/signal-magazine/evidence/events.jsonl">원본 이벤트 JSONL</a></section><section id="upgrade"><h2>기존 PoC 고도화</h2><img class="shot" src="../../experiments/signal-production/upgrade/evidence/service.png" alt="기존 PoC 고도화 실제 브라우저 화면" loading="lazy"><p><a href="https://github.com/TheMagicTower/korean-ai-dev-course/tree/main/experiments/signal-production/upgrade">실행 가능한 소스와 README ↗</a></p><h3>최초 단계 보고 사이의 경과</h3><ul><li>온보딩 보고: 0분 30초</li><li>계획 보고: 0분 0초</li><li>구현 보고: 8분 43초</li><li>검증 보고: 2분 37초</li><li>최초 인계: 0분 0초</li></ul><details><summary>실제 작업 프롬프트 원문</summary><pre>실제 사용자 요청으로 Signal Magazine 프로덕션 조건 비교 실험을 수행합니다. 역할: upgrade 구현자.
+기존 PoC projects/signal-magazine을 읽고 고도화합니다. 디자인/CSS, 도메인 규칙, 근거/provenance를 재사용하거나 Python으로 이식하고 reused.md에 파일별 유지/이식/폐기 이유를 기록합니다. 실제 기존 상태를 안전하게 import하는 경로를 구현합니다. 기존 PoC 원본은 절대 수정하지 않습니다.
+쓰기 범위: experiments/signal-production/upgrade/만. 다른 파일 수정·git 커밋·push 금지. 공통 환경 /tmp/kdev-production-venv/bin/python, 설치된 Django5.2.17/Gunicorn26.2.0 사용. 새 의존성이 필요하면 먼저 루트에 보고하고 임의 공통 환경 변경 금지.
+시작 직후 실제 UTC started를 evidence/events.jsonl에 남기세요. onboarding,plan_ready,implementation_ready,tests_passed,handoff 공개 보고와 실제 시각을 append하며 첫 단계들을 뒤늦게 추정해 채우지 마세요. schema {at,stage,kind,message}. 공개 진행 보고를 루트에 보내고 같은 문장을 저장하세요. 최종응답 evidence/response.md도 원문 보존. tests.txt에 실제 실행 명령/출력/실패/수정과 재검증 남기기. 내부 추론을 쓰지 말고 사용자에게 공개할 진단·결정·결과를 기록하세요.
+먼저 계약 기반 도메인/DB/UI 계획을 짧게 evidence/plan.md에 정리하고 실패 검사를 만든 뒤 구현합니다. 요구사항 판단/품질 자체 검토를 하며 계약에 맞는 실제 작은 서비스로 끝까지 완성하세요. 장식·과도한 추상화보다 데이터/권한 계약을 우선하되 한국어 사용 흐름은 실제 브라우저에서 운영 가능해야 합니다. Django admin만으로 전체 UI를 대체하지 마세요. 외부 라이브 API 호출/유료 배포/실제 사용자 통신은 하지 않습니다.
+루트가 공통 HTTP 검증기와 두 경로 통합·브라우저 검증/독립 검토/시간 보고서를 만들고 있습니다. 먼저 API 계약부터 맞추고 서버 준비가 되면 알려주세요. 완성되지 않은 부분은 명시적으로 미완료 보고, 프로덕션 공개 출시 완료라고 부르지 마세요. auth/database/rollback blockers를 실제 검증 후 인계하세요.
+
+아래는 두 경로에 동일하게 제공하는 전체 계약입니다.
+
+# Signal Magazine 운영 서비스 비교 계약
+
+## 목적·범위
+사용자 요청: 기존 세 PoC 중 하나를 서비스 레이어에 맞춰 고도화하는 경우와 새로 만드는 경우를 실제 프롬프트로 수행하고 시간을 비교한다.
+선택: 소규모 단일 편집국, 운영자가 발급한 편집자/발행자 계정, 익명 독자. 다중 고객 SaaS·결제·회원가입·메일·완전 자동 AI 발행은 제외. 동시 편집 소수(최대 5명 목표), 단일 서버/로컬 디스크 SQLite, 100개 정도 기사 범위. 높은 가용성이나 부하 목표 달성은 측정 전 주장 금지.
+
+서비스 완료 = 공통 기능/위험 계약을 실제 서버에서 검증한 release candidate. 실제 외부 운영 환경 HTTPS/DNS/계정/복구 목표/운영 책임 수락이 없으므로 운영 출시 시간은 미측정. 외부 환경 전제는 runbook에 명시한다. 장기 soak 미측정. 일반적인 프로덕션 시간 배수나 인과 실험으로 표현하지 않는다.
+
+## 비교 조건
+- Upgrade: 기존 projects/signal-magazine 코드/스타일/테스트/데이터 읽기 가능. 재사용·이식·폐기 파일과 포팅 비용을 명시. 원본 PoC 변경 금지. JS→Python 이식도 고도화 비용으로 포함.
+- Greenfield: 공통 계약과 shared/source-fixture.json만 제공. 기존 PoC 구현/테스트/UI와 상대 구현 열람·복사 금지. 새 코드와 화면을 독립 작성. 프레임워크 재사용은 허용. 소스 격리는 지시 기반이며 파일 접근 샌드박스에 의한 강제 격리는 아니다.
+- 같은 Python 3.13.12 / Django 5.2.17 / Gunicorn 26.2.0 / SQLite, 같은 실행 머신, 독립 새 서브에이전트 동일 상속 모델·사고 수준(정확 런타임 모델 ID 미확인), 동일 검증 목록. 병렬 자원 경합과 단일 표본의 한계 표시.
+- 기록: root 관찰 시작, 공통 준비, 위임, worker started/onboarded/plan_ready/implementation_ready/tests_passed/handoff, review/rework, root 검증을 실제 UTC로 저장. 최초 인계와 후속 수정을 구분. 기존 PoC 7분14초는 과거 다른 범위의 기록. 파생 total=과거 PoC+고도화는 합성 경과로만 표기.
+
+## 구조와 공통 실행 인터페이스
+각 경로 experiments/signal-production/{upgrade,greenfield}/ 독립 Django 프로젝트. manage.py, requirements.txt, migrations, templates, static, tests, README.md, evidence/를 포함. 임시 DB/비밀번호/세션/백업은 git 추적 금지. 공통 가상환경 /tmp/kdev-production-venv/bin/python 사용. shared 파일 수정 금지.
+환경변수 SIGNAL_ENV=local|production, SIGNAL_SECRET_KEY, SIGNAL_DB(절대 DB경로), SIGNAL_ALLOWED_HOSTS. local은 localhost 전용 명시 모드; production은 안전한 필수 설정이 없으면 fail closed. 기본값 production. 외부 입력 HTML escape, CSRF, 서버 세션, HttpOnly, production Secure/HTTPS/HSTS, 호스트 검증, 크기/길이 한도. 로그인 실패 제한(최소 계정/IP 조합 누적, 영구 잠금 금지). 비밀번호는 Django 해싱·validator, 런타임 하드코딩 계정 금지.
+관리 명령: migrate; create_operator --username &lt;name&gt; --role editor|publisher (SIGNAL_OPERATOR_PASSWORD에서 읽음); ingest_recorded &lt;path&gt;; backup_db &lt;output_path&gt;; restore_db &lt;input_path&gt; (오프라인·새 목적지에 복구, 살아 있는 DB 덮어쓰기 금지).
+HTTP: GET / 공개 발행 목록, GET /healthz 생존, GET /readyz DB readiness, GET/POST /accounts/login/ Django form(username,password,csrfmiddlewaretoken), POST /accounts/logout/, GET /desk/ 로그인 편집국.
+JSON API는 Django 세션/CSRF 사용. GET /api/articles/ -&gt; {articles:[{id,title,summary,version,status,...}]}; GET /api/articles/&lt;id&gt;/ -&gt; {id,title,summary,version,status,...}. editor/publisher만 draft 열람. 익명 접근은401/403 또는 로그인 리다이렉트.
+POST /api/articles/ 는 editor만 생성: {title,summary,claims:[{text,evidenceId}],sources:[{id,title,url,excerpt,sha256}],provenance:{...}} -&gt;201 본문 article. 검증 실패400, 권한403.
+POST /api/articles/&lt;id&gt;/edit/ editor만: {version,title,summary,claims,reason}; 이전 발행 있으면 정정 이유 필수. 기존 승인 무효. version은 모든 성공 상태 변경마다 증가하는 서버 낙관적 동시성 번호. stale=409. 편집자 자신 승인 금지.
+POST /api/articles/&lt;id&gt;/approve/ publisher만 {version}; 필수 근거 검사 및 현재 revision 승인. POST /api/articles/&lt;id&gt;/hold/ publisher만 {version,reason}; 승인 철회.
+POST /api/articles/&lt;id&gt;/publish/ publisher만 {version,idempotency_key}; 승인된 정확 revision만 발행, 하나의 트랜잭션으로 공개 snapshot+audit+status. 같은 key/같은 요청 재시도는 같은 edition 반환(200/201), key 다른 기사/요청 충돌409. 공개 snapshot은 immutable, 정정 발행해도 이전 호와 정정 이유 보존. POST 응답 {article:{...},edition:{id,...}}; 편집/승인/보류 응답은 article 객체 직접. API 오류 JSON, 500 스택 공개 금지.
+서버 import도 입력 길이/근거/URL 검증, 중복 import 방지. 공통 seed는 최초 미승인 초안으로 import하고 PoC 승인/발행을 신뢰해 자동 공개하지 않는다. 원본 AI provenance/근거 해시 보존, 클라이언트 값만으로 승인권한 부여 금지. AI는 기존 recorded-run 입력; 라이브 생성/분류/주기적 실행은 이번 서비스 범위 밖이며 UI 명시. 서비스는 실제 서버 저장/권한/공개 URL 제공, 브라우저 localStorage를 권위 상태로 사용 금지.
+
+## 필수 검증
+1. 인증 전 draft 차단·편집자 승인/발행 차단·발행자 draft 편집 차단·CSRF 없는 POST403.
+2. 제목/본문/근거 누락·과도한 입력·unsafe URL 거부. source는 HTTPS만, 허용 호스트 www.nasa.gov; 서버가 임의 URL fetch하지 않음. 의미적 사실 검증은 사람이 수행.
+3. 저장→새 세션/서버 재시작에도 보존. DB 제약/트랜잭션, stale edit409, 동시 수정 중 하나만 성공(실제 스레드/프로세스 시험, DB lock이면 제한 기록 및 graceful 응답).
+4. 미승인 발행 차단, 편집 후 승인 무효, 승인 철회 차단, 중복 요청/동시 발행 중복 방지, 정정 이유/이전 snapshot 보존.
+5. 실제 SQL DB online backup API로 일관 백업, 빈 새 DB 복구, counts+publication snapshot 비교. schema migration/release rollback 절차 실제 disposable DB에서 연습; 데이터 손실 허용하는 downgrade를 무조건 실행하지 않음.
+6. 구조화 audit(actor/action/article/version/time), health/readiness, 에러 로그의 키/본문/비밀번호 비노출, production config check --deploy.
+7. 실제 Gunicorn localhost 시작·로그인 편집→다른 publisher 승인→발행→익명 독자 확인. 한국어 UI와 출처/AI 기록 범위 표시. 데스크톱 스크린샷.
+8. 테스트·운영 README와 환경 서식, 의존성 고정. 공개 운영 체크리스트는 수행/미수행을 명확히.
+
+## 실행 계획
+공통 준비 → 서로 독립 구현/시험 → 동일 HTTP 계약 검사 → 독립 요구/위험 검토 → 발견된 blocker 재현·수정 → 브라우저 E2E → 시간 계산·수준별 차이·한계·소스/실행 안내를 HTML 강의에 게시. 코드/리포트 PR 검토와 병합 후 Pages 검증. backend는 Pages에서 실행할 수 없으므로 실행 가능한 소스와 실제 서버 캡처를 제공한다.
+
+공식 근거 확인일 2026-09-23:
+- https://www.djangoproject.com/download/ (5.2 LTS 최신 패치 5.2.17 확인)
+- https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/ (production 서버·설정·배포 검증 기준)
+</pre></details><details><summary>started · 2026-09-23T02:14:15.311304+00:00</summary><pre>기존 PoC의 화면·도메인 규칙·출처 구조를 확인하고, 서버 권한과 영속 저장을 갖춘 고도화 경로를 구현하겠습니다.</pre></details><details><summary>onboarding · 2026-09-23T02:14:46.153297+00:00</summary><pre>PoC의 CSS와 근거·승인무효·정정 규칙을 확인했습니다. 서버 저장과 권한으로 이식합니다.</pre></details><details><summary>plan_ready · 2026-09-23T02:14:46.153618+00:00</summary><pre>도메인·DB·UI 계획을 저장했습니다. 실패 검사부터 작성하고 구현합니다.</pre></details><details><summary>implementation_ready · 2026-09-23T02:23:29.251055+00:00</summary><pre>API·한국어 UI·DB·역할·백업복구 명령과 운영 README 구현을 마쳤습니다. 도메인·권한·CSRF·스레드 동시성 14개 검사가 통과했으며 운영 복구 검사를 재검증하고 있습니다.</pre></details><details><summary>review_rework · 2026-09-23T02:24:44.047972+00:00</summary><pre>독립 검토의 malformed evidenceId 500과 DB 직접 snapshot 수정 가능성 지적을 받았습니다. 입력 400 처리를 반영했고 immutable Edition UPDATE/DELETE DB 트리거 migration과 회귀검사를 추가합니다.</pre></details><details><summary>tests_passed · 2026-09-23T02:26:06.914706+00:00</summary><pre>15개 검사와 실제 SQLite 백업복구·Gunicorn 복구 DB 재기동·production 설정 검사가 통과했습니다.</pre></details><details><summary>handoff · 2026-09-23T02:26:06.914886+00:00</summary><pre>고도화 경로 구현과 자체 검증을 완료했습니다.
+
+- Django API·한국어 편집국·공개 발행 화면, 편집자/발행자 권한, CSRF, 낙관적 동시성, 재시도 키, 정정·이전 호 보존을 구현했습니다.
+- PoC CSS를 재사용하고 JS 도메인 규칙을 Python으로 이식했습니다. 기존 JSON 상태는 출처 해시와 AI 기록을 보존한 미승인 초안으로 가져옵니다. 파일별 근거는 reused.md입니다.
+- 최종 migration은 0002_immutable_editions입니다. 공개 발행본의 UPDATE/DELETE를 SQLite 트리거로 차단합니다.
+- 15개 테스트가 통과했습니다. 권한·CSRF·입력 오류·정정·승인 무효·idempotency·직접 DB 수정/삭제 거부·실제 스레드 동시 편집/발행을 포함합니다.
+- SQLite online backup→새 DB 복구의 counts/snapshot 일치, 실제 Gunicorn 중지→복구 DB 경로 재기동 후 공개 HTML 일치, production check --deploy 경고 0, 잘못된 production 설정 fail-closed를 확인했습니다.
+- 발견/수정: 동시성 테스트 로그인 준비 경합, XFrameOptionsMiddleware 누락, malformed evidenceId/URL 오류 처리, DB 직접 발행본 수정 경로. 실패와 재검증 출력은 evidence/tests.txt에 보존했습니다.
+
+공통 서버/브라우저 검증은 루트가 새 DB와 8871 포트에서 수행합니다. 제가 띄운 8765 Gunicorn은 종료했습니다. 외부 HTTPS/DNS·운영 계정·실제 배포/장기 soak·후속 schema downgrade는 미측정이며 공개 운영 출시 완료를 주장하지 않습니다. README.md에 실행·환경·백업복구·릴리스 롤백과 미수행 운영 전제를 기록했습니다. 원본 PoC/다른 경로/루트 파일은 수정하지 않았고 커밋하지 않았습니다.</pre></details><details><summary>tests.txt 실제 기록</summary><pre>E
+======================================================================
+ERROR: test_contract (unittest.loader._FailedTest.test_contract)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_contract
+Traceback (most recent call last):
+  File &quot;/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py&quot;, line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File &quot;/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py&quot;, line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/tests/test_contract.py&quot;, line 2, in &lt;module&gt;
+    from magazine.models import Article
+ModuleNotFoundError: No module named &#x27;magazine&#x27;
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 14 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial...test_editor_change_revokes_approval (tests.test_contract.Contract.test_editor_change_revokes_approval) ... ok
+test_hold_revokes_and_stale (tests.test_contract.Contract.test_hold_revokes_and_stale) ... ok
+test_html_escaping_and_health (tests.test_contract.Contract.test_html_escaping_and_health) ... ok
+test_idempotency_conflict (tests.test_contract.Contract.test_idempotency_conflict) ... ok
+test_import_resets_and_deduplicates (tests.test_contract.Contract.test_import_resets_and_deduplicates) ... ok
+test_invalid_action (tests.test_contract.Contract.test_invalid_action) ... ok
+test_login_throttle (tests.test_contract.Contract.test_login_throttle) ... ok
+test_new_session_persistence (tests.test_contract.Contract.test_new_session_persistence) ... ok
+test_permissions_and_csrf (tests.test_contract.Contract.test_permissions_and_csrf) ... ok
+test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.test_publish_corrections_and_immutable_snapshot) ... ok
+test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
+test_validation (tests.test_contract.Contract.test_validation) ... ok
+test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ...&#32;
+Test harness correction: concurrent force_login caused SQLite session-write contention before the barrier. Authenticate clients serially; synchronize only actual article requests, with barrier timeout.
+COMMAND: SIGNAL_ENV=local python manage.py test tests -v 2
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 14 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial...test_editor_change_revokes_approval (tests.test_contract.Contract.test_editor_change_revokes_approval) ... ok
+test_hold_revokes_and_stale (tests.test_contract.Contract.test_hold_revokes_and_stale) ... ok
+test_html_escaping_and_health (tests.test_contract.Contract.test_html_escaping_and_health) ... ok
+test_idempotency_conflict (tests.test_contract.Contract.test_idempotency_conflict) ... ok
+test_import_resets_and_deduplicates (tests.test_contract.Contract.test_import_resets_and_deduplicates) ... ok
+test_invalid_action (tests.test_contract.Contract.test_invalid_action) ... ok
+test_login_throttle (tests.test_contract.Contract.test_login_throttle) ... ok
+test_new_session_persistence (tests.test_contract.Contract.test_new_session_persistence) ... ok
+test_permissions_and_csrf (tests.test_contract.Contract.test_permissions_and_csrf) ... ok
+test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.test_publish_corrections_and_immutable_snapshot) ... ok
+test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
+test_validation (tests.test_contract.Contract.test_validation) ... ok
+test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.785s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial... OK
+&#32;
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=True status=draft
+&#32;
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=False status=draft
+&#32;
+COMMAND: python manage.py create_operator --username editor --role editor
+Operator created: editor / editor
+&#32;
+COMMAND: python manage.py create_operator --username publisher --role publisher
+Operator created: publisher / publisher
+&#32;
+COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username=&#x27;publisher&#x27;);a,_=mutate(a.pk,&#x27;approve&#x27;,{&#x27;version&#x27;:a.version},u);mutate(a.pk,&#x27;publish&#x27;,{&#x27;version&#x27;:a.version,&#x27;idempotency_key&#x27;:&#x27;ops-publication&#x27;},u);print(&#x27;published snapshot persisted&#x27;)
+10 objects imported automatically (use -v 2 for details).
+
+published snapshot persisted
+&#32;
+COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
+Consistent SQLite backup created
+&#32;
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
+Restored to new offline destination
+&#32;
+PASS online SQLite backup + new offline restore: counts and publication snapshots equal
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
+ CommandError: Offline restore requires an absent new SIGNAL_DB destination
+
+COMMAND: python manage.py migrate --plan
+Planned operations:
+  No planned migration operations.
+&#32;
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  No migrations to apply.
+&#32;
+PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
+COMMAND: python manage.py shell -c from magazine.models import Edition;assert Edition.objects.count()==1;print(&#x27;Fresh process persisted publication:&#x27;,Edition.objects.first().snapshot[&#x27;title&#x27;])
+10 objects imported automatically (use -v 2 for details).
+
+Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
+&#32;
+COMMAND: python manage.py check --deploy --fail-level WARNING
+ SystemCheckError: System check identified some issues:
+
+WARNINGS:
+?: (security.W002) You do not have &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27; in your MIDDLEWARE, so your pages will not be served with an &#x27;x-frame-options&#x27; header. Unless there is a good reason for your site to be served in a frame, you should consider enabling this header to help prevent clickjacking attacks.
+
+System check identified 1 issue (0 silenced).
+
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/tests/ops_smoke.py&quot;, line 30, in &lt;module&gt;
+    cmd([&#x27;check&#x27;,&#x27;--deploy&#x27;,&#x27;--fail-level&#x27;,&#x27;WARNING&#x27;],d/&#x27;prod.db&#x27;,{&#x27;SIGNAL_ENV&#x27;:&#x27;production&#x27;,&#x27;SIGNAL_SECRET_KEY&#x27;:secrets.token_urlsafe(64),&#x27;SIGNAL_ALLOWED_HOSTS&#x27;:&#x27;signal.example.org&#x27;})
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/tests/ops_smoke.py&quot;, line 9, in cmd
+    assert (p.returncode==0)==ok,(args,p.returncode)
+           ^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ([&#x27;check&#x27;, &#x27;--deploy&#x27;, &#x27;--fail-level&#x27;, &#x27;WARNING&#x27;], 1)
+
+FIX: deployment check revealed missing XFrameOptionsMiddleware. Enabled it; rerun all operational checks.
+COMMAND: python tests/ops_smoke.py
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial... OK
+&#32;
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=True status=draft
+&#32;
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=False status=draft
+&#32;
+COMMAND: python manage.py create_operator --username editor --role editor
+Operator created: editor / editor
+&#32;
+COMMAND: python manage.py create_operator --username publisher --role publisher
+Operator created: publisher / publisher
+&#32;
+COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username=&#x27;publisher&#x27;);a,_=mutate(a.pk,&#x27;approve&#x27;,{&#x27;version&#x27;:a.version},u);mutate(a.pk,&#x27;publish&#x27;,{&#x27;version&#x27;:a.version,&#x27;idempotency_key&#x27;:&#x27;ops-publication&#x27;},u);print(&#x27;published snapshot persisted&#x27;)
+10 objects imported automatically (use -v 2 for details).
+
+published snapshot persisted
+&#32;
+COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
+Consistent SQLite backup created
+&#32;
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
+Restored to new offline destination
+&#32;
+PASS online SQLite backup + new offline restore: counts and publication snapshots equal
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
+ CommandError: Offline restore requires an absent new SIGNAL_DB destination
+
+COMMAND: python manage.py migrate --plan
+Planned operations:
+  No planned migration operations.
+&#32;
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  No migrations to apply.
+&#32;
+PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
+COMMAND: python manage.py shell -c from magazine.models import Edition;assert Edition.objects.count()==1;print(&#x27;Fresh process persisted publication:&#x27;,Edition.objects.first().snapshot[&#x27;title&#x27;])
+10 objects imported automatically (use -v 2 for details).
+
+Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
+&#32;
+COMMAND: python manage.py check --deploy --fail-level WARNING
+System check identified no issues (0 silenced).
+&#32;
+COMMAND: python manage.py check
+ Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/manage.py&quot;, line 5, in &lt;module&gt;
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 442, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py&quot;, line 412, in run_from_argv
+    parser = self.create_parser(argv[0], argv[1])
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py&quot;, line 375, in create_parser
+    self.add_arguments(parser)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/check.py&quot;, line 47, in add_arguments
+    choices=tuple(connections),
+            ~~~~~^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py&quot;, line 73, in __iter__
+    return iter(self.settings)
+                ^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/functional.py&quot;, line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py&quot;, line 45, in settings
+    self._settings = self.configure_settings(self._settings)
+                     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/db/utils.py&quot;, line 148, in configure_settings
+    databases = super().configure_settings(databases)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py&quot;, line 50, in configure_settings
+    settings = getattr(django_settings, self.settings_name)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py&quot;, line 81, in __getattr__
+    self._setup(name)
+    ~~~~~~~~~~~^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py&quot;, line 68, in _setup
+    self._wrapped = Settings(settings_module)
+                    ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py&quot;, line 166, in __init__
+    mod = importlib.import_module(self.SETTINGS_MODULE)
+  File &quot;/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/importlib/__init__.py&quot;, line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1387, in _gcd_import
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1360, in _find_and_load
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1331, in _find_and_load_unlocked
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 935, in _load_unlocked
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 1023, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 488, in _call_with_frames_removed
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/config/settings.py&quot;, line 12, in &lt;module&gt;
+    if not LOCAL and (len(SECRET_KEY)&lt;50 or &#x27;*&#x27; in HOSTS or SECRET_KEY.startswith(&#x27;local-&#x27;)): raise ImproperlyConfigured(&#x27;Unsafe production settings&#x27;)
+                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.core.exceptions.ImproperlyConfigured: Unsafe production settings
+
+PASS production secure settings and unsafe fail-closed
+Creating test database for alias &#x27;default&#x27;...
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 2.769s
+
+OK
+Destroying test database for alias &#x27;default&#x27;...
+Found 14 test(s).
+System check identified no issues (0 silenced).
+No changes detected
+
+Final review: malformed URL and non-string evidenceId return validation 400; RequestDataTooBig returns JSON 400. Rerun targeted full suite after validation hardening.
+COMMAND: SIGNAL_ENV=local python manage.py test tests -v 2
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 14 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial...test_editor_change_revokes_approval (tests.test_contract.Contract.test_editor_change_revokes_approval) ... ok
+test_hold_revokes_and_stale (tests.test_contract.Contract.test_hold_revokes_and_stale) ... ok
+test_html_escaping_and_health (tests.test_contract.Contract.test_html_escaping_and_health) ... ok
+test_idempotency_conflict (tests.test_contract.Contract.test_idempotency_conflict) ... ok
+test_import_resets_and_deduplicates (tests.test_contract.Contract.test_import_resets_and_deduplicates) ... ok
+test_invalid_action (tests.test_contract.Contract.test_invalid_action) ... ok
+test_login_throttle (tests.test_contract.Contract.test_login_throttle) ... ok
+test_new_session_persistence (tests.test_contract.Contract.test_new_session_persistence) ... ok
+test_permissions_and_csrf (tests.test_contract.Contract.test_permissions_and_csrf) ... ok
+test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.test_publish_corrections_and_immutable_snapshot) ... ok
+test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
+test_validation (tests.test_contract.Contract.test_validation) ... ok
+test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.783s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+
+Independent review rework: immutable Edition UPDATE/DELETE triggers, migration 0002; invalid evidenceId already hardened.
+COMMAND: SIGNAL_ENV=local python manage.py test tests -v 2
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 15 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying magazine.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_database_snapshot_immutable (tests.test_contract.Contract.test_database_snapshot_immutable) ... ok
+test_editor_change_revokes_approval (tests.test_contract.Contract.test_editor_change_revokes_approval) ... ok
+test_hold_revokes_and_stale (tests.test_contract.Contract.test_hold_revokes_and_stale) ... ok
+test_html_escaping_and_health (tests.test_contract.Contract.test_html_escaping_and_health) ... ok
+test_idempotency_conflict (tests.test_contract.Contract.test_idempotency_conflict) ... ok
+test_import_resets_and_deduplicates (tests.test_contract.Contract.test_import_resets_and_deduplicates) ... ok
+test_invalid_action (tests.test_contract.Contract.test_invalid_action) ... ok
+test_login_throttle (tests.test_contract.Contract.test_login_throttle) ... ok
+test_new_session_persistence (tests.test_contract.Contract.test_new_session_persistence) ... ok
+test_permissions_and_csrf (tests.test_contract.Contract.test_permissions_and_csrf) ... ok
+test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.test_publish_corrections_and_immutable_snapshot) ... ok
+test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
+test_validation (tests.test_contract.Contract.test_validation) ... ok
+test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 2.963s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying magazine.0002_immutable_editions... OK
+  Applying sessions.0001_initial... OK
+&#32;
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=True status=draft
+&#32;
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=False status=draft
+&#32;
+COMMAND: python manage.py create_operator --username editor --role editor
+Operator created: editor / editor
+&#32;
+COMMAND: python manage.py create_operator --username publisher --role publisher
+Operator created: publisher / publisher
+&#32;
+COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username=&#x27;publisher&#x27;);a,_=mutate(a.pk,&#x27;approve&#x27;,{&#x27;version&#x27;:a.version},u);mutate(a.pk,&#x27;publish&#x27;,{&#x27;version&#x27;:a.version,&#x27;idempotency_key&#x27;:&#x27;ops-publication&#x27;},u);print(&#x27;published snapshot persisted&#x27;)
+10 objects imported automatically (use -v 2 for details).
+
+published snapshot persisted
+&#32;
+COMMAND: python -m gunicorn config.wsgi:application --bind localhost:&lt;ephemeral&gt; --workers 1 --no-control-socket
+COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
+Consistent SQLite backup created
+&#32;
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
+Restored to new offline destination
+&#32;
+PASS online SQLite backup + new offline restore: counts and publication snapshots equal
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
+ CommandError: Offline restore requires an absent new SIGNAL_DB destination
+
+COMMAND: python manage.py migrate --plan
+Planned operations:
+  No planned migration operations.
+&#32;
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  No migrations to apply.
+&#32;
+COMMAND: python -m gunicorn config.wsgi:application --bind localhost:&lt;ephemeral&gt; --workers 1 --no-control-socket
+PASS actual Gunicorn stop + new restored DB path restart: anonymous publication HTML identical
+PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
+COMMAND: python manage.py shell -c from magazine.models import Edition;assert Edition.objects.count()==1;print(&#x27;Fresh process persisted publication:&#x27;,Edition.objects.first().snapshot[&#x27;title&#x27;])
+10 objects imported automatically (use -v 2 for details).
+
+Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
+&#32;
+COMMAND: python manage.py check --deploy --fail-level WARNING
+System check identified no issues (0 silenced).
+&#32;
+COMMAND: python manage.py check
+ Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/manage.py&quot;, line 5, in &lt;module&gt;
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 442, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py&quot;, line 412, in run_from_argv
+    parser = self.create_parser(argv[0], argv[1])
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py&quot;, line 375, in create_parser
+    self.add_arguments(parser)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/check.py&quot;, line 47, in add_arguments
+    choices=tuple(connections),
+            ~~~~~^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py&quot;, line 73, in __iter__
+    return iter(self.settings)
+                ^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/functional.py&quot;, line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py&quot;, line 45, in settings
+    self._settings = self.configure_settings(self._settings)
+                     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/db/utils.py&quot;, line 148, in configure_settings
+    databases = super().configure_settings(databases)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py&quot;, line 50, in configure_settings
+    settings = getattr(django_settings, self.settings_name)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py&quot;, line 81, in __getattr__
+    self._setup(name)
+    ~~~~~~~~~~~^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py&quot;, line 68, in _setup
+    self._wrapped = Settings(settings_module)
+                    ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py&quot;, line 166, in __init__
+    mod = importlib.import_module(self.SETTINGS_MODULE)
+  File &quot;/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/importlib/__init__.py&quot;, line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1387, in _gcd_import
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1360, in _find_and_load
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1331, in _find_and_load_unlocked
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 935, in _load_unlocked
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 1023, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 488, in _call_with_frames_removed
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/config/settings.py&quot;, line 12, in &lt;module&gt;
+    if not LOCAL and (len(SECRET_KEY)&lt;50 or &#x27;*&#x27; in HOSTS or SECRET_KEY.startswith(&#x27;local-&#x27;)): raise ImproperlyConfigured(&#x27;Unsafe production settings&#x27;)
+                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.core.exceptions.ImproperlyConfigured: Unsafe production settings
+
+PASS production secure settings and unsafe fail-closed
+
+COMMAND: SIGNAL_ENV=local python manage.py makemigrations --check --dry-run
+No changes detected
+</pre></details><details><summary>root-http.json 실제 기록</summary><pre>{
+  &quot;started_at&quot;: &quot;2026-09-23T02:26:45.231216+00:00&quot;,
+  &quot;finished_at&quot;: &quot;2026-09-23T02:26:45.687569+00:00&quot;,
+  &quot;base_url&quot;: &quot;http://127.0.0.1:8871&quot;,
+  &quot;checks&quot;: [
+    {
+      &quot;check&quot;: &quot;health_and_database_readiness&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.253136+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;anonymous_draft_denied&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.254131+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;csrf_and_publisher_create_denied&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.440174+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;invalid_source_missing_evidence_wrong_type_and_oversized_title_rejected&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.445927+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;editor_approve_publish_denied_and_unapproved_publish_denied&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.453364+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;optimistic_stale_edit_conflict&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.456928+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;edit_invalidates_approval&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.462383+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;hold_invalidates_approval&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.467973+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;idempotent_retry_key_conflict_and_no_private_hold_note_in_first_edition&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.475658+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;anonymous_reader_sees_server_publication&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.477474+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;correction_requires_reason_and_publishes_new_edition&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.486613+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;fresh_authenticated_session_reads_persisted_revision&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.581278+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;actual_concurrent_http_edit_one_success_one_conflict&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.687563+00:00&quot;
+    }
+  ],
+  &quot;status&quot;: &quot;passed&quot;,
+  &quot;limitations&quot;: &quot;Does not replace independent code review, backup restore, TLS staging or browser UI checks.&quot;
+}
+</pre></details><details><summary>root-recovery.json 실제 기록</summary><pre>{
+  &quot;status&quot;: &quot;passed&quot;,
+  &quot;backup_restore_all_tables_equal&quot;: true,
+  &quot;tables&quot;: [
+    &quot;django_migrations&quot;,
+    &quot;django_content_type&quot;,
+    &quot;auth_group_permissions&quot;,
+    &quot;auth_user_groups&quot;,
+    &quot;auth_user_user_permissions&quot;,
+    &quot;auth_permission&quot;,
+    &quot;auth_group&quot;,
+    &quot;auth_user&quot;,
+    &quot;magazine_loginattempt&quot;,
+    &quot;magazine_audit&quot;,
+    &quot;magazine_importrecord&quot;,
+    &quot;magazine_article&quot;,
+    &quot;magazine_edition&quot;,
+    &quot;django_session&quot;
+  ],
+  &quot;restored_to_fresh_destination&quot;: true
+}
+</pre></details><details><summary>root-release.json 실제 기록</summary><pre>{
+  &quot;at&quot;: &quot;2026-09-23T02:26:46.105702+00:00&quot;,
+  &quot;route&quot;: &quot;upgrade&quot;,
+  &quot;command&quot;: &quot;python scripts/check_signal_release.py upgrade&quot;,
+  &quot;missing_production_config&quot;: &quot;refused&quot;,
+  &quot;production_deploy_check&quot;: &quot;System check identified no issues (0 silenced).&quot;,
+  &quot;migration_drift&quot;: &quot;No changes detected&quot;,
+  &quot;status&quot;: &quot;passed&quot;
+}
+</pre></details><details><summary>response.md 실제 기록</summary><pre>고도화 경로 구현과 자체 검증을 완료했습니다.
+
+- Django API·한국어 편집국·공개 발행 화면, 편집자/발행자 권한, CSRF, 낙관적 동시성, 재시도 키, 정정·이전 호 보존을 구현했습니다.
+- PoC CSS를 재사용하고 JS 도메인 규칙을 Python으로 이식했습니다. 기존 JSON 상태는 출처 해시와 AI 기록을 보존한 미승인 초안으로 가져옵니다. 파일별 근거는 reused.md입니다.
+- 최종 migration은 0002_immutable_editions입니다. 공개 발행본의 UPDATE/DELETE를 SQLite 트리거로 차단합니다.
+- 15개 테스트가 통과했습니다. 권한·CSRF·입력 오류·정정·승인 무효·idempotency·직접 DB 수정/삭제 거부·실제 스레드 동시 편집/발행을 포함합니다.
+- SQLite online backup→새 DB 복구의 counts/snapshot 일치, 실제 Gunicorn 중지→복구 DB 경로 재기동 후 공개 HTML 일치, production check --deploy 경고 0, 잘못된 production 설정 fail-closed를 확인했습니다.
+- 발견/수정: 동시성 테스트 로그인 준비 경합, XFrameOptionsMiddleware 누락, malformed evidenceId/URL 오류 처리, DB 직접 발행본 수정 경로. 실패와 재검증 출력은 evidence/tests.txt에 보존했습니다.
+
+공통 서버/브라우저 검증은 루트가 새 DB와 8871 포트에서 수행합니다. 제가 띄운 8765 Gunicorn은 종료했습니다. 외부 HTTPS/DNS·운영 계정·실제 배포/장기 soak·후속 schema downgrade는 미측정이며 공개 운영 출시 완료를 주장하지 않습니다. README.md에 실행·환경·백업복구·릴리스 롤백과 미수행 운영 전제를 기록했습니다. 원본 PoC/다른 경로/루트 파일은 수정하지 않았고 커밋하지 않았습니다.
+</pre></details><details><summary>reused.md 실제 기록</summary><pre># PoC 재사용 및 이식 기록
+- `projects/signal-magazine/style.css`: 전체 복사 유지. 종이색·녹색 편집국, 원문 sidebar와 편집 카드 및 반응형 레이아웃을 재사용했습니다.
+- `model.js`: 제목·요약·근거 검사, 수정 후 승인 무효, 발행 전 승인, 정정 사유, 이전 호 보존 규칙을 `magazine/domain.py`로 Python 이식했습니다. 서비스용 역할·DB 트랜잭션·version 증가 및 idempotency 규칙을 추가했습니다.
+- `app.js`: 원문/AI 기록/주장·근거 표시와 저장/보류/승인/발행 흐름을 Django template과 `static/desk.js`로 이식했습니다. localStorage 저장·전체 초기화·클라이언트 승인 권한은 폐기했습니다.
+- `index.html`: 편집국 정보 구조를 한국어 Django template으로 이식했습니다. 공개 목록과 로그인 화면을 분리했습니다.
+- `data.json`, `evidence/model-run.json`, `evidence/agent-draft.json`: 원본은 수정하지 않았습니다. 공통 fixture 및 원래 `data.json` 또는 브라우저 localStorage 내보내기를 `ingest_recorded`로 읽을 수 있습니다. 원문 발췌 해시와 AI provenance는 보존하며 모든 import는 새 미승인 초안으로 시작합니다. 과거 로컬 승인·발행은 권위가 없으므로 공개하지 않습니다.
+- `test.cjs`: 근거 누락/미승인 발행/중복/정정/승인 무효 시나리오를 Django 테스트로 이식하고 역할·CSRF·동시성·DB 검사를 추가했습니다.
+- `prepare.py`, `evidence/record.py`: 외부 수집/분류 실행은 범위 밖이어서 폐기했습니다. 기록된 입력만 사용합니다.
+- `README.md`: 서비스 운영·복구·배포 절차로 새로 작성했습니다.
+
+JS→Python 포팅, DB 모델링 및 인증 연결 시간은 모두 고도화 경과에 포함합니다. CSS 외에 기존 JS를 서버에서 직접 실행하지 않습니다. 원본 PoC는 변경하지 않았습니다.
+</pre></details><a href="../../experiments/signal-production/upgrade/evidence/events.jsonl">원본 이벤트 JSONL</a></section><section id="greenfield"><h2>동일 계약 신규 구현</h2><img class="shot" src="../../experiments/signal-production/greenfield/evidence/service.png" alt="동일 계약 신규 구현 실제 브라우저 화면" loading="lazy"><p><a href="https://github.com/TheMagicTower/korean-ai-dev-course/tree/main/experiments/signal-production/greenfield">실행 가능한 소스와 README ↗</a></p><h3>최초 단계 보고 사이의 경과</h3><ul><li>온보딩 보고: 1분 42초</li><li>계획 보고: 0분 0초</li><li>구현 보고: 10분 5초</li><li>검증 보고: 0분 0초</li><li>최초 인계: 1분 48초</li></ul><details><summary>실제 작업 프롬프트 원문</summary><pre>실제 사용자 요청으로 Signal Magazine 프로덕션 조건 비교 실험을 수행합니다. 역할: greenfield 구현자.
+공통 계약과 experiments/signal-production/shared/source-fixture.json만 보고 새로 만듭니다. projects/signal-magazine의 코드/테스트/UI나 upgrade 경로를 열람/복사하지 마세요. 기존 문헌·프레임워크는 이용 가능하지만 구현은 독립 작성합니다. 이것은 파일 강제 sandbox가 아닌 지시 기반 독립성입니다.
+쓰기 범위: experiments/signal-production/greenfield/만. 다른 파일 수정·git 커밋·push 금지. 공통 환경 /tmp/kdev-production-venv/bin/python, 설치된 Django5.2.17/Gunicorn26.2.0 사용. 새 의존성이 필요하면 먼저 루트에 보고하고 임의 공통 환경 변경 금지.
+시작 직후 실제 UTC started를 evidence/events.jsonl에 남기세요. onboarding,plan_ready,implementation_ready,tests_passed,handoff 공개 보고와 실제 시각을 append하며 첫 단계들을 뒤늦게 추정해 채우지 마세요. schema {at,stage,kind,message}. 공개 진행 보고를 루트에 보내고 같은 문장을 저장하세요. 최종응답 evidence/response.md도 원문 보존. tests.txt에 실제 실행 명령/출력/실패/수정과 재검증 남기기. 내부 추론을 쓰지 말고 사용자에게 공개할 진단·결정·결과를 기록하세요.
+먼저 계약 기반 도메인/DB/UI 계획을 짧게 evidence/plan.md에 정리하고 실패 검사를 만든 뒤 구현합니다. 요구사항 판단/품질 자체 검토를 하며 계약에 맞는 실제 작은 서비스로 끝까지 완성하세요. 장식·과도한 추상화보다 데이터/권한 계약을 우선하되 한국어 사용 흐름은 실제 브라우저에서 운영 가능해야 합니다. Django admin만으로 전체 UI를 대체하지 마세요. 외부 라이브 API 호출/유료 배포/실제 사용자 통신은 하지 않습니다.
+루트가 공통 HTTP 검증기와 두 경로 통합·브라우저 검증/독립 검토/시간 보고서를 만들고 있습니다. 먼저 API 계약부터 맞추고 서버 준비가 되면 알려주세요. 완성되지 않은 부분은 명시적으로 미완료 보고, 프로덕션 공개 출시 완료라고 부르지 마세요. auth/database/rollback blockers를 실제 검증 후 인계하세요.
+
+아래는 두 경로에 동일하게 제공하는 전체 계약입니다.
+
+# Signal Magazine 운영 서비스 비교 계약
+
+## 목적·범위
+사용자 요청: 기존 세 PoC 중 하나를 서비스 레이어에 맞춰 고도화하는 경우와 새로 만드는 경우를 실제 프롬프트로 수행하고 시간을 비교한다.
+선택: 소규모 단일 편집국, 운영자가 발급한 편집자/발행자 계정, 익명 독자. 다중 고객 SaaS·결제·회원가입·메일·완전 자동 AI 발행은 제외. 동시 편집 소수(최대 5명 목표), 단일 서버/로컬 디스크 SQLite, 100개 정도 기사 범위. 높은 가용성이나 부하 목표 달성은 측정 전 주장 금지.
+
+서비스 완료 = 공통 기능/위험 계약을 실제 서버에서 검증한 release candidate. 실제 외부 운영 환경 HTTPS/DNS/계정/복구 목표/운영 책임 수락이 없으므로 운영 출시 시간은 미측정. 외부 환경 전제는 runbook에 명시한다. 장기 soak 미측정. 일반적인 프로덕션 시간 배수나 인과 실험으로 표현하지 않는다.
+
+## 비교 조건
+- Upgrade: 기존 projects/signal-magazine 코드/스타일/테스트/데이터 읽기 가능. 재사용·이식·폐기 파일과 포팅 비용을 명시. 원본 PoC 변경 금지. JS→Python 이식도 고도화 비용으로 포함.
+- Greenfield: 공통 계약과 shared/source-fixture.json만 제공. 기존 PoC 구현/테스트/UI와 상대 구현 열람·복사 금지. 새 코드와 화면을 독립 작성. 프레임워크 재사용은 허용. 소스 격리는 지시 기반이며 파일 접근 샌드박스에 의한 강제 격리는 아니다.
+- 같은 Python 3.13.12 / Django 5.2.17 / Gunicorn 26.2.0 / SQLite, 같은 실행 머신, 독립 새 서브에이전트 동일 상속 모델·사고 수준(정확 런타임 모델 ID 미확인), 동일 검증 목록. 병렬 자원 경합과 단일 표본의 한계 표시.
+- 기록: root 관찰 시작, 공통 준비, 위임, worker started/onboarded/plan_ready/implementation_ready/tests_passed/handoff, review/rework, root 검증을 실제 UTC로 저장. 최초 인계와 후속 수정을 구분. 기존 PoC 7분14초는 과거 다른 범위의 기록. 파생 total=과거 PoC+고도화는 합성 경과로만 표기.
+
+## 구조와 공통 실행 인터페이스
+각 경로 experiments/signal-production/{upgrade,greenfield}/ 독립 Django 프로젝트. manage.py, requirements.txt, migrations, templates, static, tests, README.md, evidence/를 포함. 임시 DB/비밀번호/세션/백업은 git 추적 금지. 공통 가상환경 /tmp/kdev-production-venv/bin/python 사용. shared 파일 수정 금지.
+환경변수 SIGNAL_ENV=local|production, SIGNAL_SECRET_KEY, SIGNAL_DB(절대 DB경로), SIGNAL_ALLOWED_HOSTS. local은 localhost 전용 명시 모드; production은 안전한 필수 설정이 없으면 fail closed. 기본값 production. 외부 입력 HTML escape, CSRF, 서버 세션, HttpOnly, production Secure/HTTPS/HSTS, 호스트 검증, 크기/길이 한도. 로그인 실패 제한(최소 계정/IP 조합 누적, 영구 잠금 금지). 비밀번호는 Django 해싱·validator, 런타임 하드코딩 계정 금지.
+관리 명령: migrate; create_operator --username &lt;name&gt; --role editor|publisher (SIGNAL_OPERATOR_PASSWORD에서 읽음); ingest_recorded &lt;path&gt;; backup_db &lt;output_path&gt;; restore_db &lt;input_path&gt; (오프라인·새 목적지에 복구, 살아 있는 DB 덮어쓰기 금지).
+HTTP: GET / 공개 발행 목록, GET /healthz 생존, GET /readyz DB readiness, GET/POST /accounts/login/ Django form(username,password,csrfmiddlewaretoken), POST /accounts/logout/, GET /desk/ 로그인 편집국.
+JSON API는 Django 세션/CSRF 사용. GET /api/articles/ -&gt; {articles:[{id,title,summary,version,status,...}]}; GET /api/articles/&lt;id&gt;/ -&gt; {id,title,summary,version,status,...}. editor/publisher만 draft 열람. 익명 접근은401/403 또는 로그인 리다이렉트.
+POST /api/articles/ 는 editor만 생성: {title,summary,claims:[{text,evidenceId}],sources:[{id,title,url,excerpt,sha256}],provenance:{...}} -&gt;201 본문 article. 검증 실패400, 권한403.
+POST /api/articles/&lt;id&gt;/edit/ editor만: {version,title,summary,claims,reason}; 이전 발행 있으면 정정 이유 필수. 기존 승인 무효. version은 모든 성공 상태 변경마다 증가하는 서버 낙관적 동시성 번호. stale=409. 편집자 자신 승인 금지.
+POST /api/articles/&lt;id&gt;/approve/ publisher만 {version}; 필수 근거 검사 및 현재 revision 승인. POST /api/articles/&lt;id&gt;/hold/ publisher만 {version,reason}; 승인 철회.
+POST /api/articles/&lt;id&gt;/publish/ publisher만 {version,idempotency_key}; 승인된 정확 revision만 발행, 하나의 트랜잭션으로 공개 snapshot+audit+status. 같은 key/같은 요청 재시도는 같은 edition 반환(200/201), key 다른 기사/요청 충돌409. 공개 snapshot은 immutable, 정정 발행해도 이전 호와 정정 이유 보존. POST 응답 {article:{...},edition:{id,...}}; 편집/승인/보류 응답은 article 객체 직접. API 오류 JSON, 500 스택 공개 금지.
+서버 import도 입력 길이/근거/URL 검증, 중복 import 방지. 공통 seed는 최초 미승인 초안으로 import하고 PoC 승인/발행을 신뢰해 자동 공개하지 않는다. 원본 AI provenance/근거 해시 보존, 클라이언트 값만으로 승인권한 부여 금지. AI는 기존 recorded-run 입력; 라이브 생성/분류/주기적 실행은 이번 서비스 범위 밖이며 UI 명시. 서비스는 실제 서버 저장/권한/공개 URL 제공, 브라우저 localStorage를 권위 상태로 사용 금지.
+
+## 필수 검증
+1. 인증 전 draft 차단·편집자 승인/발행 차단·발행자 draft 편집 차단·CSRF 없는 POST403.
+2. 제목/본문/근거 누락·과도한 입력·unsafe URL 거부. source는 HTTPS만, 허용 호스트 www.nasa.gov; 서버가 임의 URL fetch하지 않음. 의미적 사실 검증은 사람이 수행.
+3. 저장→새 세션/서버 재시작에도 보존. DB 제약/트랜잭션, stale edit409, 동시 수정 중 하나만 성공(실제 스레드/프로세스 시험, DB lock이면 제한 기록 및 graceful 응답).
+4. 미승인 발행 차단, 편집 후 승인 무효, 승인 철회 차단, 중복 요청/동시 발행 중복 방지, 정정 이유/이전 snapshot 보존.
+5. 실제 SQL DB online backup API로 일관 백업, 빈 새 DB 복구, counts+publication snapshot 비교. schema migration/release rollback 절차 실제 disposable DB에서 연습; 데이터 손실 허용하는 downgrade를 무조건 실행하지 않음.
+6. 구조화 audit(actor/action/article/version/time), health/readiness, 에러 로그의 키/본문/비밀번호 비노출, production config check --deploy.
+7. 실제 Gunicorn localhost 시작·로그인 편집→다른 publisher 승인→발행→익명 독자 확인. 한국어 UI와 출처/AI 기록 범위 표시. 데스크톱 스크린샷.
+8. 테스트·운영 README와 환경 서식, 의존성 고정. 공개 운영 체크리스트는 수행/미수행을 명확히.
+
+## 실행 계획
+공통 준비 → 서로 독립 구현/시험 → 동일 HTTP 계약 검사 → 독립 요구/위험 검토 → 발견된 blocker 재현·수정 → 브라우저 E2E → 시간 계산·수준별 차이·한계·소스/실행 안내를 HTML 강의에 게시. 코드/리포트 PR 검토와 병합 후 Pages 검증. backend는 Pages에서 실행할 수 없으므로 실행 가능한 소스와 실제 서버 캡처를 제공한다.
+
+공식 근거 확인일 2026-09-23:
+- https://www.djangoproject.com/download/ (5.2 LTS 최신 패치 5.2.17 확인)
+- https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/ (production 서버·설정·배포 검증 기준)
+</pre></details><details><summary>started · 2026-09-23T02:14:26.034512+00:00</summary><pre>신규 구현 경로는 공통 계약과 제공된 입력 데이터만 사용해 독립적으로 작성하겠습니다. 인증·승인·발행의 서버 상태와 변경 이력부터 구현하고 한국어 편집국 화면과 복구 검증을 연결하겠습니다.</pre></details><details><summary>onboarding · 2026-09-23T02:16:08.612060+00:00</summary><pre>신규 구현자는 공통 계약과 recorded-run 입력을 확인했으며 기존 PoC 및 상대 경로는 열람하지 않았습니다.</pre></details><details><summary>plan_ready · 2026-09-23T02:16:08.612287+00:00</summary><pre>Article·불변 Edition·Audit를 분리하고 버전 비교와 원자 발행, 한국어 편집국 및 복구 절차를 구현하는 계획을 저장했습니다.</pre></details><details><summary>rework · 2026-09-23T02:23:23.102751+00:00</summary><pre>자체 검토와 공통 브라우저 검사에서 보류 이유가 공개 정정 이유에 섞이는 문제가 발견되었습니다. 보류 이유는 Audit.reason에만 보관하고 공개 correction_reason은 유지하도록 수정했으며 최초 발행 및 정정 발행 회귀 검사를 추가합니다.</pre></details><details><summary>implementation_ready · 2026-09-23T02:26:13.857626+00:00</summary><pre>신규 구현의 API·한국어 편집국·공개 지면·운영자/입력/백업복구 명령과 운영 README가 준비되었습니다. 최초 발행의 보류 사유 노출은 수정했으며 불변 Edition DB 트리거를 추가했습니다.</pre></details><details><summary>tests_passed · 2026-09-23T02:26:13.857842+00:00</summary><pre>독립 Django 테스트 9개가 통과했습니다. 파일 SQLite의 실제 동시 수정 200/409, 동일 키 동시 발행 201/200과 단일 발행본, 백업복구 전체 테이블 동일성, disposable schema/release rollback 및 production 배포 검사를 통과했습니다.</pre></details><details><summary>tests_passed · 2026-09-23T02:28:02.271428+00:00</summary><pre>최종 자체 검토 수정 후 Django 테스트 10개가 통과했습니다. 잘못된 API 경로도 JSON 오류로 응답하며 공개 문자열 HTML escape를 검증했습니다.</pre></details><details><summary>handoff · 2026-09-23T02:28:02.271597+00:00</summary><pre>신규 구현 경로를 최초 인계합니다. 코드·한국어 UI·운영 명령·검증 출력·운영 README가 준비되었으며 공통 브라우저/HTTP 최종 검증과 외부 운영 조건은 루트 인계 항목으로 남깁니다.</pre></details><details><summary>tests.txt 실제 기록</summary><pre>Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 3 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying sessions.0001_initial...Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+Traceback (most recent call last):
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/urls/utils.py&quot;, line 32, in get_callable
+    mod = import_module(mod_name)
+  File &quot;/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/importlib/__init__.py&quot;, line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1387, in _gcd_import
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1360, in _find_and_load
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named &#x27;news.views&#x27;
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/manage.py&quot;, line 4, in &lt;module&gt;
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 442, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/test.py&quot;, line 24, in run_from_argv
+    super().run_from_argv(argv)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py&quot;, line 420, in run_from_argv
+    self.execute(*args, **cmd_options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py&quot;, line 464, in execute
+    output = self.handle(*args, **options)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/test.py&quot;, line 63, in handle
+    failures = test_runner.run_tests(test_labels)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/test/runner.py&quot;, line 1086, in run_tests
+    self.run_checks(databases)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/test/runner.py&quot;, line 1008, in run_checks
+    call_command(&quot;check&quot;, verbosity=self.verbosity, databases=databases)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 194, in call_command
+    return command.execute(*args, **defaults)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py&quot;, line 464, in execute
+    output = self.handle(*args, **options)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/check.py&quot;, line 81, in handle
+    self.check(
+    ~~~~~~~~~~^
+        app_configs=app_configs,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...&lt;4 lines&gt;...
+        databases=options[&quot;databases&quot;],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py&quot;, line 496, in check
+    all_issues = checks.run_checks(
+        app_configs=app_configs,
+    ...&lt;2 lines&gt;...
+        databases=databases,
+    )
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/checks/registry.py&quot;, line 89, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/checks/security/csrf.py&quot;, line 50, in check_csrf_failure_view
+    view = _get_failure_view()
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/middleware/csrf.py&quot;, line 52, in _get_failure_view
+    return get_callable(settings.CSRF_FAILURE_VIEW)
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/urls/utils.py&quot;, line 36, in get_callable
+    raise ViewDoesNotExist(
+    ...&lt;2 lines&gt;...
+    )
+django.core.exceptions.ViewDoesNotExist: Could not import &#x27;news.views.csrf_failure&#x27;. Parent module news.views does not exist.
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 3 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... FAIL
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... FAIL
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... FAIL
+
+======================================================================
+FAIL: test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py&quot;, line 18, in test_draft_requires_auth_and_roles
+    self.assertIn(self.client.get(&quot;/api/articles/&quot;).status_code,[401,403,302])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 404 not found in [401, 403, 302]
+
+======================================================================
+FAIL: test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py&quot;, line 24, in test_publish_correction_immutable_and_stale
+    a=self.create();u=f&quot;/api/articles/{a[&#x27;id&#x27;]}/&quot;
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py&quot;, line 16, in create
+    r=self.post(self.e,&quot;/api/articles/&quot;,self.payload);self.assertEqual(r.status_code,201,r.content);return r.json()
+                                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 404 != 201 : b&#x27;\n&lt;!doctype html&gt;\n&lt;html lang=&quot;en&quot;&gt;\n&lt;head&gt;\n  &lt;title&gt;Not Found&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n  &lt;h1&gt;Not Found&lt;/h1&gt;&lt;p&gt;The requested resource was not found on this server.&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;\n&#x27;
+
+======================================================================
+FAIL: test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py&quot;, line 42, in test_validation_csrf_hold
+    self.assertEqual(self.post(self.e,&quot;/api/articles/&quot;,{**self.payload,**bad}).status_code,400)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 404 != 400
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.501s
+
+FAILED (failures=3)
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 3 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.540s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 3 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial...test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ERROR
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ERROR
+
+======================================================================
+ERROR: test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 110, in call_command
+    app_name = get_commands()[command_name]
+               ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: &#x27;ingest_recorded&#x27;
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_operations.py&quot;, line 13, in test_import_is_validated_idempotent_unapproved
+    call_command(&#x27;ingest_recorded&#x27;,str(fixture),stdout=StringIO());call_command(&#x27;ingest_recorded&#x27;,str(fixture),stdout=StringIO())
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 112, in call_command
+    raise CommandError(&quot;Unknown command: %r&quot; % command_name)
+django.core.management.base.CommandError: Unknown command: &#x27;ingest_recorded&#x27;
+
+======================================================================
+ERROR: test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 110, in call_command
+    app_name = get_commands()[command_name]
+               ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: &#x27;create_operator&#x27;
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_operations.py&quot;, line 26, in test_operator_requires_valid_password_and_single_role
+    call_command(&#x27;create_operator&#x27;,username=&#x27;test-editor&#x27;,role=&#x27;editor&#x27;,stdout=StringIO())
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py&quot;, line 112, in call_command
+    raise CommandError(&quot;Unknown command: %r&quot; % command_name)
+django.core.management.base.CommandError: Unknown command: &#x27;create_operator&#x27;
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.510s
+
+FAILED (errors=2)
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 6 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.199s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 5 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... api_failure
+FAIL
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... FAIL
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+
+======================================================================
+FAIL: test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py&quot;, line 51, in test_malformed_claim_and_cross_article_key_and_self_approval
+    self.assertEqual(self.post(self.e,&#x27;/api/articles/&#x27;,bad).status_code,400)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 500 != 400
+
+======================================================================
+FAIL: test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py&quot;, line 66, in test_snapshot_database_immutable
+    with self.assertRaises(DatabaseError),transaction.atomic():Edition.objects.update(snapshot={&#x27;title&#x27;:&#x27;tampered&#x27;})
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: DatabaseError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.861s
+
+FAILED (failures=2)
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 8 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.522s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 9 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_hold_reason_is_private_and_does_not_replace_correction (tests.test_contract.ContractTests.test_hold_reason_is_private_and_does_not_replace_correction) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.691s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+
+Final verification command: SIGNAL_ENV=local /tmp/kdev-production-venv/bin/python manage.py test tests -v 2
+Earlier runs above used the same command with tests.test_contract or tests.test_operations selected during red/green development. Initial scaffold check missing news.views was corrected before observing 404 contract failures.
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 9 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_hold_reason_is_private_and_does_not_replace_correction (tests.test_contract.ContractTests.test_hold_reason_is_private_and_does_not_replace_correction) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.696s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 1 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_json_errors_and_escaped_public_content (tests.test_contract.ContractTests.test_json_errors_and_escaped_public_content) ... FAIL
+
+======================================================================
+FAIL: test_json_errors_and_escaped_public_content (tests.test_contract.ContractTests.test_json_errors_and_escaped_public_content)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py&quot;, line 87, in test_json_errors_and_escaped_public_content
+    self.assertEqual(self.e.get(&#x27;/api/unknown/&#x27;).headers[&#x27;Content-Type&#x27;],&#x27;application/json&#x27;)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: &#x27;text/html; charset=utf-8&#x27; != &#x27;application/json&#x27;
+- text/html; charset=utf-8
++ application/json
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.165s
+
+FAILED (failures=1)
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+Found 10 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_hold_reason_is_private_and_does_not_replace_correction (tests.test_contract.ContractTests.test_hold_reason_is_private_and_does_not_replace_correction) ... ok
+test_json_errors_and_escaped_public_content (tests.test_contract.ContractTests.test_json_errors_and_escaped_public_content) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.862s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
+ OK
+System check identified no issues (0 silenced).
+</pre></details><details><summary>root-http.json 실제 기록</summary><pre>{
+  &quot;started_at&quot;: &quot;2026-09-23T02:26:45.231218+00:00&quot;,
+  &quot;finished_at&quot;: &quot;2026-09-23T02:26:45.698539+00:00&quot;,
+  &quot;base_url&quot;: &quot;http://127.0.0.1:8872&quot;,
+  &quot;checks&quot;: [
+    {
+      &quot;check&quot;: &quot;health_and_database_readiness&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.252243+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;anonymous_draft_denied&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.253218+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;csrf_and_publisher_create_denied&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.440270+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;invalid_source_missing_evidence_wrong_type_and_oversized_title_rejected&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.446834+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;editor_approve_publish_denied_and_unapproved_publish_denied&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.456139+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;optimistic_stale_edit_conflict&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.460455+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;edit_invalidates_approval&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.467099+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;hold_invalidates_approval&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.473728+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;idempotent_retry_key_conflict_and_no_private_hold_note_in_first_edition&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.482822+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;anonymous_reader_sees_server_publication&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.485212+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;correction_requires_reason_and_publishes_new_edition&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.496283+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;fresh_authenticated_session_reads_persisted_revision&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.590713+00:00&quot;
+    },
+    {
+      &quot;check&quot;: &quot;actual_concurrent_http_edit_one_success_one_conflict&quot;,
+      &quot;status&quot;: &quot;passed&quot;,
+      &quot;at&quot;: &quot;2026-09-23T02:26:45.698533+00:00&quot;
+    }
+  ],
+  &quot;status&quot;: &quot;passed&quot;,
+  &quot;limitations&quot;: &quot;Does not replace independent code review, backup restore, TLS staging or browser UI checks.&quot;
+}
+</pre></details><details><summary>root-recovery.json 실제 기록</summary><pre>{
+  &quot;status&quot;: &quot;passed&quot;,
+  &quot;backup_restore_all_tables_equal&quot;: true,
+  &quot;tables&quot;: [
+    &quot;django_migrations&quot;,
+    &quot;django_content_type&quot;,
+    &quot;auth_group_permissions&quot;,
+    &quot;auth_user_groups&quot;,
+    &quot;auth_user_user_permissions&quot;,
+    &quot;auth_permission&quot;,
+    &quot;auth_group&quot;,
+    &quot;auth_user&quot;,
+    &quot;news_loginattempt&quot;,
+    &quot;news_audit&quot;,
+    &quot;news_article&quot;,
+    &quot;news_edition&quot;,
+    &quot;django_session&quot;
+  ],
+  &quot;restored_to_fresh_destination&quot;: true
+}
+</pre></details><details><summary>root-release.json 실제 기록</summary><pre>{
+  &quot;at&quot;: &quot;2026-09-23T02:26:46.104738+00:00&quot;,
+  &quot;route&quot;: &quot;greenfield&quot;,
+  &quot;command&quot;: &quot;python scripts/check_signal_release.py greenfield&quot;,
+  &quot;missing_production_config&quot;: &quot;refused&quot;,
+  &quot;production_deploy_check&quot;: &quot;System check identified no issues (0 silenced).&quot;,
+  &quot;migration_drift&quot;: &quot;No changes detected&quot;,
+  &quot;status&quot;: &quot;passed&quot;
+}
+</pre></details><details><summary>operations.txt 실제 기록</summary><pre>COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, news, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial... OK
+COMMAND: python manage.py ingest_recorded /Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/shared/source-fixture.json
+미승인 초안 1를 저장했습니다.
+COMMAND: python manage.py create_operator --username editor --role editor
+운영자 계정을 발급했습니다.
+COMMAND: python manage.py create_operator --username publisher --role publisher
+운영자 계정을 발급했습니다.
+PASS actual two-thread concurrent edit: [409, 200]
+PASS actual two-thread duplicate publish: [200, 201] ; editions: 1
+COMMAND: python manage.py backup_db /Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/.runtime/verification-f4dad0gw/backup.sqlite3
+온라인 백업 및 무결성 검사를 완료했습니다.
+COMMAND: python manage.py restore_db /Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/.runtime/verification-f4dad0gw/backup.sqlite3
+새 DB 복구와 무결성 검사를 완료했습니다. 기존 운영 DB는 변경하지 않았습니다.
+PASS online backup / new-destination restore: all table rows and immutable snapshots identical
+PASS existing destination restore rejected without overwrite
+COMMAND: python manage.py migrate news 0001
+Operations to perform:
+  Target specific migration: 0001_initial, from news
+Running migrations:
+  Rendering model states... DONE
+  Unapplying news.0002_immutable_editions... OK
+COMMAND: python manage.py migrate news 0002
+Operations to perform:
+  Target specific migration: 0002_immutable_editions, from news
+Running migrations:
+  Applying news.0002_immutable_editions... OK
+PASS disposable migration 0002→0001→0002: all application rows preserved; no destructive 0001 downgrade
+PASS release-directory rollback: broken health503 → archived stable health200; restored DB unchanged
+COMMAND: python manage.py check --deploy --fail-level WARNING
+System check identified no issues (0 silenced).
+PASS default production rejects missing mandatory environment
+PASS operations verification complete; disposable runtime files excluded from version control
+</pre></details><details><summary>response.md 실제 기록</summary><pre>신규 구현 경로를 최초 인계합니다.
+
+- 구현: Django API·한국어 편집국·공개 발행 지면, 세션/역할/CSRF, 버전 충돌, 승인·보류·정정·불변 발행본, 중복 발행 방지, AI 입력 import, 운영자 발급, 백업·새 DB 복구 명령.
+- 검증: Django 테스트 10개 통과. 실제 두 스레드 수정 200/409, 동시 발행 201/200 및 단일 Edition, 온라인 백업/복구 전체 테이블 일치, disposable schema/release rollback, production 배포 검사 통과.
+- 수정: 보류 내부 메모의 공개 정정 사유 혼입, 비문자열 근거 ID의 500 응답, 알 수 없는 API 경로의 HTML 오류 응답을 수정했습니다.
+- 실행: config.wsgi:application, 루트 지정 8872 포트. 최신 코드 사용 전 manage.py migrate(0002) 및 Gunicorn 재시작이 필요합니다. 기존 시험 발행본은 불변이므로 보류 사유 재검증은 새 DB/기사로 수행하십시오.
+- 증거: evidence/tests.txt, operations.txt, self-review.md, events.jsonl. 운영 절차는 README.md에 있습니다.
+
+공통 브라우저/HTTP 최종 검증은 루트가 수행하며 외부 HTTPS/DNS·운영 책임·복구 목표·장기 soak는 미완료입니다. 공개 운영 출시 완료는 아닙니다.
+</pre></details><a href="../../experiments/signal-production/greenfield/evidence/events.jsonl">원본 이벤트 JSONL</a></section><section><h2>독립 검토·수정·통합 검증</h2><p><a href="../../docs/execution/production-comparison-2026-09-23/integration.jsonl">통합 타임스탬프 원본 JSONL</a></p><details><summary>upgrade · http_contract_passed · 2026-09-23T02:22:01.348100+00:00</summary><pre>Same black-box probe: 13 groups passed on actual Gunicorn HTTP including two concurrent editors: one200/one409. root-http.json recorded.</pre></details><details><summary>upgrade · recovery_passed · 2026-09-23T02:22:01.348240+00:00</summary><pre>Actual SQLite backup restored into a new DB; integrity_check and all table rows equal. root-recovery.json recorded. Restarted owned Gunicorn and previously published editions remained visible.</pre></details><details><summary>upgrade · browser_passed · 2026-09-23T02:22:01.348248+00:00</summary><pre>Actual browser editor login→seed article title edit→logout→publisher login→approve(v3)→publish(v4)→logout→anonymous reader sees reviewed title. Console errors none; service.png actual capture.</pre></details><details><summary>greenfield · http_contract_passed · 2026-09-23T02:24:39.307013+00:00</summary><pre>Same actual HTTP13 groups passed, including concurrent edit200/409.</pre></details><details><summary>greenfield · recovery_passed · 2026-09-23T02:24:39.307114+00:00</summary><pre>Online SQLite backup→new DB restore; all table rows equal and integrity check passed.</pre></details><details><summary>greenfield · browser_passed · 2026-09-23T02:24:39.307124+00:00</summary><pre>Real editor login→seed article edit→publisher login→approve→publish→anonymous public page. service.png captured, console errors none.</pre></details><details><summary>greenfield · debug_requested · 2026-09-23T02:24:39.307129+00:00</summary><pre>Browser observed first-publication edition1 incorrectly displaying hold reason as correction reason. Asked implementer to keep hold notes private in audit and preserve true public correction reason. Worker confirmed same self-review finding and fix; retest pending restart.</pre></details><details><summary>upgrade · independent_review_findings · 2026-09-23T02:24:39.307133+00:00</summary><pre>Independent reviewer: 14 tests passed, no P0/P1. Contract gaps: evidenceId=[] gives500 rather than400; ORM bulk update bypasses Edition.save immutability. Requested type validation and DB UPDATE/DELETE guard with migration/tests.</pre></details><details><summary>greenfield · independent_review · 2026-09-23T02:24:39.307137+00:00</summary><pre>Independent reviewer:9 tests passed, no P0/P1 or further core gap; type guards and immutable edition DB triggers confirmed. Operations evidence still being finalized.</pre></details><details><summary>upgrade · route_verified · 2026-09-23T02:29:18.455534+00:00</summary><pre>Final handoff integrated: 0002 applied and Gunicorn reloaded; strengthened shared HTTP13 checks passed, including malformed evidence400, key misuse409 and private hold note absent from first publication. Final online backup restores every table exactly. Production default refuses missing config; check --deploy no warnings; migrations no drift. Independent rereview closed prior issues, no P0/P1. Actual browser editor→publisher→anonymous reader passed and publication persists after final restart. This is local release-candidate acceptance, not external production release.</pre></details><details><summary>greenfield · route_verified · 2026-09-23T02:29:18.455644+00:00</summary><pre>Final handoff integrated: 0002 applied and Gunicorn reloaded; strengthened shared HTTP13 checks passed, including malformed evidence400, key misuse409 and private hold note absent from first publication. Final online backup restores every table exactly. Production default refuses missing config; check --deploy no warnings; migrations no drift. Independent rereview closed prior issues, no P0/P1. Actual browser editor→publisher→anonymous reader passed and publication persists after final restart. This is local release-candidate acceptance, not external production release.</pre></details><details><summary>공통 · ci_config_fix · 2026-09-23T02:33:52.002667+00:00</summary><pre>First workflow 35810628908 failed before job creation. Replaced job env runner.temp expression with explicit /tmp path. Corrected workflow jobs executed successfully. No application change.</pre></details><details><summary>공통 · github_ci_passed · 2026-09-23T02:33:52.002790+00:00</summary><pre>PR #1 head294a8c2d259bf379ca1df9ae4ef77b6bde202301: GitHub Actions35810731022 success; independent Linux jobs upgrade15 tests and greenfield10 tests plus release checks. CodeRabbit skipped because file count exceeded100; it is not counted as a performed review. Independent agent review is separately recorded.</pre></details><details><summary>공통 · timing_audit · 2026-09-23T02:33:52.002799+00:00</summary><pre>GPT-5.6 Luna max independently checked original timestamps, onboarding aliases, totals and report links/images. Calculations match:434.376789s PoC,711.603582s upgrade,816.237085s new;903.144230s and892.421132s root acceptance. Noted repeated tests_passed uses first checkpoint, documented. Added direct integration log link and shared-acceptance explanation to course.</pre></details></section><section><h2>직접 실행하는 방법</h2><p>각 경로 README의 환경 설정 → migrate → 운영자 생성 → 기록 입력 → Gunicorn 실행 순서를 따르세요. 계정 비밀번호와 DB는 저장소에 포함하지 않습니다. 두 서버를 서로 다른 포트로 띄워 편집자와 발행자를 바꾸어 체험할 수 있습니다. 보고서의 화면은 실제 서버에서 캡처했습니다.</p><p>‘빠르다’보다 중요한 질문은 같은 완료 계약을 지켰는가, 기존 자산을 얼마나 활용했는가, 고친 문제와 남은 운영 조건이 무엇인가입니다.</p></section></main><footer><a href="../../docs/execution/production-comparison-2026-09-23/timings.json">시각·계산 근거 JSON</a> · 보고 간격에는 작업·시험·대기가 섞여 있습니다. 전체 내부 추론과 모든 도구 호출 원문은 포함하지 않습니다.</footer></html>

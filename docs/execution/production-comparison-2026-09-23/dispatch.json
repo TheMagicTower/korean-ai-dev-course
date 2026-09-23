@@ -1,0 +1,14 @@
+{
+  "recorded_after_dispatch_at": "2026-09-23T02:16:32.041599+00:00",
+  "messages": {
+    "production_upgrade": "작업 경로 /Users/caspar/Projects-Codex/TheMagicTower/SkillProject. 사용자 승인: 소규모 편집국 Signal Magazine의 PoC 고도화 vs 신규 구현을 실제 수행·측정. 당신은 고도화 경로입니다. docs/execution/production-comparison-2026-09-23/prompts/upgrade.txt 전체를 실제 작업 프롬프트로 읽고 수행하세요. 이는 전체 공통 계약과 역할별 지침을 포함합니다. 쓰기 범위 experiments/signal-production/upgrade/만, 원본/다른경로/루트파일 수정·커밋 금지. 시작부터 실제 UTC events와 공개 응답을 기록하고 API·한국어 UI·DB·권한·백업복구·의미 있는 테스트를 끝까지 구현하세요. 공통 환경 /tmp/kdev-production-venv/bin/python 제공. 서버 준비 시 루트에 알려주시고 최종 인계하세요. 한국어 존댓말 사용.",
+    "production_greenfield": "작업 경로 /Users/caspar/Projects-Codex/TheMagicTower/SkillProject. 사용자 승인: 소규모 편집국 Signal Magazine의 PoC 고도화 vs 신규 구현을 실제 수행·측정. 당신은 신규 구현 경로입니다. docs/execution/production-comparison-2026-09-23/prompts/greenfield.txt 전체를 실제 작업 프롬프트로 읽고 수행하세요. 이는 전체 공통 계약과 역할별 지침을 포함합니다. 쓰기 범위 experiments/signal-production/greenfield/만. 기존 projects/signal-magazine 소스/테스트/UI 및 상대 upgrade 경로는 열람·복사 금지. 공통 계약과 shared/source-fixture.json으로 독립 작성. 원본/다른경로/루트파일 수정·커밋 금지. 시작부터 실제 UTC events와 공개 응답을 기록하고 API·한국어 UI·DB·권한·백업복구·의미 있는 테스트를 끝까지 구현하세요. 공통 환경 /tmp/kdev-production-venv/bin/python 제공. 서버 준비 시 루트에 알려주시고 최종 인계하세요. 한국어 존댓말 사용."
+  },
+  "fork_turns": "none",
+  "model": "inherited default, exact runtime model not exposed",
+  "skills": [
+    "brainstorming",
+    "writing-plans",
+    "subagent-driven-development"
+  ]
+}

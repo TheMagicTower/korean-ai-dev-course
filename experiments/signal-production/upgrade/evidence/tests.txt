@@ -1,0 +1,550 @@
+E
+======================================================================
+ERROR: test_contract (unittest.loader._FailedTest.test_contract)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_contract
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/tests/test_contract.py", line 2, in <module>
+    from magazine.models import Article
+ModuleNotFoundError: No module named 'magazine'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 14 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial...test_editor_change_revokes_approval (tests.test_contract.Contract.test_editor_change_revokes_approval) ... ok
+test_hold_revokes_and_stale (tests.test_contract.Contract.test_hold_revokes_and_stale) ... ok
+test_html_escaping_and_health (tests.test_contract.Contract.test_html_escaping_and_health) ... ok
+test_idempotency_conflict (tests.test_contract.Contract.test_idempotency_conflict) ... ok
+test_import_resets_and_deduplicates (tests.test_contract.Contract.test_import_resets_and_deduplicates) ... ok
+test_invalid_action (tests.test_contract.Contract.test_invalid_action) ... ok
+test_login_throttle (tests.test_contract.Contract.test_login_throttle) ... ok
+test_new_session_persistence (tests.test_contract.Contract.test_new_session_persistence) ... ok
+test_permissions_and_csrf (tests.test_contract.Contract.test_permissions_and_csrf) ... ok
+test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.test_publish_corrections_and_immutable_snapshot) ... ok
+test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
+test_validation (tests.test_contract.Contract.test_validation) ... ok
+test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ... 
+Test harness correction: concurrent force_login caused SQLite session-write contention before the barrier. Authenticate clients serially; synchronize only actual article requests, with barrier timeout.
+COMMAND: SIGNAL_ENV=local python manage.py test tests -v 2
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 14 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial...test_editor_change_revokes_approval (tests.test_contract.Contract.test_editor_change_revokes_approval) ... ok
+test_hold_revokes_and_stale (tests.test_contract.Contract.test_hold_revokes_and_stale) ... ok
+test_html_escaping_and_health (tests.test_contract.Contract.test_html_escaping_and_health) ... ok
+test_idempotency_conflict (tests.test_contract.Contract.test_idempotency_conflict) ... ok
+test_import_resets_and_deduplicates (tests.test_contract.Contract.test_import_resets_and_deduplicates) ... ok
+test_invalid_action (tests.test_contract.Contract.test_invalid_action) ... ok
+test_login_throttle (tests.test_contract.Contract.test_login_throttle) ... ok
+test_new_session_persistence (tests.test_contract.Contract.test_new_session_persistence) ... ok
+test_permissions_and_csrf (tests.test_contract.Contract.test_permissions_and_csrf) ... ok
+test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.test_publish_corrections_and_immutable_snapshot) ... ok
+test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
+test_validation (tests.test_contract.Contract.test_validation) ... ok
+test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.785s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial... OK
+ 
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=True status=draft
+ 
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=False status=draft
+ 
+COMMAND: python manage.py create_operator --username editor --role editor
+Operator created: editor / editor
+ 
+COMMAND: python manage.py create_operator --username publisher --role publisher
+Operator created: publisher / publisher
+ 
+COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username='publisher');a,_=mutate(a.pk,'approve',{'version':a.version},u);mutate(a.pk,'publish',{'version':a.version,'idempotency_key':'ops-publication'},u);print('published snapshot persisted')
+10 objects imported automatically (use -v 2 for details).
+
+published snapshot persisted
+ 
+COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
+Consistent SQLite backup created
+ 
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
+Restored to new offline destination
+ 
+PASS online SQLite backup + new offline restore: counts and publication snapshots equal
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
+ CommandError: Offline restore requires an absent new SIGNAL_DB destination
+
+COMMAND: python manage.py migrate --plan
+Planned operations:
+  No planned migration operations.
+ 
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  No migrations to apply.
+ 
+PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
+COMMAND: python manage.py shell -c from magazine.models import Edition;assert Edition.objects.count()==1;print('Fresh process persisted publication:',Edition.objects.first().snapshot['title'])
+10 objects imported automatically (use -v 2 for details).
+
+Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
+ 
+COMMAND: python manage.py check --deploy --fail-level WARNING
+ SystemCheckError: System check identified some issues:
+
+WARNINGS:
+?: (security.W002) You do not have 'django.middleware.clickjacking.XFrameOptionsMiddleware' in your MIDDLEWARE, so your pages will not be served with an 'x-frame-options' header. Unless there is a good reason for your site to be served in a frame, you should consider enabling this header to help prevent clickjacking attacks.
+
+System check identified 1 issue (0 silenced).
+
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/tests/ops_smoke.py", line 30, in <module>
+    cmd(['check','--deploy','--fail-level','WARNING'],d/'prod.db',{'SIGNAL_ENV':'production','SIGNAL_SECRET_KEY':secrets.token_urlsafe(64),'SIGNAL_ALLOWED_HOSTS':'signal.example.org'})
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/tests/ops_smoke.py", line 9, in cmd
+    assert (p.returncode==0)==ok,(args,p.returncode)
+           ^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (['check', '--deploy', '--fail-level', 'WARNING'], 1)
+
+FIX: deployment check revealed missing XFrameOptionsMiddleware. Enabled it; rerun all operational checks.
+COMMAND: python tests/ops_smoke.py
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial... OK
+ 
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=True status=draft
+ 
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=False status=draft
+ 
+COMMAND: python manage.py create_operator --username editor --role editor
+Operator created: editor / editor
+ 
+COMMAND: python manage.py create_operator --username publisher --role publisher
+Operator created: publisher / publisher
+ 
+COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username='publisher');a,_=mutate(a.pk,'approve',{'version':a.version},u);mutate(a.pk,'publish',{'version':a.version,'idempotency_key':'ops-publication'},u);print('published snapshot persisted')
+10 objects imported automatically (use -v 2 for details).
+
+published snapshot persisted
+ 
+COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
+Consistent SQLite backup created
+ 
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
+Restored to new offline destination
+ 
+PASS online SQLite backup + new offline restore: counts and publication snapshots equal
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
+ CommandError: Offline restore requires an absent new SIGNAL_DB destination
+
+COMMAND: python manage.py migrate --plan
+Planned operations:
+  No planned migration operations.
+ 
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  No migrations to apply.
+ 
+PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
+COMMAND: python manage.py shell -c from magazine.models import Edition;assert Edition.objects.count()==1;print('Fresh process persisted publication:',Edition.objects.first().snapshot['title'])
+10 objects imported automatically (use -v 2 for details).
+
+Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
+ 
+COMMAND: python manage.py check --deploy --fail-level WARNING
+System check identified no issues (0 silenced).
+ 
+COMMAND: python manage.py check
+ Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/manage.py", line 5, in <module>
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py", line 412, in run_from_argv
+    parser = self.create_parser(argv[0], argv[1])
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py", line 375, in create_parser
+    self.add_arguments(parser)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/check.py", line 47, in add_arguments
+    choices=tuple(connections),
+            ~~~~~^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py", line 73, in __iter__
+    return iter(self.settings)
+                ^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py", line 45, in settings
+    self._settings = self.configure_settings(self._settings)
+                     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/db/utils.py", line 148, in configure_settings
+    databases = super().configure_settings(databases)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py", line 50, in configure_settings
+    settings = getattr(django_settings, self.settings_name)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py", line 81, in __getattr__
+    self._setup(name)
+    ~~~~~~~~~~~^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py", line 68, in _setup
+    self._wrapped = Settings(settings_module)
+                    ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py", line 166, in __init__
+    mod = importlib.import_module(self.SETTINGS_MODULE)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/config/settings.py", line 12, in <module>
+    if not LOCAL and (len(SECRET_KEY)<50 or '*' in HOSTS or SECRET_KEY.startswith('local-')): raise ImproperlyConfigured('Unsafe production settings')
+                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.core.exceptions.ImproperlyConfigured: Unsafe production settings
+
+PASS production secure settings and unsafe fail-closed
+Creating test database for alias 'default'...
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 2.769s
+
+OK
+Destroying test database for alias 'default'...
+Found 14 test(s).
+System check identified no issues (0 silenced).
+No changes detected
+
+Final review: malformed URL and non-string evidenceId return validation 400; RequestDataTooBig returns JSON 400. Rerun targeted full suite after validation hardening.
+COMMAND: SIGNAL_ENV=local python manage.py test tests -v 2
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 14 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying sessions.0001_initial...test_editor_change_revokes_approval (tests.test_contract.Contract.test_editor_change_revokes_approval) ... ok
+test_hold_revokes_and_stale (tests.test_contract.Contract.test_hold_revokes_and_stale) ... ok
+test_html_escaping_and_health (tests.test_contract.Contract.test_html_escaping_and_health) ... ok
+test_idempotency_conflict (tests.test_contract.Contract.test_idempotency_conflict) ... ok
+test_import_resets_and_deduplicates (tests.test_contract.Contract.test_import_resets_and_deduplicates) ... ok
+test_invalid_action (tests.test_contract.Contract.test_invalid_action) ... ok
+test_login_throttle (tests.test_contract.Contract.test_login_throttle) ... ok
+test_new_session_persistence (tests.test_contract.Contract.test_new_session_persistence) ... ok
+test_permissions_and_csrf (tests.test_contract.Contract.test_permissions_and_csrf) ... ok
+test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.test_publish_corrections_and_immutable_snapshot) ... ok
+test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
+test_validation (tests.test_contract.Contract.test_validation) ... ok
+test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.783s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+
+Independent review rework: immutable Edition UPDATE/DELETE triggers, migration 0002; invalid evidenceId already hardened.
+COMMAND: SIGNAL_ENV=local python manage.py test tests -v 2
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 15 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying magazine.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_database_snapshot_immutable (tests.test_contract.Contract.test_database_snapshot_immutable) ... ok
+test_editor_change_revokes_approval (tests.test_contract.Contract.test_editor_change_revokes_approval) ... ok
+test_hold_revokes_and_stale (tests.test_contract.Contract.test_hold_revokes_and_stale) ... ok
+test_html_escaping_and_health (tests.test_contract.Contract.test_html_escaping_and_health) ... ok
+test_idempotency_conflict (tests.test_contract.Contract.test_idempotency_conflict) ... ok
+test_import_resets_and_deduplicates (tests.test_contract.Contract.test_import_resets_and_deduplicates) ... ok
+test_invalid_action (tests.test_contract.Contract.test_invalid_action) ... ok
+test_login_throttle (tests.test_contract.Contract.test_login_throttle) ... ok
+test_new_session_persistence (tests.test_contract.Contract.test_new_session_persistence) ... ok
+test_permissions_and_csrf (tests.test_contract.Contract.test_permissions_and_csrf) ... ok
+test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.test_publish_corrections_and_immutable_snapshot) ... ok
+test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
+test_validation (tests.test_contract.Contract.test_validation) ... ok
+test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 2.963s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying magazine.0001_initial... OK
+  Applying magazine.0002_immutable_editions... OK
+  Applying sessions.0001_initial... OK
+ 
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=True status=draft
+ 
+COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
+article=1 created=False status=draft
+ 
+COMMAND: python manage.py create_operator --username editor --role editor
+Operator created: editor / editor
+ 
+COMMAND: python manage.py create_operator --username publisher --role publisher
+Operator created: publisher / publisher
+ 
+COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username='publisher');a,_=mutate(a.pk,'approve',{'version':a.version},u);mutate(a.pk,'publish',{'version':a.version,'idempotency_key':'ops-publication'},u);print('published snapshot persisted')
+10 objects imported automatically (use -v 2 for details).
+
+published snapshot persisted
+ 
+COMMAND: python -m gunicorn config.wsgi:application --bind localhost:<ephemeral> --workers 1 --no-control-socket
+COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
+Consistent SQLite backup created
+ 
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
+Restored to new offline destination
+ 
+PASS online SQLite backup + new offline restore: counts and publication snapshots equal
+COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
+ CommandError: Offline restore requires an absent new SIGNAL_DB destination
+
+COMMAND: python manage.py migrate --plan
+Planned operations:
+  No planned migration operations.
+ 
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, magazine, sessions
+Running migrations:
+  No migrations to apply.
+ 
+COMMAND: python -m gunicorn config.wsgi:application --bind localhost:<ephemeral> --workers 1 --no-control-socket
+PASS actual Gunicorn stop + new restored DB path restart: anonymous publication HTML identical
+PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
+COMMAND: python manage.py shell -c from magazine.models import Edition;assert Edition.objects.count()==1;print('Fresh process persisted publication:',Edition.objects.first().snapshot['title'])
+10 objects imported automatically (use -v 2 for details).
+
+Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
+ 
+COMMAND: python manage.py check --deploy --fail-level WARNING
+System check identified no issues (0 silenced).
+ 
+COMMAND: python manage.py check
+ Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/manage.py", line 5, in <module>
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py", line 412, in run_from_argv
+    parser = self.create_parser(argv[0], argv[1])
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py", line 375, in create_parser
+    self.add_arguments(parser)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/check.py", line 47, in add_arguments
+    choices=tuple(connections),
+            ~~~~~^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py", line 73, in __iter__
+    return iter(self.settings)
+                ^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py", line 45, in settings
+    self._settings = self.configure_settings(self._settings)
+                     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/db/utils.py", line 148, in configure_settings
+    databases = super().configure_settings(databases)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/utils/connection.py", line 50, in configure_settings
+    settings = getattr(django_settings, self.settings_name)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py", line 81, in __getattr__
+    self._setup(name)
+    ~~~~~~~~~~~^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py", line 68, in _setup
+    self._wrapped = Settings(settings_module)
+                    ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/conf/__init__.py", line 166, in __init__
+    mod = importlib.import_module(self.SETTINGS_MODULE)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/config/settings.py", line 12, in <module>
+    if not LOCAL and (len(SECRET_KEY)<50 or '*' in HOSTS or SECRET_KEY.startswith('local-')): raise ImproperlyConfigured('Unsafe production settings')
+                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.core.exceptions.ImproperlyConfigured: Unsafe production settings
+
+PASS production secure settings and unsafe fail-closed
+
+COMMAND: SIGNAL_ENV=local python manage.py makemigrations --check --dry-run
+No changes detected

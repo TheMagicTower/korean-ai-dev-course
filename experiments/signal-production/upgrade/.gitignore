@@ -1,0 +1,8 @@
+*.sqlite3*
+*.db*
+__pycache__/
+.env
+backups/
+*.log
+.venv/
+collected-static/

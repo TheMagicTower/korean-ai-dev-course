@@ -1,0 +1,578 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 3 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying sessions.0001_initial...Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+Traceback (most recent call last):
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/urls/utils.py", line 32, in get_callable
+    mod = import_module(mod_name)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.12_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'news.views'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/manage.py", line 4, in <module>
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/test.py", line 24, in run_from_argv
+    super().run_from_argv(argv)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+    self.execute(*args, **cmd_options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+    output = self.handle(*args, **options)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/test.py", line 63, in handle
+    failures = test_runner.run_tests(test_labels)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/test/runner.py", line 1086, in run_tests
+    self.run_checks(databases)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/test/runner.py", line 1008, in run_checks
+    call_command("check", verbosity=self.verbosity, databases=databases)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 194, in call_command
+    return command.execute(*args, **defaults)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+    output = self.handle(*args, **options)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/commands/check.py", line 81, in handle
+    self.check(
+    ~~~~~~~~~~^
+        app_configs=app_configs,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        databases=options["databases"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/base.py", line 496, in check
+    all_issues = checks.run_checks(
+        app_configs=app_configs,
+    ...<2 lines>...
+        databases=databases,
+    )
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/checks/registry.py", line 89, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/checks/security/csrf.py", line 50, in check_csrf_failure_view
+    view = _get_failure_view()
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/middleware/csrf.py", line 52, in _get_failure_view
+    return get_callable(settings.CSRF_FAILURE_VIEW)
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/urls/utils.py", line 36, in get_callable
+    raise ViewDoesNotExist(
+    ...<2 lines>...
+    )
+django.core.exceptions.ViewDoesNotExist: Could not import 'news.views.csrf_failure'. Parent module news.views does not exist.
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 3 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... FAIL
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... FAIL
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... FAIL
+
+======================================================================
+FAIL: test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py", line 18, in test_draft_requires_auth_and_roles
+    self.assertIn(self.client.get("/api/articles/").status_code,[401,403,302])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 404 not found in [401, 403, 302]
+
+======================================================================
+FAIL: test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py", line 24, in test_publish_correction_immutable_and_stale
+    a=self.create();u=f"/api/articles/{a['id']}/"
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py", line 16, in create
+    r=self.post(self.e,"/api/articles/",self.payload);self.assertEqual(r.status_code,201,r.content);return r.json()
+                                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 404 != 201 : b'\n<!doctype html>\n<html lang="en">\n<head>\n  <title>Not Found</title>\n</head>\n<body>\n  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>\n</body>\n</html>\n'
+
+======================================================================
+FAIL: test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py", line 42, in test_validation_csrf_hold
+    self.assertEqual(self.post(self.e,"/api/articles/",{**self.payload,**bad}).status_code,400)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 404 != 400
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.501s
+
+FAILED (failures=3)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 3 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.540s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 3 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial...test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ERROR
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ERROR
+
+======================================================================
+ERROR: test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 110, in call_command
+    app_name = get_commands()[command_name]
+               ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'ingest_recorded'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_operations.py", line 13, in test_import_is_validated_idempotent_unapproved
+    call_command('ingest_recorded',str(fixture),stdout=StringIO());call_command('ingest_recorded',str(fixture),stdout=StringIO())
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 112, in call_command
+    raise CommandError("Unknown command: %r" % command_name)
+django.core.management.base.CommandError: Unknown command: 'ingest_recorded'
+
+======================================================================
+ERROR: test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 110, in call_command
+    app_name = get_commands()[command_name]
+               ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'create_operator'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_operations.py", line 26, in test_operator_requires_valid_password_and_single_role
+    call_command('create_operator',username='test-editor',role='editor',stdout=StringIO())
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/kdev-production-venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 112, in call_command
+    raise CommandError("Unknown command: %r" % command_name)
+django.core.management.base.CommandError: Unknown command: 'create_operator'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.510s
+
+FAILED (errors=2)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 6 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.199s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 5 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... api_failure
+FAIL
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... FAIL
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+
+======================================================================
+FAIL: test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py", line 51, in test_malformed_claim_and_cross_article_key_and_self_approval
+    self.assertEqual(self.post(self.e,'/api/articles/',bad).status_code,400)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 500 != 400
+
+======================================================================
+FAIL: test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py", line 66, in test_snapshot_database_immutable
+    with self.assertRaises(DatabaseError),transaction.atomic():Edition.objects.update(snapshot={'title':'tampered'})
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: DatabaseError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.861s
+
+FAILED (failures=2)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 8 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.522s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 9 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_hold_reason_is_private_and_does_not_replace_correction (tests.test_contract.ContractTests.test_hold_reason_is_private_and_does_not_replace_correction) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.691s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+
+Final verification command: SIGNAL_ENV=local /tmp/kdev-production-venv/bin/python manage.py test tests -v 2
+Earlier runs above used the same command with tests.test_contract or tests.test_operations selected during red/green development. Initial scaffold check missing news.views was corrected before observing 404 contract failures.
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 9 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_hold_reason_is_private_and_does_not_replace_correction (tests.test_contract.ContractTests.test_hold_reason_is_private_and_does_not_replace_correction) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.696s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 1 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_json_errors_and_escaped_public_content (tests.test_contract.ContractTests.test_json_errors_and_escaped_public_content) ... FAIL
+
+======================================================================
+FAIL: test_json_errors_and_escaped_public_content (tests.test_contract.ContractTests.test_json_errors_and_escaped_public_content)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/tests/test_contract.py", line 87, in test_json_errors_and_escaped_public_content
+    self.assertEqual(self.e.get('/api/unknown/').headers['Content-Type'],'application/json')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'text/html; charset=utf-8' != 'application/json'
+- text/html; charset=utf-8
++ application/json
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.165s
+
+FAILED (failures=1)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 10 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles
+  Apply all migrations: auth, contenttypes, news, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial...test_draft_requires_auth_and_roles (tests.test_contract.ContractTests.test_draft_requires_auth_and_roles) ... ok
+test_hold_reason_is_private_and_does_not_replace_correction (tests.test_contract.ContractTests.test_hold_reason_is_private_and_does_not_replace_correction) ... ok
+test_json_errors_and_escaped_public_content (tests.test_contract.ContractTests.test_json_errors_and_escaped_public_content) ... ok
+test_malformed_claim_and_cross_article_key_and_self_approval (tests.test_contract.ContractTests.test_malformed_claim_and_cross_article_key_and_self_approval) ... ok
+test_publish_correction_immutable_and_stale (tests.test_contract.ContractTests.test_publish_correction_immutable_and_stale) ... ok
+test_snapshot_database_immutable (tests.test_contract.ContractTests.test_snapshot_database_immutable) ... ok
+test_validation_csrf_hold (tests.test_contract.ContractTests.test_validation_csrf_hold) ... ok
+test_import_is_validated_idempotent_unapproved (tests.test_operations.OperationsTests.test_import_is_validated_idempotent_unapproved) ... ok
+test_login_rate_limit_expiry_and_csrf (tests.test_operations.OperationsTests.test_login_rate_limit_expiry_and_csrf) ... ok
+test_operator_requires_valid_password_and_single_role (tests.test_operations.OperationsTests.test_operator_requires_valid_password_and_single_role) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.862s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).

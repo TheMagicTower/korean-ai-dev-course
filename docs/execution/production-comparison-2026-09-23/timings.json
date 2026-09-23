@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-09-23T02:33:52.138830+00:00",
+  "routes": [
+    {
+      "key": "poc",
+      "title": "최초 PoC",
+      "path": "projects/signal-magazine",
+      "start": "2026-09-23T01:08:25.627103+00:00",
+      "handoff": "2026-09-23T01:15:40.003892+00:00",
+      "handoff_seconds": 434.376789,
+      "verified_at": null,
+      "verified_seconds": null,
+      "intervals": [
+        {
+          "label": "온보딩 보고",
+          "seconds": 23.969787
+        },
+        {
+          "label": "계획 보고",
+          "seconds": 67.12477
+        },
+        {
+          "label": "구현 보고",
+          "seconds": 203.692193
+        },
+        {
+          "label": "검증 보고",
+          "seconds": 110.572784
+        },
+        {
+          "label": "최초 인계",
+          "seconds": 29.017255
+        }
+      ]
+    },
+    {
+      "key": "upgrade",
+      "title": "기존 PoC 고도화",
+      "path": "experiments/signal-production/upgrade",
+      "start": "2026-09-23T02:14:15.311304+00:00",
+      "handoff": "2026-09-23T02:26:06.914886+00:00",
+      "handoff_seconds": 711.603582,
+      "verified_at": "2026-09-23T02:29:18.455534+00:00",
+      "verified_seconds": 903.14423,
+      "intervals": [
+        {
+          "label": "온보딩 보고",
+          "seconds": 30.841993
+        },
+        {
+          "label": "계획 보고",
+          "seconds": 0.000321
+        },
+        {
+          "label": "구현 보고",
+          "seconds": 523.097437
+        },
+        {
+          "label": "검증 보고",
+          "seconds": 157.663651
+        },
+        {
+          "label": "최초 인계",
+          "seconds": 0.00018
+        }
+      ]
+    },
+    {
+      "key": "greenfield",
+      "title": "동일 계약 신규 구현",
+      "path": "experiments/signal-production/greenfield",
+      "start": "2026-09-23T02:14:26.034512+00:00",
+      "handoff": "2026-09-23T02:28:02.271597+00:00",
+      "handoff_seconds": 816.237085,
+      "verified_at": "2026-09-23T02:29:18.455644+00:00",
+      "verified_seconds": 892.421132,
+      "intervals": [
+        {
+          "label": "온보딩 보고",
+          "seconds": 102.577548
+        },
+        {
+          "label": "계획 보고",
+          "seconds": 0.000227
+        },
+        {
+          "label": "구현 보고",
+          "seconds": 605.245339
+        },
+        {
+          "label": "검증 보고",
+          "seconds": 0.000216
+        },
+        {
+          "label": "최초 인계",
+          "seconds": 108.413755
+        }
+      ]
+    }
+  ],
+  "synthetic_poc_plus_upgrade_handoff_seconds": 1145.9803709999999,
+  "root_start_to_two_candidates_verified_seconds": 1130.455644,
+  "parallel_first_start_to_last_handoff_seconds": 826.960293,
+  "live_production_release_seconds": null
+}

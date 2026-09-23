@@ -1,0 +1,52 @@
+COMMAND: python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: auth, contenttypes, news, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying news.0001_initial... OK
+  Applying news.0002_immutable_editions... OK
+  Applying sessions.0001_initial... OK
+COMMAND: python manage.py ingest_recorded /Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/shared/source-fixture.json
+미승인 초안 1를 저장했습니다.
+COMMAND: python manage.py create_operator --username editor --role editor
+운영자 계정을 발급했습니다.
+COMMAND: python manage.py create_operator --username publisher --role publisher
+운영자 계정을 발급했습니다.
+PASS actual two-thread concurrent edit: [409, 200]
+PASS actual two-thread duplicate publish: [200, 201] ; editions: 1
+COMMAND: python manage.py backup_db /Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/.runtime/verification-f4dad0gw/backup.sqlite3
+온라인 백업 및 무결성 검사를 완료했습니다.
+COMMAND: python manage.py restore_db /Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/greenfield/.runtime/verification-f4dad0gw/backup.sqlite3
+새 DB 복구와 무결성 검사를 완료했습니다. 기존 운영 DB는 변경하지 않았습니다.
+PASS online backup / new-destination restore: all table rows and immutable snapshots identical
+PASS existing destination restore rejected without overwrite
+COMMAND: python manage.py migrate news 0001
+Operations to perform:
+  Target specific migration: 0001_initial, from news
+Running migrations:
+  Rendering model states... DONE
+  Unapplying news.0002_immutable_editions... OK
+COMMAND: python manage.py migrate news 0002
+Operations to perform:
+  Target specific migration: 0002_immutable_editions, from news
+Running migrations:
+  Applying news.0002_immutable_editions... OK
+PASS disposable migration 0002→0001→0002: all application rows preserved; no destructive 0001 downgrade
+PASS release-directory rollback: broken health503 → archived stable health200; restored DB unchanged
+COMMAND: python manage.py check --deploy --fail-level WARNING
+System check identified no issues (0 silenced).
+PASS default production rejects missing mandatory environment
+PASS operations verification complete; disposable runtime files excluded from version control

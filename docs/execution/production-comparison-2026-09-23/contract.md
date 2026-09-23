@@ -1,0 +1,42 @@
+# Signal Magazine 운영 서비스 비교 계약
+
+## 목적·범위
+사용자 요청: 기존 세 PoC 중 하나를 서비스 레이어에 맞춰 고도화하는 경우와 새로 만드는 경우를 실제 프롬프트로 수행하고 시간을 비교한다.
+선택: 소규모 단일 편집국, 운영자가 발급한 편집자/발행자 계정, 익명 독자. 다중 고객 SaaS·결제·회원가입·메일·완전 자동 AI 발행은 제외. 동시 편집 소수(최대 5명 목표), 단일 서버/로컬 디스크 SQLite, 100개 정도 기사 범위. 높은 가용성이나 부하 목표 달성은 측정 전 주장 금지.
+
+서비스 완료 = 공통 기능/위험 계약을 실제 서버에서 검증한 release candidate. 실제 외부 운영 환경 HTTPS/DNS/계정/복구 목표/운영 책임 수락이 없으므로 운영 출시 시간은 미측정. 외부 환경 전제는 runbook에 명시한다. 장기 soak 미측정. 일반적인 프로덕션 시간 배수나 인과 실험으로 표현하지 않는다.
+
+## 비교 조건
+- Upgrade: 기존 projects/signal-magazine 코드/스타일/테스트/데이터 읽기 가능. 재사용·이식·폐기 파일과 포팅 비용을 명시. 원본 PoC 변경 금지. JS→Python 이식도 고도화 비용으로 포함.
+- Greenfield: 공통 계약과 shared/source-fixture.json만 제공. 기존 PoC 구현/테스트/UI와 상대 구현 열람·복사 금지. 새 코드와 화면을 독립 작성. 프레임워크 재사용은 허용. 소스 격리는 지시 기반이며 파일 접근 샌드박스에 의한 강제 격리는 아니다.
+- 같은 Python 3.13.12 / Django 5.2.17 / Gunicorn 26.2.0 / SQLite, 같은 실행 머신, 독립 새 서브에이전트 동일 상속 모델·사고 수준(정확 런타임 모델 ID 미확인), 동일 검증 목록. 병렬 자원 경합과 단일 표본의 한계 표시.
+- 기록: root 관찰 시작, 공통 준비, 위임, worker started/onboarded/plan_ready/implementation_ready/tests_passed/handoff, review/rework, root 검증을 실제 UTC로 저장. 최초 인계와 후속 수정을 구분. 기존 PoC 7분14초는 과거 다른 범위의 기록. 파생 total=과거 PoC+고도화는 합성 경과로만 표기.
+
+## 구조와 공통 실행 인터페이스
+각 경로 experiments/signal-production/{upgrade,greenfield}/ 독립 Django 프로젝트. manage.py, requirements.txt, migrations, templates, static, tests, README.md, evidence/를 포함. 임시 DB/비밀번호/세션/백업은 git 추적 금지. 공통 가상환경 /tmp/kdev-production-venv/bin/python 사용. shared 파일 수정 금지.
+환경변수 SIGNAL_ENV=local|production, SIGNAL_SECRET_KEY, SIGNAL_DB(절대 DB경로), SIGNAL_ALLOWED_HOSTS. local은 localhost 전용 명시 모드; production은 안전한 필수 설정이 없으면 fail closed. 기본값 production. 외부 입력 HTML escape, CSRF, 서버 세션, HttpOnly, production Secure/HTTPS/HSTS, 호스트 검증, 크기/길이 한도. 로그인 실패 제한(최소 계정/IP 조합 누적, 영구 잠금 금지). 비밀번호는 Django 해싱·validator, 런타임 하드코딩 계정 금지.
+관리 명령: migrate; create_operator --username <name> --role editor|publisher (SIGNAL_OPERATOR_PASSWORD에서 읽음); ingest_recorded <path>; backup_db <output_path>; restore_db <input_path> (오프라인·새 목적지에 복구, 살아 있는 DB 덮어쓰기 금지).
+HTTP: GET / 공개 발행 목록, GET /healthz 생존, GET /readyz DB readiness, GET/POST /accounts/login/ Django form(username,password,csrfmiddlewaretoken), POST /accounts/logout/, GET /desk/ 로그인 편집국.
+JSON API는 Django 세션/CSRF 사용. GET /api/articles/ -> {articles:[{id,title,summary,version,status,...}]}; GET /api/articles/<id>/ -> {id,title,summary,version,status,...}. editor/publisher만 draft 열람. 익명 접근은401/403 또는 로그인 리다이렉트.
+POST /api/articles/ 는 editor만 생성: {title,summary,claims:[{text,evidenceId}],sources:[{id,title,url,excerpt,sha256}],provenance:{...}} ->201 본문 article. 검증 실패400, 권한403.
+POST /api/articles/<id>/edit/ editor만: {version,title,summary,claims,reason}; 이전 발행 있으면 정정 이유 필수. 기존 승인 무효. version은 모든 성공 상태 변경마다 증가하는 서버 낙관적 동시성 번호. stale=409. 편집자 자신 승인 금지.
+POST /api/articles/<id>/approve/ publisher만 {version}; 필수 근거 검사 및 현재 revision 승인. POST /api/articles/<id>/hold/ publisher만 {version,reason}; 승인 철회.
+POST /api/articles/<id>/publish/ publisher만 {version,idempotency_key}; 승인된 정확 revision만 발행, 하나의 트랜잭션으로 공개 snapshot+audit+status. 같은 key/같은 요청 재시도는 같은 edition 반환(200/201), key 다른 기사/요청 충돌409. 공개 snapshot은 immutable, 정정 발행해도 이전 호와 정정 이유 보존. POST 응답 {article:{...},edition:{id,...}}; 편집/승인/보류 응답은 article 객체 직접. API 오류 JSON, 500 스택 공개 금지.
+서버 import도 입력 길이/근거/URL 검증, 중복 import 방지. 공통 seed는 최초 미승인 초안으로 import하고 PoC 승인/발행을 신뢰해 자동 공개하지 않는다. 원본 AI provenance/근거 해시 보존, 클라이언트 값만으로 승인권한 부여 금지. AI는 기존 recorded-run 입력; 라이브 생성/분류/주기적 실행은 이번 서비스 범위 밖이며 UI 명시. 서비스는 실제 서버 저장/권한/공개 URL 제공, 브라우저 localStorage를 권위 상태로 사용 금지.
+
+## 필수 검증
+1. 인증 전 draft 차단·편집자 승인/발행 차단·발행자 draft 편집 차단·CSRF 없는 POST403.
+2. 제목/본문/근거 누락·과도한 입력·unsafe URL 거부. source는 HTTPS만, 허용 호스트 www.nasa.gov; 서버가 임의 URL fetch하지 않음. 의미적 사실 검증은 사람이 수행.
+3. 저장→새 세션/서버 재시작에도 보존. DB 제약/트랜잭션, stale edit409, 동시 수정 중 하나만 성공(실제 스레드/프로세스 시험, DB lock이면 제한 기록 및 graceful 응답).
+4. 미승인 발행 차단, 편집 후 승인 무효, 승인 철회 차단, 중복 요청/동시 발행 중복 방지, 정정 이유/이전 snapshot 보존.
+5. 실제 SQL DB online backup API로 일관 백업, 빈 새 DB 복구, counts+publication snapshot 비교. schema migration/release rollback 절차 실제 disposable DB에서 연습; 데이터 손실 허용하는 downgrade를 무조건 실행하지 않음.
+6. 구조화 audit(actor/action/article/version/time), health/readiness, 에러 로그의 키/본문/비밀번호 비노출, production config check --deploy.
+7. 실제 Gunicorn localhost 시작·로그인 편집→다른 publisher 승인→발행→익명 독자 확인. 한국어 UI와 출처/AI 기록 범위 표시. 데스크톱 스크린샷.
+8. 테스트·운영 README와 환경 서식, 의존성 고정. 공개 운영 체크리스트는 수행/미수행을 명확히.
+
+## 실행 계획
+공통 준비 → 서로 독립 구현/시험 → 동일 HTTP 계약 검사 → 독립 요구/위험 검토 → 발견된 blocker 재현·수정 → 브라우저 E2E → 시간 계산·수준별 차이·한계·소스/실행 안내를 HTML 강의에 게시. 코드/리포트 PR 검토와 병합 후 Pages 검증. backend는 Pages에서 실행할 수 없으므로 실행 가능한 소스와 실제 서버 캡처를 제공한다.
+
+공식 근거 확인일 2026-09-23:
+- https://www.djangoproject.com/download/ (5.2 LTS 최신 패치 5.2.17 확인)
+- https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/ (production 서버·설정·배포 검증 기준)

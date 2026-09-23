@@ -1,6 +1,6 @@
 # 한국어 AI 개발 스킬과 4주 프로젝트 교재
 
-[온라인 4주 교재](https://themagictower.github.io/korean-ai-dev-course/) · [실제 프로젝트와 실행 기록](https://themagictower.github.io/korean-ai-dev-course/projects/) · [GitHub 저장소](https://github.com/TheMagicTower/korean-ai-dev-course)
+[온라인 4주 교재](https://themagictower.github.io/korean-ai-dev-course/) · [실제 프로젝트와 실행 기록](https://themagictower.github.io/korean-ai-dev-course/projects/) · [현재 세션 핸드오프](docs/handoff/2026-09-23.md) · [GitHub 저장소](https://github.com/TheMagicTower/korean-ai-dev-course)
 
 **수강생 각자의 아이디어 하나를 4주 동안 발전시켜 작동하는 결과물로 전달하는 교육 자료와 실제 사례를 모은 공개 저장소입니다.** 수업은 주 1회, 회당 2시간입니다. 교재는 2026-09-23 기준 4주 과정과 확장 부록을 포함한 공개 초판입니다.
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T01:23:00.906277+00:00",
+  "generated_at": "2026-09-23T01:26:00.848067+00:00",
   "parallel_start_to_last_handoff_seconds": 652.211064,
   "sum_worker_elapsed_seconds": 1283.258269,
   "projects": [
@@ -124,5 +124,6 @@
       ]
     }
   ],
-  "root_start_to_local_verified_seconds": 1014.860351
+  "root_start_to_local_verified_seconds": 1014.860351,
+  "root_start_to_first_public_verified_seconds": 1190.898752
 }

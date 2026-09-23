@@ -192,7 +192,7 @@ test_publish_corrections_and_immutable_snapshot (tests.test_contract.Contract.te
 test_self_approval (tests.test_contract.Contract.test_self_approval) ... ok
 test_validation (tests.test_contract.Contract.test_validation) ... ok
 test_concurrent_edit (tests.test_contract.Concurrent.test_concurrent_edit) ... ok
-test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ... 
+test_concurrent_publication (tests.test_contract.Concurrent.test_concurrent_publication) ...&#32;
 Test harness correction: concurrent force_login caused SQLite session-write contention before the barrier. Authenticate clients serially; synchronize only actual article requests, with barrier timeout.
 COMMAND: SIGNAL_ENV=local python manage.py test tests -v 2
 Creating test database for alias &#x27;default&#x27; (&#x27;file:memorydb_default?mode=memory&amp;cache=shared&#x27;)...
@@ -261,30 +261,30 @@ Running migrations:
   Applying auth.0012_alter_user_first_name_max_length... OK
   Applying magazine.0001_initial... OK
   Applying sessions.0001_initial... OK
- 
+&#32;
 COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
 article=1 created=True status=draft
- 
+&#32;
 COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
 article=1 created=False status=draft
- 
+&#32;
 COMMAND: python manage.py create_operator --username editor --role editor
 Operator created: editor / editor
- 
+&#32;
 COMMAND: python manage.py create_operator --username publisher --role publisher
 Operator created: publisher / publisher
- 
+&#32;
 COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username=&#x27;publisher&#x27;);a,_=mutate(a.pk,&#x27;approve&#x27;,{&#x27;version&#x27;:a.version},u);mutate(a.pk,&#x27;publish&#x27;,{&#x27;version&#x27;:a.version,&#x27;idempotency_key&#x27;:&#x27;ops-publication&#x27;},u);print(&#x27;published snapshot persisted&#x27;)
 10 objects imported automatically (use -v 2 for details).
 
 published snapshot persisted
- 
+&#32;
 COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
 Consistent SQLite backup created
- 
+&#32;
 COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
 Restored to new offline destination
- 
+&#32;
 PASS online SQLite backup + new offline restore: counts and publication snapshots equal
 COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-o26qpl__/backup.db
  CommandError: Offline restore requires an absent new SIGNAL_DB destination
@@ -292,19 +292,19 @@ COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km000
 COMMAND: python manage.py migrate --plan
 Planned operations:
   No planned migration operations.
- 
+&#32;
 COMMAND: python manage.py migrate --noinput
 Operations to perform:
   Apply all migrations: auth, contenttypes, magazine, sessions
 Running migrations:
   No migrations to apply.
- 
+&#32;
 PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
 COMMAND: python manage.py shell -c from magazine.models import Edition;assert Edition.objects.count()==1;print(&#x27;Fresh process persisted publication:&#x27;,Edition.objects.first().snapshot[&#x27;title&#x27;])
 10 objects imported automatically (use -v 2 for details).
 
 Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
- 
+&#32;
 COMMAND: python manage.py check --deploy --fail-level WARNING
  SystemCheckError: System check identified some issues:
 
@@ -344,30 +344,30 @@ Running migrations:
   Applying auth.0012_alter_user_first_name_max_length... OK
   Applying magazine.0001_initial... OK
   Applying sessions.0001_initial... OK
- 
+&#32;
 COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
 article=1 created=True status=draft
- 
+&#32;
 COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
 article=1 created=False status=draft
- 
+&#32;
 COMMAND: python manage.py create_operator --username editor --role editor
 Operator created: editor / editor
- 
+&#32;
 COMMAND: python manage.py create_operator --username publisher --role publisher
 Operator created: publisher / publisher
- 
+&#32;
 COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username=&#x27;publisher&#x27;);a,_=mutate(a.pk,&#x27;approve&#x27;,{&#x27;version&#x27;:a.version},u);mutate(a.pk,&#x27;publish&#x27;,{&#x27;version&#x27;:a.version,&#x27;idempotency_key&#x27;:&#x27;ops-publication&#x27;},u);print(&#x27;published snapshot persisted&#x27;)
 10 objects imported automatically (use -v 2 for details).
 
 published snapshot persisted
- 
+&#32;
 COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
 Consistent SQLite backup created
- 
+&#32;
 COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
 Restored to new offline destination
- 
+&#32;
 PASS online SQLite backup + new offline restore: counts and publication snapshots equal
 COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-79ke7lfe/backup.db
  CommandError: Offline restore requires an absent new SIGNAL_DB destination
@@ -375,22 +375,22 @@ COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km000
 COMMAND: python manage.py migrate --plan
 Planned operations:
   No planned migration operations.
- 
+&#32;
 COMMAND: python manage.py migrate --noinput
 Operations to perform:
   Apply all migrations: auth, contenttypes, magazine, sessions
 Running migrations:
   No migrations to apply.
- 
+&#32;
 PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
 COMMAND: python manage.py shell -c from magazine.models import Edition;assert Edition.objects.count()==1;print(&#x27;Fresh process persisted publication:&#x27;,Edition.objects.first().snapshot[&#x27;title&#x27;])
 10 objects imported automatically (use -v 2 for details).
 
 Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
- 
+&#32;
 COMMAND: python manage.py check --deploy --fail-level WARNING
 System check identified no issues (0 silenced).
- 
+&#32;
 COMMAND: python manage.py check
  Traceback (most recent call last):
   File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/manage.py&quot;, line 5, in &lt;module&gt;
@@ -577,31 +577,31 @@ Running migrations:
   Applying magazine.0001_initial... OK
   Applying magazine.0002_immutable_editions... OK
   Applying sessions.0001_initial... OK
- 
+&#32;
 COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
 article=1 created=True status=draft
- 
+&#32;
 COMMAND: python manage.py ingest_recorded ../shared/source-fixture.json
 article=1 created=False status=draft
- 
+&#32;
 COMMAND: python manage.py create_operator --username editor --role editor
 Operator created: editor / editor
- 
+&#32;
 COMMAND: python manage.py create_operator --username publisher --role publisher
 Operator created: publisher / publisher
- 
+&#32;
 COMMAND: python manage.py shell -c from magazine.models import Article;from magazine.domain import mutate;from django.contrib.auth import get_user_model;a=Article.objects.first();u=get_user_model().objects.get(username=&#x27;publisher&#x27;);a,_=mutate(a.pk,&#x27;approve&#x27;,{&#x27;version&#x27;:a.version},u);mutate(a.pk,&#x27;publish&#x27;,{&#x27;version&#x27;:a.version,&#x27;idempotency_key&#x27;:&#x27;ops-publication&#x27;},u);print(&#x27;published snapshot persisted&#x27;)
 10 objects imported automatically (use -v 2 for details).
 
 published snapshot persisted
- 
+&#32;
 COMMAND: python -m gunicorn config.wsgi:application --bind localhost:&lt;ephemeral&gt; --workers 1 --no-control-socket
 COMMAND: python manage.py backup_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
 Consistent SQLite backup created
- 
+&#32;
 COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
 Restored to new offline destination
- 
+&#32;
 PASS online SQLite backup + new offline restore: counts and publication snapshots equal
 COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km0000gn/T/signal-upgrade-ops-vbqun7h2/backup.db
  CommandError: Offline restore requires an absent new SIGNAL_DB destination
@@ -609,13 +609,13 @@ COMMAND: python manage.py restore_db /var/folders/b1/349vnz9x2gs_f128zgcxs_km000
 COMMAND: python manage.py migrate --plan
 Planned operations:
   No planned migration operations.
- 
+&#32;
 COMMAND: python manage.py migrate --noinput
 Operations to perform:
   Apply all migrations: auth, contenttypes, magazine, sessions
 Running migrations:
   No migrations to apply.
- 
+&#32;
 COMMAND: python -m gunicorn config.wsgi:application --bind localhost:&lt;ephemeral&gt; --workers 1 --no-control-socket
 PASS actual Gunicorn stop + new restored DB path restart: anonymous publication HTML identical
 PASS release rollback rehearsal: restored pre-release snapshot on new DB; same release migration no-op; no destructive downgrade
@@ -623,10 +623,10 @@ COMMAND: python manage.py shell -c from magazine.models import Edition;assert Ed
 10 objects imported automatically (use -v 2 for details).
 
 Fresh process persisted publication: 찬드라가 찾은 별난 X선 천체
- 
+&#32;
 COMMAND: python manage.py check --deploy --fail-level WARNING
 System check identified no issues (0 silenced).
- 
+&#32;
 COMMAND: python manage.py check
  Traceback (most recent call last):
   File &quot;/Users/caspar/Projects-Codex/TheMagicTower/SkillProject/experiments/signal-production/upgrade/manage.py&quot;, line 5, in &lt;module&gt;

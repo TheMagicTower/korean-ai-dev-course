@@ -12,7 +12,7 @@ jobs:
     env:
       SIGNAL_ENV: local
       SIGNAL_ALLOWED_HOSTS: localhost,127.0.0.1
-      SIGNAL_DB: ${{ runner.temp }}/signal-${{ matrix.route }}.sqlite3
+      SIGNAL_DB: /tmp/signal-${{ matrix.route }}.sqlite3
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

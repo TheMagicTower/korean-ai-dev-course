@@ -1,14 +1,14 @@
 """Generate an evidence report; absent checkpoints remain unmeasured."""
 from pathlib import Path
 from datetime import datetime,timezone
-import json,html
+import json,html,re
 ROOT=Path(__file__).resolve().parents[1]
 RUN=ROOT/'docs/execution/production-comparison-2026-09-23'
 DEST=ROOT/'projects/production-comparison'
 DEST.mkdir(parents=True,exist_ok=True)
 def read_events(p):return [json.loads(s) for s in p.read_text().splitlines() if s.strip()] if p.exists() else []
 def dt(x):return datetime.fromisoformat(x.replace('Z','+00:00'))
-def esc(x):return html.escape(str(x))
+def esc(x):return re.sub(r'[ \t]+(?=\n|$)',lambda m:''.join('&#32;' if c==' ' else '&#9;' for c in m[0]),html.escape(str(x)))
 def duration(x):return '미측정' if x is None else f'{int(x//60)}분 {int(x%60)}초'
 def first(events,stage):return next((dt(e['at']) for e in events if e.get('stage')==stage or (stage=='onboarded' and e.get('stage')=='onboarding')),None)
 root_events=read_events(RUN/'integration.jsonl')

@@ -13,6 +13,7 @@ for name in ['events.jsonl','integration.jsonl']:
  if p.exists():events += [json.loads(x) for x in p.read_text().splitlines() if x.strip()]
 def at(e):return e.get('at',e.get('timestamp'))
 def stage(e):return e.get('stage',e.get('event'))
+events.sort(key=lambda e:stamp(at(e)))
 times={}
 for e in events:
  if at(e) and stage(e) not in times:times[stage(e)]=stamp(at(e))

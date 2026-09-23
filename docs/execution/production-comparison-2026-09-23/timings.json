@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T02:31:49.169644+00:00",
+  "generated_at": "2026-09-23T02:33:52.138830+00:00",
   "routes": [
     {
       "key": "poc",
@@ -99,5 +99,7 @@
     }
   ],
   "synthetic_poc_plus_upgrade_handoff_seconds": 1145.9803709999999,
+  "root_start_to_two_candidates_verified_seconds": 1130.455644,
+  "parallel_first_start_to_last_handoff_seconds": 826.960293,
   "live_production_release_seconds": null
 }

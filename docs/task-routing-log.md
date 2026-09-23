@@ -30,3 +30,12 @@
 ## 사례 중심 고도화
 
 2026-09-23 Jev API 첫 호출 HTTP 오류, 축약 요청 재확인 HTTP403(error code1010)으로 분류 미완료. 성공·분류 결과를 가정하지 않았습니다. 주 에이전트가 지정6개 파일 버전 치환을 단순 작업으로 직접 판단해 GPT-5.6 Luna max에 위임했습니다. 서비스 사례·구현·스킬 변경은 주 에이전트가 수행합니다.
+
+## ApplyFlow 실행 매뉴얼
+
+2026-09-23 초기 호출 HTTP403 후 계정 환경변수 `TYPESAFE_API_KEY`를 읽어 공식 Bearer 방식으로 curl 호출한 결과 HTTP200. 키 값은 출력·문서·저장소에 포함하지 않았습니다. 앞선 실패를 키 누락으로 단정하지 않습니다.
+
+- 반환 모델: jev-1.13.0. 링크·작업 식별자 읽기 전용 점검: simple, confidence1.00. GPT-5.6 Luna max에 위임.
+- 실행 매뉴얼 설계·검색 기능 검증: complex, confidence1.00. 주 에이전트 수행.
+- 사용량: 입력436·출력60토큰. 이것은 작업 분류 결과이며 AF-104 상태 전이 자동 판정은 수행하지 않았습니다.
+- 호출 규격: [TypeSafe 공식 Quick start](https://docs.typesafe.ai/introduction/quickstart).

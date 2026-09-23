@@ -20,6 +20,8 @@
 
 9. [사용자 기본 프로젝트 운영 기준](docs/project-operating-standard.md): 직접 제공한 18단계, 디자인에서 상세 설계를 도출하는 역피라미드 방식, 작업 계층·3단계 리뷰·정기 CD·자동 피드백·속도 경험 기록
 
+10. [ApplyFlow 실행 매뉴얼](docs/playbooks/applyflow-runbook.md): 시작·온보딩·분해·수행·상태 판단의 복사용 프롬프트와 [실제 AF-104 수행 기록](docs/playbooks/applyflow-af104-record.md)
+
 ## 확정된 요구와 설계 가정
 
 | 구분 | 내용 |

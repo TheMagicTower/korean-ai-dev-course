@@ -12,3 +12,13 @@ memory.raw='{broken';assert.throws(()=>m.load(memory));assert.equal(memory.raw,'
 assert.throws(()=>m.save({setItem(){throw Error('quota')}},jobs));
 assert.equal(jobs[0].status,'종료');
 console.log('PASS: trim, persistence, states, blank input, unknown id/status, duplicate, corrupt storage preservation, save failure');
+const fixture=[{id:'a',company:'LightLab',role:'프론트엔드 개발자',status:'관심'},{id:'b',company:'모닝',role:'프로덕트 디자이너',status:'면접'},{id:'c',company:'라이트',role:'백엔드 개발자',status:'면접'}];
+const before=JSON.stringify(fixture);
+assert.deepEqual(m.selectJobs(fixture,'all',' lightLAB ').map(x=>x.id),['a']);
+assert.deepEqual(m.selectJobs(fixture,'all','개발자').map(x=>x.id),['a','c']);
+assert.deepEqual(m.selectJobs(fixture,'면접','개발자').map(x=>x.id),['c']);
+assert.deepEqual(m.selectJobs(fixture,'관심','디자이너'),[]);
+assert.deepEqual(m.selectJobs(fixture,'all','  '),fixture);
+assert.deepEqual(m.selectJobs(fixture,'면접','').map(x=>x.id),['b','c']);
+assert.equal(JSON.stringify(fixture),before);
+console.log('PASS AF-104: company/role, case, trimming, status AND, empty query/results, data unchanged');

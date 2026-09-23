@@ -39,3 +39,7 @@
 - 실행 매뉴얼 설계·검색 기능 검증: complex, confidence1.00. 주 에이전트 수행.
 - 사용량: 입력436·출력60토큰. 이것은 작업 분류 결과이며 AF-104 상태 전이 자동 판정은 수행하지 않았습니다.
 - 호출 규격: [TypeSafe 공식 Quick start](https://docs.typesafe.ai/introduction/quickstart).
+
+## 다중 프로젝트 사례 확장
+
+2026-09-23 계정 환경변수 키로 Jev 호출 HTTP200. jev-1.13.0이 연구·사례 설계를 complex confidence1.00, 4주 표·링크·구현 상태 일관성 점검을 simple confidence0.99로 분류했습니다. 입력436·출력59토큰. 주 에이전트가 설계하고 GPT-5.6 Luna max에 읽기 전용 점검을 위임했습니다.

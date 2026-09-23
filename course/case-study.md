@@ -1,5 +1,7 @@
 # 사례로 따라가는 ApplyFlow — 취업 준비 서비스
 
+[다른 유형의 프로젝트도 비교하기](cases/index.md): 초파리 신경회로 게임과 AI 뉴스 매거진에 같은 개발 체계를 적용합니다.
+
 **가상의 서비스 사례입니다.** 취업 준비생이 채용 공고를 모으고 지원 진행 상황을 관리합니다. 실제 고객 조사·매출·성능 실적을 주장하지 않습니다. 학생의 주제는 자유이며 이 사례의 질문과 판단 방식을 자신의 프로젝트로 옮겨 씁니다.
 
 <div class="figure-callout"><strong>직접 사용해 보기</strong><p>공고를 추가하고 지원 상태를 바꾼 뒤 새로고침해 보세요. 회사·직무에는 가상 자료만 사용합니다.</p><a href="course/examples/applyflow/index.html">ApplyFlow 실행 예제 열기 ↗</a> · <a href="https://github.com/TheMagicTower/korean-ai-dev-course/tree/main/course/examples/applyflow">예제 코드·실행 안내</a></div>

@@ -22,6 +22,8 @@
 
 10. [ApplyFlow 실행 매뉴얼](docs/playbooks/applyflow-runbook.md): 시작·온보딩·분해·수행·상태 판단의 복사용 프롬프트와 [실제 AF-104 수행 기록](docs/playbooks/applyflow-af104-record.md)
 
+11. [세 가지 프로젝트 사례](course/cases/index.md): ApplyFlow, 초파리 연결지도 기반 대전 게임, AI 뉴스 매거진. 새 두 사례는 설계 단계이며 실행 코드 미제공.
+
 ## 확정된 요구와 설계 가정
 
 | 구분 | 내용 |

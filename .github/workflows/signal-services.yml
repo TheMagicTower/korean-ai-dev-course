@@ -1,0 +1,24 @@
+name: Signal service candidates
+on:
+  push:
+    branches: [main, codex/production-comparison]
+  pull_request:
+jobs:
+  service-contract:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        route: [upgrade, greenfield]
+    env:
+      SIGNAL_ENV: local
+      SIGNAL_ALLOWED_HOSTS: localhost,127.0.0.1
+      SIGNAL_DB: ${{ runner.temp }}/signal-${{ matrix.route }}.sqlite3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r experiments/signal-production/${{ matrix.route }}/requirements.txt
+      - run: python manage.py test tests --noinput
+        working-directory: experiments/signal-production/${{ matrix.route }}
+      - run: python scripts/check_signal_release.py ${{ matrix.route }}

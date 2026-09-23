@@ -1,0 +1,69 @@
+{
+  "at": "2026-09-23T02:11:07.705351+00:00",
+  "request": {
+    "model": "jev-latest",
+    "state": "Compare two real implementations of Signal Magazine: upgrade existing static PoC versus independent greenfield service with same scope. Django auth/roles/CSRF, transactional SQLite server persistence, optimistic concurrency, editor/publisher separation, approval revision invalidation, idempotent publishing and corrections, backup restore, health and operations tests. Separately audit arithmetic/links of timing report.",
+    "questions": {
+      "upgrade": {
+        "type": "choice",
+        "instructions": "Classify PoC migration service implementation",
+        "criteria": {
+          "complex": "multi-file security, data integrity, architecture or integration judgments",
+          "simple": "bounded mechanical arithmetic or link checks"
+        }
+      },
+      "greenfield": {
+        "type": "choice",
+        "instructions": "Classify clean service implementation",
+        "criteria": {
+          "complex": "multi-file security, data integrity, architecture or integration judgments",
+          "simple": "bounded mechanical arithmetic or link checks"
+        }
+      },
+      "audit": {
+        "type": "choice",
+        "instructions": "Classify report timing arithmetic and link checks",
+        "criteria": {
+          "complex": "multi-file security, data integrity, architecture or integration judgments",
+          "simple": "bounded mechanical arithmetic or link checks"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "upgrade": {
+        "type": "choice",
+        "choice": "complex",
+        "confidence": 0.99,
+        "probabilities": {
+          "simple": 0.01,
+          "complex": 0.99
+        }
+      },
+      "greenfield": {
+        "type": "choice",
+        "choice": "complex",
+        "confidence": 0.95,
+        "probabilities": {
+          "simple": 0.02,
+          "complex": 0.98
+        }
+      },
+      "audit": {
+        "type": "choice",
+        "choice": "simple",
+        "confidence": 0.93,
+        "probabilities": {
+          "simple": 0.96,
+          "complex": 0.04
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 533,
+      "output_tokens": 89
+    }
+  }
+}

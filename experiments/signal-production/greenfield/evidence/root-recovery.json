@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "backup_restore_all_tables_equal": true,
+  "tables": [
+    "django_migrations",
+    "django_content_type",
+    "auth_group_permissions",
+    "auth_user_groups",
+    "auth_user_user_permissions",
+    "auth_permission",
+    "auth_group",
+    "auth_user",
+    "news_loginattempt",
+    "news_audit",
+    "news_article",
+    "news_edition",
+    "django_session"
+  ],
+  "restored_to_fresh_destination": true
+}

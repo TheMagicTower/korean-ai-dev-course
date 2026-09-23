@@ -6,3 +6,7 @@ __pycache__/
 .env.*
 !.env.example
 kdev-installation.md
+*.sqlite3
+*.sqlite3-*
+experiments/signal-production/*/runtime/
+experiments/signal-production/*/staticfiles/

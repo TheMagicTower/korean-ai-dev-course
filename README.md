@@ -1,75 +1,77 @@
 # 한국어 AI 개발 스킬과 4주 프로젝트 교재
 
-[온라인 교재](https://themagictower.github.io/korean-ai-dev-course/) · [스킬 다운로드](https://github.com/TheMagicTower/korean-ai-dev-course/releases/tag/v0.2.0) · [한 줄 설치](guides/one-line-prompts.md)
+[온라인 4주 교재](https://themagictower.github.io/korean-ai-dev-course/) · [실제 프로젝트와 실행 기록](https://themagictower.github.io/korean-ai-dev-course/projects/) · [GitHub 저장소](https://github.com/TheMagicTower/korean-ai-dev-course)
 
-상태: 문서 설계 초안 v0.5 · 작성일: 2026-09-22
+**수강생 각자의 아이디어 하나를 4주 동안 발전시켜 작동하는 결과물로 전달하는 교육 자료와 실제 사례를 모은 공개 저장소입니다.** 수업은 주 1회, 회당 2시간입니다. 교재는 2026-09-23 기준 4주 과정과 확장 부록을 포함한 공개 초판입니다.
 
-각자의 아이디어를 하나의 프로젝트로 시작해, 주 1회 2시간씩 4주 뒤 실제 사용할 수 있는 작은 완성품으로 전달하는 과정입니다. AI 활용 개발의 절차, 스킬, 모델 선택, 검증과 인계를 연결합니다.
+## 바로 시작하기
 
-## 실제 프로젝트 제작실
+1. [온라인 교재](https://themagictower.github.io/korean-ai-dev-course/)에서 1주차부터 진행합니다. 수강생마다 자기 프로젝트를 정하고, 공통 완료 기준에 맞춰 같은 프로젝트를 4주간 발전시킵니다.
+2. [프로젝트 제작실](https://themagictower.github.io/korean-ai-dev-course/projects/)에서 ApplyFlow, FlyBlock, Signal Magazine 데모를 실행해 보고 실제 프롬프트·단계별 시간·검증 기록을 확인합니다.
+3. [한국어 스킬 패키지 설치 안내](INSTALL.md)와 [복사해 쓰는 한 줄 프롬프트](guides/one-line-prompts.md)를 이용합니다. 공개 스킬 묶음은 [v0.2.0 Release](https://github.com/TheMagicTower/korean-ai-dev-course/releases/tag/v0.2.0)에서 받습니다.
 
-[세 프로젝트 데모·실제 프롬프트·시간 기록](https://themagictower.github.io/korean-ai-dev-course/projects/) · [실행 기록 안내](docs/execution/2026-09-23/README.md). 프로젝트 구현은 projects/ 아래에 있으며 기존 교안의 설계 사례와 연결합니다.
+## 저장소에 들어 있는 것
 
-## 문서 읽는 순서
+| 자료 | 내용 | 시작점 |
+|---|---|---|
+| 4주 HTML 교재 | 문제 정의, 목업 우선 설계, 개발·검증·전달, 모델·도구 조사와 실전 부록 | [온라인 교재](https://themagictower.github.io/korean-ai-dev-course/) · [과정 구성](docs/course-design.md) |
+| 한국어 개발 스킬 8개 | 시작·계획·구현·검토·디버그·모델 선택·전달·인계 | [스킬 목록](skills/README.md) · [설치 안내](INSTALL.md) |
+| 세 가지 데모 | 개인용 지원 관리, 신경회로 유도 블록 대전, 실제 기록을 바탕으로 한 AI 뉴스 편집국 | [프로젝트 목록](projects/README.md) |
+| 운영 서비스 비교 | 같은 소규모 편집국 계약을 구현한 기존 PoC 고도화 및 신규 Django 후보 | [실험 보고서](https://themagictower.github.io/korean-ai-dev-course/projects/production-comparison/) · [실행 계약과 증거](docs/execution/production-comparison-2026-09-23/contract.md) |
+| 프로젝트 운영 기준 | 프로젝트 수준, 범위·ADR·작업 분해·리뷰·상태 판단·전달 방법 | [문서 목록](docs/README.md) |
 
-1. [개발 운영 체계](docs/workflow.md): 전체 흐름, 역할, 스킬, 산출물과 완료 기준
-2. [모델·사고 수준·프로바이더 선택](docs/model-selection.md): 기반 지식, 공식 자료에 근거한 차이, 비교 실습
-3. [4주 프로젝트 과정 설계](docs/course-design.md): 주차별 120분 구성, 자유 주제의 범위 관리, 공통 완성 기준
-4. [실무·실습 템플릿](docs/templates.md): 프로젝트 계약, 모델 선택 기록, 세션 인계, 완성품 검증
-5. [한국어 스킬 패키지](docs/korean-skill-package.md): 학생용 스킬 구성, GitHub 배포, 도구별 설치·검증 설계
-6. [최신 주요 모델: Astra와 Jev](docs/frontier-models.md): 모델 소개·활용 분석, AGI 주장과 평가 조건, 범용 작업과 좁은 판단의 차이
+## 수업에서 다루는 중요한 판단
 
-7. [코딩 에이전트 조사 부록](docs/coding-agents-report.md): 8개 도구의 차이·스킬 호환·선택 기준과 조사 한계
-8. [프로젝트 수준별 완성 기준](docs/project-completion-levels.md): 개인·팀·외부 사용과 PoC·MVP·운영의 구분, 위험·예산·리뷰 종료
+- AI가 만든 저비용 목업으로 사용 경험을 먼저 확인하고, 그 결과에서 업무 규칙·API·데이터 구조를 도출합니다.
+- 개인용·PoC·MVP·운영 서비스의 완료 기준을 구분합니다. 모든 프로젝트에 같은 보안·문서·CI/CD 절차를 요구하지 않습니다.
+- 기존 것을 고칠지, 일부 계층을 교체할지, 새로 만들지와 각 선택의 비용·위험을 비교합니다. [고도화·재구현 판단 자료](course/evolve-or-rebuild.md)
+- 프로젝트가 커질 때 CI/CD의 실제 병목을 측정하고, 안전한 캐시·병렬화·아티팩트 전달을 선택합니다. [CI/CD 최적화 자료](course/ci-cd-optimization.md)
+- 주요 모델·프로바이더와 코딩 에이전트의 장단점을 작업에 맞춰 살펴봅니다. 조사 시점이 중요한 주장은 각 부록의 공식 자료와 확인일을 참고합니다.
 
-9. [사용자 기본 프로젝트 운영 기준](docs/project-operating-standard.md): 직접 제공한 18단계, 디자인에서 상세 설계를 도출하는 역피라미드 방식, 작업 계층·3단계 리뷰·정기 CD·자동 피드백·속도 경험 기록
+## 프로젝트 실행
 
-10. [ApplyFlow 실행 매뉴얼](docs/playbooks/applyflow-runbook.md): 시작·온보딩·분해·수행·상태 판단의 복사용 프롬프트와 [실제 AF-104 수행 기록](docs/playbooks/applyflow-af104-record.md)
+저장소 루트에서 정적 사이트 서버를 실행합니다.
 
-11. [세 가지 프로젝트 사례](course/cases/index.md): ApplyFlow, 초파리 연결지도 기반 대전 게임, AI 뉴스 매거진. 각 사례의 독립 실행 데모와 실제 제작 기록을 projects/에 제공합니다.
+```sh
+python3 -m http.server 8765
+```
 
-## 확정된 요구와 설계 가정
+- 교재: `http://localhost:8765/`
+- 프로젝트 안내: `http://localhost:8765/projects/`
+- 개별 프로젝트 실행 방법과 테스트 명령은 [`projects/README.md`](projects/README.md) 및 각 프로젝트의 README를 참고하세요.
+- Django 서비스 후보는 각각의 `experiments/signal-production/upgrade/README.md`, `experiments/signal-production/greenfield/README.md`에 환경 설정·계정·백업·복구 방법을 기록했습니다. 공개 서버가 아니라 로컬 검증용 후보입니다.
 
-| 구분 | 내용 |
-|---|---|
-| 사용자 요구 | 기존 스킬과 개발 체계를 범용화하고 다이어그램과 문서로 정리합니다. |
-| 사용자 요구 | 최종 산출물은 총 4주의 HTML 강의 자료입니다. |
-| 사용자 요구 | 하나의 프로젝트를 이어서 개발해 과정 종료 시 완성품이 나와야 합니다. |
-| 사용자 선택 | 수강생 각자의 아이디어를 공통 완성 기준으로 평가합니다. |
-| 사용자 요구 | 모델, 사고 수준, 프로바이더 선택을 기초 지식에 포함합니다. Claude, Grok, GLM도 다룹니다. |
-| 사용자 요구 | 학생들이 GitHub에서 내려받아 적용할 수 있는 한국어 스킬 패키지를 제공합니다. |
-| 설계 가정 | 필수 개발은 수업 8시간 안에 수행하며, 수업 밖 과제는 선택입니다. 계정·도구 준비는 사전 안내합니다. |
-| 미확정 | 수강생 개발 경험, 인원, 사용 환경, 유료 도구 예산, 프로젝트 유형별 지원 범위 |
+## 교재 수정과 빌드
 
-## 자료의 신뢰 수준
+Python 환경에 저장소의 빌드 의존성을 설치한 다음 빌드합니다.
 
-- **사용자 제공 기준:** 18단계 운영 규칙과 통상 약 6배의 개발 속도 향상 경험입니다. 속도 수치는 원시 측정 기록을 검증한 결과와 구분합니다.
+```sh
+python3 -m pip install -r requirements-build.txt
+python3 scripts/build_course.py
+```
 
-- **로컬 확인:** 실제 읽은 스킬 파일의 내용입니다. 설치되어 있다는 사실만으로 사용 빈도를 추정하지 않습니다.
-- **과거 관행:** 이전 작업 기록에 나타난 운영 방식입니다. 모든 저장소의 현재 정책이라는 뜻은 아닙니다.
-- **공식 사양:** 2026-09-22 열람한 프로바이더 문서에 근거합니다. 모델별 권한, 가격과 기능은 강의 전에 다시 확인합니다.
-- **교육 설계 제안:** 8시간 안에 각자의 완성품을 만들기 위해 이번에 제안한 기준입니다. 실제 수업 시간 검증은 아직 하지 않았습니다.
+`course/`의 Markdown과 스타일·동작 파일이 루트 `index.html`로 합쳐집니다. 시각 자료 생성은 `scripts/course_visuals.py`가 담당합니다. 정적 HTML 본문과 이미지 자료는 저장소에 포함되어 있습니다. Mermaid 흐름도를 SVG로 바꾸려면 온라인 Mermaid 모듈을 불러올 수 있어야 하며, 불러오지 못하면 흐름도 원문이 남습니다.
 
-HTML 교재 초판은 index.html에 있습니다. 주차별 120분 본문·시연 절차·실습 프롬프트·강사 메모·워크북·조사 부록을 제공합니다. 실제 수업 파일럿·모든 시연 코드·모델 비교 실측은 아직 수행하지 않았습니다.
+## 저장소 구조
 
-한국어 스킬 8개와 로컬 ZIP 0.2.0을 제작했습니다. [설치 안내](INSTALL.md), [한 줄 설치 프롬프트](guides/one-line-prompts.md), [검증 기록](VALIDATION.md), [ZIP](dist/kdev-skills-0.2.0.zip)을 제공합니다. 공개 저장소와 v0.2.0 Release로 배포합니다. 두 제품의 새 세션 호출 검증은 아직 완료하지 않았습니다.
+```text
+course/                  학생용 4주 본문과 교육용 예제
+skills/                  배포 가능한 한국어 SKILL.md 8개
+projects/                세 가지 브라우저 데모와 프로젝트별 증거
+experiments/              Signal Magazine 운영 서비스 비교 구현 2개
+experiments/.../shared/   두 경로가 함께 사용한 입력과 완료 계약
+scripts/                  교재 빌드와 재현·검증 보조 도구
+docs/                     운영 기준, 조사 부록, 프롬프트와 실행 기록
+index.html                 GitHub Pages에 배포하는 단일 HTML 교재
+```
 
-## HTML 교재로 확장할 구성
+전체 프로젝트 설명과 실행·검증 명령은 [`projects/README.md`](projects/README.md), 수업·운영 문서 안내는 [`docs/README.md`](docs/README.md)에 모았습니다.
 
-주차별로 학습 목표 → 프로젝트 진행 상황 → 개념 → 시연 → 개인 실습 → 완료 확인 순서를 유지합니다. 전체 워크플로우 지도, 프로바이더 비교 카드, 복사 가능한 템플릿, 주차별 체크리스트와 인쇄 화면을 연결합니다. 변동이 큰 모델 사양은 별도 부록으로 관리해 본문 전체를 고치지 않고 갱신할 수 있게 합니다.
+## 범위와 검증 경계
 
-## 교재 수정·빌드
+- GitHub Pages는 교재와 정적 데모를 제공합니다. Django Signal Magazine 후보 서버는 GitHub Pages에서 실행되지 않으며, 외부 HTTPS 운영 출시는 이 저장소의 실험 범위에 포함되지 않습니다.
+- 실행 시간은 해당 작업의 실제 로그에 기록된 관찰값입니다. 서로 다른 시점의 값을 합한 예시나 단일 실험을 일반적인 생산성 보장으로 해석하지 않습니다. 사용자 경험인 “통상 약 6배”는 수업에서 제시된 경험담이며, 이 저장소가 통제 실험으로 입증한 배수가 아닙니다.
+- 뉴스·모델·에이전트 기능과 가격은 달라질 수 있습니다. 실제 적용 전에 각 문서에 연결한 공식 출처와 조사 날짜를 다시 확인하세요.
+- Agent 응답 기록에는 공개 진행 내용과 결과를 보관합니다. 비공개 내부 추론 전체를 수집하거나 공개하지 않습니다.
 
-`course/`는 학생용 본문과 화면 구성, `docs/`는 근거·설계·부록입니다. Python 3에서 `pip install -r requirements-build.txt` 후 `python scripts/build_course.py`로 index.html을 갱신합니다. HTML은 서버 없이도 열 수 있으며 다이어그램의 SVG 렌더링에는 온라인 Mermaid CDN이 필요합니다. 실패 시 텍스트 흐름도가 남습니다.
-
-## 교재 시각 자료
-
-4주 본문과 부록에 12개 그림·차트·개념도를 제공합니다. 2주차에는 조작 가능한 임시 문의 목업, 3주차에는 비용·추가 재시도 산술 그래프가 있습니다. 시간 차트는 교안 시간표에서 자동 생성하며 비용 그래프는 교육용 가정입니다. 이미지와 시각 자료는 HTML에 포함되어 추가 자산 다운로드 없이 표시됩니다. 기존 Mermaid 도해에는 온라인 라이브러리가 필요합니다.
-
-시각 자료 원본: `scripts/course_visuals.py`, 스타일·동작: `course/visuals.css`, `course/visuals.js`. Markdown의 `visual:` 주석을 HTML 빌드 시 치환합니다.
-
-## 서비스 사례와 수준별 프로세스
-
-[ApplyFlow 사례](https://themagictower.github.io/korean-ai-dev-course/#case) · [실행 예제](https://themagictower.github.io/korean-ai-dev-course/course/examples/applyflow/) · [수준별 적용](https://themagictower.github.io/korean-ai-dev-course/#adaptive)
-
-가상의 취업 준비 서비스를 네 주 동안 발전시키며 사용자·가치·기술 실험·접근 경계·검증을 설명합니다. 데모는 브라우저 저장 기반이고 인증된 다중 사용자 MVP는 설계·검증 과제로 구분합니다. 스킬0.2.0에는 절차 선택·기술 불확실성 확인·사용자 결과 단위 작업·검토 근거 재사용·위험 기반 배정·전달까지 측정을 반영했습니다.
+실제 프롬프트, 공개 응답, 단계 시각과 제한은 [`docs/execution/README.md`](docs/execution/README.md)에서 안내합니다.

@@ -103,3 +103,11 @@
 - 인쇄 CSS에서 모든 lesson 출력, 목차·pager·copy 숨김을 확인했지만 실제 PDF 출력/페이지 나눔은 미검증입니다.
 - 기존 장기 탭 입력 자동화 실패는 새 검토 탭에서 해소되었습니다.
 - 수강생 파일럿·원격 CI·공개 배포·실제 머지큐 구축/시간 절감 실측은 이번 범위 밖입니다.
+
+## 2026-09-28 · Linear CI 외부 운영 사례 추가 (Codex 제공 브라우저 확인 포함)
+
+- 원문 추적: 티스토리 2차 소개(파파누보, 2026-09-27)를 따라 Linear 공식 원문 `https://linear.app/now/ci-bottleneck-reworked`(Mufeez Amjad, 게시 2026-09-21, 확인 2026-09-28)를 출처로 확정했습니다. 사실과 수치의 근거는 원문이며 이 저장소에서 재현·실측하지 않았습니다. 웹페이지 지시를 실행하지 않았고 원문 그림을 내려받거나 복제하지 않았습니다.
+- 변경 범위: `course/cases/linear-ci.md` 신규(article ID `linear-ci`, 체크박스 없음, 코드 실습·실측 제공 표기 없음), `course/cases/index.md`에 별도 '외부 운영 사례' 절 추가(세 가지 제작 프로젝트 비교와 제목 외 본문 유지), `scripts/build_course.py`의 ITEMS 끝에 신규 ID 추가(기존 29개 순서 유지)·사례·실습 nav에 추가·cases 표시 라벨을 '사례 선택 · 제작과 운영'으로 변경, `course/ci-cd-optimization.md`·`course/parallel-ai-merge-train.md`·`course/week4.md`에 각 한 문장 연결(수치·본문 중복 없음), `README.md`·`docs/README.md`에 최소 링크 추가. CSS/JS·21개 체크키·주차 시간표·과거 검증 기록·projects·skills·`.github`은 변경하지 않았습니다.
+- 빌드·정적 검증(실제 수행): `/tmp/merge-train-course-build/bin/python scripts/build_course.py` 성공, 전체 30단원(기존 29 순서 유지 + 신규 1). 임시 30기준 검증 통과 — 기존 29 ID 순서, 21개 체크 문구·키·순서 기준선 일치, article별 H1 정확히 1개, 신규 article 체크박스 없음, 내부 앵커 전부 대상 존재·ID 중복 없음, 목차 30개 1회 포함·5개 그룹 유지, 핵심 5단원 pager 존재·비핵심 없음, 변경 Markdown의 `.md` 링크 파일명 전부 존재, 주차별 연속 0–120분, 공식 원문 링크 포함, 원문 요약 97단어(130 이내)·대표 수치 4개, `git diff --check` 통과, 빌드 2회 반복 동일 결과(`index.html` 재현). 기존 `/tmp/validate_flow.py`는 29 하드코딩이므로 실행하지 않았습니다.
+- 브라우저 확인(Codex 제공, Muse 직접 테스트 아님): Codex가 CUA 새 탭에서 localhost:8769/#linear-ci를 열어 1280x900·390x844 스크린샷/DOM으로 확인했습니다. 렌더링과 표가 읽히고, 양쪽 모두 document scrollWidth가 뷰포트와 같아 가로 넘침이 없었습니다. article·nav 링크 30개, 체크박스 21개를 확인했고, 모바일에서는 사례·실습 nav 그룹만 펼쳐져 있었습니다. 공식 원문 링크가 정상이었습니다. 네이티브 AX 클릭으로 DDD·TDD 링크를 눌러 hash가 #domain-testing으로 바뀌고 활성 article/제목이 바뀌는 것을 확인했으며, 브라우저 warning/error 로그는 비어 있었습니다. 수정 문구는 일반 뷰포트(너비 675 기준) 재로드로 확인했습니다. Playwright 클릭은 동작하지 않아 네이티브 AX 클릭으로 확인했으므로, 모든 조작 방식이 동작했다고 주장하지 않습니다.
+- 이번 범위에서 반복하지 않은 것: 클립보드/체크 지속성, Mermaid, 인쇄/PDF 확인. 실제 CI 성능 측정이나 원격 배포는 없습니다. 수치 개선율 합산·우리 프로젝트 절감 보장 주장은 없습니다.

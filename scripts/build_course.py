@@ -6,7 +6,7 @@ from course_visuals import build_visuals
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Article order: existing 27 preserved, 2 new units appended at the end.
+# Article order: existing 29 preserved, 1 new unit appended at the end.
 # Checklist storage keys derive from this order, so never reorder it.
 ITEMS = [
     ('start', '시작하기', 'course/start.md'),
@@ -20,7 +20,7 @@ ITEMS = [
     ('flyblock-update', '업데이트 · 실시간 게임 개선', 'course/updates/flyblock-keyboard.md'),
     ('production-comparison', '실험 · PoC와 운영 서비스 비교', 'course/production-comparison.md'),
     ('evolve-or-rebuild', '판단 · 고도화와 재구현', 'course/evolve-or-rebuild.md'),
-    ('cases', '사례 선택 · 세 가지 프로젝트', 'course/cases/index.md'),
+    ('cases', '사례 선택 · 제작과 운영', 'course/cases/index.md'),
     ('flyblock', '사례 · 초파리 신경회로 게임', 'course/cases/flyblock.md'),
     ('magazine', '사례 · AI 뉴스 매거진', 'course/cases/signal-magazine.md'),
     ('case', '사례 · ApplyFlow 서비스', 'course/case-study.md'),
@@ -38,13 +38,14 @@ ITEMS = [
     ('schedule', '강사용 과정 설계', 'docs/course-design.md'),
     ('issue-pr-management', '심화 · 이슈·PR 관리', 'course/issue-pr-management.md'),
     ('domain-testing', '심화 · DDD·TDD와 테스트 경계', 'course/domain-testing.md'),
+    ('linear-ci', '외부 운영 사례 · Linear CI 최적화', 'course/cases/linear-ci.md'),
 ]
 
 # Navigation-only grouping. Article DOM order follows ITEMS; nav order follows this.
 NAV_GROUPS = [
     ('4주 핵심 과정', ['start', 'week1', 'week2', 'week3', 'week4']),
     ('사례·실습', ['cases', 'case', 'flyblock', 'magazine', 'playbook', 'execution',
-                'build-lab', 'flyblock-update', 'production-comparison']),
+                'build-lab', 'flyblock-update', 'production-comparison', 'linear-ci']),
     ('협업·통합 심화', ['issue-pr-management', 'domain-testing', 'ci-cd-optimization',
                    'parallel-ai-merge-train', 'evolve-or-rebuild']),
     ('도구·서식', ['templates', 'models', 'frontier', 'agents', 'skills']),

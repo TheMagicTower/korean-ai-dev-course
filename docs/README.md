@@ -14,6 +14,7 @@
 | ApplyFlow 프롬프트·실행 절차와 한 건의 수행 기록 | [실행 매뉴얼](playbooks/applyflow-runbook.md) · [AF-104 기록](playbooks/applyflow-af104-record.md) |
 | 고도화·부분 교체·새 구현 판단 | [course/evolve-or-rebuild.md](../course/evolve-or-rebuild.md) |
 | CI/CD 측정과 캐시 최적화 | [course/ci-cd-optimization.md](../course/ci-cd-optimization.md) |
+| 병렬 AI 개발·DDD·TDD·머지트레인 | [course/parallel-ai-merge-train.md](../course/parallel-ai-merge-train.md) |
 
 ## 실제 제작·비교 기록
 

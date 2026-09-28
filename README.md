@@ -26,8 +26,8 @@
 - 개인용·PoC·MVP·운영 서비스의 완료 기준을 구분합니다. 모든 프로젝트에 같은 보안·문서·CI/CD 절차를 요구하지 않습니다.
 - 기존 것을 고칠지, 일부 계층을 교체할지, 새로 만들지와 각 선택의 비용·위험을 비교합니다. [고도화·재구현 판단 자료](course/evolve-or-rebuild.md)
 - 프로젝트가 커질 때 CI/CD의 실제 병목을 측정하고, 안전한 캐시·병렬화·아티팩트 전달을 선택합니다. [CI/CD 최적화 자료](course/ci-cd-optimization.md)
-- 업무 경계와 TDD를 바탕으로 변경 영역·소비자·계약을 검사하고 누적 통합 후보의 대기를 줄이는 방법을 연습합니다. [병렬 AI 개발과 머지트레인](course/parallel-ai-merge-train.md)
-- 주요 모델·프로바이더와 코딩 에이전트의 장단점을 작업에 맞춰 살펴봅니다. 조사 시점이 중요한 주장은 각 부록의 공식 자료와 확인일을 참고합니다.
+- 업무 경계와 TDD를 바탕으로 변경 영역·소비자·계약을 검사하고 누적 통합 후보의 대기를 줄이는 방법을 연습합니다. [이슈·PR 관리](course/issue-pr-management.md) · [DDD·TDD와 테스트 경계](course/domain-testing.md) · [병렬 AI 개발과 머지트레인](course/parallel-ai-merge-train.md)
+- 주요 모델·프로바이더와 코딩 에이전트의 장단점을 작업에 맞춰 살펴봅니다. [모델·프로바이더 선택](docs/model-selection.md) · [Astra·Jev 분석](docs/frontier-models.md) · [코딩 에이전트 조사](docs/coding-agents-report.md)의 공식 자료와 확인일을 따릅니다.
 
 ## 프로젝트 실행
 

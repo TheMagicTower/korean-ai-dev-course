@@ -8,6 +8,26 @@
 
 강의는 왜 이 절차가 필요한지와 결과를 판단하는 방법을 설명합니다. 스킬은 AI가 작업할 때 참고할 수행 지침입니다. 학생이 읽는 긴 강의 내용을 모두 스킬에 넣지 않습니다.
 
+## 학생용 설치
+
+수업에는 검증한 Release 버전을 유지합니다. 최신 브랜치를 자동으로 따라가지 않습니다.
+
+[스킬 0.2.0 다운로드](https://github.com/TheMagicTower/korean-ai-dev-course/releases/download/v0.2.0/kdev-skills-0.2.0.zip) · [설치 안내](https://github.com/TheMagicTower/korean-ai-dev-course/blob/v0.2.0/INSTALL.md)
+
+### Codex에 붙여 넣는 설치 요청
+
+```text
+https://github.com/TheMagicTower/korean-ai-dev-course 의 v0.2.0에서 INSTALL.md와 skills/를 읽고 현재 프로젝트 루트를 확인한 뒤 기존 파일·설정과 중복 스킬을 보존하면서 .agents/skills에 설치해 주세요. 설치 출처·파일 목록·검증 결과를 기록하고 새 세션에서 $kdev-start를 호출하는 방법을 알려주세요.
+```
+
+### Claude Code에 붙여 넣는 설치 요청
+
+```text
+https://github.com/TheMagicTower/korean-ai-dev-course 의 v0.2.0에서 INSTALL.md와 skills/를 읽고 현재 프로젝트 루트를 확인한 뒤 기존 파일·설정과 중복 스킬을 보존하면서 .claude/skills에 설치해 주세요. 설치 출처·파일 목록·검증 결과를 기록하고 새 세션에서 /kdev-start를 호출하는 방법을 알려주세요.
+```
+
+설치는 영구 학습이 아닙니다. 에이전트가 필요할 때 읽는 수행 지침을 프로젝트에 두는 방식입니다. 충돌이 있으면 기존 파일을 보존하고 차이를 확인합니다. 발견이 안 되면 프로젝트 위치와 파일명을 확인한 뒤 새 세션에서 명시적으로 호출합니다.
+
 ## 구성 방식
 
 | 방식 | 장점 | 고려할 점 |

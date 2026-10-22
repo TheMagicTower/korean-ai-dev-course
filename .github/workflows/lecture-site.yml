@@ -26,4 +26,5 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run check
+      - run: npm run test:lecture
       - run: npm run test:isolated

@@ -4,6 +4,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
+import { build } from 'esbuild';
 
 const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const password = randomBytes(32).toString('base64url');
@@ -27,10 +28,13 @@ function migrationStatements(source) {
   return statements;
 }
 
+// Match Wrangler's module bundling, including the generated lab CSP manifest.
+const bundle = await build({ entryPoints: [join(projectRoot, 'worker.js')], bundle: true,
+  write: false, format: 'esm', platform: 'browser', target: 'es2022' });
 const runtime = new Miniflare({ ...convertV4MiniflareOptions({
   name: 'lecture-api-isolated-test',
   modules: true,
-  scriptPath: join(projectRoot, 'worker.js'),
+  script: bundle.outputFiles[0].text,
   compatibilityDate: '2026-10-22',
   host: '127.0.0.1',
   port: 0,

@@ -1,10 +1,11 @@
-import {mkdir,readFile,writeFile,cp} from 'node:fs/promises';
+import {mkdir,readFile,writeFile,cp,readdir,rm} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {join,dirname} from 'node:path';
 const root=join(dirname(fileURLToPath(import.meta.url)),'..');
+await rm(join(root,'public/content'),{recursive:true,force:true});
 await mkdir(join(root,'public/content'),{recursive:true});
-await cp(join(root,'content'),join(root,'public/content'),{recursive:true});
-const pages=[['','home','AI와 함께, 세상에 내놓는 첫 제품','pages'],['course','course','강의와 실습','pages'],['prework','prework','0교시 · 세상을 이롭게 할 아이디어','pages'],['data','data','공공데이터로 발견하는 가능성','pages'],['demo','demo','우리 동네 도서관 찾기','demo'],['slides','slides','AI 소프트웨어 엔지니어링 · 슬라이드','slides'],['assignments','assignments','과제 제출과 피드백','submissions'],['instructor','instructor','강사 평가실','submissions'],['privacy','privacy','제출 정보와 개인정보 안내','pages']];
+for(const entry of await readdir(join(root,'content'),{withFileTypes:true})){if(entry.isFile())await cp(join(root,'content',entry.name),join(root,'public/content',entry.name));}
+const pages=[['labs','labs','실습 자료실','learning'],['handouts','handouts','강의 읽기 자료','learning'],['references','references','참고 자료 해설','learning'],['','home','AI와 함께, 세상에 내놓는 첫 제품','pages'],['course','course','강의와 실습','pages'],['prework','prework','0교시 · 세상을 이롭게 할 아이디어','pages'],['data','data','공공데이터로 발견하는 가능성','pages'],['demo','demo','우리 동네 도서관 찾기','demo'],['slides','slides','AI 소프트웨어 엔지니어링 · 슬라이드','slides'],['assignments','assignments','과제 제출과 피드백','submissions'],['instructor','instructor','강사 평가실','submissions'],['privacy','privacy','제출 정보와 개인정보 안내','pages']];
 for(const [path,page,title,module] of pages){
  const dir=join(root,'public',path);await mkdir(dir,{recursive:true});
  const html=`<!doctype html>

@@ -1,3 +1,4 @@
+import labCsp from './lab-csp.json';
 const MAX_BODY = 32 * 1024;
 const SCORE_LIMITS = { problem: 20, ux: 25, engineering: 20, verification: 20, reflection: 15 };
 const STUDENT_TTL = 14 * 24 * 60 * 60;
@@ -16,13 +17,16 @@ function json(data, status = 200, headers = {}) {
   });
 }
 
-function secureResponse(response) {
+function secureResponse(response, pathname = "") {
   const headers = new Headers(response.headers);
   headers.set('X-Content-Type-Options', 'nosniff');
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   headers.set('X-Frame-Options', 'DENY');
   headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-  headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'");
+  // Workers Assets redirects .html URLs to their extensionless canonical path.
+  const scriptHashes = labCsp[pathname] || labCsp[`${pathname}.html`] || [];
+  const scripts = scriptHashes.map(hash => ` '${hash}'`).join('');
+  headers.set('Content-Security-Policy', `default-src 'self'; script-src 'self'${scripts}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'`);
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
@@ -337,7 +341,7 @@ export default {
     try {
       const pathname = new URL(request.url).pathname;
       if (pathname === '/api' || pathname.startsWith('/api/')) return secureResponse(await api(request, env));
-      return secureResponse(await env.ASSETS.fetch(request));
+      return secureResponse(await env.ASSETS.fetch(request), pathname);
     } catch (error) {
       if (error instanceof HttpError) return secureResponse(json({ error: error.message }, error.status, error.headers));
       console.error('Request failed', error?.name || 'Error');

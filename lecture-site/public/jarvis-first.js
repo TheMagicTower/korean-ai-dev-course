@@ -1,0 +1,4 @@
+import {$,shell,pageHead} from './app.js';
+shell();
+$('#main').innerHTML=pageHead('JARVIS · FIRST WORKING SCREEN','먼저, 움직이는 작은 결과','강의용 첫 화면 예시입니다. 아래 상태는 예시 데이터이며 실제 로그에 연결되어 있지 않습니다.')+`<section class="container section"><div class="actions"><button class="button" id="run-demo">예시 작업 시작</button><a href="/jarvis/">단계별 프롬프트로 돌아가기</a></div><div class="two-col" style="margin-top:32px"><article class="feature"><h2>Claude</h2><p id="claude-status" role="status">대기 · 아직 작업이 없습니다.</p></article><article class="feature"><h2>Codex</h2><p>대기 · 아직 작업이 없습니다.</p></article></div><div class="notice" style="margin-top:32px"><b>다음에 확인할 질문</b><p>실제 세션을 시작해도 상태가 바뀝니까? 예시 데이터로 움직이는 것과 실제 작업을 관찰하는 것은 다른 완료 조건입니다.</p></div></section>`;
+$('#run-demo').addEventListener('click',()=>{$('#claude-status').textContent='작업 중 · 도서관 데이터 구조를 확인합니다. (예시)';});

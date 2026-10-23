@@ -3,13 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/assemble-lecture.mjs && node scripts/build-lab-kit.mjs && node scripts/build.mjs",
+    "build": "node scripts/assemble-lecture.mjs && node scripts/build-lab-kit.mjs && node scripts/build-jarvis-kit.mjs && node scripts/build.mjs",
     "dev": "npm run build && wrangler dev --port 8787",
     "deploy": "npm run build && wrangler deploy",
     "test:api": "node tests/api.test.mjs",
     "check": "node scripts/check.mjs",
     "test:isolated": "node tests/isolated.mjs",
-    "test:lecture": "node --test tests/lecture.test.mjs tests/asset-csp.test.mjs"
+    "test:lecture": "node --test tests/lecture.test.mjs tests/asset-csp.test.mjs",
+    "test:jarvis": "node --test jarvis-kit/test/*.test.mjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

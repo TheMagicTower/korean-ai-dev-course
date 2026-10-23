@@ -1,0 +1,70 @@
+{
+  "id": "7a5344eb-cb24-41ea-ae21-4038fd15669a",
+  "title": "이동이 불편한 주민의 공공시설 방문을 돕고 싶습니다.",
+  "provider": "mock",
+  "source": "simulation",
+  "state": "done",
+  "createdAt": "2026-10-23T13:04:37.669Z",
+  "events": [
+    {
+      "at": "2026-10-23T13:04:37.669Z",
+      "stage": "plan",
+      "status": "running",
+      "message": "작업을 접수했습니다. 한 번에 한 작업만 실행합니다.",
+      "taskState": "queued",
+      "tool": "교육용 모형",
+      "permission": "분석만 허용 · 외부 실행 없음"
+    },
+    {
+      "at": "2026-10-23T13:04:37.669Z",
+      "stage": "plan",
+      "status": "running",
+      "message": "수혜자·문제·필요 데이터·성공 기준을 정리할 계획입니다.",
+      "taskState": "planning",
+      "tool": "교육용 모형",
+      "permission": "분석만 허용 · 외부 실행 없음"
+    },
+    {
+      "at": "2026-10-23T13:04:37.669Z",
+      "stage": "execute",
+      "status": "running",
+      "message": "교육용 고정 응답을 생성합니다. 실제 모델 호출은 없습니다.",
+      "taskState": "working",
+      "tool": "교육용 모형",
+      "permission": "분석만 허용 · 외부 실행 없음"
+    },
+    {
+      "at": "2026-10-23T13:04:38.170Z",
+      "stage": "review",
+      "status": "waiting_approval",
+      "message": "스키마 검증을 통과했습니다. 데이터 존재와 사용자 가치를 사람이 확인해야 완료합니다.",
+      "taskState": "review",
+      "tool": "교육용 모형",
+      "permission": "분석만 허용 · 외부 실행 없음"
+    },
+    {
+      "at": "2026-10-23T13:04:38.325Z",
+      "stage": "done",
+      "status": "completed",
+      "message": "사람이 요구사항 초안을 확인했습니다. 외부 전송·배포·파일 변경은 수행하지 않았습니다.",
+      "taskState": "done",
+      "tool": "교육용 모형",
+      "permission": "분석만 허용 · 외부 실행 없음"
+    }
+  ],
+  "result": {
+    "title": "우리 동네 이동 도움 지도",
+    "beneficiary": "계단 이용이 어려운 주민과 동행자입니다.",
+    "problem": "“이동이 불편한 주민의 공공시설 방문을 돕고 싶습니다.”에서 필요한 장소를 찾더라도 실제로 접근 가능한지 알기 어렵습니다.",
+    "dataToVerify": [
+      "공공데이터 포털에서 무장애 시설 위치·갱신일·이용 조건을 확인합니다.",
+      "주소와 좌표 누락률을 표본 10개로 확인합니다."
+    ],
+    "firstAction": "한 동네의 예시 데이터 10개로 검색 → 상세 확인 → 오류 신고 화면을 만듭니다.",
+    "acceptance": [
+      "처음 방문한 사용자가 1분 안에 조건에 맞는 장소 하나를 찾습니다.",
+      "좌표가 없는 항목은 지도에서 숨기고 목록에 이유를 표시합니다."
+    ],
+    "caveat": "이 결과는 고정된 교육용 모형입니다. 실제 AI 응답이나 검증된 시설 정보가 아닙니다."
+  }
+}

@@ -1,0 +1,308 @@
+{
+  "date": "2026-10-23",
+  "baselineCommit": "50ba9dde249c1db5e8dbdc5c74c6390654878a69",
+  "scope": "course의 교재·사례·업데이트, docs의 학습·운영 가이드, 한국어 스킬 안내 및 ApplyFlow 회귀 근거. assets/계획 초안/중복 설계문서/원시 실행 로그/모델별 스킬 파일은 원문 참조용이며 슬라이드에 전문을 옮기지 않습니다.",
+  "entries": [
+    {
+      "files": [
+        "course/start.md",
+        "course/week1.md"
+      ],
+      "topic": "전체 목표·첫 사용자 흐름",
+      "slides": [
+        "s1-01",
+        "s1-28",
+        "s1-38"
+      ],
+      "decision": "8시간 원본의 시간표는 현재 20시간 계획으로 대체합니다."
+    },
+    {
+      "files": [
+        "course/week2.md"
+      ],
+      "topic": "UX→규칙→입력·출력",
+      "slides": [
+        "s2-12",
+        "s2-20",
+        "s2-decision",
+        "s2-34"
+      ],
+      "decision": "기술 실험은 실제 제약이 있을 때 작게 수행합니다."
+    },
+    {
+      "files": [
+        "course/week3.md"
+      ],
+      "topic": "재현·작은 비교·검증",
+      "slides": [
+        "s3-18",
+        "s4-29"
+      ],
+      "decision": "여러 모델 비교는 같은 입력·예산으로 선택 심화에만 적용합니다."
+    },
+    {
+      "files": [
+        "course/week4.md"
+      ],
+      "topic": "전달·사용·공개 판정",
+      "slides": [
+        "s5-09",
+        "s5-14",
+        "s5-31",
+        "s5-41"
+      ],
+      "decision": "전체 발표회는 수업 외 별도 편성이 필요합니다."
+    },
+    {
+      "files": [
+        "course/case-study.md",
+        "docs/playbooks/applyflow-runbook.md",
+        "docs/playbooks/applyflow-af104-record.md"
+      ],
+      "topic": "ApplyFlow 흐름·검토·TDD",
+      "slides": [
+        "s2-28",
+        "s3-40",
+        "s4-case-applyflow"
+      ],
+      "decision": "AF-104 검색 기록과 파일 가져오기 회귀 검사는 서로 다른 작업입니다."
+    },
+    {
+      "files": [
+        "projects/applyflow/README.md",
+        "projects/applyflow/test-delete-ui.cjs"
+      ],
+      "topic": "파일 재선택과 이전 동의 무효화",
+      "slides": [
+        "s4-case-applyflow"
+      ],
+      "decision": "지연 파일 읽기 테스트 더블의 근거이며 전체 브라우저 E2E 증명으로 확대하지 않습니다."
+    },
+    {
+      "files": [
+        "course/domain-testing.md"
+      ],
+      "topic": "DDD·TDD·계약·소비자",
+      "slides": [
+        "s3-04",
+        "s3-07",
+        "s3-18",
+        "s3-21",
+        "s3-26"
+      ],
+      "decision": "경계가 있다는 사실만으로 테스트 격리가 자동 성립하지 않습니다."
+    },
+    {
+      "files": [
+        "course/parallel-ai-merge-train.md"
+      ],
+      "topic": "병렬·누적 후보·재검사",
+      "slides": [
+        "s3-32",
+        "s3-33",
+        "s3-36",
+        "s3-38"
+      ],
+      "decision": "인터랙티브 그림과 실제 CI 실행을 구별합니다."
+    },
+    {
+      "files": [
+        "course/issue-pr-management.md"
+      ],
+      "topic": "중복·연관·의존·PR 단위",
+      "slides": [
+        "s3-issue-pr"
+      ],
+      "decision": "가상 이슈 번호나 종료 키워드는 실제 프로젝트에 그대로 복사하지 않습니다."
+    },
+    {
+      "files": [
+        "course/ci-cd-optimization.md",
+        "course/cases/linear-ci.md"
+      ],
+      "topic": "CI 병목·측정·선택 검사",
+      "slides": [
+        "s3-29",
+        "s3-30"
+      ],
+      "decision": "러너 합산 시간과 실제 대기를 분리합니다. 원문 회사 자체 보고입니다."
+    },
+    {
+      "files": [
+        "course/build-lab.md"
+      ],
+      "topic": "제작 단계와 측정의 한계",
+      "slides": [
+        "s1-build-evidence"
+      ],
+      "decision": "최초 인계와 검토·공개를 나눕니다. 단일 실행이며 속도 순위가 아닙니다."
+    },
+    {
+      "files": [
+        "course/evolve-or-rebuild.md",
+        "course/updates/flyblock-keyboard.md"
+      ],
+      "topic": "고도화·부분 교체·재구현",
+      "slides": [
+        "s5-evolve"
+      ],
+      "decision": "다음 판단을 배우는 사례입니다. 수업에서 전면 재구현을 요구하지 않습니다."
+    },
+    {
+      "files": [
+        "course/production-comparison.md"
+      ],
+      "topic": "Signal 동일 서버 계약 비교",
+      "slides": [
+        "s5-production-evidence"
+      ],
+      "decision": "외부 운영 출시를 측정하지 않은 로컬 계약 검증입니다."
+    },
+    {
+      "files": [
+        "course/cases/index.md",
+        "course/cases/flyblock.md"
+      ],
+      "topic": "사례 선택·초파리 부분 회로",
+      "slides": [
+        "s2-case-flyblock",
+        "s2-case-flyblock-check"
+      ],
+      "decision": "원본 신경과학 논문·시뮬레이터 실행은 선택 읽기입니다."
+    },
+    {
+      "files": [
+        "course/cases/signal-magazine.md"
+      ],
+      "topic": "NASA→Jev→편집·승인",
+      "slides": [
+        "s3-case-jev",
+        "s3-case-jev-check"
+      ],
+      "decision": "분류와 초안 작성의 별도 실행 기록을 구분합니다."
+    },
+    {
+      "files": [
+        "docs/project-completion-levels.md"
+      ],
+      "topic": "사용 범위·완성 단계·위험",
+      "slides": [
+        "s1-18",
+        "s5-02",
+        "s5-40"
+      ],
+      "decision": "개인·팀은 사용 범위, PoC·MVP·운영은 목표 단계입니다."
+    },
+    {
+      "files": [
+        "docs/adaptive-process.md"
+      ],
+      "topic": "필요한 만큼의 절차·위험·검토 재사용",
+      "slides": [
+        "s1-19",
+        "s2-decision",
+        "s3-40"
+      ],
+      "decision": "필수 실패와 선택 개선을 분리합니다."
+    },
+    {
+      "files": [
+        "docs/workflow.md",
+        "docs/project-operating-standard.md"
+      ],
+      "topic": "분석→계약→계획→구현→검토→전달",
+      "slides": [
+        "s2-decision",
+        "s3-12",
+        "s3-40",
+        "s5-41"
+      ],
+      "decision": "18단계 전체 체계와 정기 CD 정책은 선택 심화입니다. 수업에 자동화가 설치된 것으로 설명하지 않습니다."
+    },
+    {
+      "files": [
+        "docs/templates.md"
+      ],
+      "topic": "계약·ADR·작업 카드·인계",
+      "slides": [
+        "s2-decision",
+        "s3-12",
+        "s3-41",
+        "s5-41"
+      ],
+      "decision": "간단한 프로젝트는 한 장의 여러 칸으로 통합합니다."
+    },
+    {
+      "files": [
+        "docs/korean-skill-package.md",
+        "guides/one-line-prompts.md",
+        "guides/package-readme.md",
+        "skills/README.md",
+        "INSTALL.md"
+      ],
+      "topic": "한국어8스킬과 요청 예시",
+      "slides": [
+        "s2-skills"
+      ],
+      "decision": "설치·도구별 호환은 선택 자료이며 현재 도구에서 지원 여부를 확인합니다."
+    },
+    {
+      "files": [
+        "docs/model-selection.md",
+        "docs/coding-agents-report.md"
+      ],
+      "topic": "모델·도구·상품·사고 설정 구분",
+      "slides": [
+        "s1-07",
+        "s1-22",
+        "s2-skills",
+        "s3-case-jev-boundary"
+      ],
+      "decision": "공급사별 최신 설정·가격표는 날짜가 있는 선택 읽기입니다. 고정된 모델 순위로 외우지 않습니다."
+    },
+    {
+      "files": [
+        "docs/frontier-models.md"
+      ],
+      "topic": "범용 코딩과 좁은 판단 모델",
+      "slides": [
+        "s1-08",
+        "s3-case-jev",
+        "s3-case-jev-boundary"
+      ],
+      "decision": "공식 모델 소개와 현장 검증을 나눕니다. 과거 모델 사양은 수업 전 갱신합니다."
+    },
+    {
+      "files": [
+        "docs/course-design.md"
+      ],
+      "topic": "자유 주제·완주 지원·수준별 평가",
+      "slides": [
+        "s1-18",
+        "s2-workspace",
+        "s5-35"
+      ],
+      "decision": "이전4주8시간 계획의 분량을 현재20시간에 기계적으로 합치지 않습니다."
+    },
+    {
+      "files": [
+        "docs/publication.md",
+        "course/VALIDATION.md"
+      ],
+      "topic": "공개·통합 검증 기록",
+      "slides": [
+        "s1-build-evidence",
+        "s5-09"
+      ],
+      "decision": "과거 게시·검사 기록은 해당 버전의 근거입니다. 현재 배포 검증을 대신하지 않습니다."
+    },
+    {
+      "files": [
+        "docs/README.md"
+      ],
+      "topic": "전체 자료 안내",
+      "slides": [],
+      "decision": "원본 목차입니다. 설명을 중복하는 슬라이드는 만들지 않습니다."
+    }
+  ]
+}

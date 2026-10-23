@@ -19,6 +19,7 @@ function json(data, status = 200, headers = {}) {
 
 function secureResponse(response, pathname = "") {
   const headers = new Headers(response.headers);
+  if (pathname.endsWith('.md')) headers.set('Content-Type', 'text/plain; charset=utf-8');
   headers.set('X-Content-Type-Options', 'nosniff');
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   headers.set('X-Frame-Options', 'DENY');

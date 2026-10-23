@@ -149,3 +149,23 @@ npm test
 - [Claude Agent SDK Quickstart](https://code.claude.com/docs/en/agent-sdk/quickstart): 설치와 API 인증입니다.
 - [Claude Agent SDK 권한](https://code.claude.com/docs/en/agent-sdk/permissions): 도구 허용·거부와 권한 모드입니다.
 - [Claude Max·Team API 크레딧](https://platform.claude.com/docs/en/about-claude/api-credits-for-subscribers): 대상 플랜과 Console 연결, 크레딧 사용 조건입니다.
+
+## 따라 하기: Codex 구독 실행 → 2.5D 오피스 재생
+
+2회차 연결 실습에서 준비 3분·실행 5분·검토/재생 5분·기록 2분으로 진행합니다. CLI/SDK 설치와 로그인은 수업 전에 끝냅니다. 설치·로그인이 막히면 기존 모의 경로로 전환하고 연결은 수업 후 마칩니다.
+
+1. ZIP을 새 폴더에 풀고 터미널에서 그 폴더로 이동합니다. `node --version`이 v22 이상인지 확인합니다.
+2. 위의 `npm install @openai/codex-sdk@0.164.0`과 `npm run setup:codex`를 실행합니다. 출력된 운영체제별 명령으로 **실습 전용 CODEX_HOME에서 `codex login`**을 실행하고 브라우저에서 본인 ChatGPT 계정으로 로그인합니다. `codex login status`에 `Logged in using ChatGPT`가 나와야 합니다. API key 로그인은 이 실습의 구독 인증 확인이 아닙니다.
+3. `npm run start:codex`를 실행하고 http://127.0.0.1:4318 을 엽니다. 상단에 **Codex SDK · 로컬 ChatGPT 인증 · 구독 한도 사용**이 표시되는지 확인합니다. `npm start`는 모의 실행입니다.
+4. 예제 입력: “휠체어 이용 학생이 동네 도서관 방문 전에 출입구와 승강기 접근성을 확인하도록 돕는 공공데이터 서비스 아이디어를 정리합니다.” `작업 시작`을 누릅니다. 접수→계획→실행을 관찰하고 결과 검토가 나타날 때까지 기다립니다. 120초를 넘으면 실패로 기록됩니다.
+5. 결과의 수혜자·데이터 후보·성공 기준·한계를 읽습니다. 모델이 제안한 데이터는 실제 존재가 검증된 데이터가 아닙니다. `내용을 검토했습니다 · 완료`를 누릅니다.
+6. `오피스용 실행 기록 JSON 저장`으로 파일을 저장합니다. JSON에서 `provider: "codex"`, `source: "local-sdk"`, `state: "done"`과 `planning`, `working`, `review`, `done` 이벤트를 확인합니다. 출처 문자열만 바꾼 파일은 실행 증거가 아닙니다.
+7. [공개 2.5D 오피스](https://kangnam-ai-engineering.jih7hc.workers.dev/office/)에서 `이벤트 JSON 파일`로 방금 저장한 파일을 선택합니다. 파일은 브라우저에서 읽으며 서버로 업로드하지 않습니다.
+8. `자동 재생` 또는 `다음 단계`로 기획→실행→검토까지 이동합니다. 검토의 승인 대기 기록을 확인한 뒤 `다음 단계`로 완료까지 이동합니다. 이 버튼은 과거 기록의 재생을 계속하는 것이며 모델을 다시 호출하거나 외부 작업을 승인하지 않습니다.
+9. 제출물에 로컬 결과 화면, 오피스 완료 화면, JSON, 사용한 CLI/SDK 버전과 실패/복구 내용을 첨부합니다. 인증 파일·토큰·`.jarvis-auth`·`node_modules`는 제출하지 않습니다. 로컬 서버는 `Ctrl+C`로 종료합니다.
+
+문제 해결: `codex_setup_required`는 setup 명령 누락, `sdk_not_installed`는 SDK 설치 위치 오류입니다. 일반 실행 실패는 실습 전용 `CODEX_HOME`에서 로그인 상태·구독 한도·지원 모델을 확인합니다. 포트 충돌이면 먼저 이전 키트 터미널을 `Ctrl+C`로 종료합니다. 오피스에서 `simulation`이 나오면 `npm start`로 실행한 모의 기록을 고른 것입니다. 새로고침·서버 종료 전에 반드시 JSON을 저장합니다.
+
+2026-10-23 macOS·Node 22.23.3·Codex SDK 0.164.0에서 ChatGPT 로그인으로 실제 호출을 완료했습니다. 생성된 도서관 접근성 초안을 사람이 검토한 뒤 5개 이벤트 JSON을 저장하고 공개 오피스에서 5/5 완료까지 재생했습니다. 검증자는 기존 로컬 인증 파일을 실습 전용 폴더에 일시 연결해 사용한 뒤 제거했습니다. 학생은 위의 공식 `codex login` 순서를 사용합니다. 이 결과는 다른 OS·계정의 성공을 보장하지 않습니다.
+
+[검증에 사용한 실제 실행 기록 JSON](https://kangnam-ai-engineering.jih7hc.workers.dev/downloads/jarvis-codex-live-record.json)을 다운로드해 오피스 재생만 먼저 연습할 수 있습니다. 이 파일을 자신의 실행 결과로 제출하지 않습니다.

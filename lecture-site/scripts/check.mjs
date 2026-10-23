@@ -30,7 +30,7 @@ for(const s of slides.sessions){
 assert(count>=210);assert.equal([...images].filter(x=>x.includes('/generated/')).length,5);assert.equal(w.timeBudget.lab,520);
 const catalog=await load('content/data-catalog.json');assert(catalog.length>=8);for(const x of catalog)assert.equal(new URL(x.url).hostname,'www.data.go.kr');
 const libraries=await load('public/data/libraries.json');assert.equal(libraries.rows.length,27);assert.equal(new Set(libraries.rows.map(x=>x.name)).size,27);assert(libraries.rows.every(x=>x.referenceDate==='2024-11-20'));
-for(const file of ['worker.js',...['app.js','pages.js','slides.js','demo.js','submissions.js','learning.js','lecture-utils.js'].map(x=>'public/'+x)])execFileSync(process.execPath,['--check',file]);
+for(const file of ['worker.js',...['app.js','pages.js','slides.js','demo.js','submissions.js','learning.js','lecture-utils.js','cases.js'].map(x=>'public/'+x)])execFileSync(process.execPath,['--check',file]);
 const csp=await load('lab-csp.json');for(const [path,hashes]of Object.entries(csp)){const html=await readFile('public'+path,'utf8');const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(x=>'sha256-'+createHash('sha256').update(x[1]).digest('base64'));assert.deepEqual(hashes,scripts,`${path} CSP hashes`);}
 async function files(dir){const result=[];for(const e of await readdir(dir,{withFileTypes:true})){const p=dir+'/'+e.name;if(e.isDirectory())result.push(...await files(p));else result.push(p);}return result;}
 const publicFiles=await files('public');assert(publicFiles.every(p=>!/secrets|\.dev\.vars|private\/|worker\.js/.test(p)));

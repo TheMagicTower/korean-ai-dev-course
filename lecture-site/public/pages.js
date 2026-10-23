@@ -4,7 +4,7 @@ shell();
 const page=document.body.dataset.page;
 const main=$('#main');
 const sessionLink=s=>`/slides/?session=${s.id}`;
-const agenda=rows=>{let t=0;return `<ol class="timeline">${rows.map(x=>{const start=t;t+=x.minutes;return `<li><span class="time">${start}–${t}분</span><div><b>${esc(x.title)}</b>${x.mode?` <span class="tag">${modeLabels[x.mode]}</span>`:''}${x.description?`<p>${esc(x.description)}</p>`:''}</div></li>`}).join('')}</ol>`};
+const agenda=rows=>{let t=0;return `<ol class="timeline">${rows.map(x=>{const start=t;t+=x.minutes;return `<li><span class="time">${start}–${t}분</span><div><b>${esc(x.title)}</b>${x.slideId?` <a class="text-link" href="/slides/?session=${x.session}#${esc(x.slideId)}">자료 ↗</a>`:''}${x.mode?` <span class="tag">${modeLabels[x.mode]}</span>`:''}${x.description?`<p>${esc(x.description)}</p>`:''}</div></li>`}).join('')}</ol>`};
 try{
 const w=await json('/content/workshop.json');
 if(page==='home'){

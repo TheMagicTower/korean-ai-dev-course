@@ -1,3 +1,5 @@
+> 2026-10-23 사례 통합 후 현행안은 `content/pacing-guide.md`와 `content/repository-coverage.md`를 따릅니다. 아래는 최초 개편 계획의 이력입니다. 현행은230장·직접 실습525분입니다.
+
 # 20시간 강의 보강 계획
 
 ## 목표와 합의된 방향

@@ -1,81 +1,61 @@
-# 다섯 가상 수강생으로 강의 자료를 점검했습니다
+# 전체 강의 재점검 · 동일한 가상 수강생 5명
 
-이 페이지는 강의 자료를 다듬기 위한 **가상 수강생 인지 워크스루** 요약입니다. 실제 수강생을 모집하거나 강의를 진행해 이해도·완료 시간·학습 효과를 측정한 결과가 아닙니다. 아래 모의 답변은 자료를 읽는 경로를 검토하기 위해 작성했습니다. 실제 학생의 발언이나 실행 기록으로 인용하지 않습니다.
+2026-10-23 · 사례 추가 후 4차 진단 → 직접 수정 → 5차 재점검
 
-같은 다섯 배경을 유지하며 초기 자료 진단, 개편안 점검, 수정 후 재점검을 진행했습니다. 각 회차에서 무엇을 이해하고 어떤 행동·제출물로 확인해야 하는지 살폈습니다. **자료상 답할 수 있다는 판단과 실제 수업에서 통과했다는 결과는 다릅니다.** 표의 통과 조건은 수업에서 앞으로 확인할 기준입니다.
+실제 학생을 모집하거나 답변·이해도·완료 시간을 측정한 실험이 아닙니다. 기초 코딩과 AI 유료 구독을 가진다는 기존 조건을 유지하고, 아래 다섯 프로필의 **기존 25개 질문 ID와 질문 내용**을 바꾸지 않았습니다. 점검의 단위는 문구·선수지식 연결·실습 절차·산출물·시간 배치입니다. “자료상 연결 확인”은 자료에 답할 경로가 있다는 뜻이며 학습자가 모두 이해했다는 뜻이 아닙니다.
 
-| 가상 수강생 | 가정한 배경 | 주로 확인한 위험 |
+| 프로필 | 강점 | 점검할 위험 |
 |---|---|---|
-| P01 민서 | Python 과제는 수행하지만 웹·Git·배포 경험은 없습니다. | 실행 시작점과 선수지식의 갑작스러운 변화 |
-| P02 준호 | 프런트엔드 경험이 있고 데이터·백엔드 규칙은 약합니다. | 화면과 실제 처리 결과를 같은 것으로 판단 |
-| P03 서연 | 백엔드 경험이 있고 UX·사용자 관찰 경험은 적습니다. | API 성공을 사용자 목표 달성으로 판단 |
-| P04 도윤 | 유료 AI로 초안을 잘 만들지만 실행·검증을 AI에 의존합니다. | 완료 주장·가상 반응을 실제 근거로 제출 |
-| P05 유진 | 기본 구현·Git·배포에 익숙한 학생으로 가정합니다. | 빠른 구현 뒤 기능을 늘리고 검증을 생략 |
+| P01 민서 | Python 기초 | 웹 파일·HTTP·Git·배포를 처음 접할 때 시작하지 못함 |
+| P02 준호 | 프런트엔드 | 화면 성공을 처리 대상·데이터·권한 검증으로 대체함 |
+| P03 서연 | 백엔드 | HTTP 성공을 사용자 과업 완료로 대체함 |
+| P04 도윤 | AI 활용 | AI 완료 보고·confidence·가상 피드백을 실제 근거로 취급함 |
+| P05 유진 | 구현·Git·배포 | 추가 기능·끝없는 리뷰로 필수 검증과 전달을 늦춤 |
 
-모두 컴퓨터·소프트웨어 전공이며 기초 코딩과 유료 AI 사용 경험이 있다고 가정했습니다. 특정 인물이나 실제 학생을 묘사한 자료가 아닙니다. 빠른 학생이라는 설정도 측정한 완료 시간을 뜻하지 않습니다.
+## 먼저 확인한 문제와 수정
 
-## 1회차 · 변화 이해와 첫 사용자 흐름
+- 1회차 첫 직접 실습은 107분에서 12분으로 이동했습니다. 첫 문제 카드를 들고 동향을 읽고 다시 구현으로 돌아옵니다.
+- 1회차 제작은 20→25분, 전체 직접 실습은 520→525분입니다. 설명을 줄이고 준비·실행·기록을 각 실습 안에 포함했습니다.
+- 2·3회차 파일 변경 이유를 설명했습니다. 개인 프로젝트는 이어가고, 공통 키트는 같은 목표를 연습하는 대안입니다. 두 경로를 모두 완성하지 않습니다.
+- FlyBlock(2회차 7분)은 데이터→변환→사용 경험으로, Jev(3회차 10분)는 판단→작업 경계→통합 검사로 연결합니다. 신규 유료 API나 신경 시뮬레이터 설치를 요구하지 않습니다.
+- ApplyFlow의 지연 파일 읽기·검토 무효화, 이슈·PR 정리, Linear CI 병목, 완료 단계, 스펙·계획·ADR, 스킬·인계, 제작 시간 구분, 고도화·재구현 비교를 원본 교재에서 보완했습니다.
+- 5회차 노트의 인증 대안 전환을 시작10분으로 통일했습니다. 짝 발표8분은 전체 학생 순차 발표 시간이 아닙니다.
+- 4일 편성은 퀴즈·시연·실습을 임의의 분 단위로 자르던 문제를 고쳤습니다. 한 활동을 끝낸 뒤 쉬거나 다음 날로 넘어갑니다.
 
-| 질문 ID·대상 | 확인 질문 | 모의 답변 | 실제 수업에서 확인할 통과 조건 |
-|---|---|---|---|
-| P01-S1 민서 | 어디서 실행하고 막히면 무엇을 남깁니까? | “ZIP을 풀어 HTML을 열고 기대와 실제를 비교하겠습니다. 종이·데모 대안은 확인한 범위를 표시하겠습니다.” | 자기 파일 또는 대안을 정확히 식별하고 미구현·미실행을 구분합니다. |
-| P02-S1 준호 | 화면 문구를 어떤 데이터가 뒷받침합니까? | “region과 파생 district를 구분하고 총 좌석을 현재 빈자리로 표현하지 않겠습니다.” | 실제 필드·기준일·화면 문구가 일치하고 없는 정보는 확정하지 않습니다. |
-| P03-S1 서연 | 기능 목록을 사용자 흐름으로 바꿉니까? | “지역 선택부터 후보 비교까지 흐름을 쓰고 버튼 위치 대신 목표만 전달하겠습니다.” | 사용자의 시작·행동·결과와 실제 관찰 기록이 있습니다. |
-| P04-S1 도윤 | AI의 답보다 먼저 성공 조건을 정합니까? | “기대 결과를 먼저 쓰고 실제 결과는 실행 후 채우겠습니다.” | AI 주장과 직접 실행, 복사한 예제와 자기 변경을 구분합니다. |
-| P05-S1 유진 | 먼저 끝나면 무엇을 더 확인합니까? | “기능을 늘리기보다 반증 질문·키보드·복구 흐름을 확인하겠습니다.” | 필수 범위를 유지하면서 추가 확인한 조건과 의미를 설명합니다. |
+## 25개 질문의 수정 전후 대조
 
-자료 근거: `s1-18~26`, `s1-28~43`, 공통 실습 가이드입니다. 원본의 region은 용인시이고 district는 주소에서 추출한 구라는 설명을 맞췄습니다.
+각 행의 ID는 기존 원본 질문의 요약과 대응합니다. 마지막 칸은 실제 수업에서 확인할 관찰 조건입니다.
 
-## 2회차 · 데이터·규칙·화면을 연결하기
+| 질문 ID | 수정 전 우려 | 수정 후 자료의 답 | 근거 슬라이드 | 실제 수업에서 확인할 것 |
+|---|---|---|---|---|
+| P01-S1 | 첫 실습 107분·제작 20분으로 웹 경험 없는 학생이 자신의 문제를 적용하기 늦었습니다. | 12분에 문제 카드 작성, 제작25분의 준비4·구현13·실행5·기록3분, 10분 정체 시 starter 전환을 안내했습니다. | [s1-28](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-28) · [s1-38](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-38) · [s1-22](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-22) | 편집기·AI 응답 지연은 수업에서 측정해야 합니다. |
+| P01-S2 | 모듈 예제와 개인 프로젝트 중 무엇을 계속하는지, HTTP 설정에 얼마를 쓸지 불명확했습니다. | 한 경로 선택, module-work의 STEP1→2→3, HTTP 준비5분 후 내장 데이터 대안과 실행 방법 구분을 넣었습니다. | [s2-workspace](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-workspace) · [s2-17](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-17) · [s2-25](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-25) · [s2-34](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-34) | HTTP 준비 실패를 데이터 로더 실패로 기록하지 않는지 확인합니다. |
+| P01-S3 | starter로 파일이 바뀌는 교육적 이유와 M 사본의 의미가 약했습니다. | 2회차 결과 보존과 동일 TODO 기준을 설명하고 M/A/B/누적 후보의 파일과 단계별 검사 시간을 제시했습니다. | [s3-workspace](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-workspace) · [s3-09](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-09) · [s3-15](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-15) · [s3-38](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-38) | 두 작업 모두 막히면 A부터 수행하고 B 재사용 범위를 밝힙니다. |
+| P01-S4 | 실패 주입은 있었으나 여러 조건이 섞일 때의 전환·기록 시간이 눈에 보이지 않았습니다. | 두 조건을 하나씩 바꾸고 12분 점검·복구·기록4분을 분리했습니다. 직접 수행과 모의 대응을 구별합니다. | [s4-19](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-19) · [s4-24](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-24) · [s4-29](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-29) | 실제 도구 실행 능력은 자동으로 가정하지 않습니다. |
+| P01-S5 | 배포 실습 노트의 10분/15분 전환 기준이 불일치했습니다. | 시작10분 정체 기준으로 통일하고 4회차 준비 과제, 배포30분의 네 단계, 공개 미완료 대안을 명시했습니다. | [s4-43](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-43) · [s5-09](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-09) · [s5-14](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-14) | 계정·설치·권한에 따라 공개가 막힐 수 있으며 공개 완료로 대체 판정하지 않습니다. |
+| P02-S1 | 기여 수와 모델 지수를 읽은 뒤 화면 약속의 정확성으로 돌아오는 연결이 약했습니다. | 첫 아이디어를 들고 동향을 읽고 데이터 없는 약속을 지우도록 했습니다. PoC/MVP/운영의 완료 질문도 구분했습니다. | [s1-18](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-18) · [s1-30](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-30) · [s1-32](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-32) · [s1-33](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-33) | 자기 화면의 실시간 주장·기준일을 실제 필드와 대조해야 합니다. |
+| P02-S2 | FlyBlock의 화면이 데이터·엔진 전체를 보증한다고 오해할 수 있었습니다. | 연결지도→변환→발화→합법 수→화면을 풀고 다음 JSON 로더 실습으로 연결했습니다. 로컬·서버 저장의 범위를 유지합니다. | [s2-case-flyblock](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-case-flyblock) · [s2-case-flyblock-check](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-case-flyblock-check) · [s2-25](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-25) · [s2-40](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-40) | 이 사례는 부분 회로이며 전뇌·생물학적 지능 증명이 아닙니다. |
+| P02-S3 | 같은 원인의 이슈와 중복 이슈, PR과 AI 세션이 분리되어 있지 않았습니다. | 이슈별 고유 완료 조건·의존 순서·함께 출시할 PR을 설명하고 소비자 계약과 누적 검사를 연결했습니다. | [s3-issue-pr](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-issue-pr) · [s3-07](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-07) · [s3-26](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-26) · [s3-38](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-38) | 파일이 다르다는 이유만으로 병렬 가능하다고 판단하지 않는지 확인합니다. |
+| P02-S4 | 기존 예제는 저장 실패 위주여서 원래 질문의 파일 재선택·중간 상태가 빠졌습니다. | ApplyFlow의 지연 파일 읽기 중 A 검토와 B 내용 불일치를 시연하고 입력 변경 시 재검토·재동의를 설명했습니다. | [s4-case-applyflow](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-case-applyflow) · [s4-24](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-24) | 원본 검사는 테스트 더블입니다. 학생의 실제 브라우저 파일 경로까지 검증한 것으로 말하지 않습니다. |
+| P02-S5 | 공개 뒤 기능 확장만 할 수 있고 기존 데이터·동의·운영 책임 보존 판단은 약했습니다. | 부분 교체·재구현에도 자료와 행동을 보존하도록 하고 다음 확인일·버전·담당을 인계합니다. | [s5-evolve](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-evolve) · [s5-39](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-39) · [s5-40](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-40) · [s5-41](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-41) | 실제 데이터 갱신과 복원은 자기 제품에서 수행한 근거가 있어야 합니다. |
+| P03-S1 | 자신의 문제에 대입하기 전에 동향 설명이 너무 길었습니다. | 처음12분 후 사용자 상황을 쓰고 짝에게 목표를 전달합니다. 마지막 관찰10분은 두 역할과 기록을 모두 포함합니다. | [s1-28](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-28) · [s1-29](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-29) · [s1-34](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-34) · [s1-39](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-39) | 조작법을 가르치지 않고 사용자가 멈춘 지점을 기록해야 합니다. |
+| P03-S2 | UX 우선과 기반 설계를 연결하는 스펙·계획·결정 기록이 빠져 있었습니다. | 목표 행동을 스펙으로, 연결 순서를 계획으로, 스냅샷 선택 이유를 ADR로 남기는 예를 넣었습니다. | [s2-12](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-12) · [s2-13](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-13) · [s2-decision](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-decision) · [s2-34](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-34) | HTTP 성공만으로 다음 행동을 이해했다고 판정하지 않습니다. |
+| P03-S3 | 기술 계약 뒤 실사용 가치로 돌아올 경로가 사례에 충분히 드러나지 않았습니다. | Jev의 좁은 분류와 기사·검증·승인을 분리하고 A/B의 완료 계약으로 되돌렸습니다. 통합 화면의 복귀·저장까지 검사합니다. | [s3-case-jev](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-case-jev) · [s3-case-jev-boundary](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-case-jev-boundary) · [s3-23](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-23) · [s3-38](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-38) | 분류 응답은 기사 품질·발행 허가의 증거가 아닙니다. |
+| P03-S4 | 가상 이름·성격만 만든 뒤 행동 차이를 보여주지 못할 위험이 있었습니다. | 생성5·가정 제거5·계약7·실행기록8분으로 역할을 행동 조건으로 바꾸는 시간을 확보했습니다. | [s4-13](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-13) · [s4-14](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-14) · [s4-17](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-17) · [s4-37](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-37) | 기기·입력·사전 지식의 차이가 실제 행동 조건으로 표현되는지 봅니다. |
+| P03-S5 | 발표 노트와 실제 배정 시간이 달라 관찰·피드백 시간이 밀릴 수 있었습니다. | 관찰30분은 동의3·A10·B10·정리7, 짝 발표8분은 준비1·각3·기록1로 맞췄습니다. | [s5-24](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-24) · [s5-26](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-26) · [s5-28](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-28) · [s5-36](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-36) | 동료 관찰은 목표 사용자 대표성을 보장하지 않습니다. |
+| P04-S1 | 빠른 제작 사례의 인계 시점을 검증·출시 완료와 혼동할 수 있었습니다. | 최초 인계·병렬 경과·검증·공개의 경계를 설명하고 자기 구현의 기대·실제 결과를 남깁니다. | [s1-build-evidence](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-build-evidence) · [s1-23](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-23) · [s1-26](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-26) · [s1-38](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-38) | 원본 한 번의 실행으로 학생 속도나 생산성 배수를 예측하지 않습니다. |
+| P04-S2 | 새 사례의 승패를 모델 능력으로 단정할 여지가 있었습니다. | FlyBlock 퀴즈에 시스템 전체 결과와 회로 단독 성능을 나눴습니다. 검색은 ID/입력별 기대를 확인하고 구현 전 기대값을 유지합니다. | [s2-case-flyblock-check](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-case-flyblock-check) · [s2-28](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-28) · [s2-29](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-29) · [s2-30](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-30) | 의도적 결함을 잡는 추가 실제 연습은 3회차 s3-18·24에서 이어갑니다. |
+| P04-S3 | Jev confidence, CI 속도, AI 완료 보고를 통과 근거로 섞을 위험이 있었습니다. | 단일 응답과 측정 정확도, CI 단계 시간과 사용자 대기, 단독 결과와 누적 후보 검사를 구분했습니다. | [s3-case-jev-check](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-case-jev-check) · [s3-30](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-30) · [s3-35](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-35) · [s3-40](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-40) | 모델 이름·추론 설정만으로 품질이 검증되지 않습니다. |
+| P04-S4 | 가상 리뷰가 실제 사용자 평가로 읽힐 수 있었습니다. | 가상 조건 생성·학생 직접 실행·실제 사람 관찰을 구분하고 문제 수정 전후를 같은 조건에서 기록합니다. | [s4-16](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-16) · [s4-19](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-19) · [s4-29](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-29) · [s4-34](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-34) | 이 강의 자체의 가상 수강생 점검도 이해도 측정으로 제시하지 않습니다. |
+| P04-S5 | 빠른 재구현 기록을 운영 완성이나 자신의 기여로 과장할 수 있었습니다. | 같은 서버 계약의 인계·검토 시간과 운영 출시의 미측정을 분리하고 자신의 선택·수정·검사 근거를 발표하게 합니다. | [s5-production-evidence](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-production-evidence) · [s5-33](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-33) · [s5-35](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-35) · [s5-37](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-37) | 운영 서비스처럼 표현할 때 실제 공개·복구·지원 범위를 다시 확인합니다. |
+| P05-S1 | 기초 도구에 과도한 시간을 쓰거나 빨리 끝난 뒤 기능을 늘릴 가능성이 있었습니다. | 기초 시연20분은 유지하고 제작은25분으로 늘렸습니다. 심화는 가정 반증과 관찰 확장으로 제한합니다. | [s1-23](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-23) · [s1-24](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-24) · [s1-25](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-25) · [s1-26](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-26) · [s1-38](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=1#s1-38) | 전체20시간은 회차 사이 과제 시간을 포함하지 않습니다. |
+| P05-S2 | 추가 모델·제품 설치가 심화 활동으로 잘못 들어올 수 있었습니다. | 스킬은 선택이며 Jev·신경 시뮬레이터 설치도 요구하지 않습니다. 기존 데이터·실패 계약을 검증하는 심화를 유지했습니다. | [s2-skills](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-skills) · [s2-25](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-25) · [s2-34](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-34) · [s2-case-flyblock](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=2#s2-case-flyblock) | 심화가 기본 흐름 완주·기록 시간을 침범하지 않아야 합니다. |
+| P05-S3 | 머지트레인 이후 실제 현장의 CI 병목·리뷰 종료 판단 연결이 빠졌습니다. | Linear 측정 사례와 PR 단위·검토 재사용 조건을 연결하고 수동 누적 검사와 설치된 CI를 구분합니다. | [s3-issue-pr](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-issue-pr) · [s3-30](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-30) · [s3-32](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-32) · [s3-38](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-38) · [s3-40](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=3#s3-40) | 실제 CI 실험은 선택 심화이며 공통 키트에서 자동 실행됐다고 주장하지 않습니다. |
+| P05-S4 | 시나리오 수를 늘리는 방식으로 검토가 끝나지 않을 위험이 있었습니다. | 입력 변경 중간 상태를 심화로 주되 실제로 막는 조건을 우선하고 미검증 영역·후속 질문을 남기게 했습니다. | [s4-case-applyflow](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-case-applyflow) · [s4-31](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-31) · [s4-40](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-40) · [s4-42](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=4#s4-42) | 실제 수업에서는 필수 실패와 선택 개선이 섞이지 않는지 확인합니다. |
+| P05-S5 | 수정 뒤 재구현·새 기능 확장으로 마무리 시간을 넘길 수 있었습니다. | 고도화 선택은 다음 판단으로 남기고 25분에는 한 막힘만 수정·재검사·재공개합니다. 발표·인계의 시간을 명시했습니다. | [s5-evolve](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-evolve) · [s5-31](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-31) · [s5-36](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-36) · [s5-41](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?session=5#s5-41) | 빠른 학생은 회귀·교차 확인을 하고 기능 수를 심화 점수로 삼지 않습니다. |
 
-| 질문 ID·대상 | 확인 질문 | 모의 답변 | 실제 수업에서 확인할 통과 조건 |
-|---|---|---|---|
-| P01-S2 민서 | 데이터가 화면까지 어떻게 이동합니까? | “module-work.html에서 로드·검색·표시를 연결하고 404와 빈 결과를 나누겠습니다.” | 같은 파일의 함수와 DOM을 찾고 입력·기대·실제 결과를 설명합니다. |
-| P02-S2 준호 | 화면 상태와 처리 책임을 구분합니까? | “버튼 표시만 보지 않고 반환 데이터·저장 범위도 따로 확인하겠습니다.” | 정상·빈 결과·오류를 각기 다른 근거와 다음 행동으로 확인합니다. |
-| P03-S2 서연 | 빈 응답 뒤에 사용자는 무엇을 합니까? | “빈 결과는 조건 변경, 읽기 실패는 재시도 안내로 연결하겠습니다.” | 응답 코드 외에 실제 화면의 이해·복구 행동을 확인합니다. |
-| P04-S2 도윤 | 테스트가 실제 결함을 잡습니까? | “결과 개수와 구성을 함께 보고, 별도 사본의 결함을 검사가 잡는지 보겠습니다.” | 특정 실패와 원복·재확인 근거가 있습니다. |
-| P05-S2 유진 | 검증의 깊이를 어떻게 넓힙니까? | “누락 값·다른 형식·조건 조합으로 기존 계약을 더 확인하겠습니다.” | 새 기능 수 대신 추가한 입력·조건·검증 범위를 설명합니다. |
+## 강사 운영 판정
 
-자료 근거: `s2-17/20/25~30/35/34/39/40`과 모듈 예제입니다. 연결 시연을 제작 실습 앞으로 옮기고, 수정할 파일과 `update` 함수의 범위를 명시했습니다. 1·9·27 같은 값은 현재 교육용 스냅샷의 기대값이며 이번 가상 점검에서 측정한 결과가 아닙니다.
+문서상 시작 경로·입출력 계약·검사·제출물·전환 기준을 연결했습니다. 미확인 사항은 실제 학생별 설치·인증 상태, AI 응답 지연, 수업 중 질문량과 완료 시간입니다. 첫 실행 성공 여부와 각 실습 중간·종료 시점의 완료/막힘을 기록하고 다음 회차를 조정합니다. 시간이 모자라면 새 기능과 선택 심화를 줄이고 핵심 실행·검증·기록을 남깁니다. 필수 실패를 완료로 바꾸거나 휴식을 자동으로 삭제하지 않습니다.
 
-## 3회차 · AI와 작업을 나누고 통합하기
-
-| 질문 ID·대상 | 확인 질문 | 모의 답변 | 실제 수업에서 확인할 통과 조건 |
-|---|---|---|---|
-| P01-S3 민서 | Git 없이도 변경 조합을 보존합니까? | “M을 보존하고 A·B 사본을 따로 만든 뒤 변경 함수만 합치겠습니다.” | 기준·단독·누적 후보를 식별하고 해당 조합의 실제 검사 기록을 남깁니다. |
-| P02-S3 준호 | 다른 파일이면 독립 작업입니까? | “같은 필드와 상태를 쓰면 계약을 맞추고 소비자도 검사해야 합니다.” | 실제 작업의 공통 의존성과 검사 범위를 찾습니다. |
-| P03-S3 서연 | API 통과 뒤 어떤 화면을 확인합니까? | “검색·소비자·브라우저 검사의 질문을 나눠 핵심 흐름을 다시 보겠습니다.” | 검사 종류와 아직 확인하지 않은 범위를 설명합니다. |
-| P04-S3 도윤 | 통과 보고는 어떤 조합의 근거입니까? | “후보 파일과 실제 결과를 대조하고 다른 조합으로 통과를 옮겨 적지 않겠습니다.” | 주장·버전·입력·검사·결과가 같은 후보를 가리킵니다. |
-| P05-S3 유진 | 머지트레인 도식과 자동화 설치는 같습니까? | “수동 누적 검사와 실제 설치된 CI는 별도 근거로 설명하겠습니다.” | B 제외 같은 조합 변화에서 재검사하며 설치하지 않은 자동화를 주장하지 않습니다. |
-
-자료 근거: `s3-02~15/18~28/32~41`입니다. 이미 있는 공백 처리를 새 기능으로 과제화하지 않고, 미구현 초기화·후보 저장을 A·B 작업으로 정했습니다. 기준 파일과 후보별 보존·통합 순서도 추가했습니다.
-
-## 4회차 · 가상 사용자·모킹·실제 관찰
-
-| 질문 ID·대상 | 확인 질문 | 모의 답변 | 실제 수업에서 확인할 통과 조건 |
-|---|---|---|---|
-| P01-S4 민서 | 실패를 만들고 다시 정상으로 돌아옵니까? | “조건 하나씩 바꾸고 모킹을 해제하겠습니다. 미실행 네트워크 검사는 따로 적겠습니다.” | 재현·복구가 가능하고 가정과 실제 행동을 구분합니다. |
-| P02-S4 준호 | 클릭 뒤 같은 대상이 실제로 남았습니까? | “후보 이름과 저장 결과를 확인하고 실패 시 이전 상태가 유지되는지 보겠습니다.” | 버튼 문구뿐 아니라 대상·상태·복구를 확인합니다. |
-| P03-S4 서연 | 페르소나 차이가 행동을 바꿉니까? | “같은 권한이어도 처음 방문·재방문·입력 조건에 따라 시나리오를 달리하겠습니다.” | 카드의 차이가 실제 행동·환경·검증 질문과 연결됩니다. |
-| P04-S4 도윤 | AI가 말한 불편은 실제 관찰입니까? | “실행하지 않은 평가는 가설입니다. 학생 조작·응답 모킹·사람 관찰을 나누겠습니다.” | 수행 주체·실행 방식·기대·실제·근거가 일치합니다. |
-| P05-S4 유진 | 페르소나가 많으면 검증도 충분합니까? | “수보다 중복·누락 조건을 보고 실제 사용자에게 남은 질문을 확인하겠습니다.” | 확인 범위와 중단 기준, 미검증 질문을 설명합니다. |
-
-자료 근거: `s4-10~24/29/31~43`입니다. 가상 반응·규칙 기반 시나리오·네트워크 모킹·실제 사람의 관찰을 구분합니다. 실제 교실 동료의 관찰도 모든 대상 사용자를 대표하지 않습니다.
-
-## 5회차 · 공개·개선·판단의 설명
-
-| 질문 ID·대상 | 확인 질문 | 모의 답변 | 실제 수업에서 확인할 통과 조건 |
-|---|---|---|---|
-| P01-S5 민서 | 공개 준비와 실제 공개를 구분합니까? | “앞 회차에 도구·계정을 준비하고 공개 폴더를 배치한 뒤 새 방문자 흐름을 확인하겠습니다.” | 자기 제품의 URL·버전·실행 근거 또는 공개 미완료·다음 조치를 명확히 제시합니다. |
-| P02-S5 준호 | 코드와 데이터는 누가 갱신합니까? | “버전·수집일·기준일을 나눠 쓰고 담당자·확인 날짜·갱신 방법을 남기겠습니다.” | 공개 화면과 운영 기록의 출처·상태·책임이 일치합니다. |
-| P03-S5 서연 | 사용자를 가르치지 않고 관찰합니까? | “목표만 건네고 행동·도움·결과와 제 해석을 따로 적겠습니다.” | 실제 참여·환경·버전·관찰 범위를 남기고 역할극과 구분합니다. |
-| P04-S5 도윤 | 조건이 바뀌면 자신의 말로 답합니까? | “데이터 0건이나 저장 거부 조건의 기대 결과와 추가 검사를 제 코드에 맞춰 설명하겠습니다.” | 준비한 회고 외의 조건에 판단 근거와 검증 방법을 답합니다. |
-| P05-S5 유진 | 먼저 끝낸 뒤 무엇을 인계합니까? | “다른 환경·회귀·운영 인계를 확인하고 필수 발표와 심화 기록을 나누겠습니다.” | 기록만으로 다음 사람이 확인할 수 있고 실제 추가 검증만 주장합니다. |
-
-자료 근거: `s4-43`, `s5-05~14/22~43`, 실습 가이드의 공개 폴더 준비입니다. 설치·가입·인증을 최초 배포 30분에 모두 끝내는 것으로 가정하지 않습니다. 공개 데모를 사용한 대안은 자기 제품의 공개 완료를 대신하지 않습니다.
-
-## 이 점검이 확인하지 않은 것
-
-자료에 실행 경로와 예상 오해 대응이 있다는 것과 학생이 스스로 따라갈 수 있다는 것은 다릅니다. 실제 운영에서는 파일 저장·도구 전환의 도움 요청, 회차별 제출물, 실제 소요 시간, 조건 변경 질문에 대한 자기 설명을 관찰해야 합니다. 브라우저 동작·배포·실습 파일의 실행 검사는 별도로 수행해야 하며, 가상 수강생 검토만으로 통과했다고 할 수 없습니다.
-
-이 기록에는 실제 수강생 만족도, 완료율, 성적 향상, 시장성이나 생산성 효과를 만들어 넣지 않았습니다. 자료를 개선한 근거와 아직 실제 수업에서 확인할 질문을 함께 남기는 것이 목적입니다.
+[전체 시간 운영표](/content/pacing-guide.md) · [원본 저장소 반영표](/content/repository-coverage.md) · [회차별 실습 안내](/labs/)

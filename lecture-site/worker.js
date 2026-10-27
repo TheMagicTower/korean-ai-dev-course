@@ -27,7 +27,7 @@ function secureResponse(response, pathname = "") {
   // Workers Assets redirects .html URLs to their extensionless canonical path.
   const scriptHashes = labCsp[pathname] || labCsp[`${pathname}.html`] || [];
   const scripts = scriptHashes.map(hash => ` '${hash}'`).join('');
-  headers.set('Content-Security-Policy', `default-src 'self'; script-src 'self'${scripts}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'`);
+  headers.set('Content-Security-Policy', `default-src 'self'; script-src 'self'${scripts}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https://github.blog https://code.visualstudio.com; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'`);
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 

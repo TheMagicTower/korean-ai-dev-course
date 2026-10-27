@@ -77,7 +77,7 @@ function labRuntime() {
       $('#result-count').textContent = '데이터 읽기 실패 · 실습용 모킹';
       const box = element('section', '', 'empty error');
       box.setAttribute('role', 'alert');
-      box.append(element('h2', '목록을 읽지 못했습니다.'), element('p', '학생이 켠 실패 모킹입니다. 실제 공공데이터 장애를 확인한 결과가 아닙니다. 검색 조건과 저장한 후보는 유지합니다.'));
+      box.append(element('h2', '목록을 읽지 못했습니다.'), element('p', '학생이 실행한 읽기 실패 모킹입니다. 검색 조건과 저장한 후보는 유지합니다.'));
       const retry = element('button', '다시 시도하기');
       retry.type = 'button';
       retry.onclick = () => { state.dataError = false; $('#simulate-error').setAttribute('aria-pressed', 'false'); render(); announce('실패 모킹을 해제하고 기존 조건으로 돌아왔습니다.'); };
@@ -93,7 +93,7 @@ function labRuntime() {
     for (const row of filtered) {
       const card = element('article', '', 'library');
       card.append(element('span', `${row.district} · ${row.type}`, 'eyebrow'), element('h2', row.name), element('p', row.address, 'address'));
-      card.append(element('p', `기록상 총 좌석 ${row.totalSeats}석 · 빈자리 정보 아님`, 'small'));
+      card.append(element('p', `기준일의 총 좌석 규모 ${row.totalSeats}석`, 'small'));
       card.append(element('p', `기록 기준일 ${row.referenceDate}`, 'small'));
       const button = element('button', FEATURES.save ? (state.saved.has(row.id) ? '저장됨 · 해제하기' : '후보로 저장') : '후보 저장 · TODO-2', 'save');
       button.type = 'button'; button.disabled = !FEATURES.save;
@@ -123,7 +123,7 @@ function labRuntime() {
       ['처인구', searchLibraries(rows, '', '처인구').length, 10],
       ['포곡 + 기흥구', searchLibraries(rows, '포곡', '기흥구').length, 0]
     ];
-    $('#check-output').textContent = checks.map(([name, actual, expected]) => `${actual === expected ? '통과' : '실패'} · ${name}: 기대 ${expected}개 / 실제 ${actual}개`).join('\n') + '\n순수 필터 함수 검사입니다. 화면 조작·저장·실제 사용자 만족도 검증을 대신하지 않습니다.';
+    $('#check-output').textContent = checks.map(([name, actual, expected]) => `${actual === expected ? '통과' : '실패'} · ${name}: 기대 ${expected}개 / 실제 ${actual}개`).join('\n') + '\n확인 범위: 순수 필터 함수입니다. 화면 조작·저장·사용자 관찰은 별도 단계에서 확인합니다.';
   };
   render();
   if (FEATURES.save && restored.problem) announce(restored.problem, true);
@@ -248,7 +248,7 @@ function session2Runtime() {
       renderLibraries([example]);
     };
     document.querySelector('#show-empty').onclick = () => renderLibraries([]);
-    document.querySelector('#show-error').onclick = () => showLoadError(new Error('학생이 실행한 읽기 실패 모킹입니다. 실제 포털 장애가 아닙니다.'));
+    document.querySelector('#show-error').onclick = () => showLoadError(new Error('학생이 실행한 읽기 실패 모킹입니다.'));
     document.querySelector('#show-connected').onclick = () => { currentSource = 'embedded'; document.querySelector('#data-source').value = 'embedded'; resetLibraryFilters(); loadAndRender(); };
     loadAndRender();
   }
@@ -268,7 +268,7 @@ const starterFeatures = `// TODO-1: emptyRecovery에 초기화 버튼을 추가�
   function commitSaved(previous, id, storage, key, forceError) {
     // TODO-2B: 중복 없는 후보 목록을 만들고, 저장 성공 후에만 화면 상태를 갱신하십시오.
     // forceError가 true이면 오류를 반환해야 합니다. 원래 Set을 직접 수정하지 마십시오.
-    return { ok: false, saved: previous, message: 'TODO-2: 후보 저장은 아직 구현하지 않았습니다.' };
+    return { ok: false, saved: previous, message: 'TODO-2: 후보 저장 구현 단계입니다.' };
   }`;
 
 const solutionFeatures = `const FEATURES = { empty: true, save: true, failure: true };
@@ -296,7 +296,7 @@ const solutionFeatures = `const FEATURES = { empty: true, save: true, failure: t
       storage.setItem(key, JSON.stringify([...next]));
       return { ok: true, saved: next, message: '' };
     } catch {
-      return { ok: false, saved: previous, message: forceError ? '실습용 저장 실패 모킹입니다. 저장은 반영되지 않았고 기존 후보 목록을 유지합니다. 모킹을 끈 뒤 다시 시도하세요.' : '브라우저에 저장하지 못했습니다. 후보 목록은 변경하지 않았습니다. 저장 허용 설정을 확인하거나 후보 이름을 따로 기록하세요.' };
+      return { ok: false, saved: previous, message: forceError ? '실습용 저장 실패 모킹입니다. 기존 후보 목록을 유지합니다. 모킹을 끈 뒤 다시 시도하세요.' : '브라우저 저장 실패 상태입니다. 기존 후보 목록을 유지합니다. 저장 허용 설정을 확인하거나 후보 이름을 따로 기록하세요.' };
     }
   }`;
 
@@ -307,17 +307,17 @@ function createHtml(edition, runtime) {
   const label = solution ? '완성 예제' : '실습 시작 파일';
   const tasks = solution
     ? '<li>검색어 <b>포곡</b>은 1개, <b>기흥구</b> 필터는 9개, 두 조건을 함께 쓰면 0개입니다.</li><li>0개 결과에서 조건을 초기화하면 27개 기록으로 돌아옵니다. 저장한 후보는 유지합니다.</li><li>후보 저장 → 저장한 후보만 보기 → 새로고침으로 저장 상태를 확인합니다.</li><li>읽기 실패와 저장 실패 모킹을 각각 켜서 안내와 복귀를 확인합니다.</li>'
-    : '<li><b>TODO-1 · 빈 결과 복귀:</b> 0개 결과에 초기화 버튼을 추가하고 입력과 결과가 함께 돌아오는지 확인합니다.</li><li><b>TODO-2 · 후보 저장:</b> 저장·해제·다시 열기를 구현합니다. 저장 실패를 성공으로 표시하지 않습니다.</li><li><b>TODO-3 · 실패와 복귀:</b> 읽기 실패 모킹을 켜고 기존 검색 조건을 유지한 채 복귀하는지 확인합니다.</li><li>HTML 아래쪽의 <code>FEATURES</code>와 각 TODO 주석을 찾습니다. 검색과 지역 필터는 이미 동작합니다.</li>';
+    : '<li><b>TODO-1 · 빈 결과 복귀:</b> 0개 결과에 초기화 버튼을 추가하고 입력과 결과가 함께 돌아오는지 확인합니다.</li><li><b>TODO-2 · 후보 저장:</b> 저장·해제·다시 열기를 구현합니다. 저장 성공·실패 상태를 구분해 표시합니다.</li><li><b>TODO-3 · 실패와 복귀:</b> 읽기 실패 모킹을 켜고 기존 검색 조건을 유지한 채 복귀하는지 확인합니다.</li><li>HTML 아래쪽의 <code>FEATURES</code>와 각 TODO 주석을 찾습니다. 검색과 지역 필터는 이미 동작합니다.</li>';
   return `<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>도서관 찾기 · ${label}</title><style>${css}</style></head>
-<body><main><header><p class="eyebrow">MAKE FOR GOOD / LIBRARY LAB / ${solution ? 'SOLUTION' : 'STARTER'}</p><h1>다음에 갈 도서관을<br>찾고, 후보로 남깁니다.</h1><p class="intro">${label}입니다. 실제 공개데이터 27개를 이 HTML에 넣었습니다. 다운로드 후 파일을 열면 인터넷이나 API 키 없이 검색을 시작할 수 있습니다.</p><div class="source"><a href="https://www.data.go.kr/data/15013109/standard.do" target="_blank" rel="noopener noreferrer">공공데이터포털 원본</a><a href="https://lib.yongin.go.kr/" target="_blank" rel="noopener noreferrer">방문 전 공식 운영 정보 확인</a><p>기록 기준일 <b>2024-11-20</b> · 수집일 <b>2026-10-22</b> · 제공기관 경기도 용인시</p><p>이 목록은 교육용 스냅샷입니다. 총 좌석 수는 빈자리 수가 아니며, 현재 개관 여부를 보장하지 않습니다.</p></div></header>
+<body><main><header><p class="eyebrow">MAKE FOR GOOD / LIBRARY LAB / ${solution ? 'SOLUTION' : 'STARTER'}</p><h1>다음에 갈 도서관을<br>찾고, 후보로 남깁니다.</h1><p class="intro">${label}입니다. 실제 공개데이터 27개를 이 HTML에 넣었습니다. 다운로드 후 파일을 열면 인터넷이나 API 키 없이 검색을 시작할 수 있습니다.</p><div class="source"><a href="https://www.data.go.kr/data/15013109/standard.do" target="_blank" rel="noopener noreferrer">공공데이터포털 원본</a><a href="https://lib.yongin.go.kr/" target="_blank" rel="noopener noreferrer">방문 전 공식 운영 정보 확인</a><p>기록 기준일 <b>2024-11-20</b> · 수집일 <b>2026-10-22</b> · 제공기관 경기도 용인시</p><p>교육용 스냅샷 · 총 좌석 수는 기준일의 좌석 규모입니다. 실시간 잔여 좌석은 추가 확인 항목입니다. 현재 개관 여부는 공식 운영 안내에서 확인합니다.</p></div></header>
 <details open><summary>${solution ? '완성 조건을 직접 확인합니다' : '이번 실습에서 구현할 부분'}</summary><ol class="tasks">${tasks}</ol><p class="small">시작 파일은 미완성 부분을 표시한 학습 자료입니다. 완성 예제의 코드와 비교하기 전에 자신의 기대 결과를 먼저 적습니다.</p></details>
 <form id="search-form" class="filters"><label class="field"><span>도서관 이름 또는 주소</span><input id="query" type="search" placeholder="예: 포곡, 수지구" autocomplete="off"></label><label class="field"><span>지역</span><select id="district"><option value="all">용인시 전체</option><option value="기흥구">기흥구</option><option value="수지구">수지구</option><option value="처인구">처인구</option></select></label><button type="submit">검색</button></form>
 <div class="actions"><button type="button" id="reset" class="secondary">검색 조건 초기화${solution ? '' : ' · TODO-1'}</button><label><input type="checkbox" id="saved-only"> 저장한 후보만 보기 (<span id="saved-count">0</span>)</label></div>
-<div class="mock"><p><b>실습용 실패 모킹</b> · 아래 조작은 실제 포털 장애나 사용자 행동을 관측한 결과가 아닙니다.</p><div class="actions"><button type="button" class="secondary" id="simulate-error" aria-pressed="false">읽기 실패 켜기 / 해제${solution ? '' : ' · TODO-3'}</button><label><input type="checkbox" id="simulate-save-error"> 저장 실패 모킹</label></div></div>
+<div class="mock"><p><b>실습용 실패 모킹</b> · 학생이 조건을 선택해 오류 안내와 복구 동작을 확인합니다.</p><div class="actions"><button type="button" class="secondary" id="simulate-error" aria-pressed="false">읽기 실패 켜기 / 해제${solution ? '' : ' · TODO-3'}</button><label><input type="checkbox" id="simulate-save-error"> 저장 실패 모킹</label></div></div>
 <p id="notice" class="notice" role="status" aria-live="polite"></p><div class="result-heading"><h2>도서관 후보</h2><p id="result-count" role="status" aria-live="polite"></p></div><section id="results" class="results" aria-label="검색 결과"></section>
 <details><summary>성공 조건과 실행 기록 예시</summary><div class="table-wrap"><table><thead><tr><th>시작 상태와 행동</th><th>기대 결과</th><th>남길 근거</th></tr></thead><tbody><tr><td>전체 / 공백 검색</td><td>27개</td><td>검색 입력과 결과 수 화면</td></tr><tr><td>기흥구 / 수지구 / 처인구</td><td>9개 / 8개 / 10개</td><td>각 지역 필터와 결과 수</td></tr><tr><td>포곡 + 기흥구</td><td>0개 안내와 조건 초기화</td><td>초기화 전후 화면</td></tr><tr><td>후보 저장 후 다시 열기</td><td>저장됨 표시와 저장한 후보 수 유지</td><td>브라우저·file/HTTP 환경 기록</td></tr><tr><td>읽기 실패 모킹 → 다시 시도</td><td>오류 안내 후 이전 검색 조건으로 복귀</td><td>모킹임을 명시한 실행표</td></tr><tr><td>저장 실패 모킹 → 후보 저장</td><td>실패 안내와 기존 후보 상태 유지</td><td>오류 전후 후보 수</td></tr></tbody></table></div><button type="button" id="run-checks" class="secondary">필터 규칙 검사</button><pre id="check-output" aria-live="polite">버튼을 누르면 현재 코드의 순수 필터 함수를 검사합니다. 빈 결과 복귀·저장·실패 화면은 직접 조작해 확인합니다.</pre></details>
-<footer><p>출처: 전국도서관표준데이터에서 경기도 용인시 27개 기록 추출. 이용허락범위 제한 없음은 해당 제공기관 상세정보에서 확인했습니다. 가상 사용자·실패 조건은 교육용 모킹이며 실제 사용자의 반응과 구분해 기록합니다.</p><p>파일 저장이 제한된 브라우저에서는 후보를 별도로 기록하거나 GUIDE.md의 로컬 서버 방법을 사용합니다. 이 파일의 후보 저장은 강의 홈페이지의 과제 제출이 아닙니다.</p></footer></main>
+<footer><p>출처: 전국도서관표준데이터에서 경기도 용인시 27개 기록 추출. 이용허락범위 제한 없음은 해당 제공기관 상세정보에서 확인했습니다. 가상 사용자·실패 조건은 교육용 모킹이며 실제 사용자의 반응과 구분해 기록합니다.</p><p>파일 저장이 제한된 브라우저에서는 후보를 별도로 기록하거나 GUIDE.md의 로컬 서버 방법을 사용합니다. 후보는 현재 브라우저에 저장하고, 과제는 강의 홈페이지의 해당 회차에서 별도로 제출합니다.</p></footer></main>
 <script id="library-data" type="application/json">${JSON.stringify(snapshot).replaceAll('<', '\\u003c')}</script>
 <script>${runtime}</script></body></html>\n`;
 }
@@ -325,7 +325,7 @@ function createHtml(edition, runtime) {
 function createModuleHtml(runtime) {
   return `<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2회차 · 로드·검색·표시 연결 예제</title><style>${css}</style></head><body><main>
-<header><p class="eyebrow">MAKE FOR GOOD / SESSION 02 / CONNECTED EXAMPLE</p><h1>로드·검색·표시를<br>같은 코드로 연결합니다.</h1><p class="intro">2회차 s2-17·25·34에서 사용하는 실행 파일입니다. 세 함수와 DOM 이름이 슬라이드와 같습니다. 기본 내장 JSON은 파일을 열어도 동작하고, HTTP JSON은 로컬 서버에서 명시적으로 선택합니다.</p><div class="source"><a href="https://www.data.go.kr/data/15013109/standard.do" target="_blank" rel="noopener noreferrer">공공데이터포털 원본</a><p>용인시 27개 · 기록 기준일 2024-11-20 · 수집일 2026-10-22</p><p>총 좌석은 빈자리가 아니며 현재 개관 여부를 보장하지 않습니다. <a href="https://lib.yongin.go.kr/" target="_blank" rel="noopener noreferrer">방문 전 공식 정보 확인</a></p></div></header>
+<header><p class="eyebrow">MAKE FOR GOOD / SESSION 02 / CONNECTED EXAMPLE</p><h1>로드·검색·표시를<br>같은 코드로 연결합니다.</h1><p class="intro">2회차 s2-17·25·34에서 사용하는 실행 파일입니다. 세 함수와 DOM 이름이 슬라이드와 같습니다. 기본 내장 JSON은 파일을 열어도 동작하고, HTTP JSON은 로컬 서버에서 명시적으로 선택합니다.</p><div class="source"><a href="https://www.data.go.kr/data/15013109/standard.do" target="_blank" rel="noopener noreferrer">공공데이터포털 원본</a><p>용인시 27개 · 기록 기준일 2024-11-20 · 수집일 2026-10-22</p><p>총 좌석 수는 기준일의 좌석 규모입니다. 실시간 잔여 좌석은 추가 확인 항목입니다. 현재 개관 여부는 공식 운영 안내에서 확인합니다. <a href="https://lib.yongin.go.kr/" target="_blank" rel="noopener noreferrer">방문 전 공식 정보 확인</a></p></div></header>
 <details open><summary>단계별 중간 점검</summary><ol class="tasks"><li><b>STEP-1 표시 · s2-17:</b> 아래 “실제 기록 1개”와 “빈 배열”을 누릅니다. <code>renderLibraries(items)</code>의 결과를 확인하고 안내 문구를 수정합니다.</li><li><b>STEP-2 로드 · s2-25:</b> 내장 JSON으로 27개를 확인합니다. 로컬 서버에서는 HTTP JSON을 선택하고 <code>./data/libraries.json</code>을 불러옵니다. 경로를 <code>./data/missing.json</code>으로 바꾸면 실제 404입니다.</li><li><b>STEP-3 연결 · s2-34:</b> 전체 연결로 돌아온 뒤 포곡 1개, 기흥구 9개, 포곡+기흥구 0개와 초기화 27개를 확인합니다. 함수 정의는 이 HTML의 STEP 주석에서 찾습니다.</li></ol><p class="small">이 파일은 세 함수를 연결한 최소 완성 예제입니다. 3회차의 후보 저장 TODO는 별도 starter.html을 사용합니다.</p><div class="actions"><button type="button" id="show-one" class="secondary">실제 기록 1개</button><button type="button" id="show-empty" class="secondary">빈 배열 표시</button><button type="button" id="show-error" class="secondary">읽기 실패 모킹</button><button type="button" id="show-connected">전체 연결로 돌아오기</button></div></details>
 <div class="filters"><label class="field"><span>데이터 읽기 방식</span><select id="data-source"><option value="embedded">내장 JSON · 파일 실행 가능</option><option value="http">HTTP JSON · 로컬 서버 필요</option></select></label><label class="field"><span>HTTP JSON 경로</span><input id="data-path" value="./data/libraries.json"></label><button type="button" id="load-data">자료 불러오기</button></div>
 <form id="search-form" class="filters"><label class="field" for="library-query"><span>이름·주소 검색</span><input id="library-query" type="search" autocomplete="off"></label><label class="field" for="library-district"><span>지역</span><select id="library-district"><option value="">전체</option><option>기흥구</option><option>수지구</option><option>처인구</option></select></label><button type="submit">검색</button></form><button id="reset" type="button" class="secondary">검색 조건 초기화</button>
@@ -337,7 +337,7 @@ renderLibraries(searchLibraries(rows, { q: ' 포곡 ' }));
 console.assert(searchLibraries(rows, { district: '기흥구' }).length === 9);
 console.assert(searchLibraries(rows, { q: '포곡', district: '기흥구' }).length === 0);
 // 전체 입력 연결로 돌아가려면 위의 “전체 연결로 돌아오기”를 누릅니다.</pre><p class="small">같은 콘솔에서 const rows를 다시 선언할 수 없으면 다른 변수명을 쓰거나 페이지를 새로고침합니다. 라이브러리와 설치가 필요 없는 일반 JavaScript입니다.</p></details>
-<footer><p>직접 만든 모킹과 실제 HTTP 오류를 구분해 기록합니다. 코드 조각을 강의 홈페이지의 다른 페이지 콘솔에 붙이지 말고 이 파일에서 실행합니다. 데이터와 코드가 모두 내장되어 있으며 외부 파일 읽기는 HTTP 방식을 선택할 때만 수행합니다.</p></footer></main>
+<footer><p>직접 만든 모킹과 실제 HTTP 오류를 구분해 기록합니다. 코드 조각은 이 파일의 콘솔에서 실행합니다. 데이터와 코드가 모두 내장되어 있으며 외부 파일 읽기는 HTTP 방식을 선택할 때만 수행합니다.</p></footer></main>
 <script id="library-data" type="application/json">${JSON.stringify(snapshot).replaceAll('<', '\\u003c')}</script><script>${runtime}</script></body></html>\n`;
 }
 

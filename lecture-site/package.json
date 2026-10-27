@@ -9,7 +9,7 @@
     "test:api": "node tests/api.test.mjs",
     "check": "node scripts/check.mjs",
     "test:isolated": "node tests/isolated.mjs",
-    "test:lecture": "node --test tests/lecture.test.mjs tests/asset-csp.test.mjs",
+    "test:lecture": "node --test tests/lecture.test.mjs tests/asset-csp.test.mjs tests/history.test.mjs",
     "test:jarvis": "node --test jarvis-kit/test/*.test.mjs"
   },
   "devDependencies": {

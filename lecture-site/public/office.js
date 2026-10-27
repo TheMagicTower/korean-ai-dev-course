@@ -28,7 +28,7 @@ const plant=(x,y,scale=1)=>`<g transform="translate(${x} ${y}) scale(${scale})">
 
 $('#main').innerHTML=`<div class="office-page container">
  <header class="office-heading"><div><p class="eyebrow">JARVIS LAB · 2.5D AI OFFICE</p><h1>작업이 흘러가는<br class="office-mobile-break"> 나만의 AI 오피스</h1><p>캐릭터의 움직임 뒤에는 목표, 도구, 권한, 검증, 승인 규칙이 있습니다.</p></div><button class="secondary" id="office-present" type="button" aria-pressed="false">발표 화면</button></header>
- <div class="office-mode-line"><span class="office-mode" id="office-mode">강의용 시뮬레이션</span><p id="office-mode-note">정해진 이벤트를 재생합니다. 이 화면은 모델·외부 도구를 실행하지 않습니다.</p></div>
+ <div class="office-mode-line"><span class="office-mode" id="office-mode">강의용 시뮬레이션</span><p id="office-mode-note">기록 재생 전용 화면입니다. 기본 모의 모드에서 정해진 이벤트를 따라갑니다.</p></div>
  <form class="office-setup" id="office-setup"><div class="office-task-field"><label for="office-task">에이전트에게 맡기고 싶은 작업 한 가지</label><input id="office-task" name="task" maxlength="100" required value="공공데이터로 우리 동네 도서관 안내 초안 만들기" autocomplete="off"></div><div><label for="office-scenario">시연할 상황</label><select id="office-scenario"><option value="approval">공개 전 사람의 승인</option><option value="failure">검증 실패와 재시도</option><option value="normal">정상 완료</option></select></div><button type="submit" id="office-start">시뮬레이션 시작</button></form>
  <section class="office-workspace" aria-label="AI 오피스 시연">
   <div class="office-stage-panel"><div class="office-now"><div><span id="office-step">READY · 0 / 8</span><h2 id="office-action">작업 하나부터 시작합니다.</h2></div><span id="office-status" class="office-status" data-status="idle">대기</span></div>
@@ -51,7 +51,7 @@ $('#main').innerHTML=`<div class="office-page container">
   <aside class="office-inspector" aria-label="하네스가 관리하는 상태"><p class="eyebrow">HARNESS · 실행 규칙</p><h2 id="office-inspector-title">캐릭터보다 먼저 설계할 것</h2><p id="office-message" class="office-message" role="status" aria-live="polite">작업을 시작하면 하네스가 무엇을 허용하고 어떤 증거를 기다리는지 보입니다.</p><dl class="office-contract"><div><dt>도구</dt><dd id="office-tool">아직 선택하지 않았습니다.</dd></div><div><dt>권한</dt><dd id="office-permission">기본값은 읽기 전용입니다.</dd></div><div><dt>검증 근거</dt><dd id="office-evidence">결과와 함께 남깁니다.</dd></div></dl><div class="office-gate" id="office-gate" hidden><b id="office-gate-title"></b><p id="office-gate-copy"></p><button type="button" id="office-resolve"></button></div><p class="office-truth">오피스는 상태를 보여주는 UI입니다.<br>실제 하네스는 실행·권한·실패 처리를 담당합니다.</p></aside>
  </section>
  <section class="office-records" aria-labelledby="office-record-title"><div class="office-record-heading"><div><p class="eyebrow">EVENT LOG · 관찰 가능한 실행</p><h2 id="office-record-title">무엇이 일어났는지 남깁니다.</h2></div><button class="secondary small" id="office-export" disabled type="button">현재 기록 JSON 저장</button></div><ol id="office-events" class="office-events"><li class="office-empty">아직 실행 기록이 없습니다. 위에서 작업을 시작해 주세요.</li></ol></section>
- <section class="office-connect" aria-label="나만의 하네스로 연결"><div><p class="eyebrow">OPTIONAL · SDK / JSON</p><h2>선택 보조 실습 · 내 실행 기록 재생</h2><p>스타터 키트로 로컬에서 작업을 실행한 뒤 이벤트 JSON을 저장합니다. 이 오피스에서는 그 파일을 읽어 흐름을 재생할 수 있습니다.</p><div class="actions"><a class="button" href="/downloads/jarvis-kit.zip">SDK·JSON 보조 키트</a><a class="button secondary" href="/jarvis/">구독 연결·실습 안내</a></div></div><div class="office-import"><label for="office-file">이벤트 JSON 파일</label><input type="file" id="office-file" accept="application/json,.json"><p>파일은 브라우저에서만 읽습니다. 서버 업로드나 모델 실행은 하지 않습니다. 최대 128KB·200개 이벤트입니다.</p><p id="office-import-status" role="status" aria-live="polite"></p><details><summary>이벤트 형식 보기</summary><pre>{"title":"내 작업", "events":[
+ <section class="office-connect" aria-label="나만의 하네스로 연결"><div><p class="eyebrow">OPTIONAL · SDK / JSON</p><h2>선택 보조 실습 · 내 실행 기록 재생</h2><p>스타터 키트로 로컬에서 작업을 실행한 뒤 이벤트 JSON을 저장합니다. 이 오피스에서는 그 파일을 읽어 흐름을 재생할 수 있습니다.</p><div class="actions"><a class="button" href="/downloads/jarvis-kit.zip">SDK·JSON 보조 키트</a><a class="button secondary" href="/jarvis/">구독 연결·실습 안내</a></div></div><div class="office-import"><label for="office-file">이벤트 JSON 파일</label><input type="file" id="office-file" accept="application/json,.json"><p>브라우저 내부 파일 처리 · 기록 재생 전용 · 최대 128KB·200개 이벤트입니다.</p><p id="office-import-status" role="status" aria-live="polite"></p><details><summary>이벤트 형식 보기</summary><pre>{"title":"내 작업", "events":[
  {"stage":"plan", "status":"running",
   "message":"완료 조건을 정했습니다."},
  {"stage":"done", "status":"completed",
@@ -71,7 +71,7 @@ function scenarioEvents(title,scenario){
   event('plan','running',`“${title}”를 한 번에 확인할 수 있는 작업으로 나눕니다.`,'작업 계획','읽기 전용','완료 조건: 초안 1개 + 출처 + 검증 결과'),
   event('plan','completed','입력·출력·완료 조건을 정했습니다. 이제 실행 역할에 전달합니다.','작업 명세','계획만 작성','입력과 기대 결과를 기록한 작업 명세'),
   event('execute','running','허용 목록에 있는 도구만 사용합니다. 실행 결과와 도구 호출을 기록합니다.','자료 읽기 → 초안 작성','샘플 자료 읽기 · 작업 폴더 쓰기','도구 결과·입력 출처·작성한 파일'),
-  event('execute','completed','초안을 만들었습니다. 생성했다는 사실만으로 완료 처리하지 않습니다.','초안 저장','작업 폴더 쓰기','검토할 초안 1개'),
+  event('execute','completed','초안을 만들었습니다. 검토 단계에서 완료 조건과 근거를 확인합니다.','초안 저장','작업 폴더 쓰기','검토할 초안 1개'),
  ];
  if(scenario==='failure')return [...common,
   event('review','failed','출처 하나가 빠졌습니다. 검증 실패로 작업을 멈추고 수정할 부분을 돌려보냅니다.','출처 검사','외부 공개 금지','실패 조건: 출처 없는 주장 1개'),
@@ -80,12 +80,12 @@ function scenarioEvents(title,scenario){
   event('done','completed','검증된 초안과 근거를 사용자에게 전달합니다. 재시도도 완료 기록의 일부입니다.','결과 묶음','사용자에게 로컬 결과 전달','초안 + 출처 + 실패·재검증 기록')];
  if(scenario==='approval')return [...common,
   event('review','running','요구한 형식·출처·민감한 정보 포함 여부를 검사합니다.','결과 검사','읽기 전용','형식·출처 확인 완료'),
-  event('review','waiting_approval','검증은 통과했지만 외부 공개는 별도 권한입니다. 사람의 승인을 기다립니다.','공개 요청','승인 전 실행 차단','검증 결과 + 공개할 초안'),
+  event('review','waiting_approval','검증을 통과했습니다. 외부 공개를 위한 사람의 승인을 기다립니다.','공개 요청','승인 전 실행 차단','검증 결과 + 공개할 초안'),
   event('review','completed','사람의 승인 이벤트를 기록합니다. 승인 범위 안에서만 다음 단계로 이동합니다.','승인 기록','이 초안의 전달만 승인','승인 시점과 대상 기록'),
-  event('done','completed','승인된 결과와 근거를 전달했습니다. 이 시뮬레이션은 실제로 외부에 공개하지 않습니다.','결과 전달 시뮬레이션','승인한 결과만 전달','초안 + 검증 결과 + 승인 기록')];
+  event('done','completed','승인된 결과와 근거를 전달하는 모의 단계입니다. 초안·검증·승인 기록을 함께 남깁니다.','결과 전달 시뮬레이션','승인한 결과만 전달','초안 + 검증 결과 + 승인 기록')];
  return [...common,
-  event('review','running','완료 조건과 실제 결과를 비교합니다. “잘 된 것 같다” 대신 검사 결과를 남깁니다.','결과 검사','읽기 전용','형식·출처·요구사항 확인'),
-  event('review','completed','필수 검증을 통과했습니다. 외부 공개 없이 로컬 결과로 전달하는 작업입니다.','검증 기록','외부 공개 권한 없음','모든 필수 완료 조건 통과'),
+  event('review','running','완료 조건과 실제 결과를 비교하고 검사 결과를 남깁니다.','결과 검사','읽기 전용','형식·출처·요구사항 확인'),
+  event('review','completed','로컬 결과 전달을 위한 필수 검증을 통과했습니다.','검증 기록','로컬 결과 전달 권한','모든 필수 완료 조건 통과'),
   event('done','running','초안과 검증 결과를 사용자가 확인할 수 있는 묶음으로 정리합니다.','결과 묶음 작성','작업 폴더 쓰기','결과 파일 + 검증 기록'),
   event('done','completed','작업을 마쳤습니다. 어떤 도구를 썼고 무엇을 확인했는지 다시 추적할 수 있습니다.','로컬 결과 전달','사용자가 결과 확인','초안 + 출처 + 검증 결과')];
 }
@@ -106,7 +106,7 @@ function paint(){
  $('#office-status').textContent=current?statuses[current.status]:'대기';
  $('#office-status').dataset.status=current?.status||'idle';
  $('#office-mode').textContent=mode==='import'?'가져온 기록 재생':'강의용 시뮬레이션';
- $('#office-mode-note').textContent=mode==='import'?`파일에 기록된 출처: ${importedMetadata.source||'기록 없음'} · 제공자: ${importedMetadata.provider||'기록 없음'} · 진위 미검증. 이 화면은 모델을 실행하지 않습니다.`:'정해진 이벤트를 재생합니다. 이 화면은 모델·외부 도구를 실행하지 않습니다.';
+ $('#office-mode-note').textContent=mode==='import'?`기록 재생 전용 · 파일 표기 출처: ${importedMetadata.source||'기록 없음'} · 제공자: ${importedMetadata.provider||'기록 없음'} · 확인 범위: 파일 형식·이벤트 필드`:'기록 재생 전용 화면입니다. 기본 모의 모드에서 정해진 이벤트를 따라갑니다.';
  for(const s of stages){
   const item=$(`[data-stage="${s.id}"]`);const status=stageState[s.id]||'idle';
   item.dataset.status=status;item.classList.toggle('active',current?.stage===s.id);
@@ -128,8 +128,8 @@ function paint(){
  marker.setAttribute('transform',`translate(${stage.x+132} ${stage.y+24})`);
  if(gate){
   const approval=current.status==='waiting_approval';
-  writeText('#office-gate-title',approval?'승인하기 전까지 움직이지 않습니다.':'실패가 다음 행동을 바꿉니다.');
-  writeText('#office-gate-copy',approval?'버튼을 눌러 승인 이벤트를 만들어 보세요. 실제 외부 공개는 일어나지 않습니다.':'수정한 뒤 같은 검증을 다시 수행하는 경로로 이동해 보세요.');
+  writeText('#office-gate-title',approval?'사람의 승인을 기다립니다.':'실패가 다음 행동을 바꿉니다.');
+  writeText('#office-gate-copy',approval?'버튼을 눌러 승인 이벤트와 다음 단계를 재생해 보세요.':'수정한 뒤 같은 검증을 다시 수행하는 경로로 이동해 보세요.');
   writeText('#office-resolve',approval?'승인하고 계속':'수정·재검증 시뮬레이션');
  }
  $('#office-events').innerHTML=events.slice(0,index+1).map((e,i)=>`<li${i===index?' class="current"':''}><span class="office-event-number">${String(i+1).padStart(2,'0')}</span><span class="office-event-stage">${esc(stages.find(s=>s.id===e.stage).name)}<small>${esc(statuses[e.status])}</small></span><p>${esc(e.message)}</p></li>`).join('');

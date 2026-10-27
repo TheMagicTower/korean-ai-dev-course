@@ -109,3 +109,20 @@ body[data-page="slides"] .slide-foot .sources{flex:1;max-width:none}
 body[data-page="slides"] .slide-foot>a.button{font-size:13px;min-height:28px;padding:4px 8px;flex-shrink:0}
 body.deck-full .deck-bottom{position:relative;z-index:4;background:#e3e6da}
 body[data-page="slides"] .slide.kind-visual .teaching-image{max-height:40vh}
+
+/* Keep the complete rewrite at presentation font size by switching teaching views. */
+body[data-page="slides"] .kind-lab .lab-slide-grid,body[data-page="slides"] .kind-reference .reference-grid{grid-template-columns:minmax(0,1fr)}
+body[data-page="slides"] .kind-lab:not(.show-secondary-view) .lab-result,body[data-page="slides"] .kind-reference:not(.show-secondary-view) .reference-application{display:none}
+body[data-page="slides"] .kind-lab.show-secondary-view .lab-slide-grid>div:first-child,body[data-page="slides"] .kind-reference.show-secondary-view .reference-grid>div:first-child{display:none}
+body[data-page="slides"] .kind-reference .reference-application{border-left:0;padding-left:0}
+body[data-page="slides"] .lab-steps{line-height:1.3}
+body[data-page="slides"] .lab-steps li{margin-bottom:8px}
+body[data-page="slides"] .lab-objective{margin-bottom:10px;line-height:1.3}
+body[data-page="slides"] .quiz.answered .quiz-options{display:none}
+body[data-page="slides"] .visual-grid{grid-template-columns:minmax(0,.4fr) minmax(0,.6fr);gap:28px}
+body[data-page="slides"] .visual-grid .slide-bullets{gap:12px}
+body[data-page="slides"] .visual-grid .slide-bullets li{line-height:1.4}
+body[data-page="slides"] .train{margin:12px 0}
+body[data-page="slides"] .train-item{padding:16px 20px}
+body.deck-full #slide-detail-toggle{font-size:12px;padding:4px 8px;min-height:30px;white-space:nowrap}
+@media(max-width:720px){body[data-page="slides"] .visual-grid{grid-template-columns:1fr}}

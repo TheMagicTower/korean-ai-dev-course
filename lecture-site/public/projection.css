@@ -1,0 +1,128 @@
+/* Classroom projection: content is edited to fit; never shrink text to hide overflow. */
+body[data-page="slides"] .slide{--reading:clamp(26px,3.25vh,34px);--heading:clamp(36px,4.9vh,50px);font-size:var(--reading);line-height:1.42;padding:28px 40px 18px;min-height:650px;overflow:visible}
+body[data-page="slides"] .slide h1{font-size:var(--heading);line-height:1.2;letter-spacing:-.04em;max-width:none;margin:0;font-weight:800;word-break:keep-all;overflow-wrap:anywhere}
+body[data-page="slides"] .slide .eyebrow{font-size:14px;line-height:1.4;margin:0 0 12px;letter-spacing:.05em}
+body[data-page="slides"] .slide-body{margin-top:22px;min-height:0;flex:1}
+body[data-page="slides"] .slide-sub{font-size:var(--reading);line-height:1.4;margin-top:18px}
+body[data-page="slides"] .slide-bullets{gap:18px;margin:0;padding-left:1em}
+body[data-page="slides"] .slide-bullets li{font-size:var(--reading);line-height:1.45;padding-left:.15em}
+body[data-page="slides"] .slide-columns{gap:32px;margin:8px 0 0}
+body[data-page="slides"] .slide-column{padding:0 24px 0 0}
+body[data-page="slides"] .slide-column b{font-size:var(--reading);line-height:1.3}
+body[data-page="slides"] .slide-column p{font-size:var(--reading);line-height:1.5;margin:16px 0 0}
+body[data-page="slides"] .slide-column .index{font-size:18px;margin-bottom:18px}
+body[data-page="slides"] .slide-foot{font-size:13px;line-height:1.4;margin-top:18px;gap:20px;position:static;flex-shrink:0}
+body[data-page="slides"] .sources{font-size:13px;line-height:1.4;max-width:85%;display:flex;flex-wrap:wrap;gap:4px 14px}
+body[data-page="slides"] .slide.kind-title{padding:44px;justify-content:center}
+body[data-page="slides"] .kind-title h1{font-size:clamp(48px,6.5vh,72px);max-width:1000px}
+body[data-page="slides"] .kind-title .slide-body{flex:0}
+body[data-page="slides"] .kind-title .slide-foot{margin-top:auto;padding-top:24px}
+body[data-page="slides"] .kind-title>.eyebrow{margin-bottom:26px}
+body[data-page="slides"] .visual-grid{grid-template-columns:1.15fr 1fr;gap:32px;align-items:center}
+body[data-page="slides"] .slide.kind-visual .teaching-image{max-height:clamp(260px,45vh,490px);width:100%;object-fit:contain}
+body[data-page="slides"] .slide figure{margin:0}
+body[data-page="slides"] .slide figcaption,body[data-page="slides"] .figure-caption{font-size:19px;line-height:1.45;margin-top:12px;color:#48564a}
+body[data-page="slides"] .slide-image{max-height:42vh;max-width:100%;object-fit:contain}
+body[data-page="slides"] .reference-heading{font-size:20px;line-height:1.3;margin-bottom:18px;color:#8b492d}
+body[data-page="slides"] .reference-grid{grid-template-columns:1fr 1fr;gap:34px}
+body[data-page="slides"] .reference-application{font-size:var(--reading);line-height:1.4;padding-left:24px}
+body[data-page="slides"] .reference-application>p{margin:0 0 12px}
+body[data-page="slides"] .reference-caveat{font-size:24px;line-height:1.4;padding-top:12px;color:#465446}
+body[data-page="slides"] .reference-caveat b{font-size:16px}
+body[data-page="slides"] .lecture-code{font-size:24px;line-height:1.28;padding:18px 22px;white-space:pre-wrap;overflow-wrap:anywhere;overflow:visible;font-variant-ligatures:none}
+body[data-page="slides"] .code-caption{font-size:16px;margin-bottom:8px}
+body[data-page="slides"] .kind-code .slide-body{margin-top:16px}
+body[data-page="slides"] .kind-code .slide-bullets{margin-top:12px;gap:8px}
+body[data-page="slides"] .kind-code .slide-bullets li{font-size:24px;line-height:1.35}
+body[data-page="slides"] .quiz-question{font-size:var(--reading);line-height:1.4;margin:0 0 16px}
+body[data-page="slides"] .quiz-options{gap:12px;margin:0 0 12px}
+body[data-page="slides"] .quiz-option{font-size:var(--reading);line-height:1.35;padding:12px 18px;min-height:54px}
+body[data-page="slides"] .quiz-explanation{font-size:var(--reading);line-height:1.45;margin-top:18px;padding:18px 24px}
+body[data-page="slides"] .quiz.answered .quiz-question,body[data-page="slides"] .quiz.answered .quiz-option:not(.correct){display:none}
+body[data-page="slides"] .lab-slide-grid{grid-template-columns:1.25fr 1fr;gap:30px}
+body[data-page="slides"] .lab-objective{font-size:var(--reading);line-height:1.35;margin:0 0 16px}
+body[data-page="slides"] .lab-steps{font-size:var(--reading);line-height:1.35;padding-left:1.25em;margin:0}
+body[data-page="slides"] .lab-steps li{margin-bottom:12px;padding-left:2px}
+body[data-page="slides"] .lab-result{font-size:24px;line-height:1.4;padding:20px}
+body[data-page="slides"] .lab-result>b{font-size:26px;line-height:1.35;display:block}
+body[data-page="slides"] .lab-result ul{margin:10px 0 12px;padding-left:20px}
+body[data-page="slides"] .lab-result li{margin-bottom:8px}
+body[data-page="slides"] .lab-actions{margin-top:12px}
+body[data-page="slides"] .lab-support{font-size:22px;line-height:1.45;margin-top:14px}
+body[data-page="slides"] .lab-support summary{font-size:16px}
+body[data-page="slides"] .flow{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin:0}
+body[data-page="slides"] .flow-step{padding:18px 24px;min-width:0}
+body[data-page="slides"] .flow-step:after{display:none}
+body[data-page="slides"] .slide.kind-flow .flow-step b{font-size:var(--reading);line-height:1.3}
+body[data-page="slides"] .slide.kind-flow .flow-step span{font-size:var(--reading);line-height:1.4;margin-top:12px}
+body[data-page="slides"] .check-list{gap:18px}
+body[data-page="slides"] .check-list label{font-size:var(--reading);line-height:1.45}
+body[data-page="slides"] .check-list input{width:24px;height:24px;flex:0 0 24px}
+body[data-page="slides"] .slide-quote{font-size:clamp(42px,5.3vh,64px);line-height:1.4;max-width:1100px}
+body[data-page="slides"] .train-item{padding:28px 20px}
+body[data-page="slides"] .train-item b{font-size:30px}
+body[data-page="slides"] .train-item small{font-size:24px;line-height:1.4}
+body[data-page="slides"] .break-view p{font-size:var(--reading)}
+body[data-page="slides"] .kind-contributions .metric{font-size:clamp(72px,10vh,110px)}
+body[data-page="slides"] .kind-contributions .contribution-image{max-height:28vh;object-fit:contain;width:100%}
+body[data-page="slides"] .contribution-top small{font-size:26px}
+body[data-page="slides"] .year-controls button{font-size:24px;min-width:110px}
+body[data-page="slides"] .benchmark-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:18px 0 28px}
+body[data-page="slides"] .benchmark-cards article{border-top:3px solid var(--green);padding-top:20px}
+body[data-page="slides"] .benchmark-cards b{font-size:clamp(40px,6vh,68px);display:block;white-space:nowrap;margin:10px 0}
+body[data-page="slides"] .benchmark-cards span{font-size:24px;display:block;line-height:1.4}
+body[data-page="slides"] .image-takeaway{font-size:var(--reading);line-height:1.4;padding:16px 20px;background:var(--soft);margin-top:16px}
+body[data-page="slides"] .image-source-open{font-size:18px;max-width:250px;max-height:85px;object-fit:contain;margin-top:16px}
+body.deck-full{overflow:hidden;background:#e3e6da}
+body.deck-full #main{padding:0;margin:0}
+body.deck-full .deck-shell{max-width:none;width:100%;padding:8px 18px;height:100dvh;display:flex;flex-direction:column;gap:8px}
+body.deck-full .deck-top{position:absolute;top:8px;right:18px;z-index:3;margin:0;width:auto;gap:12px;background:#e3e6da}
+body.deck-full .deck-top select{max-width:200px;min-height:30px;font-size:12px;padding:5px 8px}
+body.deck-full .deck-tools{gap:5px}
+body.deck-full .deck-tools button,body.deck-full .deck-tools .button{font-size:12px;min-height:30px;padding:5px 8px}
+body.deck-full .activity-bar{margin:0;min-height:34px;padding:0;max-width:52%;font-size:13px;gap:12px}
+body.deck-full #activity-block{display:none}
+body.deck-full .activity-timer output{font-size:22px}
+body.deck-full .activity-timer button{min-height:30px;padding:4px 8px;font-size:12px}
+body.deck-full .slide{height:auto;flex:1;min-height:0;padding:24px 36px 16px;overflow:visible}
+body.deck-full .deck-bottom{margin:0;min-height:32px;gap:16px}
+body.deck-full .deck-bottom button{min-height:32px;padding:4px 16px;font-size:14px}
+body.deck-full .deck-count{font-size:14px}
+body.deck-full .overview-wrap,body.deck-full .speaker-notes{position:fixed;inset:50px 30px 50px;overflow:auto;z-index:10;background:var(--paper);padding:30px;box-shadow:0 12px 80px #0004}
+body.deck-full .lab-support{display:none}
+body.deck-full .slide .actions{margin-top:16px}
+body.deck-full .slide .button,body.deck-full .slide button{font-size:16px;min-height:34px;padding:7px 14px}
+body.deck-full .slide .quiz-option{font-size:var(--reading);padding:12px 18px}
+body.deck-full .slide .year-controls button{font-size:24px}
+body[data-page="slides"] #image-dialog{max-width:98vw;width:98vw;max-height:96vh;padding:20px}
+body[data-page="slides"] #zoom-image{max-height:84vh;max-width:100%;object-fit:contain;width:100%}
+@media(min-width:1100px){body[data-page="slides"]:not(.deck-full) .slide{height:auto;min-height:660px}}
+@media(max-width:900px){body.deck-full .deck-top select,body.deck-full #activity-time{display:none}.slide{--reading:24px!important;--heading:34px!important}.reference-caveat{font-size:22px!important}}
+@media(max-width:720px){body[data-page="slides"] .slide{padding:24px;min-height:0;--reading:22px;--heading:30px}body.deck-full{overflow:auto}body.deck-full .deck-shell{height:auto;min-height:100dvh}body.deck-full .deck-top{position:static}body.deck-full .activity-bar{max-width:100%}body[data-page="slides"] .visual-grid,body[data-page="slides"] .reference-grid,body[data-page="slides"] .lab-slide-grid{grid-template-columns:1fr}body[data-page="slides"] .lecture-code{font-size:18px}body[data-page="slides"] .benchmark-cards{grid-template-columns:1fr}body[data-page="slides"] .flow{grid-template-columns:1fr}body[data-page="slides"] .slide .teaching-image{max-height:none}body[data-page="slides"] .slide-image{max-height:none}body[data-page="slides"] .reference-caveat{font-size:22px}body[data-page="slides"] .quiz-option{font-size:22px}body.deck-full .lab-support{display:block}}
+body[data-page="slides"] .image-source-open{max-height:44px;margin-top:8px}
+body[data-page="slides"] .benchmark-cards{margin:8px 0 18px}
+@media(min-width:901px){body[data-page="slides"] .slide{--reading:clamp(32px,3.6vh,38px);--heading:clamp(44px,5.2vh,56px)}body[data-page="slides"] .lecture-code{font-size:26px;line-height:1.25}body[data-page="slides"] .lab-result{font-size:26px}body[data-page="slides"] .lab-result>b{font-size:28px}body[data-page="slides"] .reference-caveat{font-size:26px}}
+@media(min-width:721px){body[data-page="slides"] .flow:has(.flow-step:nth-child(3):last-child){grid-template-columns:repeat(3,1fr)}}
+body[data-page="slides"] .flow-step span{color:var(--ink)}
+body[data-page="slides"] .slide-foot{display:flex;align-items:center;justify-content:space-between;gap:16px}
+body[data-page="slides"] .slide-foot .sources{flex:1;max-width:none}
+body[data-page="slides"] .slide-foot>a.button{font-size:13px;min-height:28px;padding:4px 8px;flex-shrink:0}
+body.deck-full .deck-bottom{position:relative;z-index:4;background:#e3e6da}
+body[data-page="slides"] .slide.kind-visual .teaching-image{max-height:40vh}
+
+/* Keep the complete rewrite at presentation font size by switching teaching views. */
+body[data-page="slides"] .kind-lab .lab-slide-grid,body[data-page="slides"] .kind-reference .reference-grid{grid-template-columns:minmax(0,1fr)}
+body[data-page="slides"] .kind-lab:not(.show-secondary-view) .lab-result,body[data-page="slides"] .kind-reference:not(.show-secondary-view) .reference-application{display:none}
+body[data-page="slides"] .kind-lab.show-secondary-view .lab-slide-grid>div:first-child,body[data-page="slides"] .kind-reference.show-secondary-view .reference-grid>div:first-child{display:none}
+body[data-page="slides"] .kind-reference .reference-application{border-left:0;padding-left:0}
+body[data-page="slides"] .lab-steps{line-height:1.3}
+body[data-page="slides"] .lab-steps li{margin-bottom:8px}
+body[data-page="slides"] .lab-objective{margin-bottom:10px;line-height:1.3}
+body[data-page="slides"] .quiz.answered .quiz-options{display:none}
+body[data-page="slides"] .visual-grid{grid-template-columns:minmax(0,.4fr) minmax(0,.6fr);gap:28px}
+body[data-page="slides"] .visual-grid .slide-bullets{gap:12px}
+body[data-page="slides"] .visual-grid .slide-bullets li{line-height:1.4}
+body[data-page="slides"] .train{margin:12px 0}
+body[data-page="slides"] .train-item{padding:16px 20px}
+body.deck-full #slide-detail-toggle{font-size:12px;padding:4px 8px;min-height:30px;white-space:nowrap}
+@media(max-width:720px){body[data-page="slides"] .visual-grid{grid-template-columns:1fr}}

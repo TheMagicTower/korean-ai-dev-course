@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><base href="../"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Agentic Engineering 5회차</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 1600×900 slide canvas scaled to the viewport; each slide reads like a changelog entry (date · source tag, then the change). */
+:root{
+  --paper:#F2F3EF; --ink:#15181C; --muted:#5B616A; --rule:#D2D5CE; --panel:#FFFFFF;
+  --accent:#2B50C8; --accent-soft:#E3E9FA; --add:#1E7A4E; --del:#B33A2E;
+  --era1:#66758F; --era2:#2B50C8; --era3:#1E7A4E; --era4:#B0562F;
+  --term-bg:#16191E; --term-fg:#E6E8E3; --term-dim:#8C929B;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111316; --ink:#E9EBE7; --muted:#9CA2AA; --rule:#2B2F35; --panel:#1A1D21;
+  --accent:#7F9CFF; --accent-soft:#1E2846; --add:#56C08A; --del:#E07A6E;
+  --era1:#8C99B2; --era2:#7F9CFF; --era3:#56C08A; --era4:#E08A5F;
+  --term-bg:#0B0D10; --term-fg:#E6E8E3; --term-dim:#7D838C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111316; --ink:#E9EBE7; --muted:#9CA2AA; --rule:#2B2F35; --panel:#1A1D21;
+  --accent:#7F9CFF; --accent-soft:#1E2846; --add:#56C08A; --del:#E07A6E;
+  --era1:#8C99B2; --era2:#7F9CFF; --era3:#56C08A; --era4:#E08A5F;
+  --term-bg:#0B0D10; --term-fg:#E6E8E3; --term-dim:#7D838C; color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.stage{position:fixed;inset:0;display:grid;place-items:center}
+.deck{width:1600px;height:900px;position:relative;transform-origin:center center}
+.slide{position:absolute;inset:0;display:none;padding:64px 88px 72px;flex-direction:column;gap:28px}
+.slide.on{display:flex}
+.slide aside{display:none}
+
+/* type */
+.tag{font-family:var(--mono);font-size:22px;color:var(--muted);display:flex;gap:14px;align-items:center;letter-spacing:.01em;flex-wrap:wrap}
+.tag b{color:var(--accent);font-weight:500}
+.tag .sep{width:28px;height:1px;background:var(--rule)}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:700;letter-spacing:-.01em}
+h1{font-size:84px;line-height:1.12}
+h2{font-size:56px;line-height:1.18}
+h3{font-size:34px;line-height:1.3}
+p{margin:0}
+.lead{font-size:30px;line-height:1.5;color:var(--muted);max-width:30em}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)}
+.hl{color:var(--accent)}
+.next{font-family:var(--mono);font-size:21px;color:var(--accent)}
+.kind{font-family:var(--mono);font-size:17px;color:var(--muted);margin-top:10px}
+
+/* two-column body: visual left, points right (swap with .row.flip) */
+.row{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;flex:1;min-height:0;align-items:center}
+.row.even{grid-template-columns:1fr 1fr}
+.row.flip{grid-template-columns:1fr 1.25fr}
+.row > *{min-width:0}
+.points{display:flex;flex-direction:column;gap:26px;font-size:30px;line-height:1.45}
+.points ul,.points ol{margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
+.points li{list-style:none;padding-left:30px;position:relative}
+.points ul li::before{content:"";position:absolute;left:0;top:.6em;width:12px;height:12px;border:2px solid var(--accent);border-radius:2px}
+.points ol{counter-reset:n}
+.points ol li{counter-increment:n;padding-left:44px}
+.points ol li::before{content:counter(n);position:absolute;left:0;top:.12em;font-family:var(--mono);font-size:22px;color:var(--accent);border:1.5px solid var(--accent);border-radius:4px;width:30px;height:30px;display:grid;place-items:center}
+.points small{display:block;font-size:22px;color:var(--muted);margin-top:4px}
+.quote{font-size:28px;line-height:1.45;border-left:4px solid var(--accent);padding:6px 0 6px 22px}
+.quote cite{display:block;margin-top:10px;font-style:normal;font-family:var(--mono);font-size:20px;color:var(--muted)}
+
+/* capture frame: a real screenshot inside a minimal browser bar naming its true source */
+.frame{background:var(--panel);border:1px solid var(--rule);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);max-height:620px}
+.frame .bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:17px;color:var(--muted);white-space:nowrap;overflow:hidden;flex:none}
+.frame .bar i{width:11px;height:11px;border-radius:50%;background:var(--rule);flex:none}
+.frame .bar span{overflow:hidden;text-overflow:ellipsis}
+.frame img{display:block;width:100%;height:auto;object-fit:cover;object-position:top left;min-height:0}
+.frames{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+
+/* title + section dividers */
+.title-wrap{display:flex;flex-direction:column;gap:22px;margin-top:8px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:auto}
+.strip figure{margin:0;display:flex;flex-direction:column;gap:10px}
+.strip .thumb{aspect-ratio:16/10;max-width:100%;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--panel)}
+.strip img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.strip figcaption{font-family:var(--mono);font-size:19px;color:var(--muted);display:flex;justify-content:space-between}
+.strip figcaption b{color:var(--ink);font-weight:500}
+.arrowline{height:2px;background:linear-gradient(90deg,var(--era1),var(--era2),var(--era3),var(--era4));border-radius:2px}
+.section-slide{justify-content:center}
+.section-slide .big{font-family:var(--mono);font-size:30px;color:var(--accent)}
+.section-slide h1{font-size:96px}
+.agenda{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 48px;font-size:28px;margin-top:20px}
+.agenda div{border-top:1px solid var(--rule);padding-top:12px}
+.agenda b{font-family:var(--mono);font-weight:500;color:var(--accent);margin-right:12px}
+
+/* statement */
+.statement{flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px}
+.statement .say{font-size:64px;line-height:1.25;font-weight:700;text-wrap:balance;max-width:20em}
+.statement .say em{font-style:normal;color:var(--accent)}
+
+/* diagrams */
+.diagram{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.diagram svg{width:100%;height:100%;max-height:640px}
+.under{font-size:28px;line-height:1.5;color:var(--muted)}
+.under b{color:var(--ink);font-weight:600}
+.pele-theme{--pele-bg:var(--panel);--pele-fg:var(--ink);--pele-muted:var(--muted);--pele-line:var(--muted);--pele-border:var(--rule);
+  --pele-surface:var(--panel);--pele-surface-alt:var(--paper);--pele-accent:var(--accent);--pele-font:var(--sans);--pele-font-mono:var(--mono);
+  --pele-series-1:var(--era1);--pele-series-2:var(--era2);--pele-series-3:var(--era3);--pele-series-4:var(--era4);--pele-radius:6px}
+/* D2 output is normalised by tools/diagrams.mjs to these classes */
+.d2 .box-outer{fill:transparent;stroke:var(--rule);stroke-width:2}
+.d2 .box-inner{fill:var(--panel);stroke:var(--muted);stroke-width:1.5}
+.d2 .hot{stroke:var(--accent)!important;stroke-width:2.5!important}
+.d2 .hot.box-outer{fill:var(--accent-soft)}
+.d2 .label-outer{fill:var(--ink);font-family:var(--sans);font-weight:700}
+.d2 .label-inner{fill:var(--ink);font-family:var(--sans);font-weight:600}
+.d2 .edge{stroke:var(--muted);fill:none}
+.d2 .edge-label{fill:var(--muted);font-family:var(--sans)}
+.d2 .arrow-head{fill:var(--muted);stroke:var(--muted)}
+
+/* stat */
+.stat{display:flex;flex-direction:column;gap:14px}
+.stat .n{font-size:168px;line-height:1;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat .d{font-size:30px;line-height:1.45}
+.stat .s{font-family:var(--mono);font-size:19px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.stats .n{font-size:96px}
+
+/* compare columns */
+.compare{display:grid;grid-template-columns:repeat(var(--cols,2),1fr);gap:28px;flex:1;min-height:0}
+.compare > div{border:1px solid var(--rule);border-radius:10px;background:var(--panel);padding:28px 30px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.compare h3{font-size:32px}
+.compare .k{font-family:var(--mono);font-size:19px;color:var(--muted)}
+.compare p,.compare li{font-size:25px;line-height:1.5}
+.compare ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+.compare .on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:24px;line-height:1.4}
+.tbl th{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--muted);text-align:left;padding:10px 14px;border-bottom:2px solid var(--ink)}
+.tbl td{padding:14px;border-bottom:1px solid var(--rule);vertical-align:top}
+.tbl td:first-child{font-weight:600}
+.tbl .mono{font-size:20px}
+
+/* terminal */
+.term{background:var(--term-bg);color:var(--term-fg);border-radius:10px;padding:22px 26px;font-family:var(--mono);font-size:21px;line-height:1.55;white-space:pre-wrap;overflow:hidden}
+.term .dim{color:var(--term-dim)}
+.term .ok{color:#6FD39E}
+.term .warn{color:#F0B45A}
+.term .acc{color:#9FB5FF}
+
+/* lab / assignment */
+.lab{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;flex:1;min-height:0}
+.lab > *{min-width:0}
+.box{border:1px solid var(--rule);background:var(--panel);border-radius:10px;padding:26px 30px;display:flex;flex-direction:column;gap:14px}
+.box h3{font-size:28px}
+.box p,.box li{font-size:24px;line-height:1.5}
+.box ul,.box ol{margin:0;padding-left:26px;display:flex;flex-direction:column;gap:8px}
+.badge{display:inline-block;font-family:var(--mono);font-size:18px;border:1px solid var(--accent);color:var(--accent);border-radius:4px;padding:2px 8px}
+
+/* chrome */
+.hud{position:fixed;left:0;right:0;bottom:0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.hud .bar{flex:1;height:2px;background:var(--rule);position:relative}
+.hud .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent)}
+.hud button,.hud select{font:inherit;color:inherit;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:3px 8px;cursor:pointer;max-width:40vw}
+.hud button:focus-visible,.hud select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.notes{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:44px;max-height:38vh;overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.65}
+@media (prefers-reduced-motion:no-preference){.slide.on{animation:in .25s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
+@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
+
+/* keep captures inside their column: the wrapper shrinks, the frame clips from the top */
+.row > div:has(> .frame){display:flex;flex-direction:column;min-height:0;max-height:100%;align-self:stretch;justify-content:center}
+.row > div:has(> .frame) > .frame{min-height:0;flex:0 1 auto}
+.row > div:has(> .frame) > .frame img{min-height:0;flex:1 1 auto;object-fit:cover;object-position:top left}
+.row > .term{max-height:100%;overflow:hidden}
+
+/* Korean reading aids: a summary under English captures, a translation under English quotes */
+.ko{margin-top:12px;border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 16px;border-radius:0 6px 6px 0;font-size:22px;line-height:1.5;color:var(--ink)}
+.ko b{color:var(--accent);font-weight:600}
+.ko::before{content:"한국어 요약";display:block;font-family:var(--mono);font-size:15px;color:var(--muted);margin-bottom:2px}
+.quote .tr{display:block;margin-top:8px;font-size:24px;color:var(--ink);font-style:normal}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0}
+.vs > div{border:1px solid var(--rule);border-radius:8px;background:var(--panel);padding:12px 16px}
+.vs .k{font-family:var(--mono);font-size:16px;color:var(--muted)}
+.vs .v{font-size:44px;font-weight:700;line-height:1.1}
+.vs .on .v{color:var(--accent)}
+
+/* reference reading card: 장점 · 단점 · 의미 (3 columns full width, or stacked inside a column) */
+.pmi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pmi > div{border:1px solid var(--rule);border-top:4px solid var(--muted);border-radius:8px;background:var(--panel);padding:12px 16px;font-size:21px;line-height:1.45;min-width:0}
+.pmi > div::before{display:block;font-family:var(--mono);font-size:16px;font-weight:500;margin-bottom:4px}
+.pmi .p{border-top-color:var(--add)} .pmi .p::before{content:"장점";color:var(--add)}
+.pmi .m{border-top-color:var(--del)} .pmi .m::before{content:"단점·한계";color:var(--del)}
+.pmi .i{border-top-color:var(--accent)} .pmi .i::before{content:"의미·시사점";color:var(--accent)}
+.pmi.col{grid-template-columns:1fr;gap:10px}
+.pmi.col > div{font-size:20px;padding:10px 14px}
+
+/* Korean: break lines between words, not inside them */
+h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-break:keep-all;overflow-wrap:break-word}
+
+</style>
+<div class="stage"><div class="deck" id="deck">
+<!-- 18교시 · 나누기와 토론 1부 (60분) -->
+
+<!-- 01 표지 -->
+<section data-period="18" class="slide section-slide" data-title="표지">
+  <div class="big">5회차 · 18교시</div>
+  <h1>나누기와 토론 1부</h1>
+  <p class="lead">원하는 사람부터 · 형식은 자유 · 이야기는 길어져도 괜찮습니다.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="하네스 글 화면"></div><figcaption><b>구조</b><span>하네스</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-cc-subagents.jpg" alt="서브에이전트 문서 화면"></div><figcaption><b>구조</b><span>서브에이전트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-goal.jpg" alt="goal 문서 화면"></div><figcaption><b>기록</b><span>긴 작업</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-uxagent.jpg" alt="UXAgent 논문 화면"></div><figcaption><b>평가</b><span>페르소나</span></figcaption></figure>
+  </div>
+  <aside>18교시를 시작합니다. 각자 만든 하네스를 자유롭게 나누고 이야기하는 시간입니다. 위의 화면은 지난 회차에서 본 자료이고, 이야기를 들으며 구조, 기록, 페르소나 평가 같은 관점으로 떠올려 보셔도 좋습니다. 먼저 나누고 싶은 분부터 손을 들어 주세요.</aside>
+</section>
+
+<!-- 02 진행 -->
+<section data-period="18" class="slide" data-title="진행">
+  <div class="tag"><b>진행</b><span class="sep"></span>원하는 사람부터 · 화면·말·데모 무엇이든</div>
+  <h2>원하는 사람부터 나누고, 이야기가 이어지면 이어 갑니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1453 164"><svg class="d2-860352702 d2-svg" width="1453" height="164" viewBox="-9 -9 1453 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="29.000000" width="351.000000" height="88.000000" class="box-inner"  /></g><text x="187.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">원하는 사람부터</text></g><g class="Yg=="><g class="shape" ><rect x="433.000000" y="12.000000" width="278.000000" height="122.000000" class="box-inner"  /></g><text x="572.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="572.000000" dy="0.000000">화면·말·데모</tspan><tspan x="572.000000" dy="38.500000">형식은 자유</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="781.000000" y="12.000000" width="351.000000" height="122.000000" class="box-inner hot"  /></g><text x="956.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="956.500000" dy="0.000000">이야기와 질문</tspan><tspan x="956.500000" dy="38.500000">길어져도 괜찮음</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="1202.000000" y="29.000000" width="221.000000" height="88.000000" class="box-inner"  /></g><text x="1312.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음 사람</text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u1-mk-d2-860352702-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 365.000000 73.000000 L 429.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-860352702-3488378134)" mask="url(#u1-d2-860352702)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 713.000000 73.000000 L 777.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-860352702-3488378134)" mask="url(#u1-d2-860352702)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1134.000000 73.000000 L 1198.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-860352702-3488378134)" mask="url(#u1-d2-860352702)" /></g><mask id="u1-d2-860352702" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1453" height="164">
+<rect x="-9" y="-9" width="1453" height="164" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">순서표는 없습니다. 이야기가 길어지면 <b>길어지는 대로</b> 둡니다.</p>
+  <aside>진행은 간단합니다. 나누고 싶은 분이 먼저 시작하고, 화면이든 말이든 직접 돌려 보이든 편한 방식으로 이야기합니다. 듣다가 궁금한 것은 그 자리에서 물어도 좋습니다. 이야기가 길어지면 길어지는 대로 두고, 한 이야기가 끝나면 다음 분이 이어 갑니다. 나눌 분이 많으면 19교시에도 이어집니다. 시간은 교시 단위로만 대략 봅니다.</aside>
+</section>
+
+<!-- 03 이야기 거리 -->
+<section data-period="18" class="slide" data-title="이야기 거리">
+  <div class="tag"><b>이야기 거리</b><span class="sep"></span>토론을 여는 질문 카드 · 고르는 것</div>
+  <h2>이야기가 막히면 이 카드 중 하나에서 시작해 봅니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1253 356"><svg class="d2-684098539 d2-svg" width="1253" height="356" viewBox="-21 -21 1253 356"><g class="YQ=="><g class="shape" ><rect x="0.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="178.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">내 하네스는</tspan><tspan x="178.500000" dy="38.500000">무엇을 맡기나</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="427.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="605.500000" dy="0.000000">가장 잘 막은 것</tspan><tspan x="605.500000" dy="38.500000">못 막은 것</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="854.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="1032.500000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음에 더할 장치</text></g><g class="ZA=="><g class="shape" ><rect x="0.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="178.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">남의 하네스에서</tspan><tspan x="178.500000" dy="38.500000">가져가고 싶은 것</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="427.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="265.500000" class="label-inner" style="text-anchor:middle;font-size:34px">아직 모르겠는 것</text></g><mask id="u2-d2-684098539" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1253" height="356">
+<rect x="-21" y="-21" width="1253" height="356" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">모두 쓸 필요는 없습니다. <b>끌리는 카드 하나</b>면 충분합니다.</p>
+  <aside>17교시에서 본 질문 카드입니다. 내 하네스는 무엇을 맡기는지, 가장 잘 막은 것과 못 막은 것, 다음에 더할 장치, 남의 하네스에서 가져가고 싶은 것, 아직 모르겠는 것입니다. 이야기가 잠시 멈췄을 때 꺼내 보면 됩니다. 스터디로 이어 가고 싶은 주제가 나오면 적어 두었다가 20교시에 같이 이야기합니다.</aside>
+</section>
+
+<!-- 04 휴식 -->
+<section data-period="18" class="slide" data-title="휴식">
+  <div class="tag"><b>휴식</b><span class="sep"></span>10분</div>
+  <h2>10분 휴식</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1197 164"><svg class="d2-1620719301 d2-svg" width="1197" height="164" viewBox="-9 -9 1197 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="426.000000" height="122.000000" class="box-inner"  /></g><text x="225.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="225.000000" dy="0.000000">18교시</tspan><tspan x="225.000000" dy="38.500000">나누기와 토론 1부 끝</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="508.000000" y="29.000000" width="214.000000" height="88.000000" class="box-inner hot"  /></g><text x="615.000000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">휴식 10분</text></g><g class="Yw=="><g class="shape" ><rect x="792.000000" y="12.000000" width="375.000000" height="122.000000" class="box-inner"  /></g><text x="979.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="979.500000" dy="0.000000">19교시</tspan><tspan x="979.500000" dy="38.500000">나누기와 토론 2부</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u3-mk-d2-1620719301-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 440.000000 73.000000 L 504.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-1620719301-3488378134)" mask="url(#u3-d2-1620719301)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 724.000000 73.000000 L 788.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-1620719301-3488378134)" mask="url(#u3-d2-1620719301)" /></g><mask id="u3-d2-1620719301" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1197" height="164">
+<rect x="-9" y="-9" width="1197" height="164" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">잠깐 쉬세요. <span class="next">→ 19교시</span></p>
+  <aside>여기서 10분 쉽니다. 이야기에 참여해 주신 분들 고맙습니다. 쉬는 동안 나누지 못한 이야기가 있으면 편하게 이어서 해도 좋고, 시계가 10분이 되면 다음 시간을 시작합니다.</aside>
+</section>
+
+</div></div>
+<div class="notes" id="notes" hidden></div>
+<div class="hud"><span id="pos"></span><div class="bar"><i id="prog"></i></div><select id="jump" aria-label="교시로 이동"></select><button id="nb" type="button">노트 N</button><button id="fb" type="button">전체 화면 F</button></div>
+<script>
+(()=>{
+ const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
+ const pos=document.getElementById('pos'), prog=document.getElementById('prog'), notes=document.getElementById('notes'), jump=document.getElementById('jump');
+ let i=0;
+ // period jump menu
+ const periods=[];slides.forEach((s,k)=>{const p=s.dataset.period;if(p&&!periods.find(x=>x.p===p))periods.push({p,k});});
+ periods.forEach(({p,k})=>{const o=document.createElement('option');o.value=k;o.textContent=p+'교시';jump.appendChild(o);});
+ if(!periods.length)jump.hidden=true;
+ const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`scale(${s})`;};
+ const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+   const p=slides[i].dataset.period;pos.textContent=`${p?p+'교시 · ':''}${i+1} / ${slides.length}`;
+   prog.style.width=`${(i+1)/slides.length*100}%`;
+   const a=slides[i].querySelector('aside');notes.textContent=a?a.textContent.trim():'';
+   const cur=[...periods].reverse().find(x=>x.k<=i);if(cur)jump.value=String(cur.k);
+   if(location.hash!=='#s'+(i+1))history.replaceState(null,'','#s'+(i+1));};
+ const fromHash=()=>{const m=location.hash.match(/^#s(\d+)$/);show(m?+m[1]-1:0);};
+ const toggleFs=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{});}catch(_){}};
+ addEventListener('keydown',e=>{
+  if(e.target.closest&&e.target.closest('select'))return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1);}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+  else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+  else if(e.key==='n'||e.key==='N')notes.hidden=!notes.hidden;
+  else if(e.key==='f'||e.key==='F')toggleFs();});
+ document.getElementById('nb').onclick=()=>notes.hidden=!notes.hidden;
+ document.getElementById('fb').onclick=toggleFs;
+ jump.onchange=()=>show(+jump.value);
+ deck.addEventListener('click',e=>{if(e.target.closest('a,button,select'))return;show(e.clientX>innerWidth/2?i+1:i-1);});
+ addEventListener('resize',fit);addEventListener('hashchange',fromHash);fit();fromHash();
+})();
+
+</script>
+</body></html>

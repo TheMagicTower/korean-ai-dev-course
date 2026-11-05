@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Agentic Engineering 5회차</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 1600×900 slide canvas scaled to the viewport; each slide reads like a changelog entry (date · source tag, then the change). */
+:root{
+  --paper:#F2F3EF; --ink:#15181C; --muted:#5B616A; --rule:#D2D5CE; --panel:#FFFFFF;
+  --accent:#2B50C8; --accent-soft:#E3E9FA; --add:#1E7A4E; --del:#B33A2E;
+  --era1:#66758F; --era2:#2B50C8; --era3:#1E7A4E; --era4:#B0562F;
+  --term-bg:#16191E; --term-fg:#E6E8E3; --term-dim:#8C929B;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111316; --ink:#E9EBE7; --muted:#9CA2AA; --rule:#2B2F35; --panel:#1A1D21;
+  --accent:#7F9CFF; --accent-soft:#1E2846; --add:#56C08A; --del:#E07A6E;
+  --era1:#8C99B2; --era2:#7F9CFF; --era3:#56C08A; --era4:#E08A5F;
+  --term-bg:#0B0D10; --term-fg:#E6E8E3; --term-dim:#7D838C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111316; --ink:#E9EBE7; --muted:#9CA2AA; --rule:#2B2F35; --panel:#1A1D21;
+  --accent:#7F9CFF; --accent-soft:#1E2846; --add:#56C08A; --del:#E07A6E;
+  --era1:#8C99B2; --era2:#7F9CFF; --era3:#56C08A; --era4:#E08A5F;
+  --term-bg:#0B0D10; --term-fg:#E6E8E3; --term-dim:#7D838C; color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.stage{position:fixed;inset:0;display:grid;place-items:center}
+.deck{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center center}
+.slide{position:absolute;inset:0;display:none;padding:64px 88px 72px;flex-direction:column;gap:28px}
+.slide.on{display:flex}
+.slide aside{display:none}
+
+/* type */
+.tag{font-family:var(--mono);font-size:22px;color:var(--muted);display:flex;gap:14px;align-items:center;letter-spacing:.01em;flex-wrap:wrap}
+.tag b{color:var(--accent);font-weight:500}
+.tag .sep{width:28px;height:1px;background:var(--rule)}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:700;letter-spacing:-.01em}
+h1{font-size:84px;line-height:1.12}
+h2{font-size:56px;line-height:1.18}
+h3{font-size:34px;line-height:1.3}
+p{margin:0}
+.lead{font-size:30px;line-height:1.5;color:var(--muted);max-width:30em}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)}
+.hl{color:var(--accent)}
+.next{font-family:var(--mono);font-size:21px;color:var(--accent)}
+.kind{font-family:var(--mono);font-size:17px;color:var(--muted);margin-top:10px}
+
+/* two-column body: visual left, points right (swap with .row.flip) */
+.row{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;flex:1;min-height:0;align-items:center}
+.row.even{grid-template-columns:1fr 1fr}
+.row.flip{grid-template-columns:1fr 1.25fr}
+.row > *{min-width:0}
+.points{display:flex;flex-direction:column;gap:26px;font-size:30px;line-height:1.45}
+.points ul,.points ol{margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
+.points li{list-style:none;padding-left:30px;position:relative}
+.points ul li::before{content:"";position:absolute;left:0;top:.6em;width:12px;height:12px;border:2px solid var(--accent);border-radius:2px}
+.points ol{counter-reset:n}
+.points ol li{counter-increment:n;padding-left:44px}
+.points ol li::before{content:counter(n);position:absolute;left:0;top:.12em;font-family:var(--mono);font-size:22px;color:var(--accent);border:1.5px solid var(--accent);border-radius:4px;width:30px;height:30px;display:grid;place-items:center}
+.points small{display:block;font-size:22px;color:var(--muted);margin-top:4px}
+.quote{font-size:28px;line-height:1.45;border-left:4px solid var(--accent);padding:6px 0 6px 22px}
+.quote cite{display:block;margin-top:10px;font-style:normal;font-family:var(--mono);font-size:20px;color:var(--muted)}
+
+/* capture frame: a real screenshot inside a minimal browser bar naming its true source */
+.frame{background:var(--panel);border:1px solid var(--rule);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);max-height:620px}
+.frame .bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:17px;color:var(--muted);white-space:nowrap;overflow:hidden;flex:none}
+.frame .bar i{width:11px;height:11px;border-radius:50%;background:var(--rule);flex:none}
+.frame .bar span{overflow:hidden;text-overflow:ellipsis}
+.frame img{display:block;width:100%;height:auto;object-fit:cover;object-position:top left;min-height:0}
+.frames{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+
+/* title + section dividers */
+.title-wrap{display:flex;flex-direction:column;gap:22px;margin-top:8px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:auto}
+.strip figure{margin:0;display:flex;flex-direction:column;gap:10px}
+.strip .thumb{aspect-ratio:16/10;max-width:100%;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--panel)}
+.strip img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.strip figcaption{font-family:var(--mono);font-size:19px;color:var(--muted);display:flex;justify-content:space-between}
+.strip figcaption b{color:var(--ink);font-weight:500}
+.arrowline{height:2px;background:linear-gradient(90deg,var(--era1),var(--era2),var(--era3),var(--era4));border-radius:2px}
+.section-slide{justify-content:center}
+.section-slide .big{font-family:var(--mono);font-size:30px;color:var(--accent)}
+.section-slide h1{font-size:96px}
+.agenda{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 48px;font-size:28px;margin-top:20px}
+.agenda div{border-top:1px solid var(--rule);padding-top:12px}
+.agenda b{font-family:var(--mono);font-weight:500;color:var(--accent);margin-right:12px}
+
+/* statement */
+.statement{flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px}
+.statement .say{font-size:64px;line-height:1.25;font-weight:700;text-wrap:balance;max-width:20em}
+.statement .say em{font-style:normal;color:var(--accent)}
+
+/* diagrams */
+.diagram{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.diagram svg{width:100%;height:100%;max-height:640px}
+.under{font-size:28px;line-height:1.5;color:var(--muted)}
+.under b{color:var(--ink);font-weight:600}
+.pele-theme{--pele-bg:var(--panel);--pele-fg:var(--ink);--pele-muted:var(--muted);--pele-line:var(--muted);--pele-border:var(--rule);
+  --pele-surface:var(--panel);--pele-surface-alt:var(--paper);--pele-accent:var(--accent);--pele-font:var(--sans);--pele-font-mono:var(--mono);
+  --pele-series-1:var(--era1);--pele-series-2:var(--era2);--pele-series-3:var(--era3);--pele-series-4:var(--era4);--pele-radius:6px}
+/* D2 output is normalised by tools/diagrams.mjs to these classes */
+.d2 .box-outer{fill:transparent;stroke:var(--rule);stroke-width:2}
+.d2 .box-inner{fill:var(--panel);stroke:var(--muted);stroke-width:1.5}
+.d2 .hot{stroke:var(--accent)!important;stroke-width:2.5!important}
+.d2 .hot.box-outer{fill:var(--accent-soft)}
+.d2 .label-outer{fill:var(--ink);font-family:var(--sans);font-weight:700}
+.d2 .label-inner{fill:var(--ink);font-family:var(--sans);font-weight:600}
+.d2 .edge{stroke:var(--muted);fill:none}
+.d2 .edge-label{fill:var(--muted);font-family:var(--sans)}
+.d2 .arrow-head{fill:var(--muted);stroke:var(--muted)}
+
+/* stat */
+.stat{display:flex;flex-direction:column;gap:14px}
+.stat .n{font-size:168px;line-height:1;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat .d{font-size:30px;line-height:1.45}
+.stat .s{font-family:var(--mono);font-size:19px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.stats .n{font-size:96px}
+
+/* compare columns */
+.compare{display:grid;grid-template-columns:repeat(var(--cols,2),1fr);gap:28px;flex:1;min-height:0}
+.compare > div{border:1px solid var(--rule);border-radius:10px;background:var(--panel);padding:28px 30px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.compare h3{font-size:32px}
+.compare .k{font-family:var(--mono);font-size:19px;color:var(--muted)}
+.compare p,.compare li{font-size:25px;line-height:1.5}
+.compare ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+.compare .on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:24px;line-height:1.4}
+.tbl th{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--muted);text-align:left;padding:10px 14px;border-bottom:2px solid var(--ink)}
+.tbl td{padding:14px;border-bottom:1px solid var(--rule);vertical-align:top}
+.tbl td:first-child{font-weight:600}
+.tbl .mono{font-size:20px}
+
+/* terminal */
+.term{background:var(--term-bg);color:var(--term-fg);border-radius:10px;padding:22px 26px;font-family:var(--mono);font-size:21px;line-height:1.55;white-space:pre-wrap;overflow:hidden}
+.term .dim{color:var(--term-dim)}
+.term .ok{color:#6FD39E}
+.term .warn{color:#F0B45A}
+.term .acc{color:#9FB5FF}
+
+/* lab / assignment */
+.lab{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;flex:1;min-height:0}
+.lab > *{min-width:0}
+.box{border:1px solid var(--rule);background:var(--panel);border-radius:10px;padding:26px 30px;display:flex;flex-direction:column;gap:14px}
+.box h3{font-size:28px}
+.box p,.box li{font-size:24px;line-height:1.5}
+.box ul,.box ol{margin:0;padding-left:26px;display:flex;flex-direction:column;gap:8px}
+.badge{display:inline-block;font-family:var(--mono);font-size:18px;border:1px solid var(--accent);color:var(--accent);border-radius:4px;padding:2px 8px}
+
+/* chrome */
+.hud{position:fixed;left:0;right:0;bottom:0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.hud .bar{flex:1;height:2px;background:var(--rule);position:relative}
+.hud .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent)}
+.hud button,.hud select{font:inherit;color:inherit;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:3px 8px;cursor:pointer;max-width:40vw}
+.hud button:focus-visible,.hud select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.notes{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:44px;max-height:38vh;overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.65}
+@media (prefers-reduced-motion:no-preference){.slide.on{animation:in .25s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
+@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;position:static;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
+
+/* keep captures inside their column: the wrapper shrinks, the frame clips from the top */
+.row > div:has(> .frame){display:flex;flex-direction:column;min-height:0;max-height:100%;align-self:stretch;justify-content:center}
+.row > div:has(> .frame) > .frame{min-height:0;flex:0 1 auto}
+.row > div:has(> .frame) > .frame img{min-height:0;flex:1 1 auto;object-fit:cover;object-position:top left}
+.row > .term{max-height:100%;overflow:hidden}
+
+/* Korean reading aids: a summary under English captures, a translation under English quotes */
+.ko{margin-top:12px;border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 16px;border-radius:0 6px 6px 0;font-size:22px;line-height:1.5;color:var(--ink)}
+.ko b{color:var(--accent);font-weight:600}
+.ko::before{content:"한국어 요약";display:block;font-family:var(--mono);font-size:15px;color:var(--muted);margin-bottom:2px}
+.quote .tr{display:block;margin-top:8px;font-size:24px;color:var(--ink);font-style:normal}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0}
+.vs > div{border:1px solid var(--rule);border-radius:8px;background:var(--panel);padding:12px 16px}
+.vs .k{font-family:var(--mono);font-size:16px;color:var(--muted)}
+.vs .v{font-size:44px;font-weight:700;line-height:1.1}
+.vs .on .v{color:var(--accent)}
+
+/* reference reading card: 장점 · 단점 · 의미 (3 columns full width, or stacked inside a column) */
+.pmi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pmi > div{border:1px solid var(--rule);border-top:4px solid var(--muted);border-radius:8px;background:var(--panel);padding:12px 16px;font-size:21px;line-height:1.45;min-width:0}
+.pmi > div::before{display:block;font-family:var(--mono);font-size:16px;font-weight:500;margin-bottom:4px}
+.pmi .p{border-top-color:var(--add)} .pmi .p::before{content:"장점";color:var(--add)}
+.pmi .m{border-top-color:var(--del)} .pmi .m::before{content:"단점·한계";color:var(--del)}
+.pmi .i{border-top-color:var(--accent)} .pmi .i::before{content:"의미·시사점";color:var(--accent)}
+.pmi.col{grid-template-columns:1fr;gap:10px}
+.pmi.col > div{font-size:20px;padding:10px 14px}
+
+/* Korean: break lines between words, not inside them */
+h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-break:keep-all;overflow-wrap:break-word}
+
+</style>
+<div class="stage"><div class="deck" id="deck">
+<!-- 17교시 · 오늘 진행 안내 (60분). 2026-10-29 자유 공유·토론·스터디로 구성(plan/free-share-brief.md) -->
+
+<!-- 01 표지 -->
+<section data-period="17" class="slide section-slide" data-title="표지">
+  <div class="big">5회차 · 17교시</div>
+  <h1>각자 만든 하네스를<br>나누고 이야기하는 날</h1>
+  <p class="lead">2026-12-01 · 형식은 자유 · 이야기가 스터디로 이어지면 좋겠습니다.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="하네스 엔지니어링 글 화면"></div><figcaption><b>3회차</b><span>하네스</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-skills.jpg" alt="스킬 문서 화면"></div><figcaption><b>3회차</b><span>스킬</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-uxagent.jpg" alt="UXAgent 논문 화면"></div><figcaption><b>4회차</b><span>페르소나 평가</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-scion.jpg" alt="Anthropic Scion 글 화면"></div><figcaption><b>4회차</b><span>팩토리</span></figcaption></figure>
+  </div>
+  <aside>오늘은 5회차, 마지막 날입니다. 네 번의 실습으로 각자 키워 온 하네스를 자유롭게 나누고 이야기하는 날입니다. 새로 소개할 내용은 없습니다. 아래 네 장은 지난 회차에서 본 화면이고, 여러분의 하네스는 이 도구들 위에, 또는 이 도구들을 흉내 내어 쌓은 것입니다. 정해진 발표 양식은 없습니다. 있는 만큼 가져와 이야기해 주세요.</aside>
+</section>
+
+<!-- 02 오늘 진행 -->
+<section data-period="17" class="slide" data-title="오늘 진행">
+  <div class="tag"><b>2026-12-01</b><span class="sep"></span>5회차 일정 · 17~20교시</div>
+  <h2>형식은 자유입니다. 원하는 사람부터 나눕니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 2108 164"><svg class="d2-3888972184 d2-svg" width="2108" height="164" viewBox="-9 -9 2108 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="169.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="169.000000" dy="0.000000">17교시</tspan><tspan x="169.000000" dy="38.500000">오늘 진행 안내</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="396.000000" y="12.000000" width="375.000000" height="122.000000" class="box-inner hot"  /></g><text x="583.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="583.500000" dy="0.000000">18교시</tspan><tspan x="583.500000" dy="38.500000">나누기와 토론 1부</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="841.000000" y="29.000000" width="214.000000" height="88.000000" class="box-inner"  /></g><text x="948.000000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">휴식 10분</text></g><g class="ZA=="><g class="shape" ><rect x="1125.000000" y="12.000000" width="375.000000" height="122.000000" class="box-inner hot"  /></g><text x="1312.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1312.500000" dy="0.000000">19교시</tspan><tspan x="1312.500000" dy="38.500000">나누기와 토론 2부</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="1570.000000" y="29.000000" width="214.000000" height="88.000000" class="box-inner"  /></g><text x="1677.000000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">휴식 10분</text></g><g class="Zg=="><g class="shape" ><rect x="1854.000000" y="12.000000" width="224.000000" height="122.000000" class="box-inner"  /></g><text x="1966.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1966.000000" dy="0.000000">20교시</tspan><tspan x="1966.000000" dy="38.500000">정리·수료</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u1-mk-d2-3888972184-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 328.000000 73.000000 L 392.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 773.000000 73.000000 L 837.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1057.000000 73.000000 L 1121.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><g class="KGQgLSZndDsgZSlbMF0="><path d="M 1502.000000 73.000000 L 1566.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><g class="KGUgLSZndDsgZilbMF0="><path d="M 1786.000000 73.000000 L 1850.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><mask id="u1-d2-3888972184" maskUnits="userSpaceOnUse" x="-9" y="-9" width="2108" height="164">
+<rect x="-9" y="-9" width="2108" height="164" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">화면을 보여 줘도, 말로만 해도, 직접 돌려 보여 줘도 됩니다. 시간은 <b>대략</b>만 잡습니다.</p>
+  <aside>오늘 진행입니다. 17교시는 이 안내, 18교시와 19교시는 각자 만든 하네스를 나누고 이야기하는 시간, 20교시는 오늘 본 것을 묶는 정리와 수료 인사입니다. 교시 사이에는 10분씩 쉽니다. 정해진 순서표도 발표 양식도 없습니다. 화면을 띄우든, 말로 하든, 직접 돌려 보이든 편한 방식으로 하시면 됩니다. 먼저 하고 싶은 분부터 시작하고, 이야기가 길어지면 길어지는 대로 둡니다. 시간은 교시 구성만 대략 안내하고 엄격하게 자르지 않습니다.</aside>
+</section>
+
+<!-- 03 이야기 거리 -->
+<section data-period="17" class="slide" data-title="이야기 거리">
+  <div class="tag"><b>이야기 거리</b><span class="sep"></span>토론을 여는 질문 카드 · 고르는 것이지 숙제가 아닙니다</div>
+  <h2>이야기가 막히면 이런 질문에서 시작해 볼 수 있습니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1253 356"><svg class="d2-684098539 d2-svg" width="1253" height="356" viewBox="-21 -21 1253 356"><g class="YQ=="><g class="shape" ><rect x="0.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="178.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">내 하네스는</tspan><tspan x="178.500000" dy="38.500000">무엇을 맡기나</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="427.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="605.500000" dy="0.000000">가장 잘 막은 것</tspan><tspan x="605.500000" dy="38.500000">못 막은 것</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="854.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="1032.500000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음에 더할 장치</text></g><g class="ZA=="><g class="shape" ><rect x="0.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="178.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">남의 하네스에서</tspan><tspan x="178.500000" dy="38.500000">가져가고 싶은 것</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="427.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="265.500000" class="label-inner" style="text-anchor:middle;font-size:34px">아직 모르겠는 것</text></g><mask id="u2-d2-684098539" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1253" height="356">
+<rect x="-21" y="-21" width="1253" height="356" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">다섯 카드를 모두 쓸 필요는 없습니다. <b>끌리는 카드 하나</b>로 시작해도 이야기가 이어집니다.</p>
+  <aside>이야기를 여는 질문 카드입니다. 내 하네스는 무엇을 맡기는지, 가장 잘 막은 것과 못 막은 것은 무엇인지, 다음에 더하고 싶은 장치는 무엇인지, 남의 하네스에서 가져가고 싶은 것은 무엇인지, 아직 모르겠는 것은 무엇인지입니다. 강제가 아니라 이야기가 막힐 때 꺼내 보는 카드입니다. 성공담만큼 막혔던 곳과 아직 모르겠는 것이 서로에게 도움이 됩니다. 못 고친 것도 그대로 이야기해 주세요. 듣는 분도 궁금한 것이 생기면 바로 물어봐도 좋습니다.</aside>
+</section>
+
+<!-- 04 스터디로 이어 가기 -->
+<section data-period="17" class="slide" data-title="스터디로 이어 가기">
+  <div class="tag"><b>그다음</b><span class="sep"></span>오늘 이야기를 스터디로 · 아래는 모두 예시입니다</div>
+  <h2>오늘 나온 것을 모아 두면 스터디로 이어 가기 쉽습니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1594 198"><svg class="d2-3064272061 d2-svg" width="1594" height="198" viewBox="-9 -9 1594 198"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="351.000000" height="156.000000" class="box-inner"  /></g><text x="187.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="187.500000" dy="0.000000">오늘 나온 것</tspan><tspan x="187.500000" dy="37.000000">프롬프트·스킬</tspan><tspan x="187.500000" dy="37.000000">스모크 시나리오</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="433.000000" y="12.000000" width="369.000000" height="156.000000" class="box-inner hot"  /></g><text x="617.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="617.500000" dy="0.000000">모아 두기</tspan><tspan x="617.500000" dy="37.000000">예) 공용 저장소나</tspan><tspan x="617.500000" dy="37.000000">문서 하나</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="872.000000" y="29.000000" width="271.000000" height="122.000000" class="box-inner"  /></g><text x="1007.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1007.500000" dy="0.000000">같이 볼 자료</tspan><tspan x="1007.500000" dy="38.500000">함께 고르기</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="1213.000000" y="29.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="1388.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1388.500000" dy="0.000000">다음 모임</tspan><tspan x="1388.500000" dy="38.500000">원하는 사람끼리</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u3-mk-d2-3064272061-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 365.000000 90.000000 L 429.000000 90.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3064272061-3488378134)" mask="url(#u3-d2-3064272061)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 804.000000 90.000000 L 868.000000 90.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3064272061-3488378134)" mask="url(#u3-d2-3064272061)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1145.000000 90.000000 L 1209.000000 90.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3064272061-3488378134)" mask="url(#u3-d2-3064272061)" /></g><mask id="u3-d2-3064272061" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1594" height="198">
+<rect x="-9" y="-9" width="1594" height="198" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">방법과 도구는 <b>예시</b>입니다. 어떻게 모을지, 언제 만날지는 <b>원하는 사람끼리</b> 정합니다.</p>
+  <aside>오늘 이야기가 오늘로 끝나지 않으면 좋겠습니다. 오늘 나온 프롬프트, 스킬, 스모크 시나리오를 서로 모아 두면 좋습니다. 예를 들면 공용 저장소나 문서 하나를 두는 방법이 있습니다. 어디에 모을지는 정해진 것이 없습니다. 같이 볼 자료도 이야기하며 고를 수 있고, 다음 모임은 하고 싶은 분들끼리 정하면 됩니다. 일정이나 도구는 오늘 이야기하면서 정해도 되고, 정하지 않아도 됩니다. 저는 18교시부터 듣는 쪽으로 함께하겠습니다.</aside>
+</section>
+
+<!-- 18교시 · 나누기와 토론 1부 (60분) -->
+
+<!-- 01 표지 -->
+<section data-period="18" class="slide section-slide" data-title="표지">
+  <div class="big">5회차 · 18교시</div>
+  <h1>나누기와 토론 1부</h1>
+  <p class="lead">원하는 사람부터 · 형식은 자유 · 이야기는 길어져도 괜찮습니다.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="하네스 글 화면"></div><figcaption><b>구조</b><span>하네스</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-cc-subagents.jpg" alt="서브에이전트 문서 화면"></div><figcaption><b>구조</b><span>서브에이전트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-goal.jpg" alt="goal 문서 화면"></div><figcaption><b>기록</b><span>긴 작업</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-uxagent.jpg" alt="UXAgent 논문 화면"></div><figcaption><b>평가</b><span>페르소나</span></figcaption></figure>
+  </div>
+  <aside>18교시를 시작합니다. 각자 만든 하네스를 자유롭게 나누고 이야기하는 시간입니다. 위의 화면은 지난 회차에서 본 자료이고, 이야기를 들으며 구조, 기록, 페르소나 평가 같은 관점으로 떠올려 보셔도 좋습니다. 먼저 나누고 싶은 분부터 손을 들어 주세요.</aside>
+</section>
+
+<!-- 02 진행 -->
+<section data-period="18" class="slide" data-title="진행">
+  <div class="tag"><b>진행</b><span class="sep"></span>원하는 사람부터 · 화면·말·데모 무엇이든</div>
+  <h2>원하는 사람부터 나누고, 이야기가 이어지면 이어 갑니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1453 164"><svg class="d2-860352702 d2-svg" width="1453" height="164" viewBox="-9 -9 1453 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="29.000000" width="351.000000" height="88.000000" class="box-inner"  /></g><text x="187.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">원하는 사람부터</text></g><g class="Yg=="><g class="shape" ><rect x="433.000000" y="12.000000" width="278.000000" height="122.000000" class="box-inner"  /></g><text x="572.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="572.000000" dy="0.000000">화면·말·데모</tspan><tspan x="572.000000" dy="38.500000">형식은 자유</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="781.000000" y="12.000000" width="351.000000" height="122.000000" class="box-inner hot"  /></g><text x="956.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="956.500000" dy="0.000000">이야기와 질문</tspan><tspan x="956.500000" dy="38.500000">길어져도 괜찮음</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="1202.000000" y="29.000000" width="221.000000" height="88.000000" class="box-inner"  /></g><text x="1312.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음 사람</text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u4-mk-d2-860352702-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 365.000000 73.000000 L 429.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u4-mk-d2-860352702-3488378134)" mask="url(#u4-d2-860352702)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 713.000000 73.000000 L 777.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u4-mk-d2-860352702-3488378134)" mask="url(#u4-d2-860352702)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1134.000000 73.000000 L 1198.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u4-mk-d2-860352702-3488378134)" mask="url(#u4-d2-860352702)" /></g><mask id="u4-d2-860352702" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1453" height="164">
+<rect x="-9" y="-9" width="1453" height="164" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">순서표는 없습니다. 이야기가 길어지면 <b>길어지는 대로</b> 둡니다.</p>
+  <aside>진행은 간단합니다. 나누고 싶은 분이 먼저 시작하고, 화면이든 말이든 직접 돌려 보이든 편한 방식으로 이야기합니다. 듣다가 궁금한 것은 그 자리에서 물어도 좋습니다. 이야기가 길어지면 길어지는 대로 두고, 한 이야기가 끝나면 다음 분이 이어 갑니다. 나눌 분이 많으면 19교시에도 이어집니다. 시간은 교시 단위로만 대략 봅니다.</aside>
+</section>
+
+<!-- 03 이야기 거리 -->
+<section data-period="18" class="slide" data-title="이야기 거리">
+  <div class="tag"><b>이야기 거리</b><span class="sep"></span>토론을 여는 질문 카드 · 고르는 것</div>
+  <h2>이야기가 막히면 이 카드 중 하나에서 시작해 봅니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1253 356"><svg class="d2-684098539 d2-svg" width="1253" height="356" viewBox="-21 -21 1253 356"><g class="YQ=="><g class="shape" ><rect x="0.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="178.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">내 하네스는</tspan><tspan x="178.500000" dy="38.500000">무엇을 맡기나</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="427.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="605.500000" dy="0.000000">가장 잘 막은 것</tspan><tspan x="605.500000" dy="38.500000">못 막은 것</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="854.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="1032.500000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음에 더할 장치</text></g><g class="ZA=="><g class="shape" ><rect x="0.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="178.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">남의 하네스에서</tspan><tspan x="178.500000" dy="38.500000">가져가고 싶은 것</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="427.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="265.500000" class="label-inner" style="text-anchor:middle;font-size:34px">아직 모르겠는 것</text></g><mask id="u5-d2-684098539" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1253" height="356">
+<rect x="-21" y="-21" width="1253" height="356" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">모두 쓸 필요는 없습니다. <b>끌리는 카드 하나</b>면 충분합니다.</p>
+  <aside>17교시에서 본 질문 카드입니다. 내 하네스는 무엇을 맡기는지, 가장 잘 막은 것과 못 막은 것, 다음에 더할 장치, 남의 하네스에서 가져가고 싶은 것, 아직 모르겠는 것입니다. 이야기가 잠시 멈췄을 때 꺼내 보면 됩니다. 스터디로 이어 가고 싶은 주제가 나오면 적어 두었다가 20교시에 같이 이야기합니다.</aside>
+</section>
+
+<!-- 04 휴식 -->
+<section data-period="18" class="slide" data-title="휴식">
+  <div class="tag"><b>휴식</b><span class="sep"></span>10분</div>
+  <h2>10분 휴식</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1197 164"><svg class="d2-1620719301 d2-svg" width="1197" height="164" viewBox="-9 -9 1197 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="426.000000" height="122.000000" class="box-inner"  /></g><text x="225.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="225.000000" dy="0.000000">18교시</tspan><tspan x="225.000000" dy="38.500000">나누기와 토론 1부 끝</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="508.000000" y="29.000000" width="214.000000" height="88.000000" class="box-inner hot"  /></g><text x="615.000000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">휴식 10분</text></g><g class="Yw=="><g class="shape" ><rect x="792.000000" y="12.000000" width="375.000000" height="122.000000" class="box-inner"  /></g><text x="979.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="979.500000" dy="0.000000">19교시</tspan><tspan x="979.500000" dy="38.500000">나누기와 토론 2부</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u6-mk-d2-1620719301-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 440.000000 73.000000 L 504.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-1620719301-3488378134)" mask="url(#u6-d2-1620719301)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 724.000000 73.000000 L 788.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-1620719301-3488378134)" mask="url(#u6-d2-1620719301)" /></g><mask id="u6-d2-1620719301" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1197" height="164">
+<rect x="-9" y="-9" width="1197" height="164" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">잠깐 쉬세요. <span class="next">→ 19교시</span></p>
+  <aside>여기서 10분 쉽니다. 이야기에 참여해 주신 분들께 감사합니다. 쉬는 동안 나누지 못한 이야기가 있으면 편하게 이어서 해도 좋고, 시계가 10분이 되면 다음 시간을 시작합니다.</aside>
+</section>
+
+<!-- 19교시 · 나누기와 토론 2부 (60분) -->
+
+<!-- 01 표지 -->
+<section data-period="19" class="slide section-slide" data-title="표지">
+  <div class="big">5회차 · 19교시</div>
+  <h1>나누기와 토론 2부</h1>
+  <p class="lead">원하는 사람부터 · 형식은 자유 · 이야기는 길어져도 괜찮습니다.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="하네스 글 화면"></div><figcaption><b>구조</b><span>하네스</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-cc-subagents.jpg" alt="서브에이전트 문서 화면"></div><figcaption><b>구조</b><span>서브에이전트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-goal.jpg" alt="goal 문서 화면"></div><figcaption><b>기록</b><span>긴 작업</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-uxagent.jpg" alt="UXAgent 논문 화면"></div><figcaption><b>평가</b><span>페르소나</span></figcaption></figure>
+  </div>
+  <aside>19교시를 시작합니다. 각자 만든 하네스를 자유롭게 나누고 이야기하는 시간입니다. 위의 화면은 지난 회차에서 본 자료이고, 이야기를 들으며 구조, 기록, 페르소나 평가 같은 관점으로 떠올려 보셔도 좋습니다. 앞 교시에 이어 나누고 싶은 분부터 손을 들어 주세요. 앞에서 못 한 이야기를 이어 가도 좋습니다.</aside>
+</section>
+
+<!-- 02 진행 -->
+<section data-period="19" class="slide" data-title="진행">
+  <div class="tag"><b>진행</b><span class="sep"></span>원하는 사람부터 · 화면·말·데모 무엇이든</div>
+  <h2>원하는 사람부터 나누고, 이야기가 이어지면 이어 갑니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1453 164"><svg class="d2-860352702 d2-svg" width="1453" height="164" viewBox="-9 -9 1453 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="29.000000" width="351.000000" height="88.000000" class="box-inner"  /></g><text x="187.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">원하는 사람부터</text></g><g class="Yg=="><g class="shape" ><rect x="433.000000" y="12.000000" width="278.000000" height="122.000000" class="box-inner"  /></g><text x="572.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="572.000000" dy="0.000000">화면·말·데모</tspan><tspan x="572.000000" dy="38.500000">형식은 자유</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="781.000000" y="12.000000" width="351.000000" height="122.000000" class="box-inner hot"  /></g><text x="956.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="956.500000" dy="0.000000">이야기와 질문</tspan><tspan x="956.500000" dy="38.500000">길어져도 괜찮음</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="1202.000000" y="29.000000" width="221.000000" height="88.000000" class="box-inner"  /></g><text x="1312.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음 사람</text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u7-mk-d2-860352702-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 365.000000 73.000000 L 429.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-860352702-3488378134)" mask="url(#u7-d2-860352702)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 713.000000 73.000000 L 777.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-860352702-3488378134)" mask="url(#u7-d2-860352702)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1134.000000 73.000000 L 1198.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-860352702-3488378134)" mask="url(#u7-d2-860352702)" /></g><mask id="u7-d2-860352702" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1453" height="164">
+<rect x="-9" y="-9" width="1453" height="164" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">순서표는 없습니다. 이야기가 길어지면 <b>길어지는 대로</b> 둡니다.</p>
+  <aside>진행은 간단합니다. 나누고 싶은 분이 먼저 시작하고, 화면이든 말이든 직접 돌려 보이든 편한 방식으로 이야기합니다. 듣다가 궁금한 것은 그 자리에서 물어도 좋습니다. 이야기가 길어지면 길어지는 대로 두고, 한 이야기가 끝나면 다음 분이 이어 갑니다. 나눌 분이 많으면 이 교시에서도 계속 나눕니다. 시간은 교시 단위로만 대략 봅니다.</aside>
+</section>
+
+<!-- 03 이야기 거리 -->
+<section data-period="19" class="slide" data-title="이야기 거리">
+  <div class="tag"><b>이야기 거리</b><span class="sep"></span>토론을 여는 질문 카드 · 고르는 것</div>
+  <h2>이야기가 막히면 이 카드 중 하나에서 시작해 봅니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1253 356"><svg class="d2-684098539 d2-svg" width="1253" height="356" viewBox="-21 -21 1253 356"><g class="YQ=="><g class="shape" ><rect x="0.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="178.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">내 하네스는</tspan><tspan x="178.500000" dy="38.500000">무엇을 맡기나</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="427.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="605.500000" dy="0.000000">가장 잘 막은 것</tspan><tspan x="605.500000" dy="38.500000">못 막은 것</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="854.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="1032.500000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음에 더할 장치</text></g><g class="ZA=="><g class="shape" ><rect x="0.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="178.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">남의 하네스에서</tspan><tspan x="178.500000" dy="38.500000">가져가고 싶은 것</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="427.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="265.500000" class="label-inner" style="text-anchor:middle;font-size:34px">아직 모르겠는 것</text></g><mask id="u8-d2-684098539" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1253" height="356">
+<rect x="-21" y="-21" width="1253" height="356" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">모두 쓸 필요는 없습니다. <b>끌리는 카드 하나</b>면 충분합니다.</p>
+  <aside>17교시에서 본 질문 카드입니다. 내 하네스는 무엇을 맡기는지, 가장 잘 막은 것과 못 막은 것, 다음에 더할 장치, 남의 하네스에서 가져가고 싶은 것, 아직 모르겠는 것입니다. 이야기가 잠시 멈췄을 때 꺼내 보면 됩니다. 스터디로 이어 가고 싶은 주제가 나오면 적어 두었다가 20교시에 같이 이야기합니다.</aside>
+</section>
+
+<!-- 04 휴식 -->
+<section data-period="19" class="slide" data-title="휴식">
+  <div class="tag"><b>휴식</b><span class="sep"></span>10분</div>
+  <h2>10분 휴식</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1046 164"><svg class="d2-4273000679 d2-svg" width="1046" height="164" viewBox="-9 -9 1046 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="426.000000" height="122.000000" class="box-inner"  /></g><text x="225.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="225.000000" dy="0.000000">19교시</tspan><tspan x="225.000000" dy="38.500000">나누기와 토론 2부 끝</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="508.000000" y="29.000000" width="214.000000" height="88.000000" class="box-inner hot"  /></g><text x="615.000000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">휴식 10분</text></g><g class="Yw=="><g class="shape" ><rect x="792.000000" y="12.000000" width="224.000000" height="122.000000" class="box-inner"  /></g><text x="904.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="904.000000" dy="0.000000">20교시</tspan><tspan x="904.000000" dy="38.500000">정리·수료</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u9-mk-d2-4273000679-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 440.000000 73.000000 L 504.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u9-mk-d2-4273000679-3488378134)" mask="url(#u9-d2-4273000679)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 724.000000 73.000000 L 788.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u9-mk-d2-4273000679-3488378134)" mask="url(#u9-d2-4273000679)" /></g><mask id="u9-d2-4273000679" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1046" height="164">
+<rect x="-9" y="-9" width="1046" height="164" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">이야기를 마쳤습니다. 다음은 정리입니다. <span class="next">→ 20교시</span></p>
+  <aside>여기서 10분 쉽니다. 이야기에 참여해 주신 분들께 감사합니다. 쉬는 동안 나누지 못한 이야기가 있으면 편하게 이어서 해도 좋고, 시계가 10분이 되면 다음 시간을 시작합니다.</aside>
+</section>
+
+<!-- 20교시 · 마무리 (60분) -->
+
+<!-- 01 표지 -->
+<section data-period="20" class="slide section-slide" data-title="표지">
+  <div class="big">5회차 · 20교시</div>
+  <h1>마무리와<br>앞으로 볼 것</h1>
+  <p class="lead">처음 보여 드린 연표를 다시 보고, 이 변화를 계속 따라가는 방법을 소개합니다.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-cc-changelog.jpg" alt="Claude Code CHANGELOG 화면"></div><figcaption><b>CHANGELOG</b><span>Claude Code</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p20-anthropic-engineering.jpg" alt="Anthropic Engineering 블로그 첫 화면"></div><figcaption><b>Engineering</b><span>Anthropic</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p20-github-changelog.jpg" alt="GitHub Changelog 화면"></div><figcaption><b>Changelog</b><span>GitHub</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p20-cc-docs-overview.jpg" alt="Claude Code 문서 개요 화면"></div><figcaption><b>Docs</b><span>Claude Code</span></figcaption></figure>
+  </div>
+  <aside>마지막 교시입니다. 오늘 나눈 이야기를 떠올리며 5주 전에 본 연표와 두 축을 다시 보겠습니다. 그리고 이 분야는 매주 바뀌므로 과정이 끝난 뒤에도 따라갈 수 있게, 제가 실제로 읽는 1차 출처를 소개합니다. 아래 네 장이 그 출처의 실제 화면입니다.</aside>
+</section>
+
+<!-- 02 연표 -->
+<section data-period="20" class="slide" data-title="5년과 5주">
+  <div class="tag"><b>2021 → 2026</b><span class="sep"></span>1교시 연표 · 다시 보기</div>
+  <h2>1교시의 연표: 네 시대를 지나왔습니다</h2>
+  <div class="diagram pele-theme"><svg xmlns="http://www.w3.org/2000/svg" class="pele pele-timeline" viewBox="0 0 1388 241" width="1388" height="241" style="max-width:100%;height:auto;--_bg:var(--pele-bg,#fff);--_fg:var(--pele-fg,#1f1f1f);--_m:var(--pele-muted,#6e6e6e);--_l:var(--pele-line,#1f1f1f);--_s:var(--pele-surface,#f3f3f3);--_a:var(--pele-surface-alt,#e6e6e6);--_b:var(--pele-border,#8a8a8a);--_c:var(--pele-accent,#5b7bd5);color:var(--_fg);--_r:var(--pele-radius,4px);--_hw:var(--pele-heading-weight,bold);--_fm:var(--pele-font-mono,monospace);font:16px sans-serif;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;font-family:var(--pele-font,sans-serif)" fill="var(--_fg)" role="graphics-document document" aria-roledescription="timeline"><path class="pele-axis" d="M8,116H1373" fill="none" stroke="var(--_l)"/><path class="pele-marker" d="M1380,116L1372,119.36L1372,112.64Z" fill="var(--_l)" stroke="none"/><g class="pele-cluster pele-section" data-id="제안하는 AI"><rect x="8" y="8" width="568" height="40" fill="var(--pele-series-1,#4c78a8)" style="rx:var(--_r)"/><text font-weight="var(--_hw)" fill="var(--_bg)" text-anchor="middle" xml:space="preserve"><tspan x="292" y="33.6">제안하는 AI</tspan></text><g class="pele-node pele-period" data-id="2021"><rect x="8" y="56" width="176" height="40" fill="var(--pele-series-1,#4c78a8)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="96" y="81.6" text-anchor="middle">2021</text><path class="pele-edge" d="M96,96V136" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="96" cy="116" r="4" fill="var(--pele-series-1,#4c78a8)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="8" y="136" width="176" height="37" fill="var(--pele-series-1,#4c78a8)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="96" y="159.4" text-anchor="middle">Copilot 자동완성</text></g></g><g class="pele-node pele-period" data-id="2022"><rect x="204" y="56" width="176" height="40" fill="var(--pele-series-1,#4c78a8)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="292" y="81.6" text-anchor="middle">2022</text><path class="pele-edge" d="M292,96V136" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="292" cy="116" r="4" fill="var(--pele-series-1,#4c78a8)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="204" y="136" width="176" height="37" fill="var(--pele-series-1,#4c78a8)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="292" y="159.4" text-anchor="middle">ChatGPT</text></g></g><g class="pele-node pele-period" data-id="2023"><rect x="400" y="56" width="176" height="40" fill="var(--pele-series-1,#4c78a8)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="488" y="81.6" text-anchor="middle">2023</text><path class="pele-edge" d="M488,96V136" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="488" cy="116" r="4" fill="var(--pele-series-1,#4c78a8)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="400" y="136" width="176" height="37" fill="var(--pele-series-1,#4c78a8)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="488" y="159.4" text-anchor="middle">IDE 채팅 · Aider</text></g></g></g><g class="pele-cluster pele-section" data-id="일하는 AI"><rect x="596" y="8" width="372" height="40" fill="var(--pele-series-2,#f58518)" style="rx:var(--_r)"/><text font-weight="var(--_hw)" fill="var(--_bg)" text-anchor="middle" xml:space="preserve"><tspan x="782" y="33.6">일하는 AI</tspan></text><g class="pele-node pele-period" data-id="2025 상반기"><rect x="596" y="56" width="176" height="40" fill="var(--pele-series-2,#f58518)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="684" y="81.6" text-anchor="middle">2025 상반기</text><path class="pele-edge" d="M684,96V136M684,188V196" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="684" cy="116" r="4" fill="var(--pele-series-2,#f58518)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="596" y="136" width="176" height="52" fill="var(--pele-series-2,#f58518)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" text-anchor="middle" xml:space="preserve"><tspan x="684" y="157.9">Claude Code · Codex</tspan><tspan x="684" y="175.9">CLI</tspan></text></g><g class="pele-node pele-event"><rect x="596" y="196" width="176" height="37" fill="var(--pele-series-2,#f58518)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="684" y="219.4" text-anchor="middle">승인 피로 · 자동 압축</text></g></g><g class="pele-node pele-period" data-id="2025 하반기"><rect x="792" y="56" width="176" height="40" fill="var(--pele-series-2,#f58518)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="880" y="81.6" text-anchor="middle">2025 하반기</text><path class="pele-edge" d="M880,96V136M880,188V196" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="880" cy="116" r="4" fill="var(--pele-series-2,#f58518)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="792" y="136" width="176" height="52" fill="var(--pele-series-2,#f58518)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" text-anchor="middle" xml:space="preserve"><tspan x="880" y="157.9">Plan 모드 · SDD ·</tspan><tspan x="880" y="175.9">서브에이전트</tspan></text></g><g class="pele-node pele-event"><rect x="792" y="196" width="176" height="37" fill="var(--pele-series-2,#f58518)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="880" y="219.4" text-anchor="middle">스킬 · Superpowers</text></g></g></g><g class="pele-cluster pele-section" data-id="오래 일하는 AI"><rect x="988" y="8" width="176" height="40" fill="var(--pele-series-3,#54a24b)" style="rx:var(--_r)"/><text font-weight="var(--_hw)" fill="var(--_bg)" text-anchor="middle" xml:space="preserve"><tspan x="1076" y="33.6">오래 일하는 AI</tspan></text><g class="pele-node pele-period" data-id="2026 상반기"><rect x="988" y="56" width="176" height="40" fill="var(--pele-series-3,#54a24b)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="1076" y="81.6" text-anchor="middle">2026 상반기</text><path class="pele-edge" d="M1076,96V136M1076,173V181" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="1076" cy="116" r="4" fill="var(--pele-series-3,#54a24b)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="988" y="136" width="176" height="37" fill="var(--pele-series-3,#54a24b)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="1076" y="159.4" text-anchor="middle">워크트리 · 1M 컨텍스트</text></g><g class="pele-node pele-event"><rect x="988" y="181" width="176" height="37" fill="var(--pele-series-3,#54a24b)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="1076" y="204.4" text-anchor="middle">자동 승인 · /goal</text></g></g></g><g class="pele-cluster pele-section" data-id="공장이 된 AI"><rect x="1184" y="8" width="176" height="40" fill="var(--pele-series-4,#e45756)" style="rx:var(--_r)"/><text font-weight="var(--_hw)" fill="var(--_bg)" text-anchor="middle" xml:space="preserve"><tspan x="1272" y="33.6">공장이 된 AI</tspan></text><g class="pele-node pele-period" data-id="2026 하반기"><rect x="1184" y="56" width="176" height="40" fill="var(--pele-series-4,#e45756)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="1272" y="81.6" text-anchor="middle">2026 하반기</text><path class="pele-edge" d="M1272,96V136M1272,173V181" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="1272" cy="116" r="4" fill="var(--pele-series-4,#e45756)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="1184" y="136" width="176" height="37" fill="var(--pele-series-4,#e45756)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="1272" y="159.4" text-anchor="middle">에이전트 팩토리 · Orca</text></g><g class="pele-node pele-event"><rect x="1184" y="181" width="176" height="52" fill="var(--pele-series-4,#e45756)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" text-anchor="middle" xml:space="preserve"><tspan x="1272" y="202.9">CI 폭증 · 스모크 ·</tspan><tspan x="1272" y="220.9">페르소나</tspan></text></g></g></g></svg></div>
+  <p class="under">5주 동안 <b>제안하는 AI에서 공장이 된 AI까지</b> 한 번씩 손으로 만져 보았습니다.</p>
+  <aside>1교시에서 본 연표입니다. 제안하는 AI, 일하는 AI, 오래 일하는 AI, 공장이 된 AI의 네 시대였습니다. 5주 동안 이 순서대로 최소 루프, 스펙과 테스트, MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)와 스킬, 코디네이터와 스모크를 하네스에 하나씩 더했습니다. 오늘 나눈 하네스는 그 마지막 단계에서 여러분이 직접 만든 팩토리였습니다.</aside>
+</section>
+
+<!-- 03 두 축 -->
+<section data-period="20" class="slide" data-title="두 개의 축 다시">
+  <div class="tag"><b>1교시 다시 보기</b><span class="sep"></span>막는 장치와 ‘계속’</div>
+  <h2>‘막는 장치’와 ‘계속’ 두 축에서 내 하네스의 빈 곳을 찾습니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1845 418"><svg class="d2-2199311259 d2-svg" width="1845" height="418" viewBox="-9 -9 1845 418"><g class="Z3VhcmQ="><g class="shape" ><rect x="12.000000" y="12.000000" width="1803.000000" height="178.000000" class="box-outer hot"  /></g><text x="913.500000" y="43.000000" class="label-outer" style="text-anchor:middle;font-size:26px">축 1 · 실수를 막는 장치</text></g><g class="Y29udA=="><g class="shape" ><rect x="47.000000" y="210.000000" width="1733.000000" height="178.000000" class="box-outer"  /></g><text x="913.500000" y="241.000000" class="label-outer" style="text-anchor:middle;font-size:26px">축 2 · ‘계속’을 누가 누르나</text></g><g class="Z3VhcmQuYQ=="><g class="shape" ><rect x="62.000000" y="62.000000" width="179.000000" height="78.000000" class="box-inner"  /></g><text x="151.500000" y="110.500000" class="label-inner" style="text-anchor:middle;font-size:26px">권한 승인</text></g><g class="Z3VhcmQuYg=="><g class="shape" ><rect x="311.000000" y="62.000000" width="168.000000" height="78.000000" class="box-inner"  /></g><text x="395.000000" y="110.500000" class="label-inner" style="text-anchor:middle;font-size:26px">스펙·Plan</text></g><g class="Z3VhcmQuYw=="><g class="shape" ><rect x="549.000000" y="62.000000" width="207.000000" height="78.000000" class="box-inner"  /></g><text x="652.500000" y="110.500000" class="label-inner" style="text-anchor:middle;font-size:26px">테스트(TDD)</text></g><g class="Z3VhcmQuZA=="><g class="shape" ><rect x="826.000000" y="62.000000" width="281.000000" height="78.000000" class="box-inner"  /></g><text x="966.500000" y="110.500000" class="label-inner" style="text-anchor:middle;font-size:26px">도메인 경계(DDD)</text></g><g class="Z3VhcmQuZQ=="><g class="shape" ><rect x="1177.000000" y="62.000000" width="237.000000" height="78.000000" class="box-inner"  /></g><text x="1295.500000" y="110.500000" class="label-inner" style="text-anchor:middle;font-size:26px">ADR·이슈 원장</text></g><g class="Z3VhcmQuZg=="><g class="shape" ><rect x="1484.000000" y="62.000000" width="281.000000" height="78.000000" class="box-inner"  /></g><text x="1624.500000" y="110.500000" class="label-inner" style="text-anchor:middle;font-size:26px">스모크·페르소나</text></g><g class="Y29udC5o"><g class="shape" ><rect x="97.000000" y="260.000000" width="329.000000" height="78.000000" class="box-inner"  /></g><text x="261.500000" y="308.500000" class="label-inner" style="text-anchor:middle;font-size:26px">사람이 Tab·붙여넣기</text></g><g class="Y29udC5p"><g class="shape" ><rect x="496.000000" y="260.000000" width="246.000000" height="78.000000" class="box-inner"  /></g><text x="619.000000" y="308.500000" class="label-inner" style="text-anchor:middle;font-size:26px">에이전트 루프</text></g><g class="Y29udC5q"><g class="shape" ><rect x="812.000000" y="260.000000" width="179.000000" height="78.000000" class="box-inner"  /></g><text x="901.500000" y="308.500000" class="label-inner" style="text-anchor:middle;font-size:26px">자동 승인</text></g><g class="Y29udC5r"><g class="shape" ><rect x="1061.000000" y="260.000000" width="183.000000" height="78.000000" class="box-inner"  /></g><text x="1152.500000" y="308.500000" class="label-inner" style="text-anchor:middle;font-size:26px">/loop · /goal</text></g><g class="Y29udC5s"><g class="shape" ><rect x="1314.000000" y="260.000000" width="416.000000" height="78.000000" class="box-inner hot"  /></g><text x="1522.000000" y="308.500000" class="label-inner" style="text-anchor:middle;font-size:26px">코디네이터가 깨어나 점검</text></g><g class="Z3VhcmQuKGEgLSZndDsgYilbMF0="><marker id="u11-mk-d2-2199311259-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 243.000000 101.000000 L 307.000000 101.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><g class="Z3VhcmQuKGIgLSZndDsgYylbMF0="><path d="M 481.000000 101.000000 L 545.000000 101.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><g class="Z3VhcmQuKGMgLSZndDsgZClbMF0="><path d="M 758.000000 101.000000 L 822.000000 101.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><g class="Z3VhcmQuKGQgLSZndDsgZSlbMF0="><path d="M 1109.000000 101.000000 L 1173.000000 101.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><g class="Z3VhcmQuKGUgLSZndDsgZilbMF0="><path d="M 1416.000000 101.000000 L 1480.000000 101.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><g class="Y29udC4oaCAtJmd0OyBpKVswXQ=="><path d="M 428.000000 299.000000 L 492.000000 299.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><g class="Y29udC4oaSAtJmd0OyBqKVswXQ=="><path d="M 744.000000 299.000000 L 808.000000 299.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><g class="Y29udC4oaiAtJmd0OyBrKVswXQ=="><path d="M 993.000000 299.000000 L 1057.000000 299.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><g class="Y29udC4oayAtJmd0OyBsKVswXQ=="><path d="M 1246.000000 299.000000 L 1310.000000 299.000000" class="edge" style="stroke-width:2;" marker-end="url(#u11-mk-d2-2199311259-3488378134)" mask="url(#u11-d2-2199311259)" /></g><mask id="u11-d2-2199311259" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1845" height="418">
+<rect x="-9" y="-9" width="1845" height="418" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">내 하네스의 장치를 <b>두 축 위에 표시</b>해 볼 수 있습니다. 비어 있는 쪽이 다음에 할 일입니다.</p>
+  <aside>1교시의 두 축입니다. 위 축은 에이전트의 실수를 막는 장치이고, 아래 축은 사람이 누르던 계속이 사라진 역사입니다. 오늘 이야기를 들으며 여러분의 하네스가 어느 쪽에 치우쳐 있는지 생각해 보셔도 좋습니다. 막는 장치는 많은데 사람이 계속 눌러야 한다면 아래 축이 비어 있는 것이고, 오래 돌아가는데 점검이 약하다면 위 축이 비어 있는 것입니다. 비어 있는 쪽이 다음에 할 일입니다.</aside>
+</section>
+
+<!-- 04 장치 순서 -->
+<section data-period="20" class="slide" data-title="장치가 쌓인 순서">
+  <div class="tag"><b>묶어 보면</b><span class="sep"></span>각 장치는 앞 단계의 실패에서 나왔다</div>
+  <h2>장치는 앞 단계의 실패에서 나왔습니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1143 522"><svg class="d2-502288146 d2-svg" width="1143" height="522" viewBox="-21 -21 1143 522"><g class="ZTE="><g class="shape" ><rect x="0.000000" y="0.000000" width="397.000000" height="190.000000" class="box-inner"  /></g><text x="198.500000" y="90.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="198.500000" dy="0.000000">제안하는 AI</tspan><tspan x="198.500000" dy="38.500000">자동완성 · IDE 채팅</tspan></text></g><g class="ZTI="><g class="shape" ><rect x="547.000000" y="0.000000" width="554.000000" height="190.000000" class="box-inner"  /></g><text x="824.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="824.000000" dy="0.000000">일하는 AI</tspan><tspan x="824.000000" dy="36.250000">터미널 에이전트 · 권한 승인</tspan><tspan x="824.000000" dy="36.250000">SDD·Plan · TDD·DDD</tspan><tspan x="824.000000" dy="36.250000">서브에이전트·워크트리</tspan></text></g><g class="ZTQ="><g class="shape" ><rect x="0.000000" y="290.000000" width="397.000000" height="190.000000" class="box-inner hot"  /></g><text x="198.500000" y="346.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="198.500000" dy="0.000000">공장이 된 AI</tspan><tspan x="198.500000" dy="36.250000">팩토리·코디네이터</tspan><tspan x="198.500000" dy="36.250000">ADR·이슈 원장</tspan><tspan x="198.500000" dy="36.250000">머지 큐·CI·스모크</tspan></text></g><g class="ZTM="><g class="shape" ><rect x="547.000000" y="290.000000" width="554.000000" height="190.000000" class="box-inner"  /></g><text x="824.000000" y="346.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="824.000000" dy="0.000000">오래 일하는 AI</tspan><tspan x="824.000000" dy="36.250000">자동 승인 · /loop · /goal</tspan><tspan x="824.000000" dy="36.250000">MCP·토큰 절약·1M</tspan><tspan x="824.000000" dy="36.250000">하네스·스킬</tspan></text></g><g class="KGUxIC0mZ3Q7IGUyKVswXQ=="><marker id="u12-mk-d2-502288146-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 399.000000 95.000000 L 543.000000 95.000000" class="edge" style="stroke-width:2;" marker-end="url(#u12-mk-d2-502288146-3488378134)" mask="url(#u12-d2-502288146)" /><text x="472.500000" y="105.000000" class="edge-label" style="text-anchor:middle;font-size:26px">옮기기</text></g><g class="KGUyIC0mZ3Q7IGUzKVswXQ=="><path d="M 824.000000 192.000000 L 824.000000 286.000000" class="edge" style="stroke-width:2;" marker-end="url(#u12-mk-d2-502288146-3488378134)" mask="url(#u12-d2-502288146)" /><text x="824.000000" y="250.000000" class="edge-label" style="text-anchor:middle;font-size:26px">딴길·압축</text></g><g class="KGUzIC0mZ3Q7IGU0KVswXQ=="><path d="M 545.500000 385.000000 L 400.500000 385.000000" class="edge" style="stroke-width:2;" marker-end="url(#u12-mk-d2-502288146-3488378134)" mask="url(#u12-d2-502288146)" /><text x="472.000000" y="395.000000" class="edge-label" style="text-anchor:middle;font-size:26px">규모</text></g><mask id="u12-d2-502288146" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1143" height="522">
+<rect x="-21" y="-21" width="1143" height="522" fill="white"></rect>
+<rect x="424.000000" y="79.000000" width="97" height="33" fill="black"></rect>
+<rect x="757.000000" y="224.000000" width="134" height="33" fill="black"></rect>
+<rect x="439.000000" y="369.000000" width="66" height="33" fill="black"></rect>
+</mask></svg></svg></div>
+  <p class="under">ADR(Architecture Decision Record, 설계 결정 기록)과 스모크(간단한 동작 확인)는 <b>규모가 커진 뒤</b> 붙은 장치입니다.</p>
+  <aside>장치가 쌓인 순서입니다. 날짜가 아니라 문제와 해결의 논리로 읽어야 합니다. 사람이 옮기는 일이 병목이라 일하는 AI가 나왔고, 딴길로 새니 스펙과 테스트가 붙었고, 승인 피로가 자동 승인과 하네스로, 규모가 커지자 ADR(Architecture Decision Record, 아키텍처 결정 기록)과 머지 큐와 스모크가 나왔습니다. 오늘 나눈 이야기에서 실패에서 장치가 나오는 같은 과정을 보았습니다. 새 장치가 나오면 저는 어떤 실패를 풀려는지 먼저 물어봅니다.</aside>
+</section>
+
+<!-- 05 병목 이동 -->
+<section data-period="20" class="slide" data-title="병목의 이동">
+  <div class="tag"><b>개념</b><span class="sep"></span>병목은 타이핑에서 판정으로 옮겨 갔다</div>
+  <h2>병목은 타이핑에서 결과 판정으로 옮겨 갔습니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1710 164"><svg class="d2-3561407368 d2-svg" width="1710" height="164" viewBox="-9 -9 1710 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="29.000000" width="171.000000" height="88.000000" class="box-inner"  /></g><text x="97.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">타이핑</text></g><g class="Yg=="><g class="shape" ><rect x="253.000000" y="12.000000" width="214.000000" height="122.000000" class="box-inner"  /></g><text x="360.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="360.000000" dy="0.000000">붙여넣고</tspan><tspan x="360.000000" dy="38.500000">실행하기</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="537.000000" y="29.000000" width="264.000000" height="88.000000" class="box-inner"  /></g><text x="669.000000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">승인 누르기</text></g><g class="ZA=="><g class="shape" ><rect x="871.000000" y="12.000000" width="224.000000" height="122.000000" class="box-inner"  /></g><text x="983.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="983.000000" dy="0.000000">딴길·맥락</tspan><tspan x="983.000000" dy="38.500000">잃음</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="1165.000000" y="12.000000" width="224.000000" height="122.000000" class="box-inner"  /></g><text x="1277.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1277.000000" dy="0.000000">검증·병합</tspan><tspan x="1277.000000" dy="38.500000">CI</tspan></text></g><g class="Zg=="><g class="shape" ><rect x="1459.000000" y="29.000000" width="221.000000" height="88.000000" class="box-inner hot"  /></g><text x="1569.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">품질 판정</text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u13-mk-d2-3561407368-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 185.000000 73.000000 L 249.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u13-mk-d2-3561407368-3488378134)" mask="url(#u13-d2-3561407368)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 469.000000 73.000000 L 533.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u13-mk-d2-3561407368-3488378134)" mask="url(#u13-d2-3561407368)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 803.000000 73.000000 L 867.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u13-mk-d2-3561407368-3488378134)" mask="url(#u13-d2-3561407368)" /></g><g class="KGQgLSZndDsgZSlbMF0="><path d="M 1097.000000 73.000000 L 1161.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u13-mk-d2-3561407368-3488378134)" mask="url(#u13-d2-3561407368)" /></g><g class="KGUgLSZndDsgZilbMF0="><path d="M 1391.000000 73.000000 L 1455.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u13-mk-d2-3561407368-3488378134)" mask="url(#u13-d2-3561407368)" /></g><mask id="u13-d2-3561407368" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1710" height="164">
+<rect x="-9" y="-9" width="1710" height="164" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">코드를 쓰는 속도는 더 이상 병목이 아닙니다. <b>맡기고, 믿을 수 있게 만드는 일</b>이 병목입니다.</p>
+  <aside>5년 동안 병목은 한 칸씩 오른쪽으로 옮겨 갔습니다. 처음에는 타이핑, 다음에는 답을 붙여넣고 실행하는 일, 그다음은 승인 누르기, 딴길로 새는 에이전트를 붙드는 일, 규모가 커진 뒤에는 검증과 병합, 지금은 결과가 맞는지 판정하는 일입니다. 병목이 옮겨 갈 때마다 새 장치가 나왔습니다. 앞으로도 병목이 어디로 옮겨 가는지 보면 다음에 나올 장치를 짐작할 수 있습니다.</aside>
+</section>
+
+<!-- 06 개발자의 자리 -->
+<section data-period="20" class="slide" data-title="개발자의 자리">
+  <div class="tag"><b>개념</b><span class="sep"></span>개발자의 역할 변화</div>
+  <h2>코드를 쓰던 사람에서, 장치를 설계하는 사람으로</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 955 514"><svg class="d2-3438092765 d2-svg" width="955" height="514" viewBox="-9 -9 955 514"><g class="dGhlbg=="><g class="shape" ><rect x="12.000000" y="61.000000" width="355.000000" height="374.000000" class="box-outer"  /></g><text x="189.500000" y="92.000000" class="label-outer" style="text-anchor:middle;font-size:26px">2021 · 코드를 쓰는 사람</text></g><g class="bm93"><g class="shape" ><rect x="437.000000" y="12.000000" width="488.000000" height="472.000000" class="box-outer hot"  /></g><text x="681.000000" y="43.000000" class="label-outer" style="text-anchor:middle;font-size:26px">2026 · 장치를 설계하는 사람</text></g><g class="dGhlbi5h"><g class="shape" ><rect x="119.000000" y="111.000000" width="141.000000" height="78.000000" class="box-inner"  /></g><text x="189.500000" y="159.500000" class="label-inner" style="text-anchor:middle;font-size:26px">타이핑</text></g><g class="dGhlbi5i"><g class="shape" ><rect x="82.000000" y="209.000000" width="215.000000" height="78.000000" class="box-inner"  /></g><text x="189.500000" y="257.500000" class="label-inner" style="text-anchor:middle;font-size:26px">실행·디버깅</text></g><g class="dGhlbi5j"><g class="shape" ><rect x="135.000000" y="307.000000" width="108.000000" height="78.000000" class="box-inner"  /></g><text x="189.000000" y="355.500000" class="label-inner" style="text-anchor:middle;font-size:26px">리뷰</text></g><g class="bm93LmQ="><g class="shape" ><rect x="487.000000" y="62.000000" width="388.000000" height="78.000000" class="box-inner"  /></g><text x="681.000000" y="110.500000" class="label-inner" style="text-anchor:middle;font-size:26px">목표와 완료 조건 정하기</text></g><g class="bm93LmU="><g class="shape" ><rect x="501.000000" y="160.000000" width="360.000000" height="78.000000" class="box-inner"  /></g><text x="681.000000" y="208.500000" class="label-inner" style="text-anchor:middle;font-size:26px">권한·스펙·테스트 설계</text></g><g class="bm93LmY="><g class="shape" ><rect x="575.000000" y="258.000000" width="212.000000" height="78.000000" class="box-inner"  /></g><text x="681.000000" y="306.500000" class="label-inner" style="text-anchor:middle;font-size:26px">하네스 조립</text></g><g class="bm93Lmc="><g class="shape" ><rect x="591.000000" y="356.000000" width="179.000000" height="78.000000" class="box-inner"  /></g><text x="680.500000" y="404.500000" class="label-inner" style="text-anchor:middle;font-size:26px">결과 판정</text></g><g class="KHRoZW4gLSZndDsgbm93KVswXQ=="><marker id="u14-mk-d2-3438092765-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 369.000000 248.000000 L 433.000000 248.000000" class="edge" style="stroke-width:2;" marker-end="url(#u14-mk-d2-3438092765-3488378134)" mask="url(#u14-d2-3438092765)" /></g><mask id="u14-d2-3438092765" maskUnits="userSpaceOnUse" x="-9" y="-9" width="955" height="514">
+<rect x="-9" y="-9" width="955" height="514" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">여러분은 이미 <b>목표 정하기, 장치 설계, 하네스 조립, 결과 판정</b>을 한 번씩 해 보았습니다.</p>
+  <aside>1교시의 마지막 장입니다. 2021년의 개발자는 코드를 쓰고 실행하고 리뷰했습니다. 지금은 목표와 완료 조건을 정하고, 권한과 스펙과 테스트를 설계하고, 하네스를 조립하고, 결과를 판정합니다. 코드를 덜 쓰는 대신 판단할 일이 늘었습니다. 오늘 하네스를 나눈 여러분은 이 네 가지를 모두 해 본 분들입니다. 직접 만들어 본 경험은 도구가 바뀌어도 남는 자산입니다.</aside>
+</section>
+
+<!-- 07 계속 키우는 법 -->
+<section data-period="20" class="slide" data-title="계속 키우는 법">
+  <div class="tag"><b>다음 단계</b><span class="sep"></span>과정 이후에도 하네스를 키우는 루프</div>
+  <h2>하네스는 이 루프로 계속 자랍니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1450 220"><svg class="d2-832351075 d2-svg" width="1450" height="220" viewBox="-9 -9 1450 220"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="62.000000" width="264.000000" height="122.000000" class="box-inner"  /></g><text x="144.000000" y="118.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="144.000000" dy="0.000000">같은 과제로</tspan><tspan x="144.000000" dy="38.500000">실행</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="356.000000" y="12.000000" width="236.000000" height="122.000000" class="box-inner"  /></g><text x="474.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="474.000000" dy="0.000000">토큰·시간·</tspan><tspan x="474.000000" dy="38.500000">성공 기록</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="662.000000" y="12.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="819.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="819.000000" dy="0.000000">실패 하나</tspan><tspan x="819.000000" dy="38.500000">골라 원인 찾기</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="1056.000000" y="62.000000" width="364.000000" height="122.000000" class="box-inner hot"  /></g><text x="1238.000000" y="118.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1238.000000" dy="0.000000">장치 하나 추가</tspan><tspan x="1238.000000" dy="38.500000">규칙·테스트·스킬</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u15-mk-d2-832351075-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 278.000000 73.000000 L 352.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u15-mk-d2-832351075-3488378134)" mask="url(#u15-d2-832351075)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 594.000000 73.000000 L 658.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u15-mk-d2-832351075-3488378134)" mask="url(#u15-d2-832351075)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 978.000000 103.166000 L 1052.000000 103.166000" class="edge" style="stroke-width:2;" marker-end="url(#u15-mk-d2-832351075-3488378134)" mask="url(#u15-d2-832351075)" /></g><g class="KGQgLSZndDsgYSlbMF0="><path d="M 1054.000000 174.000000 L 280.000000 174.000000" class="edge" style="stroke-width:2;" marker-end="url(#u15-mk-d2-832351075-3488378134)" mask="url(#u15-d2-832351075)" /><text x="666.000000" y="184.000000" class="edge-label" style="text-anchor:middle;font-size:26px">다시</text></g><mask id="u15-d2-832351075" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1450" height="220">
+<rect x="-9" y="-9" width="1450" height="220" fill="white"></rect>
+<rect x="633.000000" y="158.000000" width="66" height="33" fill="black"></rect>
+</mask></svg></svg></div>
+  <p class="under">한 번에 장치 <b>하나만</b> 더하고, 같은 과제로 다시 재서 <b>효과를 확인</b>합니다. 오늘 이야기를 <b>스터디로 이어 가도</b> 좋습니다.</p>
+  <aside>과정이 끝난 뒤에도 쓸 수 있는 루프입니다. 같은 과제를 돌려 토큰, 시간, 성공 여부를 기록하고, 실패 하나를 골라 원인을 찾고, 장치 하나를 더한 뒤 다시 돌립니다. 장치를 한꺼번에 여러 개 더하면 무엇이 효과였는지 알 수 없습니다. 돌릴 때마다 한 줄씩 남긴 기록이 그대로 이 루프의 기록장입니다. 새 도구가 나오면 같은 과제로 한 번 돌려 비교해 봅니다. 혼자 하기 어려우면 오늘 이야기를 스터디로 이어 가는 것도 방법입니다. 오늘 나온 프롬프트와 스킬, 스모크 시나리오를 공용 저장소나 문서 하나에 모아 두세요. 같이 볼 자료도 고르고, 다음 모임은 원하는 분들끼리 정하면 됩니다. 방법은 예시일 뿐 정해진 것은 없습니다.</aside>
+</section>
+
+<!-- 08 출처 1: CHANGELOG·문서 -->
+<section data-period="20" class="slide" data-title="앞으로 볼 것 1">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 1 · 도구의 기록</div>
+  <h2>CHANGELOG는 새 기능을 가장 먼저 알려 주지만, 이유는 말해 주지 않습니다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>github.com/anthropics/claude-code/blob/main/CHANGELOG.md</span></div><img src="assets/captures/page-cc-changelog.jpg" alt="Claude Code CHANGELOG 화면"></div>
+      <div class="kind">저장소 파일 화면 캡처 · 9620줄</div>
+      <div class="ko">Claude Code의 <b>버전별 변경 내역</b> 파일. 새 기능이 먼저 보입니다.</div>
+    </div>
+    <div class="pmi col">
+      <div class="p"><b>가장 빠르고 정확하다</b>. 기능이 어느 버전에 들어왔는지 순서와 배포 기록으로 확인한다.</div>
+      <div class="m"><b>9천 줄이 넘어</b> 다 읽기 어렵고, 한 줄 메모라 <b>왜 바꿨는지</b>·쓰는 법은 없다.</div>
+      <div class="i">관심 기능 이름으로 <b>검색</b>해 날짜를 확인하는 용도. 사용법은 공식 문서로 넘어간다.</div>
+    </div>
+  </div>
+  <aside>가장 먼저 볼 곳은 CHANGELOG입니다. 이 과정의 연표도 CHANGELOG의 버전과 배포일로 확인했습니다. 화면을 찍은 시점에 파일이 9천 줄이 넘고 버전이 2.1.312였습니다. 장점은 가장 빠르고 정확하다는 것, 단점은 길고 이유가 없다는 것입니다. 그래서 저는 전부 읽지 않고 관심 있는 기능 이름으로 검색하는 용도로 씁니다. 날짜가 필요하면 CHANGELOG의 버전 순서와 배포 기록으로 확인하는 것이 정확합니다.</aside>
+</section>
+
+<section data-period="20" class="slide" data-title="앞으로 볼 것 2">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 2 · 공식 문서</div>
+  <h2>기능을 어떻게 쓰는지는 공식 문서에서 읽습니다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/overview</span></div><img src="assets/captures/p20-cc-docs-overview.jpg" alt="Claude Code 문서 개요 화면"></div>
+      <div class="kind">공식 문서 화면 캡처</div>
+      <div class="ko">Claude Code <b>공식 문서</b> 첫 화면. 기능의 사용법을 여기서 읽습니다.</div>
+    </div>
+    <div class="pmi col">
+      <div class="p">기능의 <b>사용법과 설정 방법</b>이 정리되어 있어 CHANGELOG에서 찾은 기능을 바로 따라 해 볼 수 있다.</div>
+      <div class="m">문서는 <b>지금 상태</b>만 보여 준다. 언제 바뀌었는지는 CHANGELOG로 따로 확인해야 한다.</div>
+      <div class="i">CHANGELOG에서 기능을 <b>찾고</b>, 공식 문서에서 <b>쓰는 법을 읽는</b> 두 단계로 짝지어 본다.</div>
+    </div>
+  </div>
+  <aside>기능이 CHANGELOG에서 보이면 공식 문서에서 사용법을 읽습니다. 장점은 사용법과 설정이 정리되어 있다는 것입니다. 단점은 문서가 현재 상태만 보여 주기 때문에 언제 바뀌었는지는 CHANGELOG로 따로 확인해야 한다는 것입니다. 이 두 곳을 짝지어 보면 좋습니다.</aside>
+</section>
+
+<section data-period="20" class="slide" data-title="앞으로 볼 것 3">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 3 · 만든 사람들의 글</div>
+  <h2>설계 이유와 실패담은 엔지니어링 블로그에 있지만, 최신 기능표는 아닙니다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering</span></div><img src="assets/captures/p20-anthropic-engineering.jpg" alt="Anthropic Engineering 블로그 첫 화면"></div>
+      <div class="kind">공식 블로그 화면 캡처</div>
+      <div class="ko">Anthropic이 에이전트를 만들고 평가·운영하는 법을 직접 쓴 <b>엔지니어링 블로그</b>.</div>
+    </div>
+    <div class="pmi col">
+      <div class="p"><b>왜 그렇게 만들었는지</b>를 만든 사람이 직접 쓴다. 이 과정의 하네스 글과 Scion 사례도 여기서 나왔다.</div>
+      <div class="m">주제별 글이라 <b>기능 목록·최신 변경</b>을 알려 주지는 않는다. 한 회사의 시각이다.</div>
+      <div class="i">다른 회사의 글과 <b>두세 곳을 같이 보면</b> 어디가 같은 방향으로 움직이는지 보인다.</div>
+    </div>
+  </div>
+  <aside>셋째는 만든 사람들의 글입니다. Anthropic Engineering 블로그는 에이전트를 어떻게 만들고 평가하고 운영하는지 직접 적습니다. 이 과정에서 본 하네스 글과 Scion 사례도 여기서 나왔습니다. 장점은 설계 이유를 알 수 있다는 것입니다. 단점은 주제별 글이라 최신 변경을 알려 주지 않고 한 회사의 시각이라는 것입니다. 오늘 이후 새 글이 올라왔는지는 저도 직접 열어 확인합니다.</aside>
+</section>
+
+<section data-period="20" class="slide" data-title="앞으로 볼 것 4">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 4 · 다른 회사의 변경 기록</div>
+  <h2>GitHub Changelog로 Copilot·Actions의 변경을 날짜별로 비교해 봅니다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>github.blog/changelog</span></div><img src="assets/captures/p20-github-changelog.jpg" alt="GitHub Changelog 화면"></div>
+      <div class="kind">공식 변경 기록 화면 캡처</div>
+      <div class="ko">GitHub 제품(Copilot·Actions 등)의 <b>변경이 날짜별로</b> 올라오는 공식 기록.</div>
+    </div>
+    <div class="pmi col">
+      <div class="p"><b>날짜별</b>로 올라와 Copilot·Actions의 변화 시점을 정확히 알 수 있다.</div>
+      <div class="m"><b>GitHub 제품만</b> 다룬다. Claude Code 같은 다른 도구의 변경은 여기서 알 수 없다.</div>
+      <div class="i">CHANGELOG와 <b>나란히 읽으면</b> 두 도구가 같은 시기에 같은 방향으로 움직이는지 보인다.</div>
+    </div>
+  </div>
+  <aside>넷째는 GitHub Changelog입니다. Copilot과 Actions의 변경이 날짜별로 올라옵니다. 장점은 날짜가 분명하다는 것입니다. 단점은 GitHub 제품만 다룬다는 것입니다. Claude Code의 CHANGELOG와 나란히 읽으면 어디가 같은 방향으로 움직이는지가 보입니다.</aside>
+</section>
+
+<!-- 10 출처 읽는 법 -->
+<section data-period="20" class="slide" data-title="출처 읽는 법">
+  <div class="tag"><b>읽는 법</b><span class="sep"></span>1차 출처에서 멀어질수록 다시 확인</div>
+  <h2>출처는 가까운 쪽부터 믿습니다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1656 506"><svg class="d2-1755726421 d2-svg" width="1656" height="506" viewBox="-9 -9 1656 506"><g class="cA=="><g class="shape" ><rect x="12.000000" y="12.000000" width="704.000000" height="464.000000" class="box-outer hot"  /></g><text x="364.000000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">1차 출처</text></g><g class="cw=="><g class="shape" ><rect x="918.000000" y="183.000000" width="274.000000" height="122.000000" class="box-inner"  /></g><text x="1055.000000" y="239.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1055.000000" dy="0.000000">해설 글·영상</tspan><tspan x="1055.000000" dy="38.500000">2차 출처</tspan></text></g><g class="eA=="><g class="shape" ><rect x="1430.000000" y="183.000000" width="196.000000" height="122.000000" class="box-inner"  /></g><text x="1528.000000" y="239.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1528.000000" dy="0.000000">SNS 요약</tspan><tspan x="1528.000000" dy="38.500000">소문</tspan></text></g><g class="cC5h"><g class="shape" ><rect x="72.000000" y="72.000000" width="584.000000" height="88.000000" class="box-inner"  /></g><text x="364.000000" y="128.500000" class="label-inner" style="text-anchor:middle;font-size:34px">CHANGELOG·릴리스 노트</text></g><g class="cC5i"><g class="shape" ><rect x="72.000000" y="200.000000" width="584.000000" height="88.000000" class="box-inner"  /></g><text x="364.000000" y="256.500000" class="label-inner" style="text-anchor:middle;font-size:34px">공식 문서·엔지니어링 블로그</text></g><g class="cC5j"><g class="shape" ><rect x="72.000000" y="328.000000" width="584.000000" height="88.000000" class="box-inner"  /></g><text x="364.000000" y="384.500000" class="label-inner" style="text-anchor:middle;font-size:34px">논문·저장소 README</text></g><g class="KHAgLSZndDsgcylbMF0="><marker id="u16-mk-d2-1755726421-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 718.000000 244.000000 L 914.000000 244.000000" class="edge" style="stroke-width:2;" marker-end="url(#u16-mk-d2-1755726421-3488378134)" mask="url(#u16-d2-1755726421)" /><text x="817.000000" y="254.000000" class="edge-label" style="text-anchor:middle;font-size:26px">확인</text></g><g class="KHMgLSZndDsgeClbMF0="><path d="M 1194.000000 244.000000 L 1426.000000 244.000000" class="edge" style="stroke-width:2;" marker-end="url(#u16-mk-d2-1755726421-3488378134)" mask="url(#u16-d2-1755726421)" /><text x="1311.000000" y="254.000000" class="edge-label" style="text-anchor:middle;font-size:26px">더 확인</text></g><mask id="u16-d2-1755726421" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1656" height="506">
+<rect x="-9" y="-9" width="1656" height="506" fill="white"></rect>
+<rect x="784.000000" y="228.000000" width="66" height="33" fill="black"></rect>
+<rect x="1260.000000" y="228.000000" width="102" height="33" fill="black"></rect>
+</mask></svg></svg></div>
+  <p class="under">소문을 들으면 <b>CHANGELOG와 공식 글에서 같은 내용을 찾아</b> 날짜를 확인합니다.</p>
+  <aside>출처 읽는 순서입니다. 1차 출처는 CHANGELOG, 공식 문서, 엔지니어링 블로그, 논문과 저장소 README입니다. 해설 글과 영상은 이해에는 좋지만 틀리기도 합니다. SNS 요약은 가장 빠르지만 날짜와 범위가 자주 바뀝니다. 이 과정의 연표에서도 서사와 실제 날짜가 다른 곳이 여럿 있었습니다. 새 기능을 들으면 1차 출처에서 같은 내용을 찾고 날짜를 확인합니다.</aside>
+</section>
+
+<!-- 11 수료 -->
+<section data-period="20" class="slide section-slide" data-title="수료 인사">
+  <div class="big">5회차 · 마무리</div>
+  <h1>수고하셨습니다</h1>
+  <p class="lead">코드를 쓰던 사람에서, 일을 맡기고 결과를 믿을 수 있게 만드는 사람으로.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/copilot-2021.jpg" alt="2021 Copilot 발표 화면"></div><figcaption><b>2021</b><span>자동완성</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/claude-code-2025.jpg" alt="Claude Code 2025 시작 화면"></div><figcaption><b>2025</b><span>터미널 에이전트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="하네스 글 화면"></div><figcaption><b>2026</b><span>하네스</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/orca-2026.jpg" alt="Orca 병렬 에이전트 화면"></div><figcaption><b>2026</b><span>팩토리</span></figcaption></figure>
+  </div>
+  <aside>5주 동안 수고 많으셨습니다. 2021년에 다음 줄을 제안하던 AI가 오늘은 여러분의 하네스 안에서 일을 합니다. 도구 이름은 곧 바뀌겠지만, 목표를 정하고 장치를 설계하고 결과를 판정하는 능력은 남습니다. 오늘 나눈 하네스를 계속 키워 가시길 바랍니다. 스터디로 이어 가고 싶은 분들은 편한 방식으로 모여 주세요. 질문이 있으면 과정이 끝난 뒤에도 편하게 연락해 주시고, 마지막으로 강의 소감 설문을 부탁드립니다.</aside>
+</section>
+
+</div></div>
+<div class="notes" id="notes" hidden></div>
+<div class="hud"><span id="pos"></span><div class="bar"><i id="prog"></i></div><select id="jump" aria-label="교시로 이동"></select><button id="nb" type="button">노트 N</button><button id="fb" type="button">전체 화면 F</button></div>
+<script>
+(()=>{
+ const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
+ const pos=document.getElementById('pos'), prog=document.getElementById('prog'), notes=document.getElementById('notes'), jump=document.getElementById('jump');
+ let i=0;
+ // period jump menu
+ const periods=[];slides.forEach((s,k)=>{const p=s.dataset.period;if(p&&!periods.find(x=>x.p===p))periods.push({p,k});});
+ periods.forEach(({p,k})=>{const o=document.createElement('option');o.value=k;o.textContent=p+'교시';jump.appendChild(o);});
+ if(!periods.length)jump.hidden=true;
+ const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`translate(-50%,-50%) scale(${s})`;};
+ const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+   const p=slides[i].dataset.period;pos.textContent=`${p?p+'교시 · ':''}${i+1} / ${slides.length}`;
+   prog.style.width=`${(i+1)/slides.length*100}%`;
+   const a=slides[i].querySelector('aside');notes.textContent=a?a.textContent.trim():'';
+   const cur=[...periods].reverse().find(x=>x.k<=i);if(cur)jump.value=String(cur.k);
+   if(location.hash!=='#s'+(i+1))history.replaceState(null,'','#s'+(i+1));};
+ const fromHash=()=>{const m=location.hash.match(/^#s(\d+)$/);show(m?+m[1]-1:0);};
+ const toggleFs=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{});}catch(_){}};
+ addEventListener('keydown',e=>{
+  if(e.target.closest&&e.target.closest('select'))return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1);}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+  else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+  else if(e.key==='n'||e.key==='N')notes.hidden=!notes.hidden;
+  else if(e.key==='f'||e.key==='F')toggleFs();});
+ document.getElementById('nb').onclick=()=>notes.hidden=!notes.hidden;
+ document.getElementById('fb').onclick=toggleFs;
+ jump.onchange=()=>show(+jump.value);
+ deck.addEventListener('click',e=>{if(e.target.closest('a,button,select'))return;show(e.clientX>innerWidth/2?i+1:i-1);});
+ addEventListener('resize',fit);addEventListener('hashchange',fromHash);fit();fromHash();
+})();
+
+</script>
+</body></html>

@@ -1,0 +1,21 @@
+direction: down
+fail: "딴길로 새는 방식" {
+  f1: "범위 밖 기능을\n만든다"
+  f2: "‘다 했다’며\n일찍 멈춘다"
+  f3: "테스트를 고쳐서\n통과시킨다"
+  f4: "압축 뒤\n맥락을 잊는다"
+}
+guard: "하네스 v1의 방어" {
+  g1: "스펙 + Task 파일"
+  g2: "테스트 = 완료 기준\n(Stop 훅)"
+  g3: "테스트 파일 보호\n(deny 규칙 · 훅)"
+  g4: "진행 파일\n(progress.md)"
+}
+fail.f1 -> guard.g1
+fail.f2 -> guard.g2
+fail.f3 -> guard.g3
+fail.f4 -> guard.g4
+guard.g3.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,24 @@
+grid-rows: 3
+grid-columns: 4
+horizontal-gap: 110
+vertical-gap: 70
+z0: "" { style.opacity: 0 }
+z1: "" { style.opacity: 0 }
+send: "다음 배치 발송\n→ 다시 잔다"
+z3: "" { style.opacity: 0 }
+sleep: "잠든다\n다음 깨우기 예약\n(1분~1시간)"
+read: "깨어나 상태 읽기\n이슈 · PR · CI" { style.stroke: "#ff00ff" }
+judge: "판단"
+done: "목표 달성\n루프 종료"
+z8: "" { style.opacity: 0 }
+z9: "" { style.opacity: 0 }
+fix: "막힌 것 정리\n실패 PR 재배정\n→ 다시 잔다"
+z11: "" { style.opacity: 0 }
+sleep -> read: "깨어남"
+read -> judge
+judge -> send: "빈 자리"
+judge -> fix: "실패·충돌"
+judge -> done: "충족"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

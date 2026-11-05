@@ -1,0 +1,14 @@
+{
+  "verifiedAt": "2026-10-23T14:07:17.328Z",
+  "authentication": "codex login status: Logged in using ChatGPT",
+  "sdk": "@openai/codex-sdk@0.164.0",
+  "node": "22.23.3",
+  "taskId": "5db3bcc8-8d73-4cea-bc04-2f763c28928b",
+  "source": "local-sdk",
+  "provider": "codex",
+  "state": "done",
+  "events": 5,
+  "recordSHA256": "ffd3583c8836427c7a02da65c8c962f429b22b816673ce0b79e46212c3d849b4",
+  "replay": "public /office/ imported JSON, review at 4/5, completed at 5/5",
+  "limitations": "No live data lookup; generated requirements reviewed by operator; replay origin is not cryptographically authenticated."
+}

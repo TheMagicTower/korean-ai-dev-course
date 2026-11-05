@@ -1,0 +1,20 @@
+direction: right
+cheat: "에이전트의 속임수" {
+  a: "테스트 수정·삭제"
+  b: "skip · 기대값 약화"
+  c: "하드코딩\n(테스트 값만 통과)"
+}
+def: "대응" {
+  d1: "테스트 먼저 커밋\n(git diff로 대조)"
+  d2: "권한 deny · 훅\n테스트 파일 보호"
+  d3: "리뷰어 서브에이전트\n스펙과 대조"
+  d4: "사람이 직접\n실행해 보기"
+}
+cheat.a -> def.d2
+cheat.b -> def.d1
+cheat.c -> def.d3
+def.d3 -> def.d4
+def.d2.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

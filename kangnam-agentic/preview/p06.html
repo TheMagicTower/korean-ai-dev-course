@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><base href="../"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Agentic Engineering 2회차</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 1600×900 slide canvas scaled to the viewport; each slide reads like a changelog entry (date · source tag, then the change). */
+:root{
+  --paper:#F2F3EF; --ink:#15181C; --muted:#5B616A; --rule:#D2D5CE; --panel:#FFFFFF;
+  --accent:#2B50C8; --accent-soft:#E3E9FA; --add:#1E7A4E; --del:#B33A2E;
+  --era1:#66758F; --era2:#2B50C8; --era3:#1E7A4E; --era4:#B0562F;
+  --term-bg:#16191E; --term-fg:#E6E8E3; --term-dim:#8C929B;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111316; --ink:#E9EBE7; --muted:#9CA2AA; --rule:#2B2F35; --panel:#1A1D21;
+  --accent:#7F9CFF; --accent-soft:#1E2846; --add:#56C08A; --del:#E07A6E;
+  --era1:#8C99B2; --era2:#7F9CFF; --era3:#56C08A; --era4:#E08A5F;
+  --term-bg:#0B0D10; --term-fg:#E6E8E3; --term-dim:#7D838C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111316; --ink:#E9EBE7; --muted:#9CA2AA; --rule:#2B2F35; --panel:#1A1D21;
+  --accent:#7F9CFF; --accent-soft:#1E2846; --add:#56C08A; --del:#E07A6E;
+  --era1:#8C99B2; --era2:#7F9CFF; --era3:#56C08A; --era4:#E08A5F;
+  --term-bg:#0B0D10; --term-fg:#E6E8E3; --term-dim:#7D838C; color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.stage{position:fixed;inset:0;display:grid;place-items:center}
+.deck{width:1600px;height:900px;position:relative;transform-origin:center center}
+.slide{position:absolute;inset:0;display:none;padding:64px 88px 72px;flex-direction:column;gap:28px}
+.slide.on{display:flex}
+.slide aside{display:none}
+
+/* type */
+.tag{font-family:var(--mono);font-size:22px;color:var(--muted);display:flex;gap:14px;align-items:center;letter-spacing:.01em;flex-wrap:wrap}
+.tag b{color:var(--accent);font-weight:500}
+.tag .sep{width:28px;height:1px;background:var(--rule)}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:700;letter-spacing:-.01em}
+h1{font-size:84px;line-height:1.12}
+h2{font-size:56px;line-height:1.18}
+h3{font-size:34px;line-height:1.3}
+p{margin:0}
+.lead{font-size:30px;line-height:1.5;color:var(--muted);max-width:30em}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)}
+.hl{color:var(--accent)}
+.next{font-family:var(--mono);font-size:21px;color:var(--accent)}
+.kind{font-family:var(--mono);font-size:17px;color:var(--muted);margin-top:10px}
+
+/* two-column body: visual left, points right (swap with .row.flip) */
+.row{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;flex:1;min-height:0;align-items:center}
+.row.even{grid-template-columns:1fr 1fr}
+.row.flip{grid-template-columns:1fr 1.25fr}
+.row > *{min-width:0}
+.points{display:flex;flex-direction:column;gap:26px;font-size:30px;line-height:1.45}
+.points ul,.points ol{margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
+.points li{list-style:none;padding-left:30px;position:relative}
+.points ul li::before{content:"";position:absolute;left:0;top:.6em;width:12px;height:12px;border:2px solid var(--accent);border-radius:2px}
+.points ol{counter-reset:n}
+.points ol li{counter-increment:n;padding-left:44px}
+.points ol li::before{content:counter(n);position:absolute;left:0;top:.12em;font-family:var(--mono);font-size:22px;color:var(--accent);border:1.5px solid var(--accent);border-radius:4px;width:30px;height:30px;display:grid;place-items:center}
+.points small{display:block;font-size:22px;color:var(--muted);margin-top:4px}
+.quote{font-size:28px;line-height:1.45;border-left:4px solid var(--accent);padding:6px 0 6px 22px}
+.quote cite{display:block;margin-top:10px;font-style:normal;font-family:var(--mono);font-size:20px;color:var(--muted)}
+
+/* capture frame: a real screenshot inside a minimal browser bar naming its true source */
+.frame{background:var(--panel);border:1px solid var(--rule);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);max-height:620px}
+.frame .bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:17px;color:var(--muted);white-space:nowrap;overflow:hidden;flex:none}
+.frame .bar i{width:11px;height:11px;border-radius:50%;background:var(--rule);flex:none}
+.frame .bar span{overflow:hidden;text-overflow:ellipsis}
+.frame img{display:block;width:100%;height:auto;object-fit:cover;object-position:top left;min-height:0}
+.frames{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+
+/* title + section dividers */
+.title-wrap{display:flex;flex-direction:column;gap:22px;margin-top:8px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:auto}
+.strip figure{margin:0;display:flex;flex-direction:column;gap:10px}
+.strip .thumb{aspect-ratio:16/10;max-width:100%;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--panel)}
+.strip img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.strip figcaption{font-family:var(--mono);font-size:19px;color:var(--muted);display:flex;justify-content:space-between}
+.strip figcaption b{color:var(--ink);font-weight:500}
+.arrowline{height:2px;background:linear-gradient(90deg,var(--era1),var(--era2),var(--era3),var(--era4));border-radius:2px}
+.section-slide{justify-content:center}
+.section-slide .big{font-family:var(--mono);font-size:30px;color:var(--accent)}
+.section-slide h1{font-size:96px}
+.agenda{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 48px;font-size:28px;margin-top:20px}
+.agenda div{border-top:1px solid var(--rule);padding-top:12px}
+.agenda b{font-family:var(--mono);font-weight:500;color:var(--accent);margin-right:12px}
+
+/* statement */
+.statement{flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px}
+.statement .say{font-size:64px;line-height:1.25;font-weight:700;text-wrap:balance;max-width:20em}
+.statement .say em{font-style:normal;color:var(--accent)}
+
+/* diagrams */
+.diagram{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.diagram svg{width:100%;height:100%;max-height:640px}
+.under{font-size:28px;line-height:1.5;color:var(--muted)}
+.under b{color:var(--ink);font-weight:600}
+.pele-theme{--pele-bg:var(--panel);--pele-fg:var(--ink);--pele-muted:var(--muted);--pele-line:var(--muted);--pele-border:var(--rule);
+  --pele-surface:var(--panel);--pele-surface-alt:var(--paper);--pele-accent:var(--accent);--pele-font:var(--sans);--pele-font-mono:var(--mono);
+  --pele-series-1:var(--era1);--pele-series-2:var(--era2);--pele-series-3:var(--era3);--pele-series-4:var(--era4);--pele-radius:6px}
+/* D2 output is normalised by tools/diagrams.mjs to these classes */
+.d2 .box-outer{fill:transparent;stroke:var(--rule);stroke-width:2}
+.d2 .box-inner{fill:var(--panel);stroke:var(--muted);stroke-width:1.5}
+.d2 .hot{stroke:var(--accent)!important;stroke-width:2.5!important}
+.d2 .hot.box-outer{fill:var(--accent-soft)}
+.d2 .label-outer{fill:var(--ink);font-family:var(--sans);font-weight:700}
+.d2 .label-inner{fill:var(--ink);font-family:var(--sans);font-weight:600}
+.d2 .edge{stroke:var(--muted);fill:none}
+.d2 .edge-label{fill:var(--muted);font-family:var(--sans)}
+.d2 .arrow-head{fill:var(--muted);stroke:var(--muted)}
+
+/* stat */
+.stat{display:flex;flex-direction:column;gap:14px}
+.stat .n{font-size:168px;line-height:1;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat .d{font-size:30px;line-height:1.45}
+.stat .s{font-family:var(--mono);font-size:19px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.stats .n{font-size:96px}
+
+/* compare columns */
+.compare{display:grid;grid-template-columns:repeat(var(--cols,2),1fr);gap:28px;flex:1;min-height:0}
+.compare > div{border:1px solid var(--rule);border-radius:10px;background:var(--panel);padding:28px 30px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.compare h3{font-size:32px}
+.compare .k{font-family:var(--mono);font-size:19px;color:var(--muted)}
+.compare p,.compare li{font-size:25px;line-height:1.5}
+.compare ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+.compare .on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:24px;line-height:1.4}
+.tbl th{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--muted);text-align:left;padding:10px 14px;border-bottom:2px solid var(--ink)}
+.tbl td{padding:14px;border-bottom:1px solid var(--rule);vertical-align:top}
+.tbl td:first-child{font-weight:600}
+.tbl .mono{font-size:20px}
+
+/* terminal */
+.term{background:var(--term-bg);color:var(--term-fg);border-radius:10px;padding:22px 26px;font-family:var(--mono);font-size:21px;line-height:1.55;white-space:pre-wrap;overflow:hidden}
+.term .dim{color:var(--term-dim)}
+.term .ok{color:#6FD39E}
+.term .warn{color:#F0B45A}
+.term .acc{color:#9FB5FF}
+
+/* lab / assignment */
+.lab{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;flex:1;min-height:0}
+.lab > *{min-width:0}
+.box{border:1px solid var(--rule);background:var(--panel);border-radius:10px;padding:26px 30px;display:flex;flex-direction:column;gap:14px}
+.box h3{font-size:28px}
+.box p,.box li{font-size:24px;line-height:1.5}
+.box ul,.box ol{margin:0;padding-left:26px;display:flex;flex-direction:column;gap:8px}
+.badge{display:inline-block;font-family:var(--mono);font-size:18px;border:1px solid var(--accent);color:var(--accent);border-radius:4px;padding:2px 8px}
+
+/* chrome */
+.hud{position:fixed;left:0;right:0;bottom:0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.hud .bar{flex:1;height:2px;background:var(--rule);position:relative}
+.hud .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent)}
+.hud button,.hud select{font:inherit;color:inherit;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:3px 8px;cursor:pointer;max-width:40vw}
+.hud button:focus-visible,.hud select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.notes{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:44px;max-height:38vh;overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.65}
+@media (prefers-reduced-motion:no-preference){.slide.on{animation:in .25s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
+@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
+
+/* keep captures inside their column: the wrapper shrinks, the frame clips from the top */
+.row > div:has(> .frame){display:flex;flex-direction:column;min-height:0;max-height:100%;align-self:stretch;justify-content:center}
+.row > div:has(> .frame) > .frame{min-height:0;flex:0 1 auto}
+.row > div:has(> .frame) > .frame img{min-height:0;flex:1 1 auto;object-fit:cover;object-position:top left}
+.row > .term{max-height:100%;overflow:hidden}
+
+/* Korean reading aids: a summary under English captures, a translation under English quotes */
+.ko{margin-top:12px;border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 16px;border-radius:0 6px 6px 0;font-size:22px;line-height:1.5;color:var(--ink)}
+.ko b{color:var(--accent);font-weight:600}
+.ko::before{content:"한국어 요약";display:block;font-family:var(--mono);font-size:15px;color:var(--muted);margin-bottom:2px}
+.quote .tr{display:block;margin-top:8px;font-size:24px;color:var(--ink);font-style:normal}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0}
+.vs > div{border:1px solid var(--rule);border-radius:8px;background:var(--panel);padding:12px 16px}
+.vs .k{font-family:var(--mono);font-size:16px;color:var(--muted)}
+.vs .v{font-size:44px;font-weight:700;line-height:1.1}
+.vs .on .v{color:var(--accent)}
+
+/* reference reading card: 장점 · 단점 · 의미 (3 columns full width, or stacked inside a column) */
+.pmi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pmi > div{border:1px solid var(--rule);border-top:4px solid var(--muted);border-radius:8px;background:var(--panel);padding:12px 16px;font-size:21px;line-height:1.45;min-width:0}
+.pmi > div::before{display:block;font-family:var(--mono);font-size:16px;font-weight:500;margin-bottom:4px}
+.pmi .p{border-top-color:var(--add)} .pmi .p::before{content:"장점";color:var(--add)}
+.pmi .m{border-top-color:var(--del)} .pmi .m::before{content:"단점·한계";color:var(--del)}
+.pmi .i{border-top-color:var(--accent)} .pmi .i::before{content:"의미·시사점";color:var(--accent)}
+.pmi.col{grid-template-columns:1fr;gap:10px}
+.pmi.col > div{font-size:20px;padding:10px 14px}
+
+/* Korean: break lines between words, not inside them */
+h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-break:keep-all;overflow-wrap:break-word}
+
+</style>
+<div class="stage"><div class="deck" id="deck">
+<!-- 6교시 · TDD와 DDD: 범위를 묶는 삼중 방어 (60분, 23장) -->
+
+<!-- 01 표지 -->
+<section data-period="6" class="slide section-slide" data-title="표지">
+  <div class="tag"><b>2회차 · 6교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-12</div>
+  <div class="title-wrap">
+    <h1>TDD와 DDD<br>범위를 묶는 삼중 방어</h1>
+    <p class="lead">스펙에 테스트와 도메인 경계를 더해, 에이전트가 시킨 일만 끝까지 하게 만듭니다.</p>
+  </div>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-tdd.jpg" alt="Martin Fowler의 TDD 설명"></div><figcaption><b>TDD</b><span>실패하는 테스트 먼저</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-cc-verify.jpg" alt="Claude Code 문서의 검증 수단 설명"></div><figcaption><b>완료 기준</b><span>통과가 곧 완료</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-bc.jpg" alt="Fowler의 Bounded Context 설명"></div><figcaption><b>DDD</b><span>바운디드 컨텍스트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-cleanarch.jpg" alt="Uncle Bob의 클린 아키텍처 글"></div><figcaption><b>수준</b><span>클린 아키텍처</span></figcaption></figure>
+  </div>
+  <aside>6교시는 2회차의 가운데 시간입니다. 5교시에 스펙과 Task 목록으로 에이전트를 붙잡는 법을 봤습니다. 오늘은 거기에 두 겹을 더합니다. 테스트로 완료를 판정하는 TDD(Test-Driven Development, 테스트 주도 개발), 도메인 경계로 범위를 묶는 DDD(Domain-Driven Design, 도메인 주도 설계)입니다. 아래 네 장은 오늘 소개할 실제 문서 화면입니다.</aside>
+</section>
+
+<!-- 02 지난 교시 -->
+<section data-period="6" class="slide" data-title="지난 교시와의 연결">
+  <div class="tag"><b>2025-09-02</b><span class="sep"></span>GitHub Spec Kit · 5교시에서 이어서</div>
+  <h2>스펙이 있어도 “다 했다”는 말은 검증되지 않는다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit</span></div><img src="assets/captures/page-speckit.jpg" alt="GitHub Spec Kit 발표 글"></div>
+      <div class="kind">GitHub Blog 화면 캡처 · 5교시에서 본 화면</div>
+      <div class="ko">5교시에서 본 GitHub의 Spec Kit 발표 글 제목 화면. “AI로 스펙 주도 개발: <b>새 오픈소스 툴킷</b>으로 시작하기”.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>스펙과 Task 목록이 에이전트가 딴길로 새는 것을 줄인다</li>
+        <li>하지만 “다 했다”는 말은 에이전트의 말일 뿐</li>
+        <li>코드가 커지면 한 번에 건드리는 범위도 넓어진다</li>
+      </ul>
+    </div>
+  </div>
+  <aside>5교시에서 스펙과 Task 목록으로 에이전트의 방향을 잡았습니다. 그런데 남는 문제가 둘 있습니다. 첫째, 에이전트가 다 했다고 말할 때 그것이 사실인지 어떻게 아는가입니다. 둘째, 코드가 커지면 에이전트가 건드리는 범위가 너무 넓어진다는 점입니다. 첫째에는 테스트가, 둘째에는 도메인 경계가 답입니다.</aside>
+</section>
+
+<!-- 03 삼중 방어 -->
+<section data-period="6" class="slide" data-title="삼중 방어">
+  <div class="tag"><b>SDD + TDD + DDD</b><span class="sep"></span>강사 운영 방식</div>
+  <h2>스펙, 테스트, 경계가 서로 다른 실패를 막는다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1307 356"><svg class="d2-3410118892 d2-svg" width="1307" height="356" viewBox="-21 -21 1307 356"><g class="c2Rk"><g class="shape" ><rect x="0.000000" y="0.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="153.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="153.500000" dy="0.000000">SDD · 스펙</tspan><tspan x="153.500000" dy="38.500000">무엇을 만드나</tspan></text></g><g class="dGRk"><g class="shape" ><rect x="457.000000" y="0.000000" width="307.000000" height="122.000000" class="box-inner hot"  /></g><text x="610.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="610.500000" dy="0.000000">TDD · 테스트</tspan><tspan x="610.500000" dy="38.500000">맞게 만들었나</tspan></text></g><g class="ZGRk"><g class="shape" ><rect x="914.000000" y="0.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="1089.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1089.500000" dy="0.000000">DDD · 경계</tspan><tspan x="1089.500000" dy="38.500000">어디까지 고치나</tspan></text></g><g class="ZjE="><g class="shape" ><rect x="0.000000" y="192.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="153.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="153.500000" dy="0.000000">막는 실패</tspan><tspan x="153.500000" dy="38.500000">딴길로 샘</tspan></text></g><g class="ZjI="><g class="shape" ><rect x="457.000000" y="192.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="610.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="610.500000" dy="0.000000">막는 실패</tspan><tspan x="610.500000" dy="38.500000">가짜 &#39;다 했다&#39;</tspan></text></g><g class="ZjM="><g class="shape" ><rect x="914.000000" y="192.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="1089.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1089.500000" dy="0.000000">막는 실패</tspan><tspan x="1089.500000" dy="38.500000">범위 폭주</tspan></text></g><g class="KHNkZCAtJmd0OyB0ZGQpWzBd"><marker id="u33-mk-d2-3410118892-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 308.500000 61.000000 L 453.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u33-mk-d2-3410118892-3488378134)" mask="url(#u33-d2-3410118892)" /><text x="382.500000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">테스트로</text></g><g class="KHRkZCAtJmd0OyBkZGQpWzBd"><path d="M 765.500000 61.000000 L 910.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u33-mk-d2-3410118892-3488378134)" mask="url(#u33-d2-3410118892)" /><text x="839.500000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">도메인별</text></g><g class="KHNkZCAtJmd0OyBmMSlbMF0="><path d="M 153.500000 124.000000 L 153.500000 188.000000" class="edge" style="stroke-width:2;" marker-end="url(#u33-mk-d2-3410118892-3488378134)" mask="url(#u33-d2-3410118892)" /></g><g class="KHRkZCAtJmd0OyBmMilbMF0="><path d="M 610.500000 124.000000 L 610.500000 188.000000" class="edge" style="stroke-width:2;" marker-end="url(#u33-mk-d2-3410118892-3488378134)" mask="url(#u33-d2-3410118892)" /></g><g class="KGRkZCAtJmd0OyBmMylbMF0="><path d="M 1089.500000 124.000000 L 1089.500000 188.000000" class="edge" style="stroke-width:2;" marker-end="url(#u33-mk-d2-3410118892-3488378134)" mask="url(#u33-d2-3410118892)" /></g><mask id="u33-d2-3410118892" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1307" height="356">
+<rect x="-21" y="-21" width="1307" height="356" fill="white"></rect>
+<rect x="319.000000" y="45.000000" width="127" height="33" fill="black"></rect>
+<rect x="776.000000" y="45.000000" width="127" height="33" fill="black"></rect>
+</mask></svg></svg></div>
+  <p class="under">세 겹은 <b>서로 다른 실패</b>를 막습니다. 스펙은 SDD(Spec-Driven Development, 스펙 주도 개발), 테스트는 TDD(Test-Driven Development, 테스트 주도 개발), 경계는 DDD(Domain-Driven Design, 도메인 주도 설계)입니다. 오늘은 가운데 테스트부터 봅니다. <span class="next">→ 5교시 SDD, 이어서 TDD</span></p>
+  <aside>세 가지는 각자 다른 실패를 막습니다. 스펙은 무엇을 만들지 정해 딴길로 새는 것을 막습니다. 테스트는 그 스펙대로 만들어졌는지 판정해 가짜 완료를 막습니다. 도메인 경계는 어디까지 고칠지 정해 범위가 폭주하는 것을 막습니다. 하나만 쓰면 나머지 실패가 그대로 남습니다. 그래서 겹쳐서 씁니다. 오늘은 테스트에서 시작해 경계로 넘어갑니다.</aside>
+</section>
+
+<!-- 04 TDD란 -->
+<section data-period="6" class="slide" data-title="TDD란">
+  <div class="tag"><b>2023-12-11 개정</b><span class="sep"></span>Martin Fowler bliki · Test Driven Development</div>
+  <h2>TDD: 실패하는 테스트를 먼저 쓴다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/TestDrivenDevelopment.html</span></div><img src="assets/captures/p06-fowler-tdd.jpg" alt="Fowler의 TDD 글: Red Green Refactor 도식"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Fowler의 TDD 설명 글. 테스트 목록에서 하나 골라 쓰고(Red) → 통과시키고(Green) → 정리(Refactor)하는 <b>반복 도식</b>.</div>
+    </div>
+    <div class="points">
+      <ol>
+        <li>다음 기능의 테스트를 쓴다 (Red: 아직 실패)</li>
+        <li>통과할 때까지 구현한다 (Green: 통과)</li>
+        <li>동작은 그대로 두고 구조를 정리한다 (Refactor)</li>
+      </ol>
+      <p class="muted" style="font-size:24px">Kent Beck이 1990년대 후반 익스트림 프로그래밍의 일부로 발전시킨 기법</p>
+    </div>
+  </div>
+  <aside>TDD는 새로운 방법이 아닙니다. Fowler의 설명대로 Kent Beck이 1990년대 후반 익스트림 프로그래밍의 일부로 만들었고, 세 단계를 반복합니다. 다음 기능의 테스트를 먼저 쓰고, 통과할 최소한의 코드를 쓰고, 구조를 정리합니다. 이 글은 테스트를 먼저 쓰면 인터페이스를 먼저 생각하게 된다는 점도 이점으로 꼽습니다. 그리고 가장 흔한 실패가 세 번째, 정리를 건너뛰는 것이라고 지적합니다. 사람이 오래 못 지킨 습관이라는 점을 짚어 둡니다.</aside>
+</section>
+
+<!-- 05 사람은 못 하던 것 -->
+<section data-period="6" class="slide" data-title="AI에게 TDD를">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>분량 때문에 못 하던 일을 에이전트가 한다</div>
+  <h2>사람이 분량 때문에 건너뛰던 TDD를 AI에게</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/best-practices</span></div><img src="assets/captures/p06-cc-failtest.jpg" alt="Claude Code 모범 사례 문서: 실패하는 테스트를 쓰고 고치라는 예시"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 모범 사례 문서의 ‘Instead of(이렇게 말하지 말고) / Try(이렇게)’ 표. “로그인 버그 고쳐” 대신 <b>실패 재현 테스트</b>를 쓰게 한다.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>사람: 테스트 쓰는 시간이 구현만큼 들어 생략</li>
+        <li>AI: 테스트 수십 개를 쓰는 비용이 거의 없다</li>
+        <li>공식 문서의 프롬프트 예: “write a failing test that reproduces it, then fix it” (재현하는 실패 테스트를 쓰고, 그다음 고쳐라)</li>
+      </ul>
+    </div>
+  </div>
+  <aside>사람이 TDD를 못 지킨 가장 큰 이유는 분량이었습니다. 테스트를 쓰는 시간이 구현만큼 들기 때문에 마감 앞에서 먼저 사라졌습니다. 에이전트에게는 분량이 문제가 아닙니다. 그래서 사람이 하지 못하던 TDD를 AI에게 시킬 수 있습니다. 화면은 Claude Code 공식 문서의 프롬프트 예시입니다. 버그를 재현하는 실패 테스트를 먼저 쓰고 그다음 고치라고 구체적으로 적으라는 예입니다. 다만 이 문서가 TDD라는 이름의 별도 절을 두고 있지는 않다는 점을 밝혀 둡니다. 제가 확인한 현재 문서에는 이 예시와 검증 수단 절이 근거입니다.</aside>
+</section>
+
+<!-- 06 완료 기준 -->
+<section data-period="6" class="slide" data-title="통과가 곧 완료">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 문서 · Give Claude a check to run</div>
+  <h2>완료는 에이전트의 말이 아니라 통과 결과</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/best-practices</span></div><img src="assets/captures/p06-cc-verify.jpg" alt="Claude Code 문서: 통과 또는 실패를 돌려주는 검증 수단"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 문서의 ‘실행해서 확인할 수단을 주라’는 절. <b>통과·실패를 돌려주는 검증 수단</b> 예시.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“Give Claude something it can run that comes back pass or fail.”<span class="tr">“Claude에게 실행했을 때 통과나 실패를 돌려주는 무언가를 주어라.”</span><cite>Claude Code Docs · Best practices</cite></div>
+      <ul>
+        <li>검증 수단: 테스트 파일, 빌드 종료 코드, 린터(코드 규칙 검사기)</li>
+        <li>repo의 CLAUDE.md에 테스트 실행 명령을 적는다</li>
+        <li>“All tests pass(모두 통과)”만 믿지 말고 실행 출력을 요구</li>
+      </ul>
+    </div>
+  </div>
+  <aside>공식 문서는 에이전트에게 통과 또는 실패를 돌려주는 검증 수단을 주라고 말합니다. 그것이 없으면 에이전트에게 남는 기준은 다 한 것 같다는 느낌뿐이고, 그러면 사람이 테스트 스위트 노릇을 하게 된다고 설명합니다. 검증 수단은 테스트 파일, 빌드 종료 코드, 린터 등 무엇이든 됩니다. CLAUDE.md에 그 명령을 적어 두는 것이 가장 유용한 한 줄입니다. 그리고 문서는 모두 통과했다는 말만으로는 알 수 있는 것이 적으니 실행한 명령과 출력을 요구하라고 권합니다. 이것이 8교시 실습의 완료 기준이 됩니다.</aside>
+</section>
+
+<!-- 07 실제 Red -> Green -->
+<section data-period="6" class="slide" data-title="Red에서 Green으로">
+  <div class="tag"><b>실제 실행 결과</b><span class="sep"></span>domain-testing 예제 · Python unittest · 강사 운영 방식</div>
+  <h2>Red 확인이 먼저, Green은 그다음</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">1) 스텁(가짜 구현) · 테스트 실행 → Red(실패)</div>
+      <div class="term">def submit(status):
+    return "submitted"
+
+<span class="dim">$</span> python3 transition_test.py
+<span class="warn">FAIL</span>: test_submitted_cannot_be_submitted_again
+AssertionError: ValueError not raised
+Ran 2 tests ... <span class="warn">FAILED (failures=1)</span></div>
+    </div>
+    <div class="on">
+      <div class="k">2) 구현 → Green(통과)</div>
+      <div class="term">def submit(status):
+    if status != "draft":
+        raise ValueError("작성 중인 지원만 제출할 수 있습니다.")
+    return "submitted"
+
+<span class="dim">$</span> python3 transition_test.py
+Ran 2 tests ... <span class="ok">OK</span></div>
+    </div>
+  </div>
+  <p class="under">규칙: <b>이미 제출한 지원은 다시 제출할 수 없다.</b> 실패가 규칙을 가리키는지 확인한 뒤에 구현합니다.</p>
+  <aside>제 강의 자료의 작은 예시를 이 자리에서 실제로 실행한 결과입니다. 규칙은 이미 제출한 지원은 다시 제출할 수 없다는 것입니다. 먼저 항상 제출됨을 돌려주는 스텁으로 테스트를 돌리면 두 번째 테스트가 실패합니다. 이 Red를 눈으로 확인하는 것이 중요합니다. 실패한 이유가 규칙 때문이어야 테스트가 쓸모 있다는 증명이 됩니다. 그다음 구현을 넣으면 두 테스트가 통과합니다. 에이전트에게도 구현 전에 테스트를 실행해 실패를 보여 달라고 시킵니다.</aside>
+</section>
+
+<!-- 08 속이는 에이전트 -->
+<section data-period="6" class="slide" data-title="테스트를 속이는 에이전트">
+  <div class="tag"><b>2025-05-22</b><span class="sep"></span>Anthropic · Claude 4 발표문 · 지름길과 허점</div>
+  <h2>에이전트는 테스트만 통과하는 지름길을 찾기도 한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/news/claude-4</span></div><img src="assets/captures/p06-claude4.jpg" alt="Claude 4 발표문: 지름길이나 허점을 쓰는 행동을 줄였다는 문단"></div>
+      <div class="kind">Anthropic 발표문 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude 4 발표문에서 모델이 <b>지름길·허점을 쓰는 행동</b>을 줄였다고 밝힌 문단.</div>
+    </div>
+    <div class="points">
+<div class="pmi col">
+        <div class="p">지름길·허점을 쓰는 행동이 <b>Sonnet 3.7보다 65% 덜</b> 나온다고 발표했다(지름길에 취약한 에이전트 과제 기준).</div>
+        <div class="m">줄었을 뿐 <b>사라진 것은 아니다</b>. 수치는 모델을 만든 회사가 직접 발표한 것이다.</div>
+        <div class="i">모델이 좋아지길 기다리지 않고 <b>구조로 막는다</b>. 다음 장부터 그 대응이 이어진다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>테스트를 완료 기준으로 삼으면 새 문제가 생깁니다. 통과가 목적이 되면 에이전트가 통과만 하는 길을 찾을 수 있습니다. Anthropic은 2025년 5월 Claude 4 발표에서 모델이 작업을 끝내려고 지름길이나 허점을 쓰는 행동을 줄였고, 그런 행동에 취약한 에이전트 과제에서 Sonnet 3.7보다 65% 덜 한다고 밝혔습니다. 반대로 말하면 이전 모델에는 그런 행동이 있었고, 줄었더라도 사라졌다고 보장하지는 않습니다. 그래서 모델이 좋아지기를 기다리지 않고 구조로 막습니다. 장점은 지름길 행동이 65% 줄었다는 발표 수치, 단점은 사라진 것은 아니고 발표 주체가 만든 회사라는 점, 의미는 구조로 막아야 한다는 것입니다.</aside>
+</section>
+
+<!-- 09 속임수 실제 예 -->
+<section data-period="6" class="slide" data-title="속임수의 모양">
+  <div class="tag"><b>실제 실행 결과</b><span class="sep"></span>같은 예제에서 테스트를 건드린 경우 · 강사 운영 방식</div>
+  <h2>속임수 세 가지: 고치고, 건너뛰고, 박아 넣기</h2>
+  <div class="row">
+    <div class="term"><span class="dim"># 구현은 그대로 (규칙을 어긴 채)</span>
+def submit(status):
+    return "submitted"
+
+<span class="dim"># 에이전트가 테스트 쪽을 고침</span>
+<span class="warn">@unittest.skip("flaky")</span>
+def test_submitted_cannot_be_submitted_again(self):
+    ...
+
+<span class="dim">$</span> python3 cheat_test.py
+Ran 2 tests ... <span class="ok">OK (skipped=1)</span></div>
+    <div class="points">
+      <ol>
+        <li>테스트 수정·삭제·skip(건너뛰기): 초록불이지만 규칙은 안 지킴</li>
+        <li>기대값 약화: 단언을 느슨하게 바꿈</li>
+        <li>하드코딩(정답 박아 넣기): 테스트 입력만 통과하는 분기</li>
+      </ol>
+      <p class="muted" style="font-size:24px">공통점: 실행 결과는 초록, 규칙은 어겨졌다</p>
+    </div>
+  </div>
+  <aside>가장 단순한 속임수를 실제로 돌려 본 화면입니다. 구현은 규칙을 어긴 그대로인데 테스트에 skip 한 줄을 붙이면 OK가 나옵니다. 끝에 skipped=1이 작게 붙어 있어 놓치기 쉽습니다. 같은 부류로 기대값을 느슨하게 바꾸는 것, 테스트에 나온 입력만 통과하게 분기를 박아 넣는 것이 있습니다. 모두 초록불인데 규칙은 지켜지지 않았습니다. 그래서 저는 초록불만 보지 않고 테스트 자체가 바뀌었는지를 함께 봅니다.</aside>
+</section>
+
+<!-- 10 대응 도식 -->
+<section data-period="6" class="slide" data-title="대응 전략">
+  <div class="tag"><b>대응 4가지</b><span class="sep"></span>강사 운영 방식</div>
+  <h2>속임수에 대한 대응: 막고, 대조하고, 직접 본다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1615 551"><svg class="d2-3953822530 d2-svg" width="1615" height="551" viewBox="-9 -9 1615 551"><g class="Y2hlYXQ="><g class="shape" ><rect x="12.000000" y="80.000000" width="482.000000" height="441.000000" class="box-outer"  /></g><text x="253.000000" y="119.000000" class="label-outer" style="text-anchor:middle;font-size:34px">에이전트의 속임수</text></g><g class="ZGVm"><g class="shape" ><rect x="584.000000" y="12.000000" width="1001.000000" height="509.000000" class="box-outer"  /></g><text x="1084.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">대응</text></g><g class="Y2hlYXQuYQ=="><g class="shape" ><rect x="83.000000" y="133.000000" width="361.000000" height="88.000000" class="box-inner"  /></g><text x="263.500000" y="189.500000" class="label-inner" style="text-anchor:middle;font-size:34px">테스트 수정·삭제</text></g><g class="Y2hlYXQuYg=="><g class="shape" ><rect x="91.000000" y="241.000000" width="353.000000" height="88.000000" class="box-inner"  /></g><text x="267.500000" y="297.500000" class="label-inner" style="text-anchor:middle;font-size:34px">skip · 기대값 약화</text></g><g class="Y2hlYXQuYw=="><g class="shape" ><rect x="62.000000" y="349.000000" width="382.000000" height="122.000000" class="box-inner"  /></g><text x="253.000000" y="405.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="253.000000" dy="0.000000">하드코딩</tspan><tspan x="253.000000" dy="38.500000">(테스트 값만 통과)</tspan></text></g><g class="ZGVmLmQx"><g class="shape" ><rect x="764.000000" y="65.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="942.500000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="942.500000" dy="0.000000">테스트 먼저 커밋</tspan><tspan x="942.500000" dy="38.500000">(git diff로 대조)</tspan></text></g><g class="ZGVmLmQy"><g class="shape" ><rect x="764.000000" y="207.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="942.500000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="942.500000" dy="0.000000">권한 deny · 훅</tspan><tspan x="942.500000" dy="38.500000">테스트 파일 보호</tspan></text></g><g class="ZGVmLmQz"><g class="shape" ><rect x="764.000000" y="349.000000" width="437.000000" height="122.000000" class="box-inner"  /></g><text x="982.500000" y="405.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="982.500000" dy="0.000000">리뷰어 서브에이전트</tspan><tspan x="982.500000" dy="38.500000">스펙과 대조</tspan></text></g><g class="ZGVmLmQ0"><g class="shape" ><rect x="1271.000000" y="349.000000" width="264.000000" height="122.000000" class="box-inner"  /></g><text x="1403.000000" y="405.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1403.000000" dy="0.000000">사람이 직접</tspan><tspan x="1403.000000" dy="38.500000">실행해 보기</tspan></text></g><g class="KGNoZWF0LmEgLSZndDsgZGVmLmQyKVswXQ=="><marker id="u34-mk-d2-3953822530-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 446.000000 192.000000 L 714.000000 192.000000 S 724.000000 192.000000 724.000000 202.000000 L 724.000000 258.000000 S 724.000000 268.000000 734.000000 268.000000 L 760.000000 268.000000" class="edge" style="stroke-width:2;" marker-end="url(#u34-mk-d2-3953822530-3488378134)" mask="url(#u34-d2-3953822530)" /></g><g class="KGNoZWF0LmIgLSZndDsgZGVmLmQxKVswXQ=="><path d="M 446.000000 285.000000 L 664.000000 285.000000 S 674.000000 285.000000 674.000000 275.000000 L 674.000000 136.000000 S 674.000000 126.000000 684.000000 126.000000 L 760.000000 126.000000" class="edge" style="stroke-width:2;" marker-end="url(#u34-mk-d2-3953822530-3488378134)" mask="url(#u34-d2-3953822530)" /></g><g class="KGNoZWF0LmMgLSZndDsgZGVmLmQzKVswXQ=="><path d="M 446.000000 410.000000 L 760.000000 410.000000" class="edge" style="stroke-width:2;" marker-end="url(#u34-mk-d2-3953822530-3488378134)" mask="url(#u34-d2-3953822530)" /></g><g class="ZGVmLihkMyAtJmd0OyBkNClbMF0="><path d="M 1203.000000 410.000000 L 1267.000000 410.000000" class="edge" style="stroke-width:2;" marker-end="url(#u34-mk-d2-3953822530-3488378134)" mask="url(#u34-d2-3953822530)" /></g><mask id="u34-d2-3953822530" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1615" height="551">
+<rect x="-9" y="-9" width="1615" height="551" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">테스트를 <b>먼저 커밋</b>해 기준을 고정하고, 파일을 <b>보호</b>하고, 다른 눈으로 <b>검토</b>합니다. 마지막 판정은 사람입니다.</p>
+  <aside>대응은 네 겹입니다. 첫째, 테스트를 먼저 커밋합니다. 이후 테스트 파일이 바뀌면 git diff에 바로 드러납니다. 둘째, 에이전트가 테스트 파일을 수정하지 못하게 권한 deny나 훅으로 막습니다. 셋째, 구현한 에이전트와 별개의 리뷰어 서브에이전트가 스펙과 대조하게 합니다. 넷째, 결국 사람이 직접 실행해 봅니다. 1교시에서 말한 스모크 테스트의 이유입니다. 이어서 둘째와 셋째를 하나씩 보겠습니다.</aside>
+</section>
+
+<!-- 11 deny -->
+<section data-period="6" class="slide" data-title="권한 deny">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 문서 · Permissions</div>
+  <h2>권한 deny: 테스트 파일은 수정 금지</h2>
+  <div class="row">
+    <div>
+      <div class="frame" style="max-height:300px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/permissions</span></div><img src="assets/captures/p06-cc-permdeny.jpg" alt="Claude Code 권한 문서: deny 규칙"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 권한 문서. allow·ask·<b>deny 규칙</b>의 뜻과, deny가 먼저 평가되는 순서를 설명한다.</div>
+    </div>
+    <div class="points">
+      <div class="term">// .claude/settings.json
+{ "permissions": { "deny": [
+    "Edit(tests/**)"
+] } }</div>
+    </div>
+  </div>
+  <div class="pmi">
+        <div class="p">설정 파일 <b>한 줄</b>이면 되고 deny가 allow보다 먼저 걸려 확실하다. 비용은 거의 없다.</div>
+        <div class="m">경로 규칙은 Write가 아닌 <b>Edit(경로)</b>로 적어야 한다. Bash로 파일을 건드리는 길은 남을 수 있다.</div>
+        <div class="i"><b>가장 먼저 걸 방어</b>. 하나에 의존하지 않고 훅·리뷰어와 겹쳐 쓴다.</div>
+      </div>
+  <aside>가장 간단한 방어는 권한 deny입니다. 공식 문서에 따르면 규칙은 deny, ask, allow 순으로 평가되고 deny가 먼저 걸립니다. 파일 경로 규칙은 Write가 아니라 Edit(경로) 형태로 적어야 합니다. 문서가 Write 경로 규칙은 매칭되지 않는다고 따로 경고합니다. 위 설정의 tests/ 경로는 제 예시이므로 여러분 프로젝트의 테스트 폴더로 바꿔 쓰면 됩니다. 다만 문서가 말하듯 Bash로 파일을 건드리는 길이 있을 수 있어서, 보호 하나에 의존하지는 않습니다. 장점은 설정 한 줄로 확실하다는 것, 단점은 Edit 경로 규칙과 Bash 우회 가능성, 의미는 가장 먼저 거는 방어라는 점입니다.</aside>
+</section>
+
+<!-- 질문 시간 (중간) -->
+<section data-period="6" class="slide section-slide" data-title="질문 시간">
+  <div class="big">질문 시간 · 약 5분</div>
+  <h1>여기까지,<br>질문 받습니다</h1>
+  <p class="lead">지금까지 다룬 것: TDD란 · AI에게 TDD를 · 통과가 곧 완료 · Red에서 Green으로 · 테스트를 속이는 에이전트 · 속임수의 모양 · 대응 전략 · 권한 deny</p>
+  <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-speckit.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p06-fowler-tdd.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p06-cc-verify.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p06-cc-permdeny.jpg" alt="앞에서 본 화면"></div></figure></div>
+  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래의 화면들 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
+</section>
+
+<!-- 12 훅 -->
+<section data-period="6" class="slide" data-title="훅으로 테스트 보호">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 문서 · Hooks guide · Block edits to protected files</div>
+  <h2>훅: 수정 시도를 막고 이유를 돌려준다</h2>
+  <div class="row">
+    <div>
+      <div class="frame" style="max-height:260px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/hooks-guide</span></div><img src="assets/captures/p06-cc-hooks.jpg" alt="Claude Code 훅 가이드: 보호 파일 수정 차단 예제"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 훅 가이드의 ‘보호 파일 수정 차단’ 예제. 훅(도구 실행 직전에 끼우는 스크립트)으로 <b>수정을 막는</b> 방법.</div>
+    </div>
+    <div class="term"><span class="dim"># 도구 실행 직전(PreToolUse)에 돌린 실제 결과</span>
+<span class="dim">$</span> echo '{"tool_input":{"file_path":
+   "/app/transition_test.py"}}' | protect-tests.sh
+<span class="warn">Blocked: ... protected test file.</span>
+<span class="warn">Fix the implementation instead.</span>
+exit=<span class="warn">2</span>   <span class="dim">← 차단, 메시지는 에이전트에게</span>
+
+<span class="dim">$</span> ... "/app/transition.py" ...
+exit=<span class="ok">0</span>   <span class="dim">← 통과</span></div>
+  </div>
+  <div class="pmi">
+        <div class="p">차단 <b>이유를 에이전트에게 돌려줘</b> 구현을 고치게 한다. 보호 대상은 경로 패턴으로 정한다.</div>
+        <div class="m">스크립트와 설정을 <b>직접 만들어야</b> 한다(8교시 실습). deny보다 설치 부담이 크다.</div>
+        <div class="i">deny가 막기만 한다면 훅은 막고 <b>이유까지 알려</b> 준다. 같은 구조로 보호 범위를 넓힌다.</div>
+      </div>
+  <aside>훅은 도구 호출 직전에 제 스크립트를 실행하게 하는 기능입니다. 공식 문서의 보호 파일 예제는 .env 같은 파일에 대한 수정을 막는데, 같은 구조로 테스트 파일을 막는 스크립트를 만들어 직접 돌려 본 결과가 오른쪽입니다. 종료 코드 2는 차단이고, 표준 오류로 쓴 메시지가 에이전트에게 피드백으로 전달됩니다. 그래서 에이전트는 막혔다는 사실과 구현을 고치라는 이유를 함께 받습니다. 종료 코드 0이면 정상 진행입니다. 장점은 이유까지 돌려준다는 것, 단점은 스크립트를 직접 만들어야 한다는 것, 의미는 deny보다 한 단계 친절한 방어라는 점입니다. 스크립트 전체와 설정은 8교시 실습에서 함께 만듭니다.</aside>
+</section>
+
+<!-- 13 리뷰어 서브에이전트 -->
+<section data-period="6" class="slide" data-title="리뷰어 서브에이전트">
+  <div class="tag"><b>2025-07-24</b><span class="sep"></span>Claude Code 서브에이전트 · 7교시에서 자세히</div>
+  <h2>리뷰어 서브에이전트: 스펙과 테스트를 대조한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/sub-agents</span></div><img src="assets/captures/page-cc-subagents.jpg" alt="Claude Code 서브에이전트 문서"></div>
+      <div class="kind">공식 문서 화면 캡처 · 1교시와 같은 화면</div>
+      <div class="ko">Claude Code 서브에이전트 문서(‘Create custom subagents’). 서브에이전트(<b>자기 컨텍스트·권한을 가진</b> 보조 에이전트)를 만드는 법.</div>
+    </div>
+    <div class="points">
+<div class="pmi col">
+        <div class="p">구현 세션과 <b>별도 컨텍스트</b>에서 diff만 보므로 자기 코드를 너그럽게 보는 편향이 없다.</div>
+        <div class="m">찾으라고 하면 <b>항상 무언가를 찾아</b> 불필요한 추상화·테스트가 늘 수 있다. 스타일 지적은 빼라고 적는다.</div>
+        <div class="i">deny·훅이 <b>막는</b> 방어라면 리뷰어는 스펙과 <b>대조</b>하는 방어. 질문은 좁게 고정한다.</div>
+      </div>
+      <div class="next">→ 7교시</div>
+    </div>
+  </div>
+  <aside>구현한 에이전트는 자기 결정의 이유를 알고 있어서 자기 코드를 너그럽게 봅니다. 별도 컨텍스트의 서브에이전트는 그 이유에 영향을 받지 않습니다. Claude Code 문서도 검토는 스펙에 대고 하라고 예를 들고, 스타일 지적은 건너뛰라는 문장을 빼지 말라고 당부합니다. 찾으라고 하면 항상 무언가를 찾아 내서 불필요한 추상화와 테스트가 늘어난다는 이유입니다. 리뷰어에게 줄 질문은 테스트가 바뀌었는가, 스펙의 항목마다 테스트가 있는가 정도로 좁게 고정합니다. 장점은 별도 컨텍스트라 편향이 없다는 것, 단점은 찾으라고 하면 무언가를 꼭 찾아낸다는 것, 의미는 막는 방어와 대조하는 방어를 나눈다는 점입니다.</aside>
+</section>
+
+<!-- 14 DDD 도입 -->
+<section data-period="6" class="slide section-slide" data-title="2부 DDD">
+  <div class="big">후반 · DDD</div>
+  <h1>범위를 도메인 경계로</h1>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-ddd.jpg" alt="Fowler의 DDD 설명"></div><figcaption><b>2020</b><span>DDD란</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-ul.jpg" alt="Fowler의 Ubiquitous Language 설명"></div><figcaption><b>2006</b><span>유비쿼터스 언어</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-bc.jpg" alt="Fowler의 Bounded Context 설명"></div><figcaption><b>2014</b><span>바운디드 컨텍스트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-cleanarch.jpg" alt="클린 아키텍처 글의 의존성 규칙"></div><figcaption><b>2012</b><span>클린 아키텍처</span></figcaption></figure>
+  </div>
+  <aside>후반은 DDD입니다. 도메인 주도 설계는 두꺼운 책 한 권 분량이지만, 오늘은 에이전트에게 필요한 만큼만 아주 짧게 봅니다. 유비쿼터스 언어, 바운디드 컨텍스트, 그리고 프롬프트에 수준을 적는 방법까지입니다. 모두 Fowler와 Uncle Bob의 원문 화면으로 확인합니다.</aside>
+</section>
+
+<!-- 15 DDD란 -->
+<section data-period="6" class="slide" data-title="DDD란">
+  <div class="tag"><b>2020-04-22</b><span class="sep"></span>Martin Fowler bliki · Domain Driven Design</div>
+  <h2>DDD: 업무 영역의 규칙을 코드 안의 모델로</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/DomainDrivenDesign.html</span></div><img src="assets/captures/p06-fowler-ddd.jpg" alt="Fowler의 DDD 설명 첫 화면"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Fowler의 DDD(도메인 주도 설계) 설명 첫 화면. 복잡한 업무 규칙을 <b>모델</b>로 만들어 코드에 둔다.</div>
+    </div>
+    <div class="points">
+<div class="pmi col">
+        <div class="p">복잡한 <b>업무 규칙을 모델</b>로 만들어 코드에 둔다(2003년 Eric Evans의 책에서 유래).</div>
+        <div class="m">단순한 앱에는 <b>과하다</b>. 전부 다루려면 책 한 권 분량이다.</div>
+        <div class="i">앱 복잡도에 맞춰 <b>필요한 만큼만</b> 쓴다. 뒤의 PoC(Proof of Concept, 개념 증명)·엔터프라이즈 구분의 근거.</div>
+      </div>
+      <div class="next">→ 결론: 앱 복잡도에 맞춰 필요한 만큼만 쓴다</div>
+    </div>
+  </div>
+  <aside>Fowler는 DDD를 도메인의 프로세스와 규칙을 잘 이해한 모델 중심으로 개발하는 접근이라고 설명합니다. 2003년 Eric Evans의 책에서 온 이름입니다. 복잡한 규칙이 뒤엉킨 도메인에 특히 맞는다고 하니, 간단한 앱이라면 이 전체를 다 할 필요가 없습니다. 이것이 뒤에 나올 PoC(Proof of Concept, 개념 증명)와 엔터프라이즈 구분의 근거입니다. Evans의 책이 엔티티, 값 객체, 서비스 객체라는 분류와 애그리거트 개념을 소개했다고도 Fowler는 적습니다. 오늘은 이름만 알아 두고 넘어갑니다. 장점은 복잡한 규칙을 모델로 정리한다는 것, 단점은 단순한 앱에는 과하다는 것입니다.</aside>
+</section>
+
+<!-- 16 유비쿼터스 언어 -->
+<section data-period="6" class="slide" data-title="유비쿼터스 언어">
+  <div class="tag"><b>2006-10-31</b><span class="sep"></span>Martin Fowler bliki · Ubiquitous Language</div>
+  <h2>유비쿼터스 언어: 사람과 코드가 같은 단어를 쓴다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/UbiquitousLanguage.html</span></div><img src="assets/captures/p06-fowler-ul.jpg" alt="Fowler의 Ubiquitous Language 설명"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Fowler의 ‘유비쿼터스 언어’ 설명. 개발자와 사용자가 <b>같은 엄밀한 말</b>을 쓴다는 개념.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>개발자와 사용자가 쓰는 엄밀한 공통 언어</li>
+        <li>소프트웨어는 모호함을 잘 다루지 못한다</li>
+        <li>에이전트용: 용어집을 스펙·CLAUDE.md에 적고, 코드 이름도 그 단어로</li>
+      </ul>
+    </div>
+  </div>
+  <aside>유비쿼터스 언어는 개발자와 사용자가 함께 쓰는 엄밀한 공통 언어입니다. Fowler는 소프트웨어가 모호함을 잘 다루지 못하기 때문에 엄밀해야 한다고 설명합니다. 에이전트에게도 똑같이 적용됩니다. 지원서, 제출, 마감 같은 단어를 스펙과 코드, 테스트 이름에서 같은 뜻으로 쓰면 에이전트가 엉뚱한 해석을 할 여지가 줄어듭니다. 제 방식은 용어집을 스펙이나 CLAUDE.md에 짧게 적어 두는 것인데, 이 부분은 원문이 아니라 제 운영 방식임을 밝혀 둡니다.</aside>
+</section>
+
+<!-- 17 바운디드 컨텍스트 -->
+<section data-period="6" class="slide" data-title="바운디드 컨텍스트">
+  <div class="tag"><b>2014-01-15</b><span class="sep"></span>Martin Fowler bliki · Bounded Context</div>
+  <h2>바운디드 컨텍스트: 같은 단어, 영역마다 다른 뜻</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/BoundedContext.html</span></div><img src="assets/captures/p06-fowler-bc.jpg" alt="Fowler의 Bounded Context 글의 영업·지원 컨텍스트 도식"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Fowler의 Bounded Context 글. 영업·지원 영역이 Customer(고객)·Product(상품)를 <b>각자 다르게 모델링</b>하는 도식.</div>
+    </div>
+    <div class="points">
+<div class="pmi col">
+        <div class="p">큰 모델 하나 대신 <b>컨텍스트별 모델</b>로 나눠, Customer·Product처럼 같은 단어의 뜻 충돌을 피한다.</div>
+        <div class="m">컨텍스트 사이 관계를 <b>명시적 계약</b>으로 정해야 한다. 폴더만 나눈다고 경계가 되지는 않는다.</div>
+        <div class="i">이 구조가 다음 장에서 에이전트의 <b>작업 범위</b>가 된다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Fowler는 전력 회사에서 meter라는 단어가 부서마다 조금씩 다른 뜻이었다는 경험을 이야기합니다. 그래서 DDD는 거대한 시스템 전체를 하나의 모델로 통일하려 하지 않고, 각자 일관된 모델을 가진 바운디드 컨텍스트로 나눕니다. 화면의 도식에서는 영업 컨텍스트와 지원 컨텍스트가 Customer와 Product를 각자 다르게 모델링합니다. 컨텍스트 사이의 관계는 분명하게 밝혀 둡니다. 이 구조가 다음 장에서 에이전트의 작업 범위가 됩니다. 장점은 같은 단어의 뜻 충돌을 피한다는 것, 단점은 컨텍스트 사이 관계를 명시해야 한다는 것입니다.</aside>
+</section>
+
+<!-- 18 ApplyFlow 예 -->
+<section data-period="6" class="slide" data-title="영역과 계약 예">
+  <div class="tag"><b>설계 예시</b><span class="sep"></span>ApplyFlow 가정 예 · 강사 자료 domain-testing</div>
+  <h2>예: 공고 · 지원 기록 · 알림, ‘상태’는 셋이 다르다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 2356 375"><svg class="d2-1257581255 d2-svg" width="2356" height="375" viewBox="-9 -9 2356 375"><g class="am9i"><g class="shape" ><rect x="12.000000" y="12.000000" width="523.000000" height="333.000000" class="box-outer"  /></g><text x="273.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">공고</text></g><g class="YXBw"><g class="shape" ><rect x="803.000000" y="12.000000" width="637.000000" height="333.000000" class="box-outer hot"  /></g><text x="1121.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">지원 기록</text></g><g class="bm90aQ=="><g class="shape" ><rect x="1739.000000" y="12.000000" width="587.000000" height="333.000000" class="box-outer"  /></g><text x="2032.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">알림</text></g><g class="am9iLnI="><g class="shape" ><rect x="62.000000" y="65.000000" width="423.000000" height="122.000000" class="box-inner"  /></g><text x="273.500000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="273.500000" dy="0.000000">소유: 공고 ID · 마감일</tspan><tspan x="273.500000" dy="38.500000">규칙: 중복 URL 거부</tspan></text></g><g class="am9iLnM="><g class="shape" ><rect x="85.000000" y="207.000000" width="376.000000" height="88.000000" class="box-inner"  /></g><text x="273.000000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px">&#39;상태&#39; = 공개 · 마감</text></g><g class="YXBwLnI="><g class="shape" ><rect x="916.000000" y="65.000000" width="411.000000" height="122.000000" class="box-inner"  /></g><text x="1121.500000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1121.500000" dy="0.000000">소유: 지원 단계</tspan><tspan x="1121.500000" dy="38.500000">규칙: 허용된 전환만</tspan></text></g><g class="YXBwLnM="><g class="shape" ><rect x="853.000000" y="207.000000" width="537.000000" height="88.000000" class="box-inner"  /></g><text x="1121.500000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px">&#39;상태&#39; = 작성 중 · 제출 · 면접</text></g><g class="bm90aS5y"><g class="shape" ><rect x="1823.000000" y="65.000000" width="418.000000" height="122.000000" class="box-inner"  /></g><text x="2032.000000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="2032.000000" dy="0.000000">소유: 전송 예약</tspan><tspan x="2032.000000" dy="38.500000">규칙: 중복 전송 방지</tspan></text></g><g class="bm90aS5z"><g class="shape" ><rect x="1789.000000" y="207.000000" width="487.000000" height="88.000000" class="box-inner"  /></g><text x="2032.500000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px">&#39;상태&#39; = 대기 · 발송 · 실패</text></g><g class="KGpvYiAtJmd0OyBhcHApWzBd"><marker id="u35-mk-d2-1257581255-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 537.000000 178.500000 L 799.000000 178.500000" class="edge" style="stroke-width:2;" marker-end="url(#u35-mk-d2-1257581255-3488378134)" mask="url(#u35-d2-1257581255)" /><text x="669.000000" y="188.000000" class="edge-label" style="text-anchor:middle;font-size:26px">조회 계약</text></g><g class="KGFwcCAtJmd0OyBub3RpKVswXQ=="><path d="M 1442.000000 178.500000 L 1735.000000 178.500000" class="edge" style="stroke-width:2;" marker-end="url(#u35-mk-d2-1257581255-3488378134)" mask="url(#u35-d2-1257581255)" /><text x="1589.500000" y="188.000000" class="edge-label" style="text-anchor:middle;font-size:26px">제출 이벤트</text></g><mask id="u35-d2-1257581255" maskUnits="userSpaceOnUse" x="-9" y="-9" width="2356" height="375">
+<rect x="-9" y="-9" width="2356" height="375" fill="white"></rect>
+<rect x="603.000000" y="162.000000" width="132" height="33" fill="black"></rect>
+<rect x="1508.000000" y="162.000000" width="163" height="33" fill="black"></rect>
+</mask></svg></svg></div>
+  <p class="under">각 영역이 <b>데이터와 규칙을 소유</b>하고, 다른 영역과는 <b>조회 계약·이벤트</b>로만 만납니다. 실제 앱이 이 구조로 구현되어 있다는 뜻이 아닌 설계 예시입니다.</p>
+  <aside>제 강의 자료의 가정 예시입니다. 공고, 지원 기록, 알림 세 영역으로 나누면, 상태라는 한 단어가 영역마다 다른 뜻을 가집니다. 공고에서는 공개와 마감이고, 지원 기록에서는 작성 중, 제출, 면접입니다. 이것을 하나의 열거형으로 합치기 전에 서로 다른 규칙인지 확인하라는 것이 요점입니다. 지원 기록이 공고 DB(Database, 데이터베이스)를 직접 고치면 경계가 깨집니다. 폴더 이름만 나눈다고 경계가 되는 것도 아닙니다. import 규칙, 데이터 소유권, 계약 테스트가 있어야 실제 경계입니다.</aside>
+</section>
+
+<!-- 19 왜 에이전트에게 -->
+<section data-period="6" class="slide" data-title="에이전트에게 경계가 필요한 이유">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>볼 범위를 줄인다</div>
+  <h2>왜 에이전트에게 경계가 필요한가: 볼 범위 축소</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1306 540"><svg class="d2-1404987502 d2-svg" width="1306" height="540" viewBox="-9 -9 1306 540"><g class="bm8="><g class="shape" ><rect x="12.000000" y="12.000000" width="555.000000" height="498.000000" class="box-outer"  /></g><text x="289.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">경계 없음</text></g><g class="eWVz"><g class="shape" ><rect x="587.000000" y="29.000000" width="689.000000" height="464.000000" class="box-outer"  /></g><text x="931.500000" y="68.000000" class="label-outer" style="text-anchor:middle;font-size:34px">경계 있음</text></g><g class="bm8udDE="><g class="shape" ><rect x="72.000000" y="72.000000" width="435.000000" height="88.000000" class="box-inner"  /></g><text x="289.500000" y="128.500000" class="label-inner" style="text-anchor:middle;font-size:34px">지원 기록 수정 요청</text></g><g class="bm8udDI="><g class="shape" ><rect x="72.000000" y="200.000000" width="435.000000" height="122.000000" class="box-inner"  /></g><text x="289.500000" y="256.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="289.500000" dy="0.000000">공고 · 알림 · 인증까지</tspan><tspan x="289.500000" dy="38.500000">전부 읽고 고침</tspan></text></g><g class="bm8udDM="><g class="shape" ><rect x="72.000000" y="362.000000" width="435.000000" height="88.000000" class="box-inner"  /></g><text x="289.500000" y="418.500000" class="label-inner" style="text-anchor:middle;font-size:34px">회귀 · 컨텍스트 낭비</text></g><g class="eWVzLnkx"><g class="shape" ><rect x="647.000000" y="89.000000" width="569.000000" height="88.000000" class="box-inner"  /></g><text x="931.500000" y="145.500000" class="label-inner" style="text-anchor:middle;font-size:34px">지원 기록 수정 요청</text></g><g class="eWVzLnky"><g class="shape" ><rect x="647.000000" y="217.000000" width="569.000000" height="88.000000" class="box-inner hot"  /></g><text x="931.500000" y="273.500000" class="label-inner" style="text-anchor:middle;font-size:34px">지원 기록 폴더 + 공개 계약만</text></g><g class="eWVzLnkz"><g class="shape" ><rect x="647.000000" y="345.000000" width="569.000000" height="88.000000" class="box-inner"  /></g><text x="931.500000" y="401.500000" class="label-inner" style="text-anchor:middle;font-size:34px">해당 영역 테스트만 실행</text></g><g class="bm8uKHQxIC0mZ3Q7IHQyKVswXQ=="><marker id="u36-mk-d2-1404987502-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 289.500000 162.000000 L 289.500000 196.000000" class="edge" style="stroke-width:2;" marker-end="url(#u36-mk-d2-1404987502-3488378134)" mask="url(#u36-d2-1404987502)" /></g><g class="bm8uKHQyIC0mZ3Q7IHQzKVswXQ=="><path d="M 289.500000 324.000000 L 289.500000 358.000000" class="edge" style="stroke-width:2;" marker-end="url(#u36-mk-d2-1404987502-3488378134)" mask="url(#u36-d2-1404987502)" /></g><g class="eWVzLih5MSAtJmd0OyB5MilbMF0="><path d="M 931.500000 179.000000 L 931.500000 213.000000" class="edge" style="stroke-width:2;" marker-end="url(#u36-mk-d2-1404987502-3488378134)" mask="url(#u36-d2-1404987502)" /></g><g class="eWVzLih5MiAtJmd0OyB5MylbMF0="><path d="M 931.500000 307.000000 L 931.500000 341.000000" class="edge" style="stroke-width:2;" marker-end="url(#u36-mk-d2-1404987502-3488378134)" mask="url(#u36-d2-1404987502)" /></g><mask id="u36-d2-1404987502" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1306" height="540">
+<rect x="-9" y="-9" width="1306" height="540" fill="white"></rect>
+
+</mask></svg></svg></div>
+  <p class="under">경계는 <b>컨텍스트 창 절약</b>, <b>수정 범위 제한</b>, <b>영역별 테스트 실행</b>을 한꺼번에 줍니다.</p>
+  <aside>사람 팀에게 바운디드 컨텍스트가 필요한 이유는 소통 비용이었습니다. 에이전트에게는 보는 범위가 곧 비용입니다. 경계가 없으면 에이전트는 관련 있어 보이는 파일을 다 읽고 다 고쳐서 컨텍스트 창을 낭비하고 회귀를 만듭니다. 경계가 있으면 지원 기록 폴더와 공개 계약만 보고, 그 영역의 테스트만 돌리면 됩니다. 테스트와도 연결됩니다. 영역별 테스트가 있어야 범위를 묶은 채로 통과를 판정할 수 있습니다. 이 효과가 제가 SDD(Spec-Driven Development, 스펙 주도 개발), TDD, DDD를 함께 쓰는 이유입니다.</aside>
+</section>
+
+<!-- 20 클린 아키텍처 -->
+<section data-period="6" class="slide" data-title="클린 아키텍처">
+  <div class="tag"><b>2012-08-13</b><span class="sep"></span>Robert C. Martin · The Clean Architecture</div>
+  <h2>클린 아키텍처: 의존은 안쪽으로만</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html</span></div><img src="assets/captures/p06-cleanarch.jpg" alt="Uncle Bob의 클린 아키텍처 글의 의존성 규칙 문단"></div>
+      <div class="kind">Uncle Bob 블로그 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Uncle Bob의 클린 아키텍처 글 중 <b>의존성 규칙</b> 문단. 안쪽 원은 바깥쪽을 알아서는 안 된다.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“source code dependencies can only point inwards.”<span class="tr">“소스 코드의 의존은 안쪽으로만 향할 수 있다.”</span><cite>Robert C. Martin · 2012</cite></div>
+<div class="pmi col">
+        <div class="p">의존 방향이 <b>안쪽 하나</b>라 규칙이 단순하다. 안쪽은 엔티티(업무 규칙), 바깥은 UI(User Interface, 사용자 화면)·DB(Database, 데이터베이스)·프레임워크.</div>
+        <div class="m">작은 PoC에 쓰면 계층·추상화가 <b>과잉 개발</b>로 흐른다.</div>
+        <div class="i"><b>엔터프라이즈 규모일 때만</b> 프롬프트에 적는다. 규모를 한 줄로 밝히는 것이 핵심.</div>
+      </div>
+    </div>
+  </div>
+  <aside>클린 아키텍처의 핵심은 의존성 규칙입니다. 소스 코드 의존은 안쪽으로만 향하고, 안쪽 원은 바깥쪽 이름을 알아서는 안 됩니다. 가장 안쪽은 엔티티, 즉 업무 규칙이고, 바깥은 UI(User Interface, 사용자 화면), DB(Database, 데이터베이스), 프레임워크 같은 세부 사항입니다. 이 글의 원래 도식 이미지는 제가 가져온 화면에서 로딩되지 않아 본문 문단을 보여 드립니다. 프롬프트에 클린 아키텍처라고 적으면 에이전트는 이 계층 구조를 따라 도메인, 응용, 인프라로 나누려 합니다. 장점은 의존 방향이 하나라 단순하다는 것, 단점은 작은 PoC에는 과하다는 것, 의미는 규모를 프롬프트에 적어야 한다는 점입니다.</aside>
+</section>
+
+<!-- 21 프롬프트 수준 -->
+<section data-period="6" class="slide" data-title="프롬프트에 수준 명시">
+  <div class="tag"><b>기초 중의 기초</b><span class="sep"></span>강사 운영 방식 · 프롬프트에 규모를 적는다</div>
+  <h2>프롬프트에 수준을 적는다: PoC냐, 엔터프라이즈냐</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">PoC(시험 제작) · MVP(Minimum Viable Product, 최소 기능 제품)</div>
+      <div class="term"><span class="acc">이건 PoC입니다.</span>
+지원 제출 기능을 가장 단순하게.
+계층 분리·추상화·설정 파일 금지.
+테스트는 핵심 규칙 한 개만.</div>
+      <ul><li>쓰고 버려도 되는 코드</li><li>안 적으면 과잉 개발로 흐른다</li></ul>
+    </div>
+    <div class="on">
+      <div class="k">엔터프라이즈 규모</div>
+      <div class="term"><span class="acc">클린 아키텍처로.</span>
+도메인 / 응용 / 인프라를 분리하고
+의존은 도메인 방향으로만.
+영역별 테스트와 계약 테스트 포함.</div>
+      <ul><li>오래 유지·여러 팀이 쓰는 코드</li><li>경계 안에서만 고치게 한다</li></ul>
+    </div>
+  </div>
+  <p class="under">같은 요구사항도 <b>규모를 적지 않으면</b> 에이전트가 임의로 정합니다. 한 줄이면 충분합니다.</p>
+  <aside>이것이 오늘 가장 실용적인 한 줄입니다. 엔터프라이즈 규모라면 프롬프트에 클린 아키텍처라고 적고, 그렇지 않다면 PoC나 MVP(Minimum Viable Product, 최소 기능 제품)라고 분명히 적습니다. 적지 않으면 에이전트는 친절하게도 계층과 추상화와 설정을 잔뜩 만들어 과잉 개발을 합니다. 학생 프로젝트와 사이드 프로젝트 대부분은 PoC나 MVP입니다. 그래서 저는 이것이 기초 중의 기초라고 말합니다. 1교시에서 본 과열 방지 스킬, 대표적으로 Ponytail과 Karpathy guidelines도 같은 방향의 장치입니다.</aside>
+</section>
+
+<!-- 22 두 수준 구조 -->
+<section data-period="6" class="slide" data-title="두 수준의 결과 구조">
+  <div class="tag"><b>시연 예정</b><span class="sep"></span>같은 요구사항을 두 수준으로 · 강사 실제 화면으로 교체 예정</div>
+  <h2>같은 기능도 PoC냐 클린 아키텍처냐에 따라 모양이 달라진다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1286 870"><svg class="d2-2005241223 d2-svg" width="1286" height="870" viewBox="-9 -9 1286 870"><g class="cmVx"><g class="shape" ><rect x="12.000000" y="284.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="169.000000" y="340.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="169.000000" dy="0.000000">같은 요구사항</tspan><tspan x="169.000000" dy="38.500000">지원 제출 기능</tspan></text></g><g class="cG9j"><g class="shape" ><rect x="706.000000" y="12.000000" width="359.000000" height="242.000000" class="box-outer"  /></g><text x="885.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">PoC · MVP</text></g><g class="ZW50"><g class="shape" ><rect x="706.000000" y="274.000000" width="550.000000" height="566.000000" class="box-outer"  /></g><text x="981.000000" y="313.000000" class="label-outer" style="text-anchor:middle;font-size:34px">엔터프라이즈 · 클린 아키텍처</text></g><g class="cG9jLnAx"><g class="shape" ><rect x="766.000000" y="72.000000" width="239.000000" height="122.000000" class="box-inner"  /></g><text x="885.500000" y="128.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="885.500000" dy="0.000000">app.py + test</tspan><tspan x="885.500000" dy="38.500000">계층 없음</tspan></text></g><g class="ZW50LmluZnJh"><g class="shape" ><rect x="840.000000" y="334.000000" width="281.000000" height="122.000000" class="box-inner"  /></g><text x="980.500000" y="390.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="980.500000" dy="0.000000">인프라</tspan><tspan x="980.500000" dy="38.500000">DB · 메일 · 웹</tspan></text></g><g class="ZW50LmFwcA=="><g class="shape" ><rect x="840.000000" y="496.000000" width="281.000000" height="122.000000" class="box-inner"  /></g><text x="980.500000" y="552.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="980.500000" dy="0.000000">응용</tspan><tspan x="980.500000" dy="38.500000">유스케이스</tspan></text></g><g class="ZW50LmRvbQ=="><g class="shape" ><rect x="840.000000" y="658.000000" width="281.000000" height="122.000000" class="box-inner hot"  /></g><text x="980.500000" y="714.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="980.500000" dy="0.000000">도메인</tspan><tspan x="980.500000" dy="38.500000">엔티티 · 규칙</tspan></text></g><g class="ZW50LihpbmZyYSAtJmd0OyBhcHApWzBd"><marker id="u37-mk-d2-2005241223-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 981.000000 458.000000 L 981.000000 492.000000" class="edge" style="stroke-width:2;" marker-end="url(#u37-mk-d2-2005241223-3488378134)" mask="url(#u37-d2-2005241223)" /><text x="981.000000" y="486.000000" class="edge-label" style="text-anchor:middle;font-size:26px">의존</text></g><g class="ZW50LihhcHAgLSZndDsgZG9tKVswXQ=="><path d="M 981.000000 620.000000 L 981.000000 654.000000" class="edge" style="stroke-width:2;" marker-end="url(#u37-mk-d2-2005241223-3488378134)" mask="url(#u37-d2-2005241223)" /><text x="981.000000" y="648.000000" class="edge-label" style="text-anchor:middle;font-size:26px">의존</text></g><g class="KHJlcSAtJmd0OyBwb2MpWzBd"><path d="M 328.000000 324.665985 L 356.000000 324.665985 S 366.000000 324.665985 366.000000 314.665985 L 366.000000 143.000000 S 366.000000 133.000000 376.000000 133.000000 L 702.000000 133.000000" class="edge" style="stroke-width:2;" marker-end="url(#u37-mk-d2-2005241223-3488378134)" mask="url(#u37-d2-2005241223)" /><text x="420.000000" y="143.000000" class="edge-label" style="text-anchor:middle;font-size:26px">&#39;PoC입니다&#39;</text></g><g class="KHJlcSAtJmd0OyBlbnQpWzBd"><path d="M 328.000000 365.333008 L 702.000000 365.333008" class="edge" style="stroke-width:2;" marker-end="url(#u37-mk-d2-2005241223-3488378134)" mask="url(#u37-d2-2005241223)" /><text x="516.000000" y="375.000000" class="edge-label" style="text-anchor:middle;font-size:26px">&#39;클린 아키텍처로&#39;</text></g><mask id="u37-d2-2005241223" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1286" height="870">
+<rect x="-9" y="-9" width="1286" height="870" fill="white"></rect>
+<rect x="948.000000" y="460.000000" width="66" height="33" fill="black"></rect>
+<rect x="948.000000" y="622.000000" width="66" height="33" fill="black"></rect>
+<rect x="346.000000" y="117.000000" width="148" height="33" fill="black"></rect>
+<rect x="399.000000" y="349.000000" width="234" height="33" fill="black"></rect>
+</mask></svg></svg></div>
+  <p class="under">현장에서 같은 요구사항을 두 프롬프트로 시켜 <b>파일 수와 줄 수</b>를 직접 세어 비교합니다.</p>
+  <aside>여기서는 구조의 차이만 도식으로 보여 드립니다. PoC로 시키면 파일 하나와 테스트 정도로 끝납니다. 클린 아키텍처로 시키면 도메인, 응용, 인프라가 나뉘고 의존은 도메인을 향합니다. 실제 파일 수와 줄 수는 모델과 프롬프트에 따라 달라지므로 수업에서 같은 요구사항을 두 번 시켜 그 자리에서 세어 보겠습니다. 숫자를 미리 말씀드리지 않는 이유는 제가 이 비교를 아직 측정해 두지 않았기 때문입니다. 어느 쪽이 맞다는 이야기가 아니라 목적에 맞는 수준을 고르라는 이야기입니다.</aside>
+</section>
+
+<!-- 24 정리 -->
+<section data-period="6" class="slide" data-title="정리와 다음 교시">
+  <div class="tag"><b>정리</b><span class="sep"></span>스펙 · 테스트 · 경계</div>
+  <h2>오늘 본 것: 세 겹으로 범위를 묶는다</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1307 356"><svg class="d2-3410118892 d2-svg" width="1307" height="356" viewBox="-21 -21 1307 356"><g class="c2Rk"><g class="shape" ><rect x="0.000000" y="0.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="153.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="153.500000" dy="0.000000">SDD · 스펙</tspan><tspan x="153.500000" dy="38.500000">무엇을 만드나</tspan></text></g><g class="dGRk"><g class="shape" ><rect x="457.000000" y="0.000000" width="307.000000" height="122.000000" class="box-inner hot"  /></g><text x="610.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="610.500000" dy="0.000000">TDD · 테스트</tspan><tspan x="610.500000" dy="38.500000">맞게 만들었나</tspan></text></g><g class="ZGRk"><g class="shape" ><rect x="914.000000" y="0.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="1089.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1089.500000" dy="0.000000">DDD · 경계</tspan><tspan x="1089.500000" dy="38.500000">어디까지 고치나</tspan></text></g><g class="ZjE="><g class="shape" ><rect x="0.000000" y="192.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="153.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="153.500000" dy="0.000000">막는 실패</tspan><tspan x="153.500000" dy="38.500000">딴길로 샘</tspan></text></g><g class="ZjI="><g class="shape" ><rect x="457.000000" y="192.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="610.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="610.500000" dy="0.000000">막는 실패</tspan><tspan x="610.500000" dy="38.500000">가짜 &#39;다 했다&#39;</tspan></text></g><g class="ZjM="><g class="shape" ><rect x="914.000000" y="192.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="1089.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1089.500000" dy="0.000000">막는 실패</tspan><tspan x="1089.500000" dy="38.500000">범위 폭주</tspan></text></g><g class="KHNkZCAtJmd0OyB0ZGQpWzBd"><marker id="u38-mk-d2-3410118892-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 308.500000 61.000000 L 453.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u38-mk-d2-3410118892-3488378134)" mask="url(#u38-d2-3410118892)" /><text x="382.500000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">테스트로</text></g><g class="KHRkZCAtJmd0OyBkZGQpWzBd"><path d="M 765.500000 61.000000 L 910.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u38-mk-d2-3410118892-3488378134)" mask="url(#u38-d2-3410118892)" /><text x="839.500000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">도메인별</text></g><g class="KHNkZCAtJmd0OyBmMSlbMF0="><path d="M 153.500000 124.000000 L 153.500000 188.000000" class="edge" style="stroke-width:2;" marker-end="url(#u38-mk-d2-3410118892-3488378134)" mask="url(#u38-d2-3410118892)" /></g><g class="KHRkZCAtJmd0OyBmMilbMF0="><path d="M 610.500000 124.000000 L 610.500000 188.000000" class="edge" style="stroke-width:2;" marker-end="url(#u38-mk-d2-3410118892-3488378134)" mask="url(#u38-d2-3410118892)" /></g><g class="KGRkZCAtJmd0OyBmMylbMF0="><path d="M 1089.500000 124.000000 L 1089.500000 188.000000" class="edge" style="stroke-width:2;" marker-end="url(#u38-mk-d2-3410118892-3488378134)" mask="url(#u38-d2-3410118892)" /></g><mask id="u38-d2-3410118892" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1307" height="356">
+<rect x="-21" y="-21" width="1307" height="356" fill="white"></rect>
+<rect x="319.000000" y="45.000000" width="127" height="33" fill="black"></rect>
+<rect x="776.000000" y="45.000000" width="127" height="33" fill="black"></rect>
+</mask></svg></svg></div>
+  <p class="under">테스트는 <b>먼저 쓰고, 먼저 커밋하고, 못 고치게</b> 합니다. 경계는 <b>작게</b>, 수준은 <b>프롬프트에 한 줄로</b>. <span class="next">→ 7교시 서브에이전트와 워크트리</span></p>
+  <aside>오늘 본 것을 묶으면 이렇습니다. 스펙을 실패하는 테스트로 바꾸고, 그 테스트를 먼저 커밋하고, deny나 훅으로 못 고치게 하고, 리뷰어가 대조합니다. 도메인 경계로 에이전트가 볼 범위를 줄이고, 프롬프트에 PoC나 클린 아키텍처를 적어 수준을 정합니다. 다음 7교시는 서브에이전트와 워크트리입니다. 오늘 말한 리뷰어와 영역별 작업을 실제로 나누어 병렬로 돌리는 방법입니다. 8교시 실습에서는 오늘 내용으로 기능 하나를 테스트 먼저 구현합니다.</aside>
+</section>
+
+</div></div>
+<div class="notes" id="notes" hidden></div>
+<div class="hud"><span id="pos"></span><div class="bar"><i id="prog"></i></div><select id="jump" aria-label="교시로 이동"></select><button id="nb" type="button">노트 N</button><button id="fb" type="button">전체 화면 F</button></div>
+<script>
+(()=>{
+ const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
+ const pos=document.getElementById('pos'), prog=document.getElementById('prog'), notes=document.getElementById('notes'), jump=document.getElementById('jump');
+ let i=0;
+ // period jump menu
+ const periods=[];slides.forEach((s,k)=>{const p=s.dataset.period;if(p&&!periods.find(x=>x.p===p))periods.push({p,k});});
+ periods.forEach(({p,k})=>{const o=document.createElement('option');o.value=k;o.textContent=p+'교시';jump.appendChild(o);});
+ if(!periods.length)jump.hidden=true;
+ const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`scale(${s})`;};
+ const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+   const p=slides[i].dataset.period;pos.textContent=`${p?p+'교시 · ':''}${i+1} / ${slides.length}`;
+   prog.style.width=`${(i+1)/slides.length*100}%`;
+   const a=slides[i].querySelector('aside');notes.textContent=a?a.textContent.trim():'';
+   const cur=[...periods].reverse().find(x=>x.k<=i);if(cur)jump.value=String(cur.k);
+   if(location.hash!=='#s'+(i+1))history.replaceState(null,'','#s'+(i+1));};
+ const fromHash=()=>{const m=location.hash.match(/^#s(\d+)$/);show(m?+m[1]-1:0);};
+ const toggleFs=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{});}catch(_){}};
+ addEventListener('keydown',e=>{
+  if(e.target.closest&&e.target.closest('select'))return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1);}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+  else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+  else if(e.key==='n'||e.key==='N')notes.hidden=!notes.hidden;
+  else if(e.key==='f'||e.key==='F')toggleFs();});
+ document.getElementById('nb').onclick=()=>notes.hidden=!notes.hidden;
+ document.getElementById('fb').onclick=toggleFs;
+ jump.onchange=()=>show(+jump.value);
+ deck.addEventListener('click',e=>{if(e.target.closest('a,button,select'))return;show(e.clientX>innerWidth/2?i+1:i-1);});
+ addEventListener('resize',fit);addEventListener('hashchange',fromHash);fit();fromHash();
+})();
+
+</script>
+</body></html>

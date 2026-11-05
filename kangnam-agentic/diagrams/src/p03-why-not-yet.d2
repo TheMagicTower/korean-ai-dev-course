@@ -1,0 +1,15 @@
+direction: down
+c: "" {
+  grid-columns: 3
+  style.stroke: transparent
+  w: "작은 컨텍스트 창"
+  m: "미숙한 모델"
+  s: "승인 열 번"
+}
+r: "코드 자동 작성 수준" {style.stroke: "#ff00ff"}
+next: "2회차 · 스펙 · 테스트 · 서브에이전트"
+c -> r
+r -> next: "딴길로 새고 맥락을 잃는다"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 28

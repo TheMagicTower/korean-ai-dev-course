@@ -1,0 +1,23 @@
+direction: right
+guard: "축 1 · 실수를 막는 장치" {
+  a: "권한 승인"
+  b: "스펙·Plan"
+  c: "테스트(TDD)"
+  d: "도메인 경계(DDD)"
+  e: "ADR·이슈 원장"
+  f: "스모크·페르소나"
+  a -> b -> c -> d -> e -> f
+}
+cont: "축 2 · ‘계속’을 누가 누르나" {
+  h: "사람이 Tab·붙여넣기"
+  i: "에이전트 루프"
+  j: "자동 승인"
+  k: "/loop · /goal"
+  l: "코디네이터가 깨어나 점검"
+  l.style.stroke: "#ff00ff"
+  h -> i -> j -> k -> l
+}
+guard.style.stroke: "#ff00ff"
+
+**.style.font-size: 26
+(** -> **)[*].style.font-size: 22

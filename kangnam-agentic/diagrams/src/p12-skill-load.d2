@@ -1,0 +1,20 @@
+grid-rows: 4
+grid-columns: 2
+horizontal-gap: 90
+vertical-gap: 70
+list: "세션 시작 시\n스킬 목록(이름+설명)" { style.stroke: "#ff00ff" }
+z1: "" { style.opacity: 0 }
+match: "설명과\n맞는가?"
+req: "내 요청"
+body: "SKILL.md 본문\n+ 참고 자료"
+slash: "/skill-name\n직접 호출"
+work: "본문 지침대로\n작업"
+z7: "" { style.opacity: 0 }
+list -> match
+req -> match
+match -> body: "예"
+slash -> body
+body -> work
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

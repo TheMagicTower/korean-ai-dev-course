@@ -1,0 +1,13 @@
+direction: right
+git: "공유 · 저장소 .git (커밋 · 브랜치 · 원격)"
+git.style.stroke: "#ff00ff"
+w0: "main 워크트리\n~/app · main"
+w1: "링크드 워크트리\n../app-login · feat/login"
+w2: "링크드 워크트리\n../app-search · feat/search"
+w0 -> git
+w1 -> git
+w2 -> git
+own: "워크트리마다 따로: 파일 · HEAD · 인덱스"
+w1 -> own { style.stroke-dash: 4 }
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

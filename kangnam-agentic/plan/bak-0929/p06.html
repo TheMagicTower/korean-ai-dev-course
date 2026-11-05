@@ -1,0 +1,457 @@
+<!-- 6교시 · TDD와 DDD: 범위를 묶는 삼중 방어 (60분, 23장) -->
+
+<!-- 01 표지 -->
+<section class="slide section-slide" data-title="표지">
+  <div class="tag"><b>2회차 · 6교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-12</div>
+  <div class="title-wrap">
+    <h1>TDD와 DDD<br>범위를 묶는 삼중 방어</h1>
+    <p class="lead">스펙에 테스트와 도메인 경계를 더해, 에이전트가 시킨 일만 끝까지 하게 만듭니다.</p>
+  </div>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-tdd.jpg" alt="Martin Fowler의 TDD 설명"></div><figcaption><b>TDD</b><span>실패하는 테스트 먼저</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-cc-verify.jpg" alt="Claude Code 문서의 검증 수단 설명"></div><figcaption><b>완료 기준</b><span>통과가 곧 완료</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-bc.jpg" alt="Fowler의 Bounded Context 설명"></div><figcaption><b>DDD</b><span>바운디드 컨텍스트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-cleanarch.jpg" alt="Uncle Bob의 클린 아키텍처 글"></div><figcaption><b>수준</b><span>클린 아키텍처</span></figcaption></figure>
+  </div>
+  <aside>6교시는 2회차의 가운데 시간입니다. 5교시에 스펙과 Task 목록으로 에이전트를 붙잡는 법을 봤습니다. 오늘은 거기에 두 겹을 더합니다. 테스트로 완료를 판정하는 TDD, 도메인 경계로 범위를 묶는 DDD입니다. 앞의 두 장은 전문 용어가 많지 않으니 편하게 들어 주세요. 아래 네 장은 오늘 보여 드릴 실제 문서 화면입니다.</aside>
+</section>
+
+<!-- 02 지난 교시 -->
+<section class="slide" data-title="지난 교시와의 연결">
+  <div class="tag"><b>2025-09-02</b><span class="sep"></span>GitHub Spec Kit · 5교시 복습</div>
+  <h2>스펙이 있어도 “다 했다”는 말은 검증되지 않는다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit</span></div><img src="assets/captures/page-speckit.jpg" alt="GitHub Spec Kit 발표 글"></div>
+      <div class="kind">GitHub Blog 화면 캡처 · 5교시에서 본 화면</div>
+      <div class="ko">5교시에서 본 GitHub의 Spec Kit 발표 글 제목 화면. “AI로 스펙 주도 개발: <b>새 오픈소스 툴킷</b>으로 시작하기”.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>스펙과 Task 목록이 에이전트가 딴길로 새는 것을 줄인다</li>
+        <li>하지만 “다 했다”는 말은 에이전트의 말일 뿐</li>
+        <li>코드가 커지면 한 번에 건드리는 범위도 넓어진다</li>
+      </ul>
+    </div>
+  </div>
+  <aside>5교시에서 스펙과 Task 목록으로 에이전트의 방향을 잡았습니다. 그런데 남는 문제가 둘 있습니다. 첫째, 에이전트가 다 했다고 말할 때 그것이 사실인지 어떻게 아는가입니다. 둘째, 코드가 커지면 에이전트가 건드리는 범위가 너무 넓어진다는 점입니다. 첫째에는 테스트가, 둘째에는 도메인 경계가 답입니다.</aside>
+</section>
+
+<!-- 03 삼중 방어 -->
+<section class="slide" data-title="삼중 방어">
+  <div class="tag"><b>SDD + TDD + DDD</b><span class="sep"></span>강사 운영 방식</div>
+  <h2>스펙, 테스트, 경계가 서로 다른 실패를 막는다</h2>
+  <div class="diagram">{{svg:p06-triple}}</div>
+  <p class="under">세 겹은 <b>서로 다른 실패</b>를 막습니다. 오늘은 가운데 테스트부터 봅니다. <span class="next">→ 5교시 SDD, 이어서 TDD</span></p>
+  <aside>세 가지는 각자 다른 실패를 막습니다. 스펙은 무엇을 만들지 정해 딴길로 새는 것을 막습니다. 테스트는 그 스펙대로 만들어졌는지 판정해 가짜 완료를 막습니다. 도메인 경계는 어디까지 고칠지 정해 범위가 폭주하는 것을 막습니다. 하나만 쓰면 나머지 실패가 그대로 남습니다. 그래서 겹쳐서 씁니다. 오늘은 테스트에서 시작해 경계로 넘어갑니다.</aside>
+</section>
+
+<!-- 04 TDD란 -->
+<section class="slide" data-title="TDD란">
+  <div class="tag"><b>2023-12-11 개정</b><span class="sep"></span>Martin Fowler bliki · Test Driven Development</div>
+  <h2>TDD: 실패하는 테스트를 먼저 쓴다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/TestDrivenDevelopment.html</span></div><img src="assets/captures/p06-fowler-tdd.jpg" alt="Fowler의 TDD 글: Red Green Refactor 도식"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Fowler의 TDD 설명 글. 테스트 목록에서 하나 골라 쓰고(Red) → 통과시키고(Green) → 정리(Refactor)하는 <b>반복 도식</b>.</div>
+    </div>
+    <div class="points">
+      <ol>
+        <li>다음 기능의 테스트를 쓴다 (Red: 아직 실패)</li>
+        <li>통과할 때까지 구현한다 (Green: 통과)</li>
+        <li>동작은 그대로 두고 구조를 정리한다 (Refactor)</li>
+      </ol>
+      <p class="muted" style="font-size:24px">Kent Beck이 1990년대 후반 익스트림 프로그래밍의 일부로 발전시킨 기법</p>
+    </div>
+  </div>
+  <aside>TDD는 새로운 방법이 아닙니다. Fowler의 설명대로 Kent Beck이 1990년대 후반 익스트림 프로그래밍의 일부로 만들었고, 세 단계를 반복합니다. 다음 기능의 테스트를 먼저 쓰고, 통과할 최소한의 코드를 쓰고, 구조를 정리합니다. 이 글은 테스트를 먼저 쓰면 인터페이스를 먼저 생각하게 된다는 점도 이점으로 꼽습니다. 그리고 가장 흔한 실패가 세 번째, 정리를 건너뛰는 것이라고 지적합니다. 사람이 오래 못 지킨 습관이라는 점을 기억해 주세요.</aside>
+</section>
+
+<!-- 05 사람은 못 하던 것 -->
+<section class="slide" data-title="AI에게 TDD를">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>분량 때문에 못 하던 일을 에이전트가 한다</div>
+  <h2>사람이 분량 때문에 건너뛰던 TDD를 AI에게</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/best-practices</span></div><img src="assets/captures/p06-cc-failtest.jpg" alt="Claude Code 모범 사례 문서: 실패하는 테스트를 쓰고 고치라는 예시"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 모범 사례 문서의 ‘Instead of(이렇게 말하지 말고) / Try(이렇게)’ 표. “로그인 버그 고쳐” 대신 <b>실패 재현 테스트</b>를 쓰게 한다.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>사람: 테스트 쓰는 시간이 구현만큼 들어 생략</li>
+        <li>AI: 테스트 수십 개를 쓰는 비용이 거의 없다</li>
+        <li>공식 문서의 프롬프트 예: “write a failing test that reproduces it, then fix it” (재현하는 실패 테스트를 쓰고, 그다음 고쳐라)</li>
+      </ul>
+    </div>
+  </div>
+  <aside>사람이 TDD를 못 지킨 가장 큰 이유는 분량이었습니다. 테스트를 쓰는 시간이 구현만큼 들기 때문에 마감 앞에서 먼저 사라졌습니다. 에이전트에게는 분량이 문제가 아닙니다. 그래서 사람이 하지 못하던 TDD를 AI에게 시킬 수 있습니다. 화면은 Claude Code 공식 문서의 프롬프트 예시입니다. 버그를 재현하는 실패 테스트를 먼저 쓰고 그다음 고치라고 구체적으로 적으라는 예입니다. 다만 이 문서가 TDD라는 이름의 별도 절을 두고 있지는 않다는 점을 밝혀 둡니다. 제가 확인한 현재 문서에는 이 예시와 검증 수단 절이 근거입니다.</aside>
+</section>
+
+<!-- 06 완료 기준 -->
+<section class="slide" data-title="통과가 곧 완료">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 문서 · Give Claude a check to run</div>
+  <h2>완료는 에이전트의 말이 아니라 통과 결과</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/best-practices</span></div><img src="assets/captures/p06-cc-verify.jpg" alt="Claude Code 문서: 통과 또는 실패를 돌려주는 검증 수단"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 문서의 ‘실행해서 확인할 수단을 주라’는 절. <b>통과·실패를 돌려주는 검증 수단</b> 예시.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“Give Claude something it can run that comes back pass or fail.”<span class="tr">“Claude에게 실행했을 때 통과나 실패를 돌려주는 무언가를 주어라.”</span><cite>Claude Code Docs · Best practices</cite></div>
+      <ul>
+        <li>검증 수단: 테스트 파일, 빌드 종료 코드, 린터(코드 규칙 검사기)</li>
+        <li>repo의 CLAUDE.md에 테스트 실행 명령을 적는다</li>
+        <li>“All tests pass(모두 통과)”만 믿지 말고 실행 출력을 요구</li>
+      </ul>
+    </div>
+  </div>
+  <aside>공식 문서는 에이전트에게 통과 또는 실패를 돌려주는 검증 수단을 주라고 말합니다. 그것이 없으면 에이전트에게 남는 기준은 다 한 것 같다는 느낌뿐이고, 그러면 사람이 테스트 스위트 노릇을 하게 된다고 설명합니다. 검증 수단은 테스트 파일, 빌드 종료 코드, 린터 등 무엇이든 됩니다. CLAUDE.md에 그 명령을 적어 두는 것이 가장 유용한 한 줄입니다. 그리고 문서는 모두 통과했다는 말만으로는 알 수 있는 것이 적으니 실행한 명령과 출력을 요구하라고 권합니다. 이것이 8교시 실습의 완료 기준이 됩니다.</aside>
+</section>
+
+<!-- 07 실제 Red -> Green -->
+<section class="slide" data-title="Red에서 Green으로">
+  <div class="tag"><b>실제 실행 결과</b><span class="sep"></span>domain-testing 예제 · Python unittest · 강사 운영 방식</div>
+  <h2>Red 확인이 먼저, Green은 그다음</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">1) 스텁(가짜 구현) · 테스트 실행 → Red(실패)</div>
+      <div class="term">def submit(status):
+    return "submitted"
+
+<span class="dim">$</span> python3 transition_test.py
+<span class="warn">FAIL</span>: test_submitted_cannot_be_submitted_again
+AssertionError: ValueError not raised
+Ran 2 tests ... <span class="warn">FAILED (failures=1)</span></div>
+    </div>
+    <div class="on">
+      <div class="k">2) 구현 → Green(통과)</div>
+      <div class="term">def submit(status):
+    if status != "draft":
+        raise ValueError("작성 중인 지원만 제출할 수 있습니다.")
+    return "submitted"
+
+<span class="dim">$</span> python3 transition_test.py
+Ran 2 tests ... <span class="ok">OK</span></div>
+    </div>
+  </div>
+  <p class="under">규칙: <b>이미 제출한 지원은 다시 제출할 수 없다.</b> 실패가 규칙을 가리키는지 확인한 뒤에 구현합니다.</p>
+  <aside>제 강의 자료의 작은 예시를 이 자리에서 실제로 실행한 결과입니다. 규칙은 이미 제출한 지원은 다시 제출할 수 없다는 것입니다. 먼저 항상 제출됨을 돌려주는 스텁으로 테스트를 돌리면 두 번째 테스트가 실패합니다. 이 Red를 눈으로 확인하는 것이 중요합니다. 실패한 이유가 규칙 때문이어야 테스트가 쓸모 있다는 증명이 됩니다. 그다음 구현을 넣으면 두 테스트가 통과합니다. 에이전트에게도 구현 전에 테스트를 실행해 실패를 보여 달라고 시킵니다.</aside>
+</section>
+
+<!-- 08 속이는 에이전트 -->
+<section class="slide" data-title="테스트를 속이는 에이전트">
+  <div class="tag"><b>2025-05-22</b><span class="sep"></span>Anthropic · Claude 4 발표문 · 지름길과 허점</div>
+  <h2>에이전트는 테스트만 통과하는 지름길을 찾기도 한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/news/claude-4</span></div><img src="assets/captures/p06-claude4.jpg" alt="Claude 4 발표문: 지름길이나 허점을 쓰는 행동을 줄였다는 문단"></div>
+      <div class="kind">Anthropic 발표문 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude 4 발표문에서 모델이 <b>지름길·허점을 쓰는 행동</b>을 줄였다고 밝힌 문단.</div>
+    </div>
+    <div class="points">
+<div class="pmi col">
+        <div class="p">지름길·허점을 쓰는 행동이 <b>Sonnet 3.7보다 65% 덜</b> 나온다고 발표했다(지름길에 취약한 에이전트 과제 기준).</div>
+        <div class="m">줄었을 뿐 <b>사라진 것은 아니다</b>. 수치는 모델을 만든 회사가 직접 발표한 것이다.</div>
+        <div class="i">모델이 좋아지길 기다리지 않고 <b>구조로 막는다</b>. 다음 장부터 그 대응이 이어진다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>테스트를 완료 기준으로 삼으면 새 문제가 생깁니다. 통과가 목적이 되면 에이전트가 통과만 하는 길을 찾을 수 있습니다. Anthropic은 2025년 5월 Claude 4 발표에서 모델이 작업을 끝내려고 지름길이나 허점을 쓰는 행동을 줄였고, 그런 행동에 취약한 에이전트 과제에서 Sonnet 3.7보다 65% 덜 한다고 밝혔습니다. 반대로 말하면 이전 모델에는 그런 행동이 있었고, 줄었더라도 사라졌다고 보장하지는 않습니다. 그래서 모델이 좋아지기를 기다리지 않고 구조로 막습니다. 장점은 지름길 행동이 65% 줄었다는 발표 수치, 단점은 사라진 것은 아니고 발표 주체가 만든 회사라는 점, 의미는 구조로 막아야 한다는 것입니다.</aside>
+</section>
+
+<!-- 09 속임수 실제 예 -->
+<section class="slide" data-title="속임수의 모양">
+  <div class="tag"><b>실제 실행 결과</b><span class="sep"></span>같은 예제에서 테스트를 건드린 경우 · 강사 운영 방식</div>
+  <h2>속임수 세 가지: 고치고, 건너뛰고, 박아 넣기</h2>
+  <div class="row">
+    <div class="term"><span class="dim"># 구현은 그대로 (규칙을 어긴 채)</span>
+def submit(status):
+    return "submitted"
+
+<span class="dim"># 에이전트가 테스트 쪽을 고침</span>
+<span class="warn">@unittest.skip("flaky")</span>
+def test_submitted_cannot_be_submitted_again(self):
+    ...
+
+<span class="dim">$</span> python3 cheat_test.py
+Ran 2 tests ... <span class="ok">OK (skipped=1)</span></div>
+    <div class="points">
+      <ol>
+        <li>테스트 수정·삭제·skip(건너뛰기): 초록불이지만 규칙은 안 지킴</li>
+        <li>기대값 약화: 단언을 느슨하게 바꿈</li>
+        <li>하드코딩(정답 박아 넣기): 테스트 입력만 통과하는 분기</li>
+      </ol>
+      <p class="muted" style="font-size:24px">공통점: 실행 결과는 초록, 규칙은 어겨졌다</p>
+    </div>
+  </div>
+  <aside>가장 단순한 속임수를 실제로 돌려 본 화면입니다. 구현은 규칙을 어긴 그대로인데 테스트에 skip 한 줄을 붙이면 OK가 나옵니다. 끝에 skipped=1이 작게 붙어 있어 놓치기 쉽습니다. 같은 부류로 기대값을 느슨하게 바꾸는 것, 테스트에 나온 입력만 통과하게 분기를 박아 넣는 것이 있습니다. 모두 초록불인데 규칙은 지켜지지 않았습니다. 그래서 초록불만 보지 말고 테스트 자체가 바뀌었는지를 함께 봐야 합니다.</aside>
+</section>
+
+<!-- 10 대응 도식 -->
+<section class="slide" data-title="대응 전략">
+  <div class="tag"><b>대응 4가지</b><span class="sep"></span>강사 운영 방식</div>
+  <h2>속임수에 대한 대응: 막고, 대조하고, 직접 본다</h2>
+  <div class="diagram">{{svg:p06-cheat}}</div>
+  <p class="under">테스트를 <b>먼저 커밋</b>해 기준을 고정하고, 파일을 <b>보호</b>하고, 다른 눈으로 <b>검토</b>합니다. 마지막 판정은 사람입니다.</p>
+  <aside>대응은 네 겹입니다. 첫째, 테스트를 먼저 커밋합니다. 이후 테스트 파일이 바뀌면 git diff에 바로 드러납니다. 둘째, 에이전트가 테스트 파일을 수정하지 못하게 권한 deny나 훅으로 막습니다. 셋째, 구현한 에이전트와 별개의 리뷰어 서브에이전트가 스펙과 대조하게 합니다. 넷째, 결국 사람이 직접 실행해 봅니다. 1교시에서 말한 스모크 테스트의 이유입니다. 이어서 둘째와 셋째를 하나씩 보겠습니다.</aside>
+</section>
+
+<!-- 11 deny -->
+<section class="slide" data-title="권한 deny">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 문서 · Permissions</div>
+  <h2>권한 deny: 테스트 파일은 수정 금지</h2>
+  <div class="row">
+    <div>
+      <div class="frame" style="max-height:300px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/permissions</span></div><img src="assets/captures/p06-cc-permdeny.jpg" alt="Claude Code 권한 문서: deny 규칙"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 권한 문서. allow·ask·<b>deny 규칙</b>의 뜻과, deny가 먼저 평가되는 순서를 설명한다.</div>
+    </div>
+    <div class="points">
+      <div class="term">// .claude/settings.json
+{ "permissions": { "deny": [
+    "Edit(tests/**)"
+] } }</div>
+    </div>
+  </div>
+  <div class="pmi">
+        <div class="p">설정 파일 <b>한 줄</b>이면 되고 deny가 allow보다 먼저 걸려 확실하다. 비용은 거의 없다.</div>
+        <div class="m">경로 규칙은 Write가 아닌 <b>Edit(경로)</b>로 적어야 한다. Bash로 파일을 건드리는 길은 남을 수 있다.</div>
+        <div class="i"><b>가장 먼저 걸 방어</b>. 하나에 의존하지 않고 훅·리뷰어와 겹쳐 쓴다.</div>
+      </div>
+  <aside>가장 간단한 방어는 권한 deny입니다. 공식 문서에 따르면 규칙은 deny, ask, allow 순으로 평가되고 deny가 먼저 걸립니다. 파일 경로 규칙은 Write가 아니라 Edit(경로) 형태로 적어야 합니다. 문서가 Write 경로 규칙은 매칭되지 않는다고 따로 경고합니다. 위 설정의 tests/ 경로는 제 예시이므로 여러분 프로젝트의 테스트 폴더로 바꿔 쓰세요. 다만 문서가 말하듯 Bash로 파일을 건드리는 길이 있을 수 있어서, 보호 하나에 의존하지는 않습니다. 장점은 설정 한 줄로 확실하다는 것, 단점은 Edit 경로 규칙과 Bash 우회 가능성, 의미는 가장 먼저 거는 방어라는 점입니다.</aside>
+</section>
+
+<!-- 12 훅 -->
+<section class="slide" data-title="훅으로 테스트 보호">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 문서 · Hooks guide · Block edits to protected files</div>
+  <h2>훅: 수정 시도를 막고 이유를 돌려준다</h2>
+  <div class="row">
+    <div>
+      <div class="frame" style="max-height:260px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/hooks-guide</span></div><img src="assets/captures/p06-cc-hooks.jpg" alt="Claude Code 훅 가이드: 보호 파일 수정 차단 예제"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 훅 가이드의 ‘보호 파일 수정 차단’ 예제. 훅(도구 실행 직전에 끼우는 스크립트)으로 <b>수정을 막는</b> 방법.</div>
+    </div>
+    <div class="term"><span class="dim"># 도구 실행 직전(PreToolUse)에 돌린 실제 결과</span>
+<span class="dim">$</span> echo '{"tool_input":{"file_path":
+   "/app/transition_test.py"}}' | protect-tests.sh
+<span class="warn">Blocked: ... protected test file.</span>
+<span class="warn">Fix the implementation instead.</span>
+exit=<span class="warn">2</span>   <span class="dim">← 차단, 메시지는 에이전트에게</span>
+
+<span class="dim">$</span> ... "/app/transition.py" ...
+exit=<span class="ok">0</span>   <span class="dim">← 통과</span></div>
+  </div>
+  <div class="pmi">
+        <div class="p">차단 <b>이유를 에이전트에게 돌려줘</b> 구현을 고치게 한다. 보호 대상은 경로 패턴으로 정한다.</div>
+        <div class="m">스크립트와 설정을 <b>직접 만들어야</b> 한다(8교시 실습). deny보다 설치 부담이 크다.</div>
+        <div class="i">deny가 막기만 한다면 훅은 막고 <b>이유까지 알려</b> 준다. 같은 구조로 보호 범위를 넓힌다.</div>
+      </div>
+  <aside>훅은 도구 호출 직전에 제 스크립트를 실행하게 하는 기능입니다. 공식 문서의 보호 파일 예제는 .env 같은 파일에 대한 수정을 막는데, 같은 구조로 테스트 파일을 막는 스크립트를 만들어 직접 돌려 본 결과가 오른쪽입니다. 종료 코드 2는 차단이고, 표준 오류로 쓴 메시지가 에이전트에게 피드백으로 전달됩니다. 그래서 에이전트는 막혔다는 사실과 구현을 고치라는 이유를 함께 받습니다. 종료 코드 0이면 정상 진행입니다. 장점은 이유까지 돌려준다는 것, 단점은 스크립트를 직접 만들어야 한다는 것, 의미는 deny보다 한 단계 친절한 방어라는 점입니다. 스크립트 전체와 설정은 8교시 실습에서 함께 만듭니다.</aside>
+</section>
+
+<!-- 13 리뷰어 서브에이전트 -->
+<section class="slide" data-title="리뷰어 서브에이전트">
+  <div class="tag"><b>2025-07-24</b><span class="sep"></span>Claude Code 서브에이전트 · 7교시에서 자세히</div>
+  <h2>리뷰어 서브에이전트: 스펙과 테스트를 대조한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/sub-agents</span></div><img src="assets/captures/page-cc-subagents.jpg" alt="Claude Code 서브에이전트 문서"></div>
+      <div class="kind">공식 문서 화면 캡처 · 1교시와 같은 화면</div>
+      <div class="ko">Claude Code 서브에이전트 문서(‘Create custom subagents’). 서브에이전트(<b>자기 컨텍스트·권한을 가진</b> 보조 에이전트)를 만드는 법.</div>
+    </div>
+    <div class="points">
+<div class="pmi col">
+        <div class="p">구현 세션과 <b>별도 컨텍스트</b>에서 diff만 보므로 자기 코드를 너그럽게 보는 편향이 없다.</div>
+        <div class="m">찾으라고 하면 <b>항상 무언가를 찾아</b> 불필요한 추상화·테스트가 늘 수 있다. 스타일 지적은 빼라고 적는다.</div>
+        <div class="i">deny·훅이 <b>막는</b> 방어라면 리뷰어는 스펙과 <b>대조</b>하는 방어. 질문은 좁게 고정한다.</div>
+      </div>
+      <div class="next">→ 7교시</div>
+    </div>
+  </div>
+  <aside>구현한 에이전트는 자기 결정의 이유를 알고 있어서 자기 코드를 너그럽게 봅니다. 별도 컨텍스트의 서브에이전트는 그 이유에 영향을 받지 않습니다. Claude Code 문서도 검토는 스펙에 대고 하라고 예를 들고, 스타일 지적은 건너뛰라는 문장을 빼지 말라고 당부합니다. 찾으라고 하면 항상 무언가를 찾아 내서 불필요한 추상화와 테스트가 늘어난다는 이유입니다. 리뷰어에게 줄 질문은 테스트가 바뀌었는가, 스펙의 항목마다 테스트가 있는가 정도로 좁게 고정합니다. 장점은 별도 컨텍스트라 편향이 없다는 것, 단점은 찾으라고 하면 무언가를 꼭 찾아낸다는 것, 의미는 막는 방어와 대조하는 방어를 나눈다는 점입니다.</aside>
+</section>
+
+<!-- 14 DDD 도입 -->
+<section class="slide section-slide" data-title="2부 DDD">
+  <div class="big">후반 · DDD</div>
+  <h1>범위를 도메인 경계로</h1>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-ddd.jpg" alt="Fowler의 DDD 설명"></div><figcaption><b>2020</b><span>DDD란</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-ul.jpg" alt="Fowler의 Ubiquitous Language 설명"></div><figcaption><b>2006</b><span>유비쿼터스 언어</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-fowler-bc.jpg" alt="Fowler의 Bounded Context 설명"></div><figcaption><b>2014</b><span>바운디드 컨텍스트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p06-cleanarch.jpg" alt="클린 아키텍처 글의 의존성 규칙"></div><figcaption><b>2012</b><span>클린 아키텍처</span></figcaption></figure>
+  </div>
+  <aside>후반은 DDD입니다. 도메인 주도 설계는 두꺼운 책 한 권 분량이지만, 오늘은 에이전트에게 필요한 만큼만 아주 짧게 봅니다. 유비쿼터스 언어, 바운디드 컨텍스트, 그리고 프롬프트에 수준을 적는 방법까지입니다. 모두 Fowler와 Uncle Bob의 원문 화면으로 확인합니다.</aside>
+</section>
+
+<!-- 15 DDD란 -->
+<section class="slide" data-title="DDD란">
+  <div class="tag"><b>2020-04-22</b><span class="sep"></span>Martin Fowler bliki · Domain Driven Design</div>
+  <h2>DDD: 업무 영역의 규칙을 코드 안의 모델로</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/DomainDrivenDesign.html</span></div><img src="assets/captures/p06-fowler-ddd.jpg" alt="Fowler의 DDD 설명 첫 화면"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Fowler의 DDD(도메인 주도 설계) 설명 첫 화면. 복잡한 업무 규칙을 <b>모델</b>로 만들어 코드에 둔다.</div>
+    </div>
+    <div class="points">
+<div class="pmi col">
+        <div class="p">복잡한 <b>업무 규칙을 모델</b>로 만들어 코드에 둔다(2003년 Eric Evans의 책에서 유래).</div>
+        <div class="m">단순한 앱에는 <b>과하다</b>. 전부 다루려면 책 한 권 분량이다.</div>
+        <div class="i">앱 복잡도에 맞춰 <b>필요한 만큼만</b> 쓴다. 뒤의 PoC·엔터프라이즈 구분의 근거.</div>
+      </div>
+      <div class="next">→ 결론: 앱 복잡도에 맞춰 필요한 만큼만 쓴다</div>
+    </div>
+  </div>
+  <aside>Fowler는 DDD를 도메인의 프로세스와 규칙을 잘 이해한 모델 중심으로 개발하는 접근이라고 설명합니다. 2003년 Eric Evans의 책에서 온 이름입니다. 복잡한 규칙이 뒤엉킨 도메인에 특히 맞는다고 하니, 간단한 앱이라면 이 전체를 다 할 필요가 없습니다. 이것이 뒤에 나올 PoC와 엔터프라이즈 구분의 근거입니다. Evans의 책이 엔티티, 값 객체, 서비스 객체라는 분류와 애그리거트 개념을 소개했다고도 Fowler는 적습니다. 오늘은 이름만 알아 두고 넘어갑니다. 장점은 복잡한 규칙을 모델로 정리한다는 것, 단점은 단순한 앱에는 과하다는 것입니다.</aside>
+</section>
+
+<!-- 16 유비쿼터스 언어 -->
+<section class="slide" data-title="유비쿼터스 언어">
+  <div class="tag"><b>2006-10-31</b><span class="sep"></span>Martin Fowler bliki · Ubiquitous Language</div>
+  <h2>유비쿼터스 언어: 사람과 코드가 같은 단어를 쓴다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/UbiquitousLanguage.html</span></div><img src="assets/captures/p06-fowler-ul.jpg" alt="Fowler의 Ubiquitous Language 설명"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Fowler의 ‘유비쿼터스 언어’ 설명. 개발자와 사용자가 <b>같은 엄밀한 말</b>을 쓴다는 개념.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>개발자와 사용자가 쓰는 엄밀한 공통 언어</li>
+        <li>소프트웨어는 모호함을 잘 다루지 못한다</li>
+        <li>에이전트용: 용어집을 스펙·CLAUDE.md에 적고, 코드 이름도 그 단어로</li>
+      </ul>
+    </div>
+  </div>
+  <aside>유비쿼터스 언어는 개발자와 사용자가 함께 쓰는 엄밀한 공통 언어입니다. Fowler는 소프트웨어가 모호함을 잘 다루지 못하기 때문에 엄밀해야 한다고 설명합니다. 에이전트에게도 똑같이 적용됩니다. 지원서, 제출, 마감 같은 단어를 스펙과 코드, 테스트 이름에서 같은 뜻으로 쓰면 에이전트가 엉뚱한 해석을 할 여지가 줄어듭니다. 제 방식은 용어집을 스펙이나 CLAUDE.md에 짧게 적어 두는 것인데, 이 부분은 원문이 아니라 제 운영 방식임을 밝혀 둡니다.</aside>
+</section>
+
+<!-- 17 바운디드 컨텍스트 -->
+<section class="slide" data-title="바운디드 컨텍스트">
+  <div class="tag"><b>2014-01-15</b><span class="sep"></span>Martin Fowler bliki · Bounded Context</div>
+  <h2>바운디드 컨텍스트: 같은 단어, 영역마다 다른 뜻</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/BoundedContext.html</span></div><img src="assets/captures/p06-fowler-bc.jpg" alt="Fowler의 Bounded Context 글의 영업·지원 컨텍스트 도식"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Fowler의 Bounded Context 글. 영업·지원 영역이 Customer(고객)·Product(상품)를 <b>각자 다르게 모델링</b>하는 도식.</div>
+    </div>
+    <div class="points">
+<div class="pmi col">
+        <div class="p">큰 모델 하나 대신 <b>컨텍스트별 모델</b>로 나눠, Customer·Product처럼 같은 단어의 뜻 충돌을 피한다.</div>
+        <div class="m">컨텍스트 사이 관계를 <b>명시적 계약</b>으로 정해야 한다. 폴더만 나눈다고 경계가 되지는 않는다.</div>
+        <div class="i">이 구조가 다음 장에서 에이전트의 <b>작업 범위</b>가 된다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Fowler는 전력 회사에서 meter라는 단어가 부서마다 조금씩 다른 뜻이었다는 경험을 이야기합니다. 그래서 DDD는 거대한 시스템 전체를 하나의 모델로 통일하려 하지 않고, 각자 일관된 모델을 가진 바운디드 컨텍스트로 나눕니다. 화면의 도식에서는 영업 컨텍스트와 지원 컨텍스트가 Customer와 Product를 각자 다르게 모델링합니다. 컨텍스트 사이의 관계는 분명하게 밝혀 둡니다. 이 구조가 다음 장에서 에이전트의 작업 범위가 됩니다. 장점은 같은 단어의 뜻 충돌을 피한다는 것, 단점은 컨텍스트 사이 관계를 명시해야 한다는 것입니다.</aside>
+</section>
+
+<!-- 18 ApplyFlow 예 -->
+<section class="slide" data-title="영역과 계약 예">
+  <div class="tag"><b>설계 연습</b><span class="sep"></span>ApplyFlow 가정 예 · 강사 자료 domain-testing</div>
+  <h2>예: 공고 · 지원 기록 · 알림, ‘상태’는 셋이 다르다</h2>
+  <div class="diagram">{{svg:p06-contexts}}</div>
+  <p class="under">각 영역이 <b>데이터와 규칙을 소유</b>하고, 다른 영역과는 <b>조회 계약·이벤트</b>로만 만납니다. 실제 앱이 이 구조로 구현되어 있다는 뜻이 아닌 설계 연습입니다.</p>
+  <aside>제 강의 자료의 가정 예시입니다. 공고, 지원 기록, 알림 세 영역으로 나누면, 상태라는 한 단어가 영역마다 다른 뜻을 가집니다. 공고에서는 공개와 마감이고, 지원 기록에서는 작성 중, 제출, 면접입니다. 이것을 하나의 열거형으로 합치기 전에 서로 다른 규칙인지 확인하라는 것이 요점입니다. 지원 기록이 공고 DB를 직접 고치면 경계가 깨집니다. 폴더 이름만 나눈다고 경계가 되는 것도 아닙니다. import 규칙, 데이터 소유권, 계약 테스트가 있어야 실제 경계입니다.</aside>
+</section>
+
+<!-- 19 왜 에이전트에게 -->
+<section class="slide" data-title="에이전트에게 경계가 필요한 이유">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>볼 범위를 줄인다</div>
+  <h2>왜 에이전트에게 경계가 필요한가: 볼 범위 축소</h2>
+  <div class="diagram">{{svg:p06-scope}}</div>
+  <p class="under">경계는 <b>컨텍스트 창 절약</b>, <b>수정 범위 제한</b>, <b>영역별 테스트 실행</b>을 한꺼번에 줍니다.</p>
+  <aside>사람 팀에게 바운디드 컨텍스트가 필요한 이유는 소통 비용이었습니다. 에이전트에게는 보는 범위가 곧 비용입니다. 경계가 없으면 에이전트는 관련 있어 보이는 파일을 다 읽고 다 고쳐서 컨텍스트 창을 낭비하고 회귀를 만듭니다. 경계가 있으면 지원 기록 폴더와 공개 계약만 보고, 그 영역의 테스트만 돌리면 됩니다. 테스트와도 연결됩니다. 영역별 테스트가 있어야 범위를 묶은 채로 통과를 판정할 수 있습니다. 이 효과가 제가 SDD, TDD, DDD를 함께 쓰는 이유입니다.</aside>
+</section>
+
+<!-- 20 클린 아키텍처 -->
+<section class="slide" data-title="클린 아키텍처">
+  <div class="tag"><b>2012-08-13</b><span class="sep"></span>Robert C. Martin · The Clean Architecture</div>
+  <h2>클린 아키텍처: 의존은 안쪽으로만</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html</span></div><img src="assets/captures/p06-cleanarch.jpg" alt="Uncle Bob의 클린 아키텍처 글의 의존성 규칙 문단"></div>
+      <div class="kind">Uncle Bob 블로그 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Uncle Bob의 클린 아키텍처 글 중 <b>의존성 규칙</b> 문단. 안쪽 원은 바깥쪽을 알아서는 안 된다.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“source code dependencies can only point inwards.”<span class="tr">“소스 코드의 의존은 안쪽으로만 향할 수 있다.”</span><cite>Robert C. Martin · 2012</cite></div>
+<div class="pmi col">
+        <div class="p">의존 방향이 <b>안쪽 하나</b>라 규칙이 단순하다. 안쪽은 엔티티(업무 규칙), 바깥은 UI·DB·프레임워크.</div>
+        <div class="m">작은 PoC에 쓰면 계층·추상화가 <b>과잉 개발</b>로 흐른다.</div>
+        <div class="i"><b>엔터프라이즈 규모일 때만</b> 프롬프트에 적는다. 규모를 한 줄로 밝히는 것이 핵심.</div>
+      </div>
+    </div>
+  </div>
+  <aside>클린 아키텍처의 핵심은 의존성 규칙입니다. 소스 코드 의존은 안쪽으로만 향하고, 안쪽 원은 바깥쪽 이름을 알아서는 안 됩니다. 가장 안쪽은 엔티티, 즉 업무 규칙이고, 바깥은 UI, DB, 프레임워크 같은 세부 사항입니다. 이 글의 원래 도식 이미지는 제가 가져온 화면에서 로딩되지 않아 본문 문단을 보여 드립니다. 프롬프트에 클린 아키텍처라고 적으면 에이전트는 이 계층 구조를 따라 도메인, 응용, 인프라로 나누려 합니다. 장점은 의존 방향이 하나라 단순하다는 것, 단점은 작은 PoC에는 과하다는 것, 의미는 규모를 프롬프트에 적어야 한다는 점입니다.</aside>
+</section>
+
+<!-- 21 프롬프트 수준 -->
+<section class="slide" data-title="프롬프트에 수준 명시">
+  <div class="tag"><b>기초 중의 기초</b><span class="sep"></span>강사 운영 방식 · 프롬프트에 규모를 적는다</div>
+  <h2>프롬프트에 수준을 적는다: PoC냐, 엔터프라이즈냐</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">PoC(시험 제작) · MVP(최소 기능 제품)</div>
+      <div class="term"><span class="acc">이건 PoC입니다.</span>
+지원 제출 기능을 가장 단순하게.
+계층 분리·추상화·설정 파일 금지.
+테스트는 핵심 규칙 한 개만.</div>
+      <ul><li>쓰고 버려도 되는 코드</li><li>안 적으면 과잉 개발로 흐른다</li></ul>
+    </div>
+    <div class="on">
+      <div class="k">엔터프라이즈 규모</div>
+      <div class="term"><span class="acc">클린 아키텍처로.</span>
+도메인 / 응용 / 인프라를 분리하고
+의존은 도메인 방향으로만.
+영역별 테스트와 계약 테스트 포함.</div>
+      <ul><li>오래 유지·여러 팀이 쓰는 코드</li><li>경계 안에서만 고치게 한다</li></ul>
+    </div>
+  </div>
+  <p class="under">같은 요구사항도 <b>규모를 적지 않으면</b> 에이전트가 임의로 정합니다. 한 줄이면 충분합니다.</p>
+  <aside>이것이 오늘 가장 실용적인 한 줄입니다. 엔터프라이즈 규모라면 프롬프트에 클린 아키텍처라고 적고, 그렇지 않다면 PoC나 MVP라고 분명히 적습니다. 적지 않으면 에이전트는 친절하게도 계층과 추상화와 설정을 잔뜩 만들어 과잉 개발을 합니다. 학생 프로젝트와 사이드 프로젝트 대부분은 PoC나 MVP입니다. 그래서 저는 이것이 기초 중의 기초라고 말합니다. 1교시에서 본 Ponytail과 Karpathy guidelines 스킬도 같은 방향의 과열 방지 장치입니다.</aside>
+</section>
+
+<!-- 22 두 수준 구조 -->
+<section class="slide" data-title="두 수준의 결과 구조">
+  <div class="tag"><b>시연 예정</b><span class="sep"></span>같은 요구사항을 두 수준으로 · 강사 실제 화면으로 교체 예정</div>
+  <h2>같은 기능도 PoC냐 클린 아키텍처냐에 따라 모양이 달라진다</h2>
+  <div class="diagram">{{svg:p06-levels}}</div>
+  <p class="under">현장에서 같은 요구사항을 두 프롬프트로 시켜 <b>파일 수와 줄 수</b>를 직접 세어 비교합니다.</p>
+  <aside>여기서는 구조의 차이만 도식으로 보여 드립니다. PoC로 시키면 파일 하나와 테스트 정도로 끝납니다. 클린 아키텍처로 시키면 도메인, 응용, 인프라가 나뉘고 의존은 도메인을 향합니다. 실제 파일 수와 줄 수는 모델과 프롬프트에 따라 달라지므로 수업에서 같은 요구사항을 두 번 시켜 그 자리에서 세어 보겠습니다. 숫자를 미리 말씀드리지 않는 이유는 제가 이 비교를 아직 측정해 두지 않았기 때문입니다. 어느 쪽이 맞다는 이야기가 아니라 목적에 맞는 수준을 고르라는 이야기입니다.</aside>
+</section>
+
+<!-- 23 확인 질문 -->
+<section class="slide" data-title="확인 질문">
+  <div class="tag"><b>확인 질문</b><span class="sep"></span>6교시</div>
+  <h2>확인 질문 세 가지</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/TestDrivenDevelopment.html</span></div><img src="assets/captures/p06-fowler-tdd.jpg" alt="Red Green Refactor 도식"></div>
+      <div class="kind">Martin Fowler bliki 화면 캡처</div>
+      <div class="ko">Fowler의 TDD 글 도식. Red → Green → Refactor를 <b>반복</b>한다.</div>
+    </div>
+    <div class="points">
+      <ol>
+        <li>테스트가 모두 통과했는데 규칙이 지켜지지 않았다면, 가장 먼저 무엇을 확인합니까?</li>
+        <li>테스트 파일을 에이전트가 못 바꾸게 하는 방법 둘은?</li>
+        <li>내 프로젝트는 PoC입니까, 엔터프라이즈입니까? 프롬프트에 어떻게 적겠습니까?</li>
+      </ol>
+    </div>
+  </div>
+  <aside>세 가지를 가볍게 확인합니다. 첫째, 초록불인데 규칙이 어긋났다면 테스트가 수정되었거나 skip되었는지부터 봅니다. git diff와 skipped 개수가 단서입니다. 둘째, 권한 deny와 훅입니다. 셋째, 각자 프로젝트의 수준을 한 줄로 적어 보세요. 대부분은 PoC나 MVP일 것입니다. 답을 옆 사람과 30초만 이야기해 보게 하겠습니다.</aside>
+</section>
+
+<!-- 24 정리 -->
+<section class="slide" data-title="정리와 다음 교시">
+  <div class="tag"><b>정리</b><span class="sep"></span>스펙 · 테스트 · 경계</div>
+  <h2>정리: 세 겹으로 범위를 묶는다</h2>
+  <div class="diagram">{{svg:p06-triple}}</div>
+  <p class="under">테스트는 <b>먼저 쓰고, 먼저 커밋하고, 못 고치게</b> 합니다. 경계는 <b>작게</b>, 수준은 <b>프롬프트에 한 줄로</b>. <span class="next">→ 7교시 서브에이전트와 워크트리</span></p>
+  <aside>정리합니다. 스펙을 실패하는 테스트로 바꾸고, 그 테스트를 먼저 커밋하고, deny나 훅으로 못 고치게 하고, 리뷰어가 대조합니다. 도메인 경계로 에이전트가 볼 범위를 줄이고, 프롬프트에 PoC나 클린 아키텍처를 적어 수준을 정합니다. 다음 7교시는 서브에이전트와 워크트리입니다. 오늘 말한 리뷰어와 영역별 작업을 실제로 나누어 병렬로 돌리는 방법입니다. 8교시 실습에서는 오늘 내용으로 기능 하나를 테스트 먼저 구현합니다.</aside>
+</section>

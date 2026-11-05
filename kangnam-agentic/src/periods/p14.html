@@ -1,0 +1,505 @@
+<!-- 14교시 · SDD 이후: ADR과 이슈 원장 (60분, 26장). 4회차 2026-11-24. -->
+
+<!-- 01 표지 -->
+<section class="slide section-slide" data-title="표지">
+  <div class="tag"><b>4회차 · 14교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-24</div>
+  <h1>SDD 이후:<br>ADR과 이슈 원장</h1>
+  <p class="lead">큰 스펙 하나가 낡고 부딪히는 이유와, 짧은 결정 기록과 이슈 한 장 한 장으로 일을 나누는 방법을 봅니다.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-nygard.jpg" alt="Nygard의 ADR 원문 화면"></div><figcaption><b>2011</b><span>ADR(Architecture Decision Record, 아키텍처 결정 기록) 원문</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p14-adr-github-io.jpg" alt="adr.github.io 첫 화면"></div><figcaption><b>지금</b><span>ADR 커뮤니티</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p14-madr.jpg" alt="MADR 공식 사이트"></div><figcaption><b>2024</b><span>MADR(Markdown Architectural Decision Records) 4.0</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p14-gh-projects.jpg" alt="GitHub Projects 공식 문서"></div><figcaption><b>지금</b><span>프로젝트·이슈</span></figcaption></figure>
+  </div>
+  <aside>14교시는 두 가지를 다룹니다. 하나는 제가 최근 SDD(Spec-Driven Development, 스펙 주도 개발) 대신 쓰기 시작한 ADR(Architecture Decision Record, 아키텍처 결정 기록)이고, 다른 하나는 GitHub 프로젝트와 이슈를 설계도로 쓰는 이슈 원장입니다. 아래 네 장은 이 교시에 볼 실제 화면입니다. 2011년에 ADR을 처음 제안한 글, ADR 커뮤니티 사이트, 마크다운 서식인 MADR(Markdown Architectural Decision Records, 마크다운 아키텍처 결정 기록), 그리고 GitHub 프로젝트 문서입니다. 앞 교시의 코디네이터가 일을 나눠 주려면 나눌 기준이 필요합니다. 그 기준으로 제가 쓰는 것이 ADR과 이슈 원장이고, 이번 시간에 소개합니다.</aside>
+</section>
+
+<!-- 02 SDD 복습 -->
+<section class="slide" data-title="SDD 복습">
+  <div class="tag"><b>2025-09-02 · 2025-10-15</b><span class="sep"></span>GitHub Spec Kit · Thoughtworks Böckeler, martinfowler.com</div>
+  <h2>SDD: 스펙이 사람과 AI의 기준이 된다</h2>
+  <div class="frames">
+    <div>
+      <div class="frame" style="max-height:250px"><div class="bar"><i></i><i></i><i></i><span>github.blog/…/spec-driven-development-with-ai</span></div><img src="assets/captures/page-speckit.jpg" alt="GitHub Spec Kit 발표 글"></div>
+      <div class="kind">GitHub Blog 화면 캡처 · 2025-09-02</div>
+      <div class="ko">GitHub Spec Kit 발표 글. 스펙을 먼저 쓰는 SDD(Spec-Driven Development, 스펙 주도 개발)를 소개.</div>
+    </div>
+    <div>
+      <div class="frame" style="max-height:250px"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html</span></div><img src="assets/captures/p14-fowler-sdd.jpg" alt="Understanding Spec-Driven-Development 글의 정의 부분"></div>
+      <div class="kind">원문 화면 캡처 · 2025-10-15</div>
+      <div class="ko">Böckeler의 글. <b>SDD의 정의</b>가 아직 흔들린다고 밝히고 공통점을 정리.</div>
+    </div>
+  </div>
+  <div class="pmi">
+    <div class="p">스펙을 먼저 쓰고 <b>사람과 AI가 같은 문서</b>를 기준으로 삼는다. <span class="next">← 5교시</span></div>
+    <div class="m">정의가 <b>아직 흔들린다</b>(Böckeler). 스펙이 커지면 <b>낡고 부딪힌다</b>(다음 장).</div>
+    <div class="i">이번 시간의 <b>출발점</b>. 이 한계 때문에 결정은 ADR, 작업은 이슈로 나눈다.</div>
+  </div>
+  <aside>2회차에서 SDD를 봤습니다. 코드를 쓰기 전에 스펙을 먼저 쓰고, 그 스펙을 사람과 AI가 함께 기준으로 삼는 방식입니다. Thoughtworks의 Böckeler는 이 글에서 정의가 아직 흔들리고 있다고 먼저 밝히고, 스펙이 사람과 AI의 기준이 된다는 점을 공통점으로 정리했습니다. 처음에는 이 방식이 에이전트가 딴길로 새는 것을 잘 막아 줍니다. 그런데 프로젝트가 몇 주를 넘기고 에이전트가 여럿이 되면 문제가 드러납니다. 오늘은 그 문제 세 가지를 차례로 봅니다. 장점은 사람과 AI가 같은 문서를 기준으로 삼는다는 점이고, 한계는 정의가 아직 흔들리고 스펙이 커지면 낡고 부딪힌다는 점입니다. 그래서 오늘은 결정을 ADR로, 작업을 이슈로 나눕니다. 이 스펙의 기준 문장은 “The spec becomes the source of truth for the human and the AI”, 곧 스펙이 사람과 AI 모두의 기준이 된다는 말입니다.</aside>
+</section>
+
+<!-- 03 길어지고 낡는 스펙 -->
+<section class="slide" data-title="길어지고 낡는 스펙">
+  <div class="tag"><b>2011-11-15</b><span class="sep"></span>Michael Nygard, “Documenting Architecture Decisions”</div>
+  <h2>문제 1: 스펙은 길어지고, 길어지면 낡는다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>cognitect.com/blog/2011/11/15/documenting-architecture-decisions</span></div><img src="assets/captures/page-nygard.jpg" alt="Nygard 글의 Context 부분: 큰 문서는 최신으로 유지되지 않는다"></div>
+      <div class="kind">원문 화면 캡처 · 2011-11-15</div>
+      <div class="ko">Nygard가 2011년에 쓴 글의 ‘Context’ 부분. <b>큰 문서는 최신으로 유지되지 않는다</b>고 짚는다.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“Large documents are never kept up to date.”<span class="tr">큰 문서는 결코 최신 상태로 유지되지 않는다.</span><cite>Nygard · 2011-11-15</cite></div>
+      <ul>
+        <li>스펙이 코드보다 커진 프로젝트가 흔하다고 쓴 글</li>
+        <li>너무 커서 열고, 읽고, 고치지 못한다</li>
+        <li>작은 조각이어야 갱신될 가능성이 있다</li>
+      </ul>
+    </div>
+  </div>
+  <aside>이 문제는 AI 시대 이전부터 있었습니다. 2011년 Nygard는 애자일 프로젝트의 문서에 대해, 큰 문서는 절대 최신으로 유지되지 않고 작고 잘게 나눈 문서만 갱신될 기회가 있다고 썼습니다. 그리고 스펙 문서가 소스 코드보다 큰 프로젝트를 누구나 한 번은 겪었다고도 말합니다. SDD를 에이전트와 하면 이 문제가 훨씬 빨리 옵니다. 에이전트가 하루에 쓰는 코드의 양이 사람보다 많아서, 스펙이 코드를 따라가지 못하고 길어지기만 합니다.</aside>
+</section>
+
+<!-- 04 낡은 스펙을 믿는 에이전트 -->
+<section class="slide" data-title="낡은 스펙을 믿는 에이전트">
+  <div class="tag"><b>문제 2</b><span class="sep"></span>강사 운영 방식 · 스펙이 낡았다는 표시는 어디에도 없다</div>
+  <h2>문제 2: 에이전트는 낡은 스펙도 믿는다</h2>
+  <div class="diagram">{{svg:p14-stale-spec}}</div>
+  <p class="under">사람은 “이건 옛날 문서야”라고 의심하지만, <b>에이전트는 읽은 문서를 기준</b>으로 삼습니다.</p>
+  <aside>두 번째 문제는 더 위험합니다. 스펙이 낡아도 파일 어디에도 낡았다는 표시가 없습니다. 사람 개발자는 문서가 오래됐다는 느낌이나 동료의 말로 의심하지만, 에이전트는 새 세션을 열고 스펙을 읽으면 그 내용을 그대로 기준으로 삼습니다. 그래서 이미 없어진 방식으로 구현하는 일이 생깁니다. 제 경험에서 이 문제가 큰 스펙을 접게 만든 가장 큰 이유였습니다. 스펙을 더 열심히 고치라는 답은 되지 못했습니다. 낡음을 스스로 알려 주는 구조가 필요했습니다.</aside>
+</section>
+
+<!-- 05 병렬 충돌 -->
+<section class="slide" data-title="병렬 작업의 스펙 충돌">
+  <div class="tag"><b>문제 3</b><span class="sep"></span>강사 운영 방식 · 13교시 병렬 에이전트와 이어서</div>
+  <h2>문제 3: 병렬로 일하면 한 스펙에서 부딪힌다</h2>
+  <div class="diagram">{{svg:p14-spec-conflict}}</div>
+  <p class="under">워크트리로 코드는 갈라도, <b>스펙 파일 하나는 모두가 고치려 듭니다</b>. <span class="next">← 13교시</span></p>
+  <aside>13교시에서 워크트리마다 에이전트를 하나씩 붙여 병렬로 일하는 방식을 봤습니다. 코드는 워크트리로 나뉘지만 스펙이 하나뿐이면 세 에이전트가 같은 파일의 같은 절을 고치게 됩니다. 머지할 때 충돌이 나고, 그 충돌은 코드와 달리 어느 쪽이 맞는지 기계가 판단하기 어렵습니다. 결국 사람이 문장 하나하나를 읽고 풀어야 합니다. 에이전트를 늘린 이득이 스펙 하나의 병목에서 사라집니다.</aside>
+</section>
+
+<!-- 06 역할 분리 -->
+<section class="slide" data-title="나눠 두기">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>큰 스펙 하나 → 성격별로 쪼개기</div>
+  <h2>그래서 스펙 하나를 성격별로 나눴습니다</h2>
+  <div class="diagram">{{svg:p14-where-things-live}}</div>
+  <p class="under">결정과 이유는 <b>ADR</b>, 이번 작업의 요구는 <b>이슈 단위 스펙</b>, 실제 동작의 기준은 <b>코드와 테스트</b>.</p>
+  <aside>그래서 제가 한 일은 스펙을 없애는 것이 아니라 쪼개는 것입니다. 오래 가는 결정과 그 이유는 ADR에 둡니다. 이번 작업에서 무엇이 맞는 동작인지는 이슈 단위의 짧은 스펙에 쓰고, 이슈가 닫히면 그 역할도 끝납니다. 실제로 어떻게 동작하는지의 기준은 코드와 테스트가 맡습니다. 이렇게 나누면 병렬 에이전트가 서로 다른 이슈와 다른 ADR 파일을 만지게 되어 부딪히는 일이 줄어듭니다. 스펙 개요는 운영 기준 8단계에 그대로 남아 있습니다.</aside>
+</section>
+
+<!-- 6a ADR 용어의 계보 -->
+<section class="slide" data-title="ADR 용어의 계보">
+  <div class="tag"><b>1992 → 2018</b><span class="sep"></span>Perry·Wolf · Tyree·Akerman · ISO/IEC/IEEE 42010 · Nygard · Thoughtworks · MADR</div>
+  <h2>결정과 근거를 남긴다는 생각은 1992년부터, ‘ADR’이라는 이름은 2011년부터</h2>
+  <div class="diagram">{{svg:p14-adr-lineage}}</div>
+  <p class="under">ADR(Architecture Decision Record, 아키텍처 결정 기록) = 결정 <b>하나</b>와 그 <b>근거</b>. 무거운 아키텍처 문서에서 떼어 낸 <b>작은 기록</b>이다.</p>
+  <aside>ADR도 새 말이 아닙니다. 1992년 Perry와 Wolf는 소프트웨어 아키텍처를 요소, 형태, 그리고 근거, rationale로 정의했습니다. 왜 그렇게 했는지가 처음부터 아키텍처의 일부였던 셈입니다. 2005년 IEEE Software에 Tyree와 Akerman이 아키텍처 결정을 문제, 결정, 가정, 제약, 대안 같은 칸으로 적는 서식을 냈고, 같은 해 Jansen과 Bosch는 아키텍처를 설계 결정의 집합으로 봤습니다. 2011년 ISO/IEC/IEEE 42010은 결정과 근거를 아키텍처 기술의 표준 항목으로 넣었습니다. 여기까지는 큰 아키텍처 문서 안의 한 부분이었습니다. 같은 2011년 11월 15일 Michael Nygard가 ‘Documenting Architecture Decisions’에서 큰 문서는 아무도 최신으로 유지하지 않는다며, 다섯 칸짜리 짧은 기록을 코드 저장소에 두자고 제안합니다. 이것이 지금 말하는 ADR입니다. Thoughtworks 기술 레이더는 2016년 11월 시도, 2017년 11월 도입 단계로 올렸고, 2018년 MADR이 마크다운 서식을 정리했습니다. 그리고 지금은 에이전트가 이 기록을 지켜야 할 규칙으로 읽습니다.</aside>
+</section>
+
+<!-- 6b 무거운 문서에서 에이전트가 읽는 기록으로 -->
+<section class="slide" data-title="결정 문서에서 ADR로">
+  <div class="tag"><b>무엇이 바뀌었나</b><span class="sep"></span>근거를 남긴다는 목적은 같고, 크기·위치·읽는 쪽이 바뀌었다</div>
+  <h2>근거를 남긴다는 목적은 같다. 바뀐 것은 크기, 놓이는 곳, 읽는 쪽이다</h2>
+  <table class="tbl" style="font-size:24px">
+    <thead><tr><th></th><th>아키텍처 문서 속 결정 (1992~2011)</th><th>Nygard식 ADR (2011~)</th><th>에이전트 시대의 ADR</th></tr></thead>
+    <tbody>
+      <tr><td><b>크기</b></td><td>큰 문서의 한 절</td><td>결정 하나에 한두 쪽</td><td>결정 하나, 짧게</td></tr>
+      <tr><td><b>놓이는 곳</b></td><td>위키·문서 관리 시스템</td><td><b>코드 저장소</b>(docs/adr)</td><td>저장소 + 에이전트 지침이 가리키는 곳</td></tr>
+      <tr><td><b>읽는 쪽</b></td><td>아키텍트·검토자</td><td>나중에 합류한 팀원</td><td>팀원 + <b>매번 처음 읽는 에이전트</b></td></tr>
+      <tr><td><b>낡으면</b></td><td>고치기 어려워 낡는다</td><td>지우지 않고 Superseded로 바꾼다</td><td>‘다시 판단할 조건’으로 낡음을 알린다</td></tr>
+    </tbody>
+  </table>
+  <p class="under">Nygard: <b>“Large documents are never kept up to date.”</b> <span class="dim">큰 문서는 결코 최신으로 유지되지 않는다.</span></p>
+  <aside>여기서도 본질은 같습니다. 결정의 이유를 남겨, 나중에 그 결정을 무작정 따르거나 모르고 뒤집지 않게 하자는 것입니다. Nygard는 프로젝트에서 가장 추적하기 어려운 것이 결정의 동기라고 했습니다. 달라진 것은 크기와 놓이는 곳입니다. 큰 아키텍처 문서의 한 절이던 결정이, 결정 하나에 한두 쪽인 기록으로 쪼개져 코드 옆에 놓였습니다. 그리고 지금은 읽는 쪽이 하나 더 생겼습니다. 매 세션 처음부터 저장소를 읽는 에이전트입니다. 에이전트는 낡은 기록도 그대로 믿기 때문에, 저는 ADR에 다시 판단할 조건을 적어 둡니다. 이 칸은 다음 장들에서 서식과 예시로 소개합니다.</aside>
+</section>
+
+<!-- 07 ADR이란 -->
+<section class="slide" data-title="ADR이란">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>adr.github.io · ADR GitHub 조직</div>
+  <h2>ADR: 결정 하나와 그 이유를 적은 기록</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>adr.github.io</span></div><img src="assets/captures/p14-adr-github-io.jpg" alt="adr.github.io의 ADR 정의"></div>
+      <div class="kind">ADR 커뮤니티 사이트 화면 캡처</div>
+      <div class="ko">adr.github.io 첫 화면. ADR을 <b>결정 하나와 그 근거를 적은 문서</b>로 정의한다.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>Architecture Decision Record(아키텍처 결정 기록): 결정 <b>하나</b>와 그 근거</li>
+        <li>선택의 <b>트레이드오프와 결과</b>까지 적는다</li>
+        <li>모아 두면 프로젝트의 결정 로그</li>
+      </ul>
+    </div>
+  </div>
+  <aside>ADR은 Architecture Decision Record, 아키텍처 결정 기록의 약자입니다. adr.github.io의 설명을 풀면, 정당한 이유가 있는 설계 선택 하나와 그 근거를 기록한 문서입니다. 그 선택의 장단점과 결과까지 담아서, 나중에 왜 이렇게 했는지 이해하게 해 줍니다. 한 프로젝트에서 쌓인 ADR 전체가 결정 로그가 됩니다. 사이트는 이 개념을 아키텍처 지식 관리라는 큰 틀 안에 놓지만, 아키텍처가 아닌 다른 결정에도 확장해 쓸 수 있다고 적고 있습니다.</aside>
+</section>
+
+<!-- 08 Nygard 원형 -->
+<section class="slide" data-title="Nygard 원형">
+  <div class="tag"><b>2011-11-15</b><span class="sep"></span>Nygard 원형 · Title · Status · Context · Decision · Consequences</div>
+  <h2>Nygard의 ADR 원형은 다섯 칸, 한두 쪽이면 끝난다</h2>
+  <div class="row">
+    <div>
+      <div class="frame" style="max-height:300px"><div class="bar"><i></i><i></i><i></i><span>cognitect.com/blog/2011/11/15/documenting-architecture-decisions</span></div><img src="assets/captures/p14-nygard-format.jpg" alt="Nygard 글의 Status와 Consequences 설명"></div>
+      <div class="kind">원문 화면 캡처 · 2011-11-15</div>
+      <div class="ko">Nygard 글에서 <b>Status(상태)와 Consequences(결과)</b> 칸을 설명하는 부분.</div>
+    </div>
+    <div class="points">
+      <ol>
+        <li>Title(제목): 짧은 명사구</li>
+        <li>Status(상태): 제안됨 · 승인됨 · 폐기 · 대체됨</li>
+        <li>Context(맥락): 힘겨루기 중인 사실들</li>
+        <li>Decision(결정): “We will …”(우리는 ~한다)</li>
+        <li>Consequences(결과): 좋은 것도 나쁜 것도</li>
+      </ol>
+      
+      <div class="pmi col">
+        <div class="p"><b>다섯 칸, 한두 쪽</b>이면 끝난다. 상태를 바꿔 <b>결정의 역사</b>가 남는다.</div>
+        <div class="m"><b>대안을 적는 전용 칸이 없다</b>(11장 표). 낡음을 알리는 조건 칸도 없다.</div>
+        <div class="i">모든 서식의 <b>뼈대</b>. AI 이전인 2011년부터 ‘작은 문서’를 주장했다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Nygard가 제안한 형식은 다섯 칸뿐입니다. 제목은 짧은 명사구, 상태는 제안됨이나 승인됨, 그리고 나중에 폐기되거나 다른 ADR로 대체됨으로 바뀝니다. 맥락은 긴장 관계에 있는 기술적, 정치적, 사회적 사실을 값을 매기지 않고 적는 칸입니다. 결정은 우리는 이렇게 한다는 능동형 문장으로, 결과는 긍정적인 것뿐 아니라 부정적인 것과 중립적인 것까지 전부 적습니다. 문서 전체는 한두 쪽을 넘기지 말고, 미래의 개발자와 대화하듯 쓰라고 합니다. 장점은 다섯 칸에 한두 쪽이면 끝나고 결정의 역사가 남는다는 점입니다. 한계는 대안을 적는 전용 칸이 없다는 점입니다. 의미는 이것이 이후 모든 서식의 뼈대라는 것입니다. 파일은 저장소의 doc/arch 아래에 adr-번호.md로 두고 번호는 다시 쓰지 않습니다.</aside>
+</section>
+
+<!-- 09 Status 생애 -->
+<section class="slide" data-title="Status의 생애">
+  <div class="tag"><b>2011-11-15</b><span class="sep"></span>Nygard · 뒤집힌 결정도 지우지 않는다</div>
+  <h2>상태가 바뀌어도 기록은 지우지 않는다</h2>
+  <div class="diagram">{{svg:p14-adr-status}}</div>
+  <p class="under">낡은 ADR을 고쳐 쓰지 않고 <b>상태만 바꾸고 새 ADR을 추가</b>합니다. 그때 무엇이 결정이었는지가 남습니다.</p>
+  <aside>Nygard는 결정이 뒤집히면 옛 ADR을 지우지 않고 대체됨으로 표시해 두라고 합니다. 그때는 그것이 결정이었다는 사실이 여전히 의미가 있기 때문입니다. 번호도 순서대로 매기고 다시 쓰지 않습니다. 이 방식은 스펙과 정반대입니다. 스펙은 계속 덮어써서 최신 상태만 남기지만, ADR은 결정의 역사를 쌓습니다. 에이전트가 현재 유효한 결정만 읽게 하려면 상태 칸이 승인됨인 것만 읽도록 하면 됩니다.</aside>
+</section>
+
+<!-- 10 MADR -->
+<section class="slide" data-title="MADR">
+  <div class="tag"><b>2024-09-17</b><span class="sep"></span>MADR 4.0.0 · adr.github.io/madr</div>
+  <h2>MADR: 마크다운으로 가볍게 쓰는 ADR</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>adr.github.io/madr</span></div><img src="assets/captures/p14-madr.jpg" alt="MADR 공식 사이트 첫 화면"></div>
+      <div class="kind">MADR 공식 사이트 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">MADR 공식 사이트 첫 화면. ADR을 <b>마크다운 서식</b>으로 간소화한 템플릿(4.0)을 소개.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>최소형: 맥락 · 선택지 · 결정 결과(· 결과)</li>
+        <li>전체형: 결정 요인 · 선택지별 장단점 · 확인 방법 추가</li>
+        <li>머리말 status · date · decision-makers</li>
+      </ul>
+      <div class="pmi col">
+        <div class="p"><b>마크다운</b>이라 저장소에 두기 쉽다. 최소형·전체형 중 고르고 <b>선택지</b>를 적는다.</div>
+        <div class="m">전체형은 칸이 늘어난다. ‘확인’ 칸은 결정이 지켜졌는지 보는 용도라 <b>낡음 신호는 아니다</b>.</div>
+        <div class="i">Nygard에 <b>선택지 칸</b>이 더해진 형태. 이미 검토한 안을 에이전트가 되풀이하지 않게 한다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>MADR은 Markdown Architectural Decision Records의 약자로, ADR을 마크다운 서식으로 간소화한 것입니다. 저장소에는 최소형과 전체형 템플릿이 있습니다. 최소형은 맥락과 문제, 고려한 선택지, 결정 결과와 그 결과의 좋고 나쁜 점으로 이루어집니다. 전체형은 여기에 결정 요인, 선택지별 장단점, 결정이 지켜지는지 확인하는 방법을 더합니다. 머리말에 상태, 날짜, 결정한 사람을 적습니다. Nygard 원형보다 선택지를 명시적으로 적는 칸이 생긴 것이 큰 차이입니다. 장점은 마크다운이라 저장소에 두기 쉽고 선택지를 적는다는 점입니다. 한계는 전체형은 칸이 늘고, 확인 칸이 낡음을 알리는 용도는 아니라는 점입니다. 의미는 Nygard 원형에 선택지 칸이 더해졌다는 것입니다.</aside>
+</section>
+
+<!-- 11 세 서식 비교 -->
+<section class="slide" data-title="세 서식 비교">
+  <div class="tag"><b>서식 비교</b><span class="sep"></span>Nygard 원형 · MADR 4.0 · 강사 서식(templates.md)</div>
+  <h2>세 서식, 같은 뼈대와 다른 칸</h2>
+  <table class="tbl" style="font-size:22px">
+    <tr><th>강사 서식</th><th>Nygard 원형</th><th>MADR</th></tr>
+    <tr><td>ID · 제목 · 상태 · 날짜</td><td>Title(제목) · Status(상태)</td><td>제목 · status · date</td></tr>
+    <tr><td>배경 · 제약</td><td>Context(맥락)</td><td>Context and Problem Statement(배경·문제)</td></tr>
+    <tr><td>대안</td><td>(전용 칸 없음)</td><td>Considered Options(검토한 선택지)</td></tr>
+    <tr><td>선택과 이유</td><td>Decision(결정)</td><td>Decision Outcome(결정 결과)</td></tr>
+    <tr><td>영향 · 비용 · 한계</td><td>Consequences(결과)</td><td>Consequences(결과)</td></tr>
+    <tr><td class="hl">다시 판단할 조건</td><td class="muted">(없음)</td><td class="muted">(없음)</td></tr>
+    <tr><td>관련 Spec · 이슈 · 이전 ADR</td><td>Status의 대체 링크</td><td>More Information(추가 정보)</td></tr>
+    <tr><td class="hl">사용자 판단</td><td class="muted">(없음)</td><td class="muted">decision-makers(참여자 목록)</td></tr>
+    <tr><td><b>장점</b> 낡음 신호·사람 판단 <b>한계</b> 가장 길다</td><td><b>장점</b> 가볍다 <b>한계</b> 대안 칸 없음</td><td><b>장점</b> 선택지 명시 <b>한계</b> 낡음 조건 없음</td></tr>
+  </table>
+  <aside>세 서식의 대응을 한 표로 봅니다. 뼈대는 같습니다. 배경, 선택, 이유, 결과입니다. 원형에는 대안을 적는 칸이 따로 없고, MADR이 이를 선택지 칸으로 명시했습니다. 제 서식은 여기에 두 칸을 더했습니다. 다시 판단할 조건과 사용자 판단입니다. 이 대응은 제가 항목 이름을 맞춰 본 것이고, 두 공개 서식에 같은 이름의 칸이 있다는 뜻은 아닙니다. MADR의 확인 칸은 결정이 지켜졌는지 확인하는 용도라서 다시 판단할 조건과는 성격이 다릅니다. 마지막 줄은 장점과 한계입니다. 제 서식은 낡음 신호와 사람 판단이 장점이고 가장 길다는 것이 한계입니다. Nygard 원형은 가볍지만 대안 칸이 없고, MADR은 선택지를 적지만 낡음 조건이 없습니다.</aside>
+</section>
+
+<!-- 12 강사 서식 -->
+<section class="slide" data-title="강사 서식">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>plan/instructor/templates.md · “ADR — 중요한 결정 기록”</div>
+  <h2>강사 서식: 여덟 칸, 둘이 새로 붙었다</h2>
+  <div class="row">
+    <div class="term"><span class="dim"># ADR 서식</span>
+ADR ID·제목·상태·날짜:
+결정이 필요한 배경·제약:
+비교한 대안:
+선택과 이유:
+영향·비용·감수할 한계:
+<span class="acc">다시 판단할 조건:</span>
+관련 Spec·이슈·이전 ADR:
+<span class="acc">사용자 판단 필요 여부·결과:</span></div>
+    <div class="points">
+      <ul>
+        <li><b>다시 판단할 조건</b>: 이 결정이 낡았다고 볼 신호</li>
+        <li><b>사용자 판단</b>: 에이전트가 정하지 못하는 결정은 사람 몫</li>
+      </ul>
+      <small>저장소 안의 짧은 마크다운 한 파일 = ADR 하나</small>
+      <div class="pmi col">
+        <div class="p"><b>다시 판단할 조건</b>이 낡음을 미리 알리고, <b>사용자 판단</b>이 사람 몫을 남긴다.</div>
+        <div class="m">여덟 칸이라 세 서식 중 <b>가장 길다</b>. 공개 표준이 아닌 강사 방식이고 이득을 <b>측정한 것은 아니다</b>.</div>
+        <div class="i">스펙과 갈리는 지점: <b>스스로 낡음을 알리는 문서</b>. 다음 두 장에서 채워 본다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>제가 쓰는 서식은 여덟 칸입니다. 앞의 여섯 칸은 두 공개 서식과 거의 같습니다. 새로 붙인 것이 파란 글씨의 두 칸입니다. 다시 판단할 조건은 에이전트 시대에 맞게 추가한 칸으로, 이 숫자를 넘거나 이 상황이 오면 결정을 다시 보라는 신호를 미리 적어 둡니다. 사용자 판단은 새 ADR을 고르는 일이나 큰 상충관계처럼 에이전트가 정하면 안 되는 결정을 사람에게 올렸는지, 사람이 뭐라고 답했는지 남기는 칸입니다. 다음 두 장에서 이 서식을 채운 예를 봅니다. 장점은 다시 판단할 조건과 사용자 판단 칸이 있다는 점입니다. 한계는 여덟 칸으로 가장 길고 이득을 측정한 것은 아니라는 점입니다. 의미는 스펙과 달리 스스로 낡음을 알리는 문서라는 것입니다.</aside>
+</section>
+
+<!-- 질문 시간 (중간) -->
+<section class="slide section-slide" data-title="질문 시간">
+  <div class="big">질문 시간 · 약 5분</div>
+  <h1>여기까지,<br>질문 받습니다</h1>
+  <p class="lead">지금까지 다룬 것: 병렬 작업의 스펙 충돌 · 나눠 두기 · ADR이란 · Nygard 원형 · Status의 생애 · MADR · 세 서식 비교 · 강사 서식</p>
+  <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-speckit.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-fowler-sdd.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-adr-github-io.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-madr.jpg" alt="앞에서 본 화면"></div></figure></div>
+  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
+</section>
+
+<!-- 13 예시 ADR 1 -->
+<section class="slide" data-title="예시 ADR 1/2">
+  <div class="tag"><b>교육용 예시 ADR</b><span class="sep"></span>가상의 프로젝트 · 실제 기록이 아님 · 1/2</div>
+  <h2>예시 ADR (1/2): 배경과 대안</h2>
+  <div class="row" style="grid-template-columns:1.45fr 1fr">
+    <div class="term" style="font-size:17px;line-height:1.45"><span class="dim">docs/adr/0007-reminder-scheduler.md</span>
+<span class="acc"># ADR-0007 · 예약 알림은 스케줄러로 보냅니다</span>
+상태: 승인됨 · 2026-10-21 (제안 10-19)
+
+<span class="acc">## 배경·제약</span>
+- 공유 웹호스팅: 상시 프로세스(queue:work) 불가
+- cron은 1분마다 실행할 수 있음
+- 하루 약 300건, 5분 지연까지 허용
+- 운영자는 서버 설정을 직접 바꾸지 않음
+
+<span class="acc">## 대안</span>
+A. Redis + queue:work (Supervisor)
+   → 호스팅을 바꿔야 함
+B. DB(데이터베이스) 큐 + schedule:run 매분
+   → 추가 비용 없음
+C. 외부 발송 서비스의 예약 API(Application Programming Interface, 연동 규약)
+   → 월 비용, 서비스 종속</div>
+    <div class="points">
+      <ul>
+        <li>배경에는 <b>제약</b>을 사실로</li>
+        <li>대안은 <b>버린 것까지</b> 한 줄씩</li>
+        <li>상태와 날짜가 맨 위</li>
+      </ul>
+    </div>
+  </div>
+  <aside>가상의 예시를 하나 끝까지 봅니다. 라라벨 서비스에서 예약 알림을 어떻게 보낼지 정한 ADR입니다. 맨 위에는 번호와 제목, 상태, 날짜가 있습니다. 배경에는 공유 웹호스팅이라 상시 프로세스를 돌릴 수 없다는 제약을 사실로만 적었습니다. 규모는 하루 삼백 건이고 5분 지연은 괜찮다는 조건도 적었습니다. 대안은 세 개를 적고 각각 왜 부담인지를 한 줄씩 붙였습니다. 에이전트가 나중에 레디스 큐를 쓰자고 제안하면 이 칸이 이미 검토한 안이라고 알려 줍니다.</aside>
+</section>
+
+<!-- 14 예시 ADR 2 -->
+<section class="slide" data-title="예시 ADR 2/2">
+  <div class="tag"><b>교육용 예시 ADR</b><span class="sep"></span>가상의 프로젝트 · 실제 기록이 아님 · 2/2</div>
+  <h2>예시 ADR (2/2): 선택, 영향, 다시 판단할 조건</h2>
+  <div class="row" style="grid-template-columns:1.45fr 1fr">
+    <div class="term" style="font-size:20px"><span class="acc">## 선택과 이유</span>
+B. 상시 프로세스 불가라는 제약을 지키고
+하루 300건에는 충분합니다.
+
+<span class="acc">## 영향</span>
+<span class="ok">+</span> 배포가 단순합니다 (cron 한 줄)
+<span class="warn">-</span> 알림이 최대 1분 늦습니다
+<span class="warn">-</span> 한 번에 많이 보내면 실행이 길어집니다
+
+<span class="acc">## 다시 판단할 조건</span>
+- 하루 발송 2,000건 초과
+- 한 번의 실행 시간이 50초 초과
+- VPS(Virtual Private Server, 가상 사설 서버)로 이전, 또는 지연 허용이 1분 미만으로 변경
+
+<span class="acc">## 관련</span>
+Spec: notifications §예약 · 이슈 #58 #61
+이전 ADR: 0003 (SSR(Server-Side Rendering, 서버 렌더링) 유지)
+
+<span class="acc">## 사용자 판단</span>
+필요 → 완료 (10-21 운영자: 1분 지연 허용)</div>
+    <div class="points">
+      <ul>
+        <li>선택은 <b>이유 한 줄</b></li>
+        <li>단점도 <b>영향</b>에 적는다</li>
+        <li>조건은 <b>숫자와 사건</b>으로</li>
+        <li>사람이 답한 것은 <b>날짜와 함께</b></li>
+      </ul>
+    </div>
+  </div>
+  <aside>나머지 칸입니다. 선택은 B 한 줄과 이유 한 줄입니다. 영향에는 장점뿐 아니라 최대 1분 늦는다는 단점도 적었습니다. 가장 중요한 칸이 다시 판단할 조건입니다. 하루 발송이 2천 건을 넘거나, 실행 시간이 50초를 넘거나, 서버를 VPS(Virtual Private Server, 가상 사설 서버)로 옮기면 이 결정을 다시 보라고 숫자와 사건으로 적었습니다. 관련 칸에는 스펙, 이슈 번호, 이전 ADR을 연결했고, 마지막에 운영자가 1분 지연을 허용한다고 답한 사용자 판단을 날짜와 함께 남겼습니다. 이 모든 것이 한 화면에 들어오는 짧은 파일입니다.</aside>
+</section>
+
+<!-- 15 다시 판단할 조건 -->
+<section class="slide" data-title="낡음을 알려 주는 조건">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>이슈별 흐름 2단계 “ADR 점검”</div>
+  <h2>‘다시 판단할 조건’이 낡음을 알려 준다</h2>
+  <div class="diagram">{{svg:p14-revisit-check}}</div>
+  <p class="under">스펙은 낡았는지 <b>스스로 말하지 못하지만</b>, ADR은 낡을 조건을 <b>미리 적어 둡니다</b>.</p>
+  <aside>이 칸이 스펙과 ADR의 결정적인 차이를 만듭니다. 에이전트는 이슈를 시작하면 관련 ADR을 읽고, 다시 판단할 조건을 지금의 상태와 대조합니다. 조건 밖이면 결정을 따라 구현합니다. 조건 안이면 구현을 멈추고 사용자에게 보고합니다. 사람이 판단해서 새 ADR을 쓰거나 기존 ADR을 바꿉니다. 이것이 운영 기준의 이슈별 흐름에서 2단계 ADR 점검이 하는 일입니다. Nygard도 프로젝트 맥락이 바뀌면 옛 결정을 바꿀 때가 분명해진다고 적었습니다.</aside>
+</section>
+
+<!-- 16 왜 에이전트에게 좋은가 -->
+<section class="slide" data-title="에이전트에게 ADR이 좋은 이유">
+  <div class="tag"><b>정리</b><span class="sep"></span>큰 단일 스펙 vs ADR + 이슈 스펙</div>
+  <h2>왜 에이전트에게 ADR이 좋은가</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">큰 단일 스펙</div>
+      <h3>길고, 낡고, 부딪힌다</h3>
+      <ul><li>전체를 읽어야 해서 컨텍스트를 많이 쓴다</li><li>왜 그렇게 정했는지가 빠지기 쉽다</li><li>낡아도 표시가 없다</li><li>병렬 작업이 한 파일에서 충돌</li></ul>
+    </div>
+    <div class="on">
+      <div class="k">ADR + 이슈 스펙</div>
+      <h3>짧고, 이유가 있고, 신호를 준다</h3>
+      <ul><li>필요한 ADR 한 장만 읽는다</li><li>이유와 버린 대안이 남는다</li><li>다시 판단할 조건이 낡음을 알린다</li><li>파일이 나뉘어 충돌이 줄어든다</li></ul>
+    </div>
+  </div>
+  <div class="pmi">
+    <div class="p">ADR은 <b>짧고, 이유가 남고, 낡음을 알린다</b>.</div>
+    <div class="m">모든 결정에 쓰면 ADR도 길어진다. 이득은 <b>운영 경험</b>이며 측정한 것은 아니다.</div>
+    <div class="i">스펙을 없애지 않고 <b>성격별로 쪼갠다</b>. 결정은 ADR, 이번 작업은 이슈 스펙.</div>
+  </div>
+  <aside>묶어 보면 에이전트에게 ADR이 좋은 이유는 세 가지입니다. 첫째, 짧아서 필요한 한 장만 읽으면 되고 컨텍스트 창을 아낍니다. 둘째, 결정 이유와 버린 대안이 남아서 에이전트가 이미 검토한 안을 다시 제안하지 않습니다. 셋째, 다시 판단할 조건이 낡음을 알려 줍니다. 여기에 파일이 나뉘어 있으니 병렬 작업의 충돌도 줄어듭니다. 이것은 제 운영 경험에 바탕한 설명이고, 모든 프로젝트에서 이득이 같다고 측정한 것은 아닙니다. 한계도 있습니다. 모든 결정에 ADR을 쓰면 ADR도 길어집니다. 의미는 스펙을 없애는 것이 아니라 성격별로 쪼갠다는 점입니다.</aside>
+</section>
+
+<!-- 17 쓸 때, 안 쓸 때 -->
+<section class="slide" data-title="언제 쓰는가">
+  <div class="tag"><b>2011-11-15</b><span class="sep"></span>Nygard의 “architecturally significant” 기준 · 강사 운영 방식</div>
+  <h2>모든 결정에 쓰지는 않습니다</h2>
+  <div class="compare" style="--cols:2">
+    <div class="on">
+      <div class="k">ADR을 쓴다</div>
+      <h3>되돌리기 비싼 결정</h3>
+      <ul><li>구조·의존 라이브러리·인터페이스·배포 방식</li><li>에이전트가 다시 물어볼 만한 선택</li><li>제약 때문에 정석을 버린 선택</li><li>사람의 판단이 필요했던 선택</li></ul>
+    </div>
+    <div>
+      <div class="k">쓰지 않는다</div>
+      <h3>코드와 PR(Pull Request, 변경 병합 요청)이 설명하는 것</h3>
+      <ul><li>변수 이름, 함수 하나의 구현 세부</li><li>이슈 안에서 끝나는 선택 → 이슈 스펙</li><li>PoC(Proof of Concept, 시험 제작)의 임시 결정은 한 줄 메모</li></ul>
+    </div>
+  </div>
+  <p class="under">ADR 초안은 <b>AI가 쓰게 해도 됩니다</b>. 상태와 사용자 판단은 사람이 확정합니다.</p>
+  <aside>그렇다고 모든 결정을 기록하면 ADR도 스펙처럼 길어집니다. Nygard는 구조, 비기능 특성, 의존성, 인터페이스, 구축 기법에 영향을 주는 아키텍처적으로 중요한 결정만 기록하자고 했습니다. 저는 되돌리기 비싼 결정과, 에이전트가 나중에 다시 물어볼 만한 결정을 기준으로 삼습니다. 변수 이름이나 한 이슈 안에서 끝나는 선택은 코드와 이슈 스펙이 설명합니다. 초안은 에이전트가 써도 좋지만 승인됨으로 바꾸는 것과 사용자 판단 칸은 사람이 채웁니다.</aside>
+</section>
+
+<!-- 18 이슈 원장 -->
+<section class="slide" data-title="이슈 원장 원칙">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>GitHub 프로젝트·이슈·라벨이 설계도</div>
+  <h2>이슈 원장: 설계도가 곧 작업 목록</h2>
+  <div class="diagram">{{svg:p14-ledger}}</div>
+  <p class="under">이슈 하나가 작업 하나, 닫을 때마다 한 칸씩 채우는 <b>도장 깨기</b>입니다. <span class="kind" style="display:inline;margin:0">강사 실제 보드 화면으로 교체 예정</span></p>
+  <aside>SDD만으로는 프로젝트의 전체 흐름을 다루기 어렵습니다. 그래서 GitHub 프로젝트, 이슈, 라벨이 설계도가 되게 합니다. 처음에 큰 목표를 이슈로 쪼개 등록해 두고, 에이전트는 이슈 하나를 가져와 워크트리에서 작업하고 PR(Pull Request, 변경 병합 요청)로 올립니다. 머지되어 이슈가 닫히면 보드의 한 칸이 채워집니다. 저는 이것을 도장 깨기, 곧 하나씩 소화하는 방식이라고 부릅니다. 지금 보시는 것은 흐름을 그린 도식이고, 제 실제 프로젝트 보드 화면은 확보되는 대로 이 장에 넣겠습니다.</aside>
+</section>
+
+<!-- 19 GitHub Projects -->
+<section class="slide" data-title="GitHub 프로젝트">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>GitHub Docs · About Projects</div>
+  <h2>프로젝트: 이슈와 PR이 표·보드·로드맵이 된다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/en/issues/planning-and-tracking-with-projects/…/about-projects</span></div><img src="assets/captures/p14-gh-projects.jpg" alt="GitHub Docs About Projects"></div>
+      <div class="kind">GitHub 공식 문서 화면 캡처</div>
+      <div class="ko">GitHub Docs ‘About Projects’ 화면. 프로젝트를 <b>이슈·PR과 연결된 표·보드·로드맵</b>이라고 설명한다.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“…an adaptable table, board, and roadmap…”<span class="tr">유연하게 바꿔 쓰는 표, 보드, 로드맵</span><cite>GitHub Docs · About Projects</cite></div>
+      <ul>
+        <li>이슈·PR(변경 요청)과 <b>양방향으로 동기화</b></li>
+        <li>담당자·상태 같은 사용자 지정 필드</li>
+        <li>필터·정렬·그룹으로 여러 보기</li>
+      </ul>
+    </div>
+  </div>
+  <aside>설계도로 쓰는 도구는 GitHub 프로젝트입니다. 공식 문서는 프로젝트를 이슈와 PR에 연결되는 유연한 표, 보드, 로드맵이라고 설명합니다. 프로젝트의 항목은 이슈와 PR에서 만들어지고, 한쪽에서 담당자를 바꾸면 다른 쪽에도 반영되는 양방향 동기화입니다. 필터와 정렬, 그룹으로 같은 이슈를 여러 방식으로 볼 수 있고 사용자 지정 필드도 추가할 수 있습니다. 별도의 문서에 작업 목록을 적지 않아도 되는 이유입니다.</aside>
+</section>
+
+<!-- 20 이슈 하나 = 작업 하나 -->
+<section class="slide" data-title="이슈 하나는 작업 하나">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>GitHub Docs · Adding sub-issues · 강사 운영 기준 10~14단계</div>
+  <h2>이슈 하나 = 작업 하나, 큰 일은 하위 이슈로</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/en/issues/…/using-issues/adding-sub-issues</span></div><img src="assets/captures/p14-gh-subissues.jpg" alt="GitHub Docs 하위 이슈 추가"></div>
+      <div class="kind">GitHub 공식 문서 화면 캡처</div>
+      <div class="ko">GitHub Docs ‘하위 이슈 추가’ 화면. 이슈 아래 <b>하위 이슈를 100개, 8단계</b>까지 둘 수 있다고 설명한다.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>하위 이슈: 상위 이슈 하나에 최대 100개, 중첩은 8단계까지</li>
+        <li>마일스톤 → 스테이지 → 스프린트 → Task를 <b>추적 이슈</b>로</li>
+        <li>완료 조건과 검증 방법이 이슈에 있다</li>
+      </ul>
+    </div>
+  </div>
+  <aside>이슈 원장에서 이슈 하나는 하나의 완료 조건을 가진 작업 하나입니다. 큰 일은 하위 이슈로 쪼갭니다. GitHub 문서에 따르면 상위 이슈 하나에 하위 이슈를 100개까지, 8단계까지 중첩할 수 있고 진행률이 프로젝트에도 표시됩니다. 제 운영 기준은 마일스톤, 작업 스테이지, 스프린트, Task의 네 계층을 모두 추적 이슈로 만드는 것입니다. 다만 이 계층 구성은 교육용으로 구체화한 제안이고, 스테이지나 스프린트가 GitHub의 별도 기능이라는 뜻은 아닙니다.</aside>
+</section>
+
+<!-- 21 이슈 병합 -->
+<section class="slide" data-title="PR 폭증과 이슈 병합">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>issue-pr-management · ApplyFlow 가상 예시 · 2026-09-28 확인</div>
+  <h2>PR 폭증은 이슈를 합쳐 줄인다</h2>
+  <div class="diagram">{{svg:p14-issue-merge}}</div>
+  <p class="under">기준은 개수가 아니라 <b>하나의 검토·출시·롤백 단위</b>인가입니다. 번호는 가상입니다. <span class="next">→ 15교시</span></p>
+  <aside>에이전트가 늘수록 이슈마다 PR을 만들면 PR이 폭증하고 대기와 재검사가 구현 시간보다 길어집니다. 반대로 관련 있다고 무조건 합쳐서도 안 됩니다. 도식은 가상의 예시입니다. 같은 원인의 이슈 201과 203은 한 PR에서 함께 검토하고 되돌릴 수 있어 하나로 묶었습니다. 202는 201과 같은 문제라 로그를 옮기고 중복 정리로 닫았고, 204는 일부만 겹쳐서 별도로 둡니다. 중복 정리는 수정 완료가 아니라는 점도 구분해 둡니다.</aside>
+</section>
+
+<!-- 22 종료 키워드 -->
+<section class="slide" data-title="종료 키워드">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>GitHub Docs · Linking a pull request to an issue</div>
+  <h2>이슈를 닫는 규칙: 키워드는 이슈마다 하나씩</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/en/issues/…/linking-a-pull-request-to-an-issue</span></div><img src="assets/captures/p14-gh-closing.jpg" alt="GitHub Docs PR과 이슈 연결"></div>
+      <div class="kind">GitHub 공식 문서 화면 캡처</div>
+      <div class="ko">GitHub Docs ‘PR을 이슈에 연결’ 화면. PR이 기본 브랜치에 머지되면 <b>연결된 이슈가 자동으로 닫힌다</b>.</div>
+    </div>
+    <div class="points">
+      <div class="term" style="font-size:22px"><span class="dim"># PR 본문</span>
+Closes #201
+Closes #203
+Related: #204</div>
+      <ul>
+        <li>기본 브랜치로 머지될 때만 자동 종료</li>
+        <li><b>Related</b>는 닫지 않는다</li>
+      </ul>
+    </div>
+  </div>
+  <aside>도장은 이슈가 닫힐 때 찍힙니다. GitHub 문서는 PR이 기본 브랜치에 머지되면 연결된 이슈가 자동으로 닫힌다고 설명하고, 키워드는 기본 브랜치를 대상으로 하는 PR에서만 해석된다고 주의를 줍니다. 여러 이슈를 해결하면 이슈마다 Closes 키워드를 반복해야 합니다. 일부만 반영했거나 단순 연관이면 Related로 남기고 닫지 않습니다. 사이드바에서 수동으로 연결한 이슈는 머지 때 닫힐 수 있으니 연관 표시로 쓰지 않습니다. 부분 반영 이슈를 닫아 버리면 도장만 찍히고 일은 남습니다.</aside>
+</section>
+
+<!-- 23 18단계 -->
+<section class="slide" data-title="18단계 운영 기준">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>project-operating-standard · 18단계 · 7단계가 ADR</div>
+  <h2>운영 기준 18단계: ADR은 7단계</h2>
+  <div class="diagram">{{svg:p14-18steps}}</div>
+  <p class="under">방향 문서(개요·가이드라인·<b>ADR</b>·Spec 개요)를 먼저 세우고 → 쪼개서 이슈로 등록하고 → 이슈별로 만듭니다. <span class="next">→ 16교시</span></p>
+  <aside>제 운영 기준은 열여덟 단계입니다. 1~4단계에서 사용자와 시나리오, 입출력, 시장을 분석하고, 5~9단계에서 프로젝트 개요, 가이드라인, ADR, Spec 개요, 시안을 정리합니다. ADR은 7단계입니다. 이 단계에서는 지금 확정된 큰 결정만 남기고, 모든 것을 한 번에 정하지 않습니다. 10~15단계에서 마일스톤과 Task로 쪼개 이슈로 등록하고 작업 환경을 만들며, 16단계부터 이슈별 개발과 배포, 피드백, 다음 업데이트로 이어집니다. 이 18단계는 기본 사고 순서이고, 작은 프로젝트에서는 합치거나 생략합니다.</aside>
+</section>
+
+<!-- 24 이슈별 흐름 -->
+<section class="slide" data-title="이슈별 12단계 흐름">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>이슈별 구현 워크플로우 · 2단계가 ADR 점검</div>
+  <h2>이슈 하나가 지나가는 열두 칸</h2>
+  <div class="diagram">{{svg:p14-issue-flow}}</div>
+  <p class="under">스펙·계획·구현은 각각 리뷰하고, <b>블로커가 있으면 그 단계로 되돌아갑니다</b>. CI(Continuous Integration, 지속적 통합) 실패는 구현으로 돌아갑니다.</p>
+  <aside>이슈 하나는 열두 칸을 지납니다. 이슈를 분석하고, 관련 ADR을 점검하고, 이슈 단위 스펙을 쓴 다음 스펙 리뷰를 합니다. 블로커가 없으면 계획을 쓰고 계획 리뷰, 구현과 구현 리뷰를 거쳐 PR을 올립니다. 해당 PR 버전의 CI(Continuous Integration, 지속적 통합)가 통과하면 스쿼시 머지하고 머지 후 스모크 테스트를 합니다. 7단계의 ADR 정의가 프로젝트 전체의 결정을 남기는 일이라면, 이슈별 2단계의 ADR 점검은 이 이슈가 기존 결정에 걸리는지 확인하는 일입니다. 여기서 앞의 다시 판단할 조건이 작동합니다.</aside>
+</section>
+
+<!-- 26 정리 -->
+<section class="slide" data-title="오늘 본 것과 다음 교시">
+  <div class="tag"><b>오늘 본 것을 묶으면</b><span class="sep"></span>14교시 요약 · 다음은 CI와 머지 큐</div>
+  <h2>묶으면: 짧은 결정 기록과 한 장씩 닫는 이슈</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/…/managing-a-merge-queue</span></div><img src="assets/captures/page-mergequeue.jpg" alt="GitHub 머지 큐 문서"></div>
+      <div class="kind">다음 교시 · 15교시에서 볼 화면</div>
+      <div class="ko">GitHub 머지 큐 문서. 15교시에서 PR이 폭증할 때 합치는 문제를 다루며 다시 봅니다.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>큰 스펙은 길어지고, 낡고, 병렬에서 부딪힌다</li>
+        <li>ADR: 결정 하나, 이유, <b>다시 판단할 조건</b></li>
+        <li>이슈 하나 = 작업 하나, 도장 깨기, 묶기는 신중히</li>
+      </ul>
+      <div class="next">→ 15교시: PR이 늘면 CI가 폭증합니다. 머지 큐와 스모크 테스트</div>
+    </div>
+  </div>
+  <aside>오늘 본 것을 묶으면, 큰 스펙 하나는 길어지고 낡고, 낡았다는 표시가 없으며, 병렬 작업에서 충돌합니다. 그래서 결정과 이유는 짧은 ADR로, 이번 작업은 이슈 하나로 나눕니다. ADR의 핵심은 다시 판단할 조건이 낡음을 미리 알려 준다는 점입니다. 이슈 원장은 설계도를 이슈로 쪼개 한 장씩 닫는 방식이고, PR이 폭증하면 하나의 검토 단위로 묶을 수 있는 이슈만 합칩니다. 이렇게 일이 잘게 나뉘고 빨리 닫힐수록 PR과 CI 실행이 늘어납니다. 다음 15교시에서는 그 폭증을 어떻게 다루는지 봅니다.</aside>
+</section>

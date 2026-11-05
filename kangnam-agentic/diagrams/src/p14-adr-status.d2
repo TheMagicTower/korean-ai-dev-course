@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 200
+vertical-gap: 130
+p: "proposed\n제안됨"
+a: "accepted\n승인됨"
+d: "deprecated\n더는 안 씀"
+x: "" {style.opacity: 0; style.stroke-width: 0}
+s: "superseded\n새 ADR로 대체"
+n: "새 ADR\n번호 재사용 안 함"
+p -> a: "합의"
+a -> d: "상황 변화"
+a -> s: "뒤집힘"
+s -> n: "링크"
+a.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

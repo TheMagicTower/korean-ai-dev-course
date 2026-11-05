@@ -1,0 +1,15 @@
+direction: right
+start: "에이전트가\n작업 시작"
+read: "관련 ADR 읽기\n(이슈의 ‘관련’ 칸)"
+chk: "‘다시 판단할 조건’을\n현재 상태와 대조"
+ok: "해당 없음\n결정을 따라 구현"
+hit: "해당함\n구현을 멈추고\n사용자에게 보고"
+new: "사용자가 판단\n→ 새 ADR 또는 수정"
+start -> read -> chk
+chk -> ok: "조건 밖"
+chk -> hit: "조건 안"
+hit -> new
+hit.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

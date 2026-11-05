@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2회차 · 로드·검색·표시 연결 예제</title><style>:root{--paper:#f4f3ed;--surface:#fffef9;--ink:#203d35;--muted:#56665e;--line:#ccd5cb;--accent:#175d43;--soft:#e5eee3;--error:#9b3229}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;font-size:16px;line-height:1.65}main{max-width:1140px;margin:auto;padding:40px 24px 64px}a{color:var(--accent);text-underline-offset:4px}h1,h2,p{margin:0}h1{font-size:clamp(30px,5vw,50px);line-height:1.2;margin:16px 0}h2{font-size:21px;line-height:1.4}button,input,select{font:inherit}button{border:1px solid var(--accent);background:var(--accent);color:white;padding:10px 16px;border-radius:4px;cursor:pointer}button.secondary{background:transparent;color:var(--accent)}button:disabled{cursor:not-allowed;background:#e4e7df;border-color:#c8cec4;color:#59655e}button[aria-pressed=true]{background:#dfebdd;color:var(--accent)}:focus-visible{outline:3px solid #b25f18;outline-offset:4px}input:not([type=checkbox]),select{width:100%;padding:10px 12px;background:var(--surface);border:1px solid #7e9185;border-radius:4px;color:var(--ink)}header{padding-bottom:28px;border-bottom:1px solid var(--line)}.eyebrow{font-size:12px;letter-spacing:1px;font-weight:700;color:var(--muted)}.intro{max-width:800px}.source{margin-top:20px;font-size:14px}.source a{margin-right:16px}.notice{min-height:28px;margin:16px 0;color:var(--accent);font-size:14px}.notice[data-kind=error]{color:var(--error)}details{margin:24px 0;border:1px solid var(--line);background:var(--surface);padding:16px 20px}summary{font-weight:700;cursor:pointer}.tasks{padding-left:22px}.tasks li{margin:10px 0}.filters{display:grid;grid-template-columns:2fr 1fr auto;gap:16px;align-items:end;margin:28px 0 16px}.field{display:flex;flex-direction:column;gap:6px;font-weight:600}.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0}.result-heading{display:flex;justify-content:space-between;gap:16px;align-items:center;margin:32px 0 16px}.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.library{padding:24px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px;min-width:0}.library h2{font-size:20px}.address{flex:1}.small{font-size:13px;color:var(--muted)}.save{margin-top:4px}.empty{grid-column:1/-1;padding:36px;border:1px dashed #85998a;background:var(--surface)}.empty p{margin:16px 0;max-width:720px}.error{border-color:var(--error)}.todo{color:#805011}.mock{padding:16px 20px;background:#ece9de;border-left:3px solid #8b7245}.mock p{font-size:14px;margin-bottom:12px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:14px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:10px 12px}pre{white-space:pre-wrap;background:var(--soft);padding:16px;font-size:14px}footer{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}@media(max-width:760px){.filters{grid-template-columns:1fr}.results{grid-template-columns:1fr}.result-heading{align-items:flex-start;flex-direction:column}main{padding:24px 16px 40px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}</style></head><body><main>
+<header><p class="eyebrow">MAKE FOR GOOD / SESSION 02 / CONNECTED EXAMPLE</p><h1>로드·검색·표시를<br>같은 코드로 연결합니다.</h1><p class="intro">2회차 s2-17·25·34에서 사용하는 실행 파일입니다. 세 함수와 DOM 이름이 슬라이드와 같습니다. 기본 내장 JSON은 파일을 열어도 동작하고, HTTP JSON은 로컬 서버에서 명시적으로 선택합니다.</p><div class="source"><a href="https://www.data.go.kr/data/15013109/standard.do" target="_blank" rel="noopener noreferrer">공공데이터포털 원본</a><p>용인시 27개 · 기록 기준일 2024-11-20 · 수집일 2026-10-22</p><p>총 좌석 수는 기준일의 좌석 규모입니다. 실시간 잔여 좌석은 추가 확인 항목입니다. 현재 개관 여부는 공식 운영 안내에서 확인합니다. <a href="https://lib.yongin.go.kr/" target="_blank" rel="noopener noreferrer">방문 전 공식 정보 확인</a></p></div></header>
+<details open><summary>단계별 중간 점검</summary><ol class="tasks"><li><b>STEP-1 표시 · s2-17:</b> 아래 “실제 기록 1개”와 “빈 배열”을 누릅니다. <code>renderLibraries(items)</code>의 결과를 확인하고 안내 문구를 수정합니다.</li><li><b>STEP-2 로드 · s2-25:</b> 내장 JSON으로 27개를 확인합니다. 로컬 서버에서는 HTTP JSON을 선택하고 <code>./data/libraries.json</code>을 불러옵니다. 경로를 <code>./data/missing.json</code>으로 바꾸면 실제 404입니다.</li><li><b>STEP-3 연결 · s2-34:</b> 전체 연결로 돌아온 뒤 포곡 1개, 기흥구 9개, 포곡+기흥구 0개와 초기화 27개를 확인합니다. 함수 정의는 이 HTML의 STEP 주석에서 찾습니다.</li></ol><p class="small">이 파일은 세 함수를 연결한 최소 완성 예제입니다. 3회차의 후보 저장 TODO는 별도 starter.html을 사용합니다.</p><div class="actions"><button type="button" id="show-one" class="secondary">실제 기록 1개</button><button type="button" id="show-empty" class="secondary">빈 배열 표시</button><button type="button" id="show-error" class="secondary">읽기 실패 모킹</button><button type="button" id="show-connected">전체 연결로 돌아오기</button></div></details>
+<div class="filters"><label class="field"><span>데이터 읽기 방식</span><select id="data-source"><option value="embedded">내장 JSON · 파일 실행 가능</option><option value="http">HTTP JSON · 로컬 서버 필요</option></select></label><label class="field"><span>HTTP JSON 경로</span><input id="data-path" value="./data/libraries.json"></label><button type="button" id="load-data">자료 불러오기</button></div>
+<form id="search-form" class="filters"><label class="field" for="library-query"><span>이름·주소 검색</span><input id="library-query" type="search" autocomplete="off"></label><label class="field" for="library-district"><span>지역</span><select id="library-district"><option value="">전체</option><option>기흥구</option><option>수지구</option><option>처인구</option></select></label><button type="submit">검색</button></form><button id="reset" type="button" class="secondary">검색 조건 초기화</button>
+<div class="result-heading"><h2>연결 결과</h2><p id="result-count" role="status" aria-live="polite"></p></div><section id="library-results" class="results" aria-label="도서관 검색 결과"></section>
+<details><summary>슬라이드와 같은 콘솔 실행 계약</summary><pre>const rows = await loadLibraries();
+renderLibraries(rows.slice(0, 1));
+renderLibraries([]);
+renderLibraries(searchLibraries(rows, { q: ' 포곡 ' }));
+console.assert(searchLibraries(rows, { district: '기흥구' }).length === 9);
+console.assert(searchLibraries(rows, { q: '포곡', district: '기흥구' }).length === 0);
+// 전체 입력 연결로 돌아가려면 위의 “전체 연결로 돌아오기”를 누릅니다.</pre><p class="small">같은 콘솔에서 const rows를 다시 선언할 수 없으면 다른 변수명을 쓰거나 페이지를 새로고침합니다. 라이브러리와 설치가 필요 없는 일반 JavaScript입니다.</p></details>
+<footer><p>직접 만든 모킹과 실제 HTTP 오류를 구분해 기록합니다. 코드 조각은 이 파일의 콘솔에서 실행합니다. 데이터와 코드가 모두 내장되어 있으며 외부 파일 읽기는 HTTP 방식을 선택할 때만 수행합니다.</p></footer></main>
+<script id="library-data" type="application/json">{"metadata":{"sourceTitle":"전국도서관표준데이터 · 경기도 용인시 추출","sourceUrl":"https://www.data.go.kr/data/15013109/standard.do","downloadUrl":"https://www.data.go.kr/download/standard.json?publicDataPk=15013109&colNmList=LBRRY_NM&colNmList=CTPRVN_NM&colNmList=SIGNGU_NM&colNmList=LBRRY_SE&colNmList=CLOSE_DAY&colNmList=WEEKDAY_OPER_OPEN_HHMM&colNmList=WEEKDAY_OPER_COLSE_HHMM&colNmList=SAT_OPER_OPER_OPEN_HHMM&colNmList=SAT_OPER_CLOSE_HHMM&colNmList=HOLIDAY_OPER_OPEN_HHMM&colNmList=HOLIDAY_CLOSE_OPEN_HHMM&colNmList=SEAT_CO&colNmList=BOOK_CO&colNmList=PBLICTN_CO&colNmList=NONE_BOOK_CO&colNmList=LON_CO&colNmList=LON_DAYCNT&colNmList=RDNMADR&colNmList=OPER_INSTITUTION_NM&colNmList=PHONE_NUMBER&colNmList=PLOT_AR&colNmList=BULD_AR&colNmList=HOMEPAGE_URL&colNmList=LATITUDE&colNmList=LONGITUDE&colNmList=REFERENCE_DATE&totalCount=3597&svcTableNm=tn_pubr_public_lbrry_svc&perPage=10000&page=1","fetchedAt":"2026-10-22T13:58:54+00:00","recordCount":27,"sourceRecordCount":3597,"fields":{"name":"LBRRY_NM","address":"RDNMADR","region":"SIGNGU_NM","type":"LBRRY_SE","lat":"LATITUDE","lng":"LONGITUDE","weekdayOpen":"WEEKDAY_OPER_OPEN_HHMM","weekdayClose":"WEEKDAY_OPER_COLSE_HHMM","saturdayOpen":"SAT_OPER_OPER_OPEN_HHMM","saturdayClose":"SAT_OPER_CLOSE_HHMM","holiday":"CLOSE_DAY","referenceDate":"REFERENCE_DATE","homepage":"HOMEPAGE_URL","totalSeats":"SEAT_CO","provider":"INSTT_NM"},"filter":{"CTPRVN_NM":"경기도","SIGNGU_NM":"용인시"},"referenceDates":["2024-11-20"],"license":"이용허락범위 제한 없음 (경기도_용인시_도서관 제공기관 상세정보에서 확인)","licenseUrl":"https://www.data.go.kr/ugs/selectPortalPolicyView.do","providerDetailId":"uddi:79e0637e-133e-4527-b8e5-a78089a4aac3","notice":"공공데이터포털 전국도서관표준데이터에서 용인시 27개 기록을 추출한 교육용 스냅샷입니다. 원본 데이터기준일자는 2024-11-20, 다운로드일은 2026-10-22입니다. 운영시간·휴관일·총 좌석 수는 기준일의 자료입니다. 현재 개관 여부와 실시간 잔여 좌석은 방문 전 도서관 공식 홈페이지에서 확인합니다."},"rows":[{"name":"포곡도서관","address":"경기도 용인시 처인구 포곡읍 포곡로278번길 8","region":"용인시","type":"공공도서관","lat":37.2789044,"lng":127.2325645,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"첫째 주 월+셋째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":303,"provider":"경기도 용인시"},{"name":"용인중앙도서관","address":"경기도 용인시 처인구 명지로 27","region":"용인시","type":"공공도서관","lat":37.2334148,"lng":127.1904024,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"둘째 주 월+넷째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":546,"provider":"경기도 용인시"},{"name":"모현도서관","address":"경기도 용인시 처인구 모현읍 백옥대로 2378","region":"용인시","type":"공공도서관","lat":37.33570489,"lng":127.2496431,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"둘째 주 월+넷째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":313,"provider":"경기도 용인시"},{"name":"동백도서관","address":"경기도 용인시 기흥구 동백3로 80","region":"용인시","type":"공공도서관","lat":37.27414594,"lng":127.1580486,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"둘째 주 월+넷째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":535,"provider":"경기도 용인시"},{"name":"상현도서관","address":"경기도 용인시 수지구 법조로 232","region":"용인시","type":"공공도서관","lat":37.299975,"lng":127.0742442,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"첫째 주 월+셋째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":522,"provider":"경기도 용인시"},{"name":"죽전도서관","address":"경기도 용인시 수지구 대지로 89","region":"용인시","type":"공공도서관","lat":37.33043385,"lng":127.1186264,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"첫째 주 월+셋째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":494,"provider":"경기도 용인시"},{"name":"수지도서관","address":"경기도 용인시 수지구 문정로7번길 23","region":"용인시","type":"공공도서관","lat":37.32027602,"lng":127.0946874,"weekdayOpen":"09:00","weekdayClose":"22:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"둘째 주 월+넷째 주 월+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":592,"provider":"경기도 용인시"},{"name":"구갈희망누리도서관","address":"경기도 용인시 기흥구 갈곡로12번길 1","region":"용인시","type":"공공도서관","lat":37.27274411,"lng":127.1295592,"weekdayOpen":"09:00","weekdayClose":"18:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"일+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":64,"provider":"경기도 용인시"},{"name":"영덕도서관","address":"경기도 용인시 기흥구 덕영대로2077번길 7","region":"용인시","type":"공공도서관","lat":37.2675563799,"lng":127.096949622,"weekdayOpen":"09:00","weekdayClose":"22:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"첫째 주 월+셋째 주 월+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":145,"provider":"경기도 용인시"},{"name":"서농도서관","address":"경기도 용인시 기흥구 서천서로 83","region":"용인시","type":"공공도서관","lat":37.2376446803,"lng":127.0687630018,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"첫째 주 월+셋째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":288,"provider":"경기도 용인시"},{"name":"흥덕도서관","address":"경기도 용인시 기흥구 흥덕중앙로 153","region":"용인시","type":"공공도서관","lat":37.27498371,"lng":127.0839883,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"둘째 주 월+넷째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":467,"provider":"경기도 용인시"},{"name":"보라도서관","address":"경기도 용인시 기흥구 한보라2로 116","region":"용인시","type":"공공도서관","lat":37.24841486,"lng":127.1090246,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"둘째 주 월+넷째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":470,"provider":"경기도 용인시"},{"name":"구성도서관","address":"경기도 용인시 기흥구 구성로77번길 17","region":"용인시","type":"공공도서관","lat":37.2967623,"lng":127.1189833,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"첫째 주 월+셋째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":478,"provider":"경기도 용인시"},{"name":"기흥도서관","address":"경기도 용인시 기흥구 기흥로116번길 10","region":"용인시","type":"공공도서관","lat":37.28617851,"lng":127.1135998,"weekdayOpen":"07:00","weekdayClose":"22:00","saturdayOpen":"07:00","saturdayClose":"22:00","holiday":"첫째 주 월+셋째 주 월","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":608,"provider":"경기도 용인시"},{"name":"이동꿈틀도서관","address":"경기도 용인시 처인구 이동읍 경기동로705번길 16","region":"용인시","type":"공공도서관","lat":37.13912157,"lng":127.199754,"weekdayOpen":"09:00","weekdayClose":"18:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"월+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":121,"provider":"경기도 용인시"},{"name":"양지해밀도서관","address":"경기도 용인시 처인구 양지면 교동로18번길 8","region":"용인시","type":"공공도서관","lat":37.23758228,"lng":127.2854997,"weekdayOpen":"09:00","weekdayClose":"18:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"월+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":67,"provider":"경기도 용인시"},{"name":"남사도서관","address":"경기도 용인시 처인구 남사면 한숲로 61","region":"용인시","type":"공공도서관","lat":37.15380506,"lng":127.1706227,"weekdayOpen":"09:00","weekdayClose":"22:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"첫째 주 월+셋째 주 월+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":366,"provider":"경기도 용인시"},{"name":"청덕도서관","address":"경기도 용인시 기흥구 구성1로 44","region":"용인시","type":"공공도서관","lat":37.29279817,"lng":127.1474288,"weekdayOpen":"09:00","weekdayClose":"22:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"둘째 주 월+넷째 주 월+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":266,"provider":"경기도 용인시"},{"name":"백암면작은도서관","address":"경기도 용인시 처인구 백암면 백암로 191-1, 1층","region":"용인시","type":"작은도서관","lat":37.1638408,"lng":127.3751115,"weekdayOpen":"09:00","weekdayClose":"18:00","saturdayOpen":"00:00","saturdayClose":"00:00","holiday":"토+일+공휴일","referenceDate":"2024-11-20","homepage":"","totalSeats":34,"provider":"경기도 용인시"},{"name":"남사맑은누리작은도서관","address":"경기도 용인시 처인구 남사면 내기로 6, 복지회관 2층","region":"용인시","type":"작은도서관","lat":37.1137577,"lng":127.1505799,"weekdayOpen":"13:00","weekdayClose":"18:00","saturdayOpen":"00:00","saturdayClose":"00:00","holiday":"토+일+공휴일","referenceDate":"2024-11-20","homepage":"","totalSeats":34,"provider":"경기도 용인시"},{"name":"느티나무도서관","address":"경기도 용인시 수지구 수풍로116번길 22","region":"용인시","type":"공공도서관","lat":37.33401684,"lng":127.0960404,"weekdayOpen":"10:00","weekdayClose":"21:00","saturdayOpen":"10:00","saturdayClose":"21:00","holiday":"월+목+공휴일","referenceDate":"2024-11-20","homepage":"www.neutinamu.org","totalSeats":260,"provider":"경기도 용인시"},{"name":"동천도서관","address":"경기도 용인시 수지구 수풍로57-14","region":"용인시","type":"공공도서관","lat":37.3301406438,"lng":127.090112484,"weekdayOpen":"09:00","weekdayClose":"22:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"첫째 주 월+셋째 주 월+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":258,"provider":"경기도 용인시"},{"name":"성복도서관","address":"경기도 용인시 수지구 성복1로164번길 6","region":"용인시","type":"공공도서관","lat":37.3168159756,"lng":127.0634834888,"weekdayOpen":"09:00","weekdayClose":"22:00","saturdayOpen":"09:00","saturdayClose":"17:00","holiday":"둘째 주 월+넷째 주 월+공휴일","referenceDate":"2024-11-20","homepage":"https://lib.yongin.go.kr/","totalSeats":169,"provider":"경기도 용인시"},{"name":"이동천리작은도서관","address":"경기도 용인시 처인구 이동읍 백옥대로624번길 9, 4층","region":"용인시","type":"작은도서관","lat":37.1928164,"lng":127.207914,"weekdayOpen":"13:00","weekdayClose":"18:00","saturdayOpen":"00:00","saturdayClose":"00:00","holiday":"토+일+공휴일","referenceDate":"2024-11-20","homepage":"","totalSeats":33,"provider":"경기도 용인시"},{"name":"상현2동작은도서관","address":"경기도 용인시 수지구 광교호수로386번길 6, 1층","region":"용인시","type":"작은도서관","lat":37.2985099,"lng":127.0808422,"weekdayOpen":"13:00","weekdayClose":"17:00","saturdayOpen":"00:00","saturdayClose":"00:00","holiday":"토+일+공휴일","referenceDate":"2024-11-20","homepage":"","totalSeats":32,"provider":"경기도 용인시"},{"name":"상현1동작은도서관","address":"경기도 용인시 수지구 상현로 71","region":"용인시","type":"작은도서관","lat":37.3046115,"lng":127.081122,"weekdayOpen":"09:00","weekdayClose":"17:00","saturdayOpen":"00:00","saturdayClose":"00:00","holiday":"토+일+공휴일","referenceDate":"2024-11-20","homepage":"","totalSeats":25,"provider":"경기도 용인시"},{"name":"고림다온작은도서관","address":"경기도 용인시 처인구 진덕로 7","region":"용인시","type":"작은도서관","lat":37.2363945,"lng":127.2175356754,"weekdayOpen":"09:00","weekdayClose":"18:00","saturdayOpen":"00:00","saturdayClose":"00:00","holiday":"토+일+공휴일","referenceDate":"2024-11-20","homepage":"","totalSeats":27,"provider":"경기도 용인시"}]}</script><script>
+  'use strict';
+  let libraryRows = [];
+  let currentSource = 'embedded';
+  let loadSequence = 0;
+
+  function normalizeLibraries(input) {
+    if (!Array.isArray(input)) throw new Error('rows 배열이 필요합니다.');
+    return input.map(row => {
+      if (!row || typeof row.name !== 'string' || typeof row.address !== 'string') throw new Error('이름과 주소 형식을 확인하세요.');
+      return { ...row, district: row.address.match(/(기흥구|수지구|처인구)/)?.[1] ?? '기타' };
+    });
+  }
+
+  // STEP-1: s2-14/16/17. 이 함수는 전달받은 목록을 화면에 표시합니다.
+  // 콘솔: renderLibraries((await loadLibraries()).slice(0, 1))
+  // 콘솔: renderLibraries([])
+  function renderLibraries(items) {
+    const host = document.querySelector('#library-results');
+    host.replaceChildren();
+    for (const row of items) {
+      const card = document.createElement('article'); card.className = 'library';
+      const title = document.createElement('h3'); title.textContent = row.name;
+      const address = document.createElement('p'); address.textContent = row.address;
+      const date = document.createElement('small'); date.textContent = `기준일 ${row.referenceDate}`;
+      card.append(title, address, date); host.append(card);
+    }
+    document.querySelector('#result-count').textContent = `${items.length}개 도서관`;
+    if (!items.length) {
+      const empty = document.createElement('section'); empty.className = 'empty';
+      const message = document.createElement('p'); message.textContent = '검색은 정상적으로 끝났지만 결과가 없습니다. 조건을 초기화할 수 있습니다.';
+      const reset = document.createElement('button'); reset.type = 'button'; reset.textContent = '검색 조건 초기화'; reset.onclick = resetLibraryFilters;
+      empty.append(message, reset); host.append(empty);
+    }
+  }
+
+  // STEP-2: s2-22/25. 기본은 내장 JSON이며 HTTP 주소를 명시하면 fetch합니다.
+  // HTTP에서: const rows = await loadLibraries('./data/libraries.json')
+  // 읽기/JSON/필수 필드 오류는 reject하며 빈 결과 []로 바꾸지 않습니다.
+  async function loadLibraries(source = null) {
+    let data;
+    if (source === null) {
+      data = globalThis.LAB_SNAPSHOT ?? JSON.parse(document.querySelector('#library-data').textContent);
+    } else {
+      if (typeof location !== 'undefined' && location.protocol === 'file:') throw new Error('별도 JSON fetch는 로컬 HTTP 서버에서 실행하세요. 내장 JSON은 파일 실행에서도 사용할 수 있습니다.');
+      const response = await fetch(source);
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${source}`);
+      data = await response.json();
+    }
+    return normalizeLibraries(data.rows);
+  }
+
+  // s2-26/27/29와 같은 객체형 Query 계약입니다. 원본 배열을 바꾸지 않습니다.
+  function searchLibraries(input, { q = '', district = '' } = {}) {
+    const term = q.trim().toLowerCase();
+    return input.filter(row => {
+      const text = `${row.name} ${row.address}`.toLowerCase();
+      return (!term || text.includes(term)) && (!district || row.district === district);
+    });
+  }
+
+  function setSearchDisabled(disabled) {
+    for (const selector of ['#library-query', '#library-district', '#reset', '#search-form button[type=submit]']) {
+      document.querySelector(selector).disabled = disabled;
+    }
+  }
+  function showLoadError(error) {
+    setSearchDisabled(true);
+    const host = document.querySelector('#library-results'); host.replaceChildren();
+    document.querySelector('#result-count').textContent = '자료 읽기 실패';
+    const box = document.createElement('section'); box.className = 'empty error'; box.setAttribute('role', 'alert');
+    const message = document.createElement('p'); message.textContent = error.message;
+    const retry = document.createElement('button'); retry.type = 'button'; retry.textContent = '정상 내장 데이터로 복귀';
+    retry.onclick = () => { document.querySelector('#data-source').value = 'embedded'; currentSource = 'embedded'; loadAndRender(); };
+    box.append(message, retry); host.append(box);
+  }
+
+  // STEP-3: s2-34/35. 입력 → 검색 규칙 → 화면으로 연결합니다.
+  function update() {
+    renderLibraries(searchLibraries(libraryRows, {
+      q: document.querySelector('#library-query').value,
+      district: document.querySelector('#library-district').value
+    }));
+  }
+  function resetLibraryFilters() {
+    document.querySelector('#library-query').value = '';
+    document.querySelector('#library-district').value = '';
+    update(); document.querySelector('#library-query').focus();
+  }
+  async function loadAndRender() {
+    const sequence = ++loadSequence;
+    setSearchDisabled(true);
+    document.querySelector('#result-count').textContent = '자료를 읽는 중입니다.';
+    document.querySelector('#library-results').replaceChildren();
+    try {
+      const loaded = await loadLibraries(currentSource === 'embedded' ? null : currentSource);
+      if (sequence !== loadSequence) return;
+      libraryRows = loaded; setSearchDisabled(false); update();
+    } catch (error) {
+      if (sequence !== loadSequence) return;
+      showLoadError(error);
+    }
+  }
+  if (typeof document !== 'undefined') {
+    document.querySelector('#library-query').addEventListener('input', update);
+    document.querySelector('#library-district').addEventListener('change', update);
+    document.querySelector('#search-form').onsubmit = event => { event.preventDefault(); update(); };
+    document.querySelector('#reset').onclick = resetLibraryFilters;
+    document.querySelector('#load-data').onclick = () => {
+      currentSource = document.querySelector('#data-source').value === 'embedded' ? 'embedded' : document.querySelector('#data-path').value.trim();
+      loadAndRender();
+    };
+    document.querySelector('#show-one').onclick = async () => {
+      const example = (await loadLibraries()).find(row => row.name === '포곡도서관');
+      renderLibraries([example]);
+    };
+    document.querySelector('#show-empty').onclick = () => renderLibraries([]);
+    document.querySelector('#show-error').onclick = () => showLoadError(new Error('학생이 실행한 읽기 실패 모킹입니다.'));
+    document.querySelector('#show-connected').onclick = () => { currentSource = 'embedded'; document.querySelector('#data-source').value = 'embedded'; resetLibraryFilters(); loadAndRender(); };
+    loadAndRender();
+  }
+</script></body></html>

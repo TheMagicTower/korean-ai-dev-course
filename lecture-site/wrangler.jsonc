@@ -1,0 +1,28 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kangnam-ai-engineering",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-22",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "observability": {
+    "enabled": true,
+    "traces": {
+      "enabled": true
+    }
+  },
+  "account_id": "baeb5f2d19a7ab5f2eb4e9bb39c6b084",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kangnam-ai-course",
+      "database_id": "005eb8f0-a967-4902-a95d-2646020833ba",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "preview_urls": false
+}

@@ -1,0 +1,20 @@
+direction: down
+prob: "같은 문제\n딴길로 새는 에이전트"
+prob.style.stroke: "#ff00ff"
+tool: "도구 안에서 막는다" {
+  grid-columns: 1
+  cc: "Claude Code Plan 모드\n2025-06"
+  cur: "Cursor Plan Mode\n2025-10-07"
+  cc -> cur
+}
+doc: "문서로 막는다 (SDD)" {
+  grid-columns: 1
+  kiro: "Kiro 발표\n2025-07-14"
+  sk: "GitHub Spec Kit\n2025-09-02"
+  kiro -> sk
+}
+prob -> tool: "읽기 전용으로\n먼저 계획"
+prob -> doc: "스펙·Task 파일을\n먼저 쓴다"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

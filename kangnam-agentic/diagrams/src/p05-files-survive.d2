@@ -1,0 +1,18 @@
+direction: right
+w1: "창 A\n대화·시도·결정 이유" 
+cmp: "압축 또는 새 세션\n요약만 남는다"
+w2: "창 B\n요약 + 다시 읽은 파일"
+files: "디스크의 파일 (그대로 남는다)" {
+  grid-columns: 1
+  spec: "spec.md\n무엇이 맞는 동작인가"
+  plan: "plan.md · tasks.md\n계획과 체크 표시"
+  prog: "progress.md\n한 일·결정 이유·다음 할 일"
+  git: "git 커밋\n변경 이력"
+}
+w1 -> cmp -> w2
+files -> w2: "읽어서 복구"
+w1 -> files: "계속 기록"
+files.prog.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

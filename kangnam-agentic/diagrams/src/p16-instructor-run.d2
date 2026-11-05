@@ -1,0 +1,19 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 200
+vertical-gap: 130
+cust: "실제 고객 페르소나\n(강사 자료)"
+agent: "평가 에이전트\n브라우저로 클릭"
+board: "GitHub 이슈\n프로젝트 보드"
+x: "" {style.opacity: 0; style.stroke-width: 0}
+app: "강사 운영 중인\n서비스"
+fix: "워커 수정\nPR → 머지"
+cust -> agent: "주입"
+agent -> app: "눌러보기"
+agent -> board: "피드백"
+board -> fix
+fix -> app: "배포"
+agent.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

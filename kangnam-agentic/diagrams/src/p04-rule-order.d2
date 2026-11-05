@@ -1,0 +1,24 @@
+grid-rows: 2
+grid-columns: 5
+horizontal-gap: 150
+vertical-gap: 110
+call: "도구 호출\nrm -rf build"
+deny: "deny 규칙에\n맞는가?"
+ask: "ask 규칙에\n맞는가?"
+allow: "allow 규칙에\n맞는가?"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+x2: "" {style.opacity: 0; style.stroke-width: 0}
+block: "차단" {style.stroke: "#ff00ff"}
+prompt: "사용자에게\n묻기"
+run: "그냥 실행"
+mode: "권한 모드의\n기본 동작"
+call -> deny
+deny -> ask: "아니오"
+ask -> allow: "아니오"
+deny -> block: "예"
+ask -> prompt: "예"
+allow -> run: "예"
+allow -> mode: "아니오"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

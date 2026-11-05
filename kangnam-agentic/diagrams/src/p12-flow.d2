@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 110
+vertical-gap: 100
+a: "15 설계 대화\n격리·리뷰·CI·머지 규칙" {style.stroke: "#ff00ff"}
+b: "ADR-0003 + issue-flow 설계\n워크트리 · 스킬 · MCP · 상한"
+c: "사람 승인\n권한·블로커·상한 확인"
+f: "/goal로 이슈 하나\n완료 조건 + 상한 + 기록"
+e: "스모크\n스킬 호출 · MCP 연결 확인"
+d: "구현\n에이전트가 스킬·설정 작성"
+a -> b
+b -> c
+c -> d
+d -> e
+e -> f
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

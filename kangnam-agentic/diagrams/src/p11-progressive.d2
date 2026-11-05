@@ -1,0 +1,19 @@
+direction: right
+l1: "1단계 · 시작할 때" {
+  a: "name + description\n스킬당 약 100토큰"
+  note: "모든 스킬이\n항상 목록에 있음"
+}
+l2: "2단계 · 스킬을 고른 뒤" {
+  a: "SKILL.md 본문\n5,000토큰 안팎 권장"
+  note: "지침 전체가\n대화에 들어옴"
+}
+l3: "3단계 · 필요할 때만" {
+  a: "scripts · references\n크기 제한 없음"
+  note: "읽거나 실행한 만큼만\n컨텍스트에 쓰임"
+}
+l1 -> l2: "맞으면"
+l2 -> l3: "가리키면"
+l1.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

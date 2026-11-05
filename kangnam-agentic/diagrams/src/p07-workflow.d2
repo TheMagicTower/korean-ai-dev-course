@@ -1,0 +1,14 @@
+grid-rows: 2
+grid-columns: 2
+horizontal-gap: 190
+vertical-gap: 100
+plan: "1 계획\n스펙 · Task 분할" {style.stroke: "#ff00ff"}
+impl: "2 병렬 구현\n워커 A·B·C · 워크트리별"
+merge: "4 합치기\n충돌 해결 · 사람 승인"
+review: "3 리뷰 에이전트\n읽기 전용"
+plan -> impl: "나눠 줌"
+impl -> review: "브랜치별"
+review -> merge: "통과분만"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

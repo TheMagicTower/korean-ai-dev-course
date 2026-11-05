@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 110
+vertical-gap: 100
+a: "18단계 8 · Spec 개요\nv1이 막을 딴길·수용 기준" {style.stroke: "#ff00ff"}
+b: "18단계 13 · Task 분할\nTASKS.md 체크리스트"  {style.stroke: "#ff00ff"}
+c: "18단계 14 · 이슈 등록\n장치마다 이슈 한 건" {style.stroke: "#ff00ff"}
+f: "워크플로 7–8\n구현(테스트 먼저)·구현 리뷰"
+e: "워크플로 5–6\n구현 계획·계획 리뷰"
+d: "이슈 하나 · 워크플로 1–4\n분석·ADR 점검·스펙·스펙 리뷰"
+a -> b
+b -> c
+c -> d
+d -> e
+e -> f
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

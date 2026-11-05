@@ -1,0 +1,15 @@
+grid-rows: 3
+grid-columns: 2
+horizontal-gap: 220
+vertical-gap: 60
+m1: "메인 세션 · 창 A\n목표·계획·판단" {style.stroke: "#ff00ff"}
+s1: "서브에이전트 · 창 B\n파일 수십 개 읽기"
+m2: "요약만 쌓임" {style.stroke: "#ff00ff"}
+s2: "긴 테스트 로그"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+s3: "검색 결과 수백 줄"
+m1 -> s1: "맡긴다"
+s2 -> m2: "요약 반환"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

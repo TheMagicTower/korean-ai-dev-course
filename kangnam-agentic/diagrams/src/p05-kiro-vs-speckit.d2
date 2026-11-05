@@ -1,0 +1,19 @@
+grid-rows: 2
+grid-columns: 5
+horizontal-gap: 60
+vertical-gap: 90
+kh: "Kiro\n.kiro/specs/이름/" {style.stroke-width: 0; style.fill: transparent}
+r: "requirements.md\n사용자 스토리·EARS"
+d: "design.md\n구조·데이터 흐름"
+t: "tasks.md\n추적하는 Task 목록" {style.stroke: "#ff00ff"}
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+sh: "Spec Kit\nspecs/001-이름/" {style.stroke-width: 0; style.fill: transparent}
+c: "constitution.md\n프로젝트 원칙"
+s: "spec.md\n무엇을·왜"
+p: "plan.md\n기술 계획"
+k: "tasks.md\nTask 목록" {style.stroke: "#ff00ff"}
+r -> d -> t
+c -> s -> p -> k
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

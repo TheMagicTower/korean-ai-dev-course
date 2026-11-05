@@ -1,0 +1,14 @@
+direction: down
+model: "모델 호출\nmessages.create"
+check: "stop_reason ==\ntool_use ?"
+tool: "도구 실행\nread · edit · run"
+res: "tool_result를\nmessages에 추가"
+stop: "멈춤\nend_turn · 최대 횟수" {style.stroke: "#ff00ff"}
+model -> check
+check -> tool: "예"
+tool -> res
+res -> model: "다음 턴"
+check -> stop: "아니오"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

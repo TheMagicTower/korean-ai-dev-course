@@ -1,0 +1,19 @@
+direction: down
+code: "코드형" {
+  a: "Agent SDK 등으로\n직접 짠 루프"
+  b: "도구 호출·종료 조건을\n코드로 통제"
+}
+cfg: "설정형" {
+  c: "Claude Code·Codex 등 위에"
+  d: "규칙·훅·스킬·MCP\n권한·루프를 조합"
+}
+common: "공통으로 보여 줄 것" {
+  e: "구조도"
+  f: "같은 과제 실행 기록"
+}
+code -> common
+cfg -> common
+common.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

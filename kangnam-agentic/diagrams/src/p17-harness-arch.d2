@@ -1,0 +1,23 @@
+direction: right
+task: "목표·완료 조건\n(과제 문장)"
+core: "내 하네스" {
+  coord: "코디네이터\n또는 메인 루프"
+  worker: "워커\n(에이전트·서브에이전트)"
+  rules: "규칙·권한·훅"
+  tools: "스킬·MCP"
+  coord -> worker
+  rules -> worker
+  tools -> worker
+}
+check: "점검" {
+  t: "테스트"
+  s: "브라우저 스모크"
+}
+rec: "기록\n진행 파일·로그"
+task -> core
+core -> check
+check -> rec
+core.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

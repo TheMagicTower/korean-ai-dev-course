@@ -1,0 +1,21 @@
+direction: right
+a: "코딩" {
+  a1: "사람이 쓰던 속도"
+}
+b: "에이전트 병렬" {
+  b1: "PR 수십~수천 개"
+}
+c: "CI · 머지" {
+  c1: "PR마다 전체 테스트\n머지마다 다시 검증"
+}
+d: "검증" {
+  d1: "초록불이 진짜인가\n(스모크)"
+}
+a -> b
+b -> c
+c -> d
+c.style.stroke: "#ff00ff"
+d.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

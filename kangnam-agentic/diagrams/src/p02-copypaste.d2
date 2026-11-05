@@ -1,0 +1,17 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 210
+vertical-gap: 90
+q: "사람\n질문 · 코드 복사"
+gpt: "ChatGPT 웹 화면\n코드가 담긴 답" {style.stroke: "#ff00ff"}
+run: "사람\n붙여넣고 실행"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+err: "사람\n오류 · 결과 복사"
+x2: "" {style.opacity: 0; style.stroke-width: 0}
+q -> gpt: "붙여넣기"
+gpt -> run: "복사"
+run -> err
+err -> gpt: "다시"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

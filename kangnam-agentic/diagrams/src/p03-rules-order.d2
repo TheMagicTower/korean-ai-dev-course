@@ -1,0 +1,17 @@
+direction: down
+call: "도구 호출  예: Bash(rm -rf build)"
+r: "" {
+  grid-columns: 3
+  style.stroke: transparent
+  deny: "1 deny\n일치하면 차단" {style.stroke: "#ff00ff"}
+  ask: "2 ask\n일치하면 확인"
+  allow: "3 allow\n일치하면 실행"
+}
+none: "일치 없음 → 모드의 기본값"
+call -> r
+r -> none
+rule: "첫 일치가 결과를 정한다 · allow는 deny의 예외가 될 수 없다"
+none -> rule
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 28

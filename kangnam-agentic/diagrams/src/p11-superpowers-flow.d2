@@ -1,0 +1,25 @@
+grid-rows: 3
+grid-columns: 4
+horizontal-gap: 80
+vertical-gap: 70
+z0: "" { style.opacity: 0 }
+z1: "" { style.opacity: 0 }
+z2: "" { style.opacity: 0 }
+t: "test-driven-\ndevelopment\n실패 테스트 먼저"
+b: "brainstorming\n질문으로 설계 확정" { style.stroke: "#ff00ff" }
+w: "using-git-worktrees\n격리된 작업 공간"
+p: "writing-plans\n2~5분짜리 Task로 쪼갬"
+s: "subagent-driven-\ndevelopment\nTask마다 새 에이전트" { style.stroke: "#ff00ff" }
+z8: "" { style.opacity: 0 }
+z9: "" { style.opacity: 0 }
+f: "finishing-a-\ndevelopment-branch\n머지·PR·정리"
+r: "requesting-\ncode-review\nTask마다 리뷰"
+b -> w
+w -> p
+p -> s
+s <-> t: "구현마다"
+s -> r
+r -> f
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

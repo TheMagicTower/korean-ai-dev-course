@@ -1,0 +1,16 @@
+grid-rows: 2
+grid-columns: 2
+horizontal-gap: 190
+vertical-gap: 130
+coord2: "코디네이터\n목표·완료 조건"
+workers: "워커 A·B·C\n워크트리별"
+ledger: "이슈 원장\n실행 기록"
+checks: "점검 3겹\n테스트·스모크·페르소나"
+coord2 -> workers: "배치"
+workers -> checks: "PR마다"
+checks -> ledger: "결과·증거"
+ledger -> coord2: "다음 배치"
+checks.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

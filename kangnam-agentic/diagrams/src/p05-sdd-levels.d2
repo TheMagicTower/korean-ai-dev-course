@@ -1,0 +1,22 @@
+grid-rows: 3
+grid-columns: 3
+horizontal-gap: 110
+vertical-gap: 90
+l1: "1 · spec-first\n명세 우선" {style.stroke: "#ff00ff"}
+d1: "작업 전에 스펙을 쓴다\n끝나면 스펙은 역할 끝"
+note: "Böckeler 확인\nKiro·Spec Kit은 대체로 1수준" {style.stroke-dash: 4}
+l2: "2 · spec-anchored\n명세 유지"
+d2: "스펙을 남겨 둔다\n고칠 때 스펙부터 고친다"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+l3: "3 · spec-as-source\n명세가 곧 코드"
+d3: "사람은 스펙만 고친다\n코드는 스펙에서 생성"
+x2: "" {style.opacity: 0; style.stroke-width: 0}
+l1 -> d1
+d1 -> note: { style.stroke-dash: 4 }
+l2 -> d2
+l3 -> d3
+l1 -> l2: "수명 연장"
+l2 -> l3: "코드가 생성물"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

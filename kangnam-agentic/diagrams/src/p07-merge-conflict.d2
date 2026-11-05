@@ -1,0 +1,17 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 130
+vertical-gap: 90
+w1: "워크트리 A\nauth.php 수정"
+main: "main 브랜치"
+conf: "같은 줄 충돌" {style.stroke: "#ff00ff"}
+w2: "워크트리 B\nauth.php 수정"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+human: "사람이 판단\n또는 미리 분할"
+w1 -> main: "먼저 합침 ✓"
+w2 -> main: "나중에 합침"
+main -> conf
+conf -> human
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

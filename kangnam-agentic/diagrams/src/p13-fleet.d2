@@ -1,0 +1,16 @@
+direction: right
+dev: "개발자 1명\n목표·기준·판정" 
+dev.style.stroke: "#ff00ff"
+fleet: "하네스 여러 개 · 워크트리마다 하나" {
+  a: "하네스 A\n어려운 설계 · 고성능 모델"
+  b: "하네스 B\n기능 구현 · 중간 모델"
+  c: "하네스 C\n문서·테스트 · 저가 모델"
+  d: "하네스 D\n같은 작업을 다른 모델로 비교"
+}
+out: "PR · CI · 이슈" 
+dev -> fleet: "일을 나눈다"
+fleet -> out: "결과를 올린다"
+out -> dev: "검토·판정"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

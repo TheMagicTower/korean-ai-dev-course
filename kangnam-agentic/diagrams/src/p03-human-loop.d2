@@ -1,0 +1,18 @@
+direction: down
+chat: "2교시 · IDE 채팅의 루프 (한 바퀴마다 사람이 ‘계속’)" {
+  grid-columns: 2
+  q: "① 사람: 질문"
+  ans: "② AI: 답·수정안"
+  paste: "③ 사람: 붙여넣고 실행" {style.stroke: "#ff00ff"}
+  err: "④ 사람: 오류 복사 → ①" {style.stroke: "#ff00ff"}
+}
+next: "3교시 · 이 루프를 에이전트가 돈다" {
+  style.stroke: "#ff00ff"
+  grid-columns: 2
+  a: "도구를 직접 호출"
+  b: "결과를 스스로 읽음"
+}
+chat -> next: "누가 옮기나?"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 28

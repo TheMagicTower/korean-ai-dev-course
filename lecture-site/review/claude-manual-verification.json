@@ -1,0 +1,14 @@
+{
+  "verifiedAt": "2026-10-23T14:14:59.554Z",
+  "execution": "Claude web subscription Max; displayed model Sonnet 5.5",
+  "transport": "kit generated prompt copied into Claude new chat; response copy button -> manual JSON import",
+  "negativeCheck": "missing beneficiary rejected; corrected response accepted",
+  "source": "manual-import",
+  "provider": "manual",
+  "state": "done",
+  "events": 5,
+  "recordSHA256": "4c785e6c71eca722e1c5ad8366c050a02095401b6512d9a5c98162f95e899ac3",
+  "replay": "public /office/ 1/5 -> 4/5 review -> 5/5 completed",
+  "apiOrSDKUsed": false,
+  "limitations": "No public-data lookup or user trial was performed; imported source is self-reported, not cryptographically authenticated."
+}

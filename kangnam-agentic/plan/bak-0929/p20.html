@@ -1,0 +1,165 @@
+<!-- 20교시 · 마무리 (60분) -->
+
+<!-- 01 표지 -->
+<section class="slide section-slide" data-title="표지">
+  <div class="big">5회차 · 20교시</div>
+  <h1>마무리와<br>앞으로 볼 것</h1>
+  <p class="lead">처음 그린 지도를 다시 펴고, 이 변화를 계속 따라가는 법을 정리합니다.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-cc-changelog.jpg" alt="Claude Code CHANGELOG 화면"></div><figcaption><b>CHANGELOG</b><span>Claude Code</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p20-anthropic-engineering.jpg" alt="Anthropic Engineering 블로그 첫 화면"></div><figcaption><b>Engineering</b><span>Anthropic</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p20-github-changelog.jpg" alt="GitHub Changelog 화면"></div><figcaption><b>Changelog</b><span>GitHub</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p20-cc-docs-overview.jpg" alt="Claude Code 문서 개요 화면"></div><figcaption><b>Docs</b><span>Claude Code</span></figcaption></figure>
+  </div>
+  <aside>마지막 교시입니다. 발표를 들으셨으니 이제 5주 전에 그린 지도를 다시 펴 보겠습니다. 그리고 이 분야는 매주 바뀌므로 수업이 끝난 뒤에도 따라갈 수 있게, 제가 실제로 읽는 1차 출처를 알려 드립니다. 아래 네 장이 그 출처의 실제 화면입니다.</aside>
+</section>
+
+<!-- 02 연표 -->
+<section class="slide" data-title="5년과 5주">
+  <div class="tag"><b>2021 → 2026</b><span class="sep"></span>1교시 연표 · 다시 보기</div>
+  <h2>1교시의 연표: 네 시대를 지나왔습니다</h2>
+  <div class="diagram pele-theme">{{svg:timeline-4eras}}</div>
+  <p class="under">5주 동안 <b>제안하는 AI에서 공장이 된 AI까지</b> 한 번씩 손으로 만져 보았습니다.</p>
+  <aside>1교시에서 본 연표입니다. 제안하는 AI, 일하는 AI, 오래 일하는 AI, 공장이 된 AI의 네 시대였습니다. 5주 동안 이 순서대로 최소 루프, 스펙과 테스트, MCP와 스킬, 코디네이터와 스모크를 하네스에 하나씩 더했습니다. 오늘 발표는 그 마지막 단계에서 여러분이 직접 만든 팩토리였습니다.</aside>
+</section>
+
+<!-- 03 두 축 -->
+<section class="slide" data-title="두 개의 축 다시">
+  <div class="tag"><b>1교시 다시 보기</b><span class="sep"></span>막는 장치와 ‘계속’</div>
+  <h2>‘막는 장치’와 ‘계속’ 두 축에서 내 하네스의 빈 곳을 찾습니다</h2>
+  <div class="diagram">{{svg:two-axes}}</div>
+  <p class="under">내 하네스의 장치를 <b>두 축 위에 표시</b>해 보세요. 비어 있는 쪽이 다음 과제입니다.</p>
+  <aside>1교시의 두 축입니다. 위 축은 에이전트의 실수를 막는 장치이고, 아래 축은 사람이 누르던 계속이 사라진 역사입니다. 발표를 들으며 여러분의 하네스가 어느 쪽에 치우쳐 있는지 생각해 보세요. 막는 장치는 많은데 사람이 계속 눌러야 한다면 아래 축이 비어 있는 것이고, 오래 돌아가는데 점검이 약하다면 위 축이 비어 있는 것입니다. 비어 있는 쪽이 다음에 할 일입니다.</aside>
+</section>
+
+<!-- 04 장치 순서 -->
+<section class="slide" data-title="장치가 쌓인 순서">
+  <div class="tag"><b>정리</b><span class="sep"></span>각 장치는 앞 단계의 실패에서 나왔다</div>
+  <h2>장치는 앞 단계의 실패에서 나왔습니다</h2>
+  <div class="diagram">{{svg:stack-order}}</div>
+  <p class="under">ADR(설계 결정 기록)과 스모크(간단한 동작 확인)는 <b>규모가 커진 뒤</b> 붙은 장치입니다.</p>
+  <aside>장치가 쌓인 순서입니다. 날짜가 아니라 문제와 해결의 논리로 읽어야 합니다. 사람이 옮기는 일이 병목이라 일하는 AI가 나왔고, 딴길로 새니 스펙과 테스트가 붙었고, 승인 피로가 자동 승인과 하네스로, 규모가 커지자 ADR과 머지 큐와 스모크가 나왔습니다. 오늘 여러분의 발표에서 실패에서 장치가 나오는 같은 과정을 보았습니다. 새 장치가 나오면 어떤 실패를 풀려는지 먼저 물어보세요.</aside>
+</section>
+
+<!-- 05 병목 이동 -->
+<section class="slide" data-title="병목의 이동">
+  <div class="tag"><b>개념</b><span class="sep"></span>병목은 타이핑에서 판정으로 옮겨 갔다</div>
+  <h2>병목은 타이핑에서 결과 판정으로 옮겨 갔습니다</h2>
+  <div class="diagram">{{svg:p20-bottleneck}}</div>
+  <p class="under">코드를 쓰는 속도는 더 이상 병목이 아닙니다. <b>맡기고, 믿을 수 있게 만드는 일</b>이 병목입니다.</p>
+  <aside>5년 동안 병목은 한 칸씩 오른쪽으로 옮겨 갔습니다. 처음에는 타이핑, 다음에는 답을 붙여넣고 실행하는 일, 그다음은 승인 누르기, 딴길로 새는 에이전트를 붙드는 일, 규모가 커진 뒤에는 검증과 병합, 지금은 결과가 맞는지 판정하는 일입니다. 병목이 옮겨 갈 때마다 새 장치가 나왔습니다. 앞으로도 병목이 어디로 옮겨 가는지 보면 다음에 나올 장치를 짐작할 수 있습니다.</aside>
+</section>
+
+<!-- 06 개발자의 자리 -->
+<section class="slide" data-title="개발자의 자리">
+  <div class="tag"><b>개념</b><span class="sep"></span>개발자의 역할 변화</div>
+  <h2>코드를 쓰던 사람에서, 장치를 설계하는 사람으로</h2>
+  <div class="diagram">{{svg:developer-role}}</div>
+  <p class="under">여러분은 이미 <b>목표 정하기, 장치 설계, 하네스 조립, 결과 판정</b>을 한 번씩 해 보았습니다.</p>
+  <aside>1교시의 마지막 장입니다. 2021년의 개발자는 코드를 쓰고 실행하고 리뷰했습니다. 지금은 목표와 완료 조건을 정하고, 권한과 스펙과 테스트를 설계하고, 하네스를 조립하고, 결과를 판정합니다. 코드를 덜 쓰는 대신 판단할 일이 늘었습니다. 오늘 발표한 여러분이 이 네 가지를 모두 해 본 사람들입니다. 직접 만들어 본 경험이 앞으로 도구가 바뀌어도 남는 자산입니다.</aside>
+</section>
+
+<!-- 07 계속 키우는 법 -->
+<section class="slide" data-title="계속 키우는 법">
+  <div class="tag"><b>다음 단계</b><span class="sep"></span>수업 이후에도 하네스를 키우는 루프</div>
+  <h2>하네스는 이 루프로 계속 자랍니다</h2>
+  <div class="diagram">{{svg:p20-grow-loop}}</div>
+  <p class="under">한 번에 장치 <b>하나만</b> 더하고, 같은 과제로 다시 재서 <b>효과를 확인</b>합니다.</p>
+  <aside>수업이 끝난 뒤에도 쓸 수 있는 루프입니다. 같은 과제를 돌려 토큰, 시간, 성공 여부를 기록하고, 실패 하나를 골라 원인을 찾고, 장치 하나를 더한 뒤 다시 돌립니다. 장치를 한꺼번에 여러 개 더하면 무엇이 효과였는지 알 수 없습니다. 오늘 발표에서 쓴 기록 양식이 그대로 이 루프의 기록장입니다. 새 도구가 나오면 같은 과제로 한 번 돌려 비교해 보세요.</aside>
+</section>
+
+<!-- 08 출처 1: CHANGELOG·문서 -->
+<section class="slide" data-title="앞으로 볼 것 1">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 1 · 도구의 기록</div>
+  <h2>CHANGELOG는 새 기능을 가장 먼저 알려 주지만, 이유는 말해 주지 않습니다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>github.com/anthropics/claude-code/blob/main/CHANGELOG.md</span></div><img src="assets/captures/page-cc-changelog.jpg" alt="Claude Code CHANGELOG 화면"></div>
+      <div class="kind">저장소 파일 화면 캡처 · 9620줄</div>
+      <div class="ko">Claude Code의 <b>버전별 변경 내역</b> 파일. 새 기능이 먼저 보입니다.</div>
+    </div>
+    <div class="pmi col">
+      <div class="p"><b>가장 빠르고 정확하다</b>. 기능이 어느 버전에 들어왔는지 순서와 배포 기록으로 확인한다.</div>
+      <div class="m"><b>9천 줄이 넘어</b> 다 읽기 어렵고, 한 줄 메모라 <b>왜 바꿨는지</b>·쓰는 법은 없다.</div>
+      <div class="i">관심 기능 이름으로 <b>검색</b>해 날짜를 확인하는 용도. 사용법은 공식 문서로 넘어간다.</div>
+    </div>
+  </div>
+  <aside>가장 먼저 볼 곳은 CHANGELOG입니다. 이 과정의 연표도 CHANGELOG의 버전과 배포일로 확인했습니다. 화면을 찍은 시점에 파일이 9천 줄이 넘고 버전이 2.1.312였습니다. 장점은 가장 빠르고 정확하다는 것, 단점은 길고 이유가 없다는 것입니다. 그래서 전부 읽지 말고 관심 있는 기능 이름으로 검색하는 용도로 씁니다. 날짜가 필요하면 CHANGELOG의 버전 순서와 배포 기록으로 확인하는 것이 정확합니다.</aside>
+</section>
+
+<section class="slide" data-title="앞으로 볼 것 2">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 2 · 공식 문서</div>
+  <h2>기능을 어떻게 쓰는지는 공식 문서에서 읽습니다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/overview</span></div><img src="assets/captures/p20-cc-docs-overview.jpg" alt="Claude Code 문서 개요 화면"></div>
+      <div class="kind">공식 문서 화면 캡처</div>
+      <div class="ko">Claude Code <b>공식 문서</b> 첫 화면. 기능의 사용법을 여기서 읽습니다.</div>
+    </div>
+    <div class="pmi col">
+      <div class="p">기능의 <b>사용법과 설정 방법</b>이 정리되어 있어 CHANGELOG에서 찾은 기능을 바로 따라 해 볼 수 있다.</div>
+      <div class="m">문서는 <b>지금 상태</b>만 보여 준다. 언제 바뀌었는지는 CHANGELOG로 따로 확인해야 한다.</div>
+      <div class="i">CHANGELOG에서 기능을 <b>찾고</b>, 공식 문서에서 <b>쓰는 법을 읽는</b> 두 단계로 짝지어 본다.</div>
+    </div>
+  </div>
+  <aside>기능이 CHANGELOG에서 보이면 공식 문서에서 사용법을 읽습니다. 장점은 사용법과 설정이 정리되어 있다는 것입니다. 단점은 문서가 현재 상태만 보여 주기 때문에 언제 바뀌었는지는 CHANGELOG로 따로 확인해야 한다는 것입니다. 두 곳을 짝지어 보는 습관을 들여 주세요.</aside>
+</section>
+
+<section class="slide" data-title="앞으로 볼 것 3">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 3 · 만든 사람들의 글</div>
+  <h2>설계 이유와 실패담은 엔지니어링 블로그에 있지만, 최신 기능표는 아닙니다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering</span></div><img src="assets/captures/p20-anthropic-engineering.jpg" alt="Anthropic Engineering 블로그 첫 화면"></div>
+      <div class="kind">공식 블로그 화면 캡처</div>
+      <div class="ko">Anthropic이 에이전트를 만들고 평가·운영하는 법을 직접 쓴 <b>엔지니어링 블로그</b>.</div>
+    </div>
+    <div class="pmi col">
+      <div class="p"><b>왜 그렇게 만들었는지</b>를 만든 사람이 직접 쓴다. 이 과정의 하네스 글과 Scion 사례도 여기서 나왔다.</div>
+      <div class="m">주제별 글이라 <b>기능 목록·최신 변경</b>을 알려 주지는 않는다. 한 회사의 시각이다.</div>
+      <div class="i">다른 회사의 글과 <b>두세 곳을 같이 보면</b> 어디가 같은 방향으로 움직이는지 보인다.</div>
+    </div>
+  </div>
+  <aside>셋째는 만든 사람들의 글입니다. Anthropic Engineering 블로그는 에이전트를 어떻게 만들고 평가하고 운영하는지 직접 적습니다. 이 과정에서 본 하네스 글과 Scion 사례도 여기서 나왔습니다. 장점은 설계 이유를 알 수 있다는 것입니다. 단점은 주제별 글이라 최신 변경을 알려 주지 않고 한 회사의 시각이라는 것입니다. 오늘 이후 새 글이 올라왔는지는 직접 열어 확인해 주세요.</aside>
+</section>
+
+<section class="slide" data-title="앞으로 볼 것 4">
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 4 · 다른 회사의 변경 기록</div>
+  <h2>GitHub Changelog로 Copilot·Actions의 변경을 날짜별로 비교해 봅니다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>github.blog/changelog</span></div><img src="assets/captures/p20-github-changelog.jpg" alt="GitHub Changelog 화면"></div>
+      <div class="kind">공식 변경 기록 화면 캡처</div>
+      <div class="ko">GitHub 제품(Copilot·Actions 등)의 <b>변경이 날짜별로</b> 올라오는 공식 기록.</div>
+    </div>
+    <div class="pmi col">
+      <div class="p"><b>날짜별</b>로 올라와 Copilot·Actions의 변화 시점을 정확히 알 수 있다.</div>
+      <div class="m"><b>GitHub 제품만</b> 다룬다. Claude Code 같은 다른 도구의 변경은 여기서 알 수 없다.</div>
+      <div class="i">CHANGELOG와 <b>나란히 읽으면</b> 두 도구가 같은 시기에 같은 방향으로 움직이는지 보인다.</div>
+    </div>
+  </div>
+  <aside>넷째는 GitHub Changelog입니다. Copilot과 Actions의 변경이 날짜별로 올라옵니다. 장점은 날짜가 분명하다는 것입니다. 단점은 GitHub 제품만 다룬다는 것입니다. Claude Code의 CHANGELOG와 나란히 읽으면 어디가 같은 방향으로 움직이는지가 보입니다.</aside>
+</section>
+
+<!-- 10 출처 읽는 법 -->
+<section class="slide" data-title="출처 읽는 법">
+  <div class="tag"><b>읽는 법</b><span class="sep"></span>1차 출처에서 멀어질수록 다시 확인</div>
+  <h2>출처는 가까운 쪽부터 믿습니다</h2>
+  <div class="diagram">{{svg:p20-source-ladder}}</div>
+  <p class="under">소문을 들으면 <b>CHANGELOG와 공식 글에서 같은 내용을 찾아</b> 날짜를 확인합니다.</p>
+  <aside>출처 읽는 순서입니다. 1차 출처는 CHANGELOG, 공식 문서, 엔지니어링 블로그, 논문과 저장소 README입니다. 해설 글과 영상은 이해에는 좋지만 틀리기도 합니다. SNS 요약은 가장 빠르지만 날짜와 범위가 자주 바뀝니다. 이 과정의 연표에서도 서사와 실제 날짜가 다른 곳이 여럿 있었습니다. 새 기능을 들으면 1차 출처에서 같은 내용을 찾고 날짜를 확인하는 습관을 들여 주세요.</aside>
+</section>
+
+<!-- 11 수료 -->
+<section class="slide section-slide" data-title="수료 인사">
+  <div class="big">5회차 · 마무리</div>
+  <h1>수고하셨습니다</h1>
+  <p class="lead">코드를 쓰던 사람에서, 일을 맡기고 결과를 믿을 수 있게 만드는 사람으로.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/copilot-2021.jpg" alt="2021 Copilot 발표 화면"></div><figcaption><b>2021</b><span>자동완성</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/claude-code-2025.jpg" alt="Claude Code 2025 시작 화면"></div><figcaption><b>2025</b><span>터미널 에이전트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="하네스 글 화면"></div><figcaption><b>2026</b><span>하네스</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/orca-2026.jpg" alt="Orca 병렬 에이전트 화면"></div><figcaption><b>2026</b><span>팩토리</span></figcaption></figure>
+  </div>
+  <aside>5주 동안 수고 많으셨습니다. 2021년에 다음 줄을 제안하던 AI가 오늘은 여러분의 하네스 안에서 일을 합니다. 도구 이름은 곧 바뀌겠지만, 목표를 정하고 장치를 설계하고 결과를 판정하는 능력은 남습니다. 오늘 발표한 하네스를 계속 키워 주세요. 질문이 있으면 수업 후에도 편하게 연락해 주시고, 마지막으로 강의 평가를 부탁드립니다.</aside>
+</section>

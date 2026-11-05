@@ -1,0 +1,351 @@
+<!-- 8교시 · 실습 2 · 과제 2 하네스 v1: 딴길 방지 (60분, 16장). 2회차 2026-11-12. 데모 코드는 실제로 실행해 확인한 것. -->
+
+<!-- 01 표지 -->
+<section class="slide section-slide" data-title="표지">
+  <div class="tag"><b>2회차 · 8교시</b><span class="sep"></span>실습 2 · 과제 2 · 2026-11-12</div>
+  <div class="big">실습 2 · 과제 2</div>
+  <h1>하네스 v1:<br>딴길 방지</h1>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-speckit.jpg" alt="GitHub Spec Kit 발표 글"></div><figcaption><b>스펙</b><span>Spec Kit</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p08-best-check.jpg" alt="Claude Code 모범 사례: 통과·실패를 돌려주는 검사를 준다"></div><figcaption><b>완료 기준</b><span>테스트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p08-hook-protect.jpg" alt="Claude Code 훅 가이드: 보호할 파일 편집 막기"></div><figcaption><b>보호</b><span>훅</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p08-hook-compact.jpg" alt="Claude Code 훅 가이드: 압축 뒤 맥락 다시 넣기"></div><figcaption><b>압축 대비</b><span>진행 파일</span></figcaption></figure>
+  </div>
+  <aside>오늘은 5교시부터 7교시까지 들은 내용을 직접 손으로 해 보는 시간입니다. 기능 하나를 스펙에서 시작해 Task 목록, 테스트, 구현, 리뷰까지 끌고 가 봅니다. 그 과정에서 에이전트가 딴길로 새지 못하게 하는 장치를 하나씩 하네스에 붙입니다. 이것이 과제 2, 하네스 v1입니다. 아래 네 장은 오늘 쓸 도구들의 실제 문서 화면입니다. 스펙, 테스트라는 완료 기준, 테스트 보호 훅, 압축 대비 진행 파일 순서로 만납니다.</aside>
+</section>
+
+<!-- 02 딴길의 네 가지 -->
+<section class="slide" data-title="딴길과 방어">
+  <div class="tag"><b>5~7교시 복습</b><span class="sep"></span>목표 표류 · 일찍 멈춤 · 테스트 조작 · 압축 망각</div>
+  <h2>에이전트가 딴길로 새는 네 가지 방식마다 방어가 하나씩 있다</h2>
+  <div class="diagram">{{svg:p08-guards}}</div>
+  <p class="under">오늘 하네스(에이전트를 감싼 안전장치)에 붙일 것은 <b>스펙·Task, 테스트 완료 기준, 테스트 보호, 진행 파일</b> 네 가지입니다. <span class="next">→ 5~7교시</span></p>
+  <aside>5교시에서 에이전트가 시키지 않은 일을 하는 목표 표류와, 압축 때 맥락이 사라지는 문제를 봤습니다. 6교시에서는 에이전트가 테스트를 고쳐서 통과시키는 문제를 봤고, 1교시에서는 너무 일찍 다 했다고 멈추는 문제를 봤습니다. 이 그림은 그 네 가지 실패를 왼쪽에, 오늘 붙일 방어를 오른쪽에 놓은 것입니다. 그중에서도 테스트 파일 보호가 가장 빠뜨리기 쉬워서 강조해 두었습니다. 오늘 실습이 끝나면 여러분의 하네스가 이 네 방어를 모두 갖춥니다.</aside>
+</section>
+
+<!-- 03 실습 흐름 -->
+<section class="slide" data-title="오늘의 흐름">
+  <div class="tag"><b>실습 흐름</b><span class="sep"></span>스펙 → Task → 테스트 먼저 → 구현 → 리뷰</div>
+  <h2>다섯 단계를 순서대로: 스펙, Task, 테스트 먼저, 구현, 리뷰</h2>
+  <div class="diagram">{{svg:p08-flow}}</div>
+  <p class="under">순서를 지키는 것이 핵심입니다. 특히 <b>③에서 실패를 확인하고 커밋</b>한 뒤에만 ④로 넘어갑니다. <span class="next">→ 6교시</span></p>
+  <aside>오늘 만들 기능은 할 일 앱에 마감 초과 목록을 추가하는 것입니다. 기능은 일부러 작게 골랐습니다. 중요한 것은 기능이 아니라 순서입니다. 스펙을 쓰고, Task로 쪼개고, 테스트를 먼저 쓰고 실패하는 것을 눈으로 확인합니다. 그 테스트를 커밋한 다음에야 구현을 시작합니다. 마지막으로 리뷰어 서브에이전트가 스펙 기준으로 검토해서 지적하면 구현으로 돌아갑니다. 여러분은 자기 과제 프로젝트에 같은 순서를 적용하면 됩니다.</aside>
+</section>
+
+<!-- 04 준비물 -->
+<section class="slide" data-title="준비물">
+  <div class="tag"><b>준비물</b><span class="sep"></span>데모 저장소 구조 · 내 프로젝트로 해도 됨</div>
+  <h2>준비물은 테스트가 도는 작은 저장소 하나</h2>
+  <div class="row">
+    <div class="diagram">{{svg:p08-repo}}</div>
+    <div class="points">
+      <ul>
+        <li>에이전트 도구 하나(Claude Code, Codex CLI, Gemini CLI 등)와 git</li>
+        <li>테스트가 이미 도는 프로젝트. 데모는 파이썬 + pytest(파이썬 테스트 도구)</li>
+        <li>과제 1의 하네스 v0에 <b class="hl">추가</b>하는 방식으로 진행</li>
+      </ul>
+      <div class="next">굵은 테두리가 오늘 새로 만들 파일</div>
+    </div>
+  </div>
+  <aside>데모는 파이썬 할 일 앱입니다. Task 클래스와 목록을 담는 Store가 있고 테스트가 하나 있습니다. 여러분은 이 데모를 그대로 따라 해도 되고, 과제 1에서 정한 자기 프로젝트에 같은 구조를 적용해도 됩니다. 언어는 상관없지만 테스트 명령 하나로 통과와 실패를 알 수 있어야 합니다. 도식에서 굵은 테두리가 오늘 새로 만들 파일입니다. 스펙, Task 목록, 진행 파일, 새 테스트, 그리고 .claude 폴더의 설정입니다. 설정형 트랙이 아닌 분은 .claude 폴더를 자기 하네스의 규칙 파일로 바꿔 읽으시면 됩니다.</aside>
+</section>
+
+<!-- 05 단계 1: 스펙 -->
+<section class="slide" data-title="단계 1 스펙">
+  <div class="tag"><b>단계 1 · 스펙</b><span class="sep"></span>Kiro 2025-07-14 · requirements.md → design.md → tasks.md</div>
+  <h2>단계 1: 요구사항에 번호를 붙인다</h2>
+  <div class="row flip">
+    <div class="term"><span class="dim"># docs/spec-overdue.md</span>
+<b>SPEC-001 마감 초과 목록</b>
+
+<span class="ok">R1</span> overdue(today)는 due &lt; today 이고
+   done=False 인 Task를 반환 <span class="dim">(마감 지난 미완료)</span>
+<span class="ok">R2</span> 마감일이 없는 Task는 제외
+<span class="ok">R3</span> due == today 는 제외(당일은 초과 아님)
+<span class="ok">R4</span> due 오래된 순으로 정렬
+
+<span class="warn">범위 밖</span> CLI 옵션, 파일 형식, 알림
+<span class="warn">완료 기준</span> tests/test_overdue.py 통과
+          + 기존 테스트 통과</div>
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>kiro.dev/blog/introducing-kiro</span></div><img src="assets/captures/page-kiro.jpg" alt="Kiro 소개 글: 스펙과 훅"></div>
+      <div class="kind">Kiro 발표 글 화면 캡처 · 2025-07-14</div>
+      <div class="ko">에이전트형 코드 편집기 Kiro의 소개 글. 프로토타입을 실제 서비스로 옮기는 기능으로 <b>스펙(spec)과 훅(hook)</b>을 내세운다.</div>
+    </div>
+  </div>
+  <div class="pmi">
+    <div class="p">요구사항→설계→작업 순으로 <b>결정의 근거를 문서로 남기고</b>, 작업을 하나씩 돌려 단계별로 검증한다.</div>
+    <div class="m"><b>프리뷰·대기 목록</b> 단계이고 효과는 업체 주장일 뿐 측정 결과가 없다. 스펙이 코드와 <b>어긋날 수 있다</b>.</div>
+    <div class="i">스펙이 도구의 <b>기본 단계</b>가 됐다. 우리는 번호 붙은 마크다운 한 장으로 같은 효과를 낸다.</div>
+  </div>
+  <aside>스펙에서 가장 중요한 세 가지는 번호, 범위 밖, 완료 기준입니다. 요구사항마다 R1, R2처럼 번호를 붙이면 나중에 테스트와 리뷰가 그 번호를 가리킬 수 있습니다. 범위 밖을 적어 두면 에이전트가 시키지 않은 CLI 옵션을 만드는 것을 막을 수 있습니다. 완료 기준은 어느 테스트 파일이 통과하면 끝인지를 적습니다. 스펙을 처음부터 혼자 쓰기 어렵다면 Plan 모드에서 에이전트에게 초안을 쓰게 하고 여러분이 고치세요. 다만 R3 같은 경계 조건은 사람이 결정해야 합니다. Kiro의 장점은 결정의 근거를 문서로 남긴다는 것, 단점은 프리뷰 단계이고 효과가 업체 주장이며 스펙이 코드와 어긋날 수 있다는 것입니다. 의미는 스펙이 도구의 기본 단계가 되었다는 것입니다.</aside>
+</section>
+
+<!-- 06 단계 2: Task -->
+<section class="slide" data-title="단계 2 Task">
+  <div class="tag"><b>단계 2 · Task 목록</b><span class="sep"></span>GitHub Spec Kit 2025-09-02 · /specify → /plan → /tasks</div>
+  <h2>단계 2: 스펙을 Task 목록으로 쪼갠다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit</span></div><img src="assets/captures/page-speckit.jpg" alt="GitHub Spec Kit 발표 글"></div>
+      <div class="kind">Spec Kit 발표 글 화면 캡처 · 2025-09-02</div>
+      <div class="ko">GitHub 블로그의 Spec Kit 발표 글. 쓰던 AI 도구 그대로 <b>스펙 중심 개발</b>을 하게 해 주는 오픈소스 도구 모음을 소개.</div>
+    </div>
+    <div class="term"><span class="dim"># TASKS.md</span>
+<span class="ok">[x]</span> T1 spec 작성·승인
+<span class="dim">[ ]</span> T2 test_overdue.py 작성
+     (R1~R4, 실패 확인) → 커밋
+<span class="dim">[ ]</span> T3 Store.overdue 구현
+     (T2 테스트 통과)
+<span class="dim">[ ]</span> T4 reviewer 검토
+     → 지적 반영
+
+<span class="acc">Task마다 끝 조건이 한 줄</span></div>
+  </div>
+  <div class="pmi">
+    <div class="p">Copilot·Claude Code·Gemini CLI에서 쓰는 <b>오픈소스</b>. 작은 테스트 가능 Task로 쪼개 검토가 쉽다.</div>
+    <div class="m">저자들도 <b>실험</b>이라 부른다. 단계마다 산출물을 <b>사람이 확인</b>해야 하고, 복잡한 기존 시스템은 별도 맥락 설계가 필요하다.</div>
+    <div class="i">Task 분해가 도구 기능이 됐다. 우리는 <b>TASKS.md 한 파일</b>로 같은 효과를 낸다.</div>
+  </div>
+  <aside>Task 목록은 에이전트가 한 번에 한 칸만 보게 하는 장치입니다. 각 Task에는 끝났는지 판정할 조건이 한 줄씩 붙어 있습니다. T2는 테스트가 실패하는 것을 확인하고 커밋하는 것, T3는 T2의 테스트가 통과하는 것입니다. Spec Kit의 장점은 쓰던 도구 그대로 오픈소스로 쓴다는 것, 단점은 저자들도 실험이라 부르고 단계마다 사람이 확인해야 한다는 것입니다. Kiro와 Spec Kit은 이 단계를 도구 안에 넣었고, 우리는 마크다운 파일 하나로 같은 효과를 냅니다. 에이전트에게는 TASKS.md의 체크 안 된 첫 항목만 하라고 지시하고, 끝나면 체크를 직접 하게 합니다. 이 체크 표시가 다음 장 진행 파일과 이어집니다.</aside>
+</section>
+
+<!-- 07 단계 3: 테스트 먼저 -->
+<section class="slide" data-title="단계 3 테스트 먼저">
+  <div class="tag"><b>단계 3 · 테스트 먼저</b><span class="sep"></span>Claude Code 모범 사례 · 2026-10-28 확인</div>
+  <h2>단계 3: 구현보다 먼저, 실패하는 테스트를 커밋한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/best-practices</span></div><img src="assets/captures/p08-best-check.jpg" alt="Claude Code 모범 사례: 통과 또는 실패를 돌려주는 검사를 준다"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 모범 사례 문서. 에이전트에게 <b>통과·실패를 돌려주는 검사</b>(테스트·린터 등)를 주면 스스로 고치고 다시 돌린다는 대목.</div>
+    </div>
+    <div class="term"><span class="dim">$</span> pytest -q
+<span class="warn">FAILED</span> test_overdue_excludes_done_and_no_due
+<span class="warn">FAILED</span> test_due_today_is_not_overdue
+<span class="warn">FAILED</span> test_sorted_oldest_first
+<span class="warn">3 failed</span>, 1 passed <span class="dim">← 구현 전이라 실패가 정상</span>
+
+<span class="dim">$</span> git commit -m "test: SPEC-001
+  실패하는 테스트 (R1-R4)"
+<span class="ok">✓</span> 빨간 테스트가 기록에 남음</div>
+  </div>
+  <aside>이 단계가 과제의 핵심입니다. 테스트를 쓰고, 구현이 없는 상태에서 돌려서 실제로 실패하는지 확인합니다. 저는 여기서 AttributeError가 났습니다. overdue 메서드가 아직 없기 때문에 당연합니다. 실패한 이유가 맞는지 보는 것이 중요합니다. 그다음 테스트만 따로 커밋합니다. 이 커밋이 나중에 에이전트가 테스트를 고치지 않았다는 증거가 됩니다. 공식 문서도 통과 또는 실패를 돌려주는 검사를 에이전트에게 주라고 권하는데, 그 검사를 구현보다 먼저 만드는 것입니다.</aside>
+</section>
+
+<!-- 08 단계 4: 구현과 Stop 훅 -->
+<section class="slide" data-title="단계 4 구현">
+  <div class="tag"><b>단계 4 · 구현</b><span class="sep"></span>Stop 훅(끝내려 할 때 실행) · exit 2 = 아직 끝나지 않았다</div>
+  <h2>단계 4: 통과 전에는 멈출 수 없다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/best-practices</span></div><img src="assets/captures/p08-best-stop.jpg" alt="Claude Code 모범 사례: Stop 훅으로 검사를 강제"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">모범 사례 문서의 Stop 훅 예. <b>종료 코드 2</b>가 멈춤을 막고, 표준 오류 출력이 ‘아직 못 끝낸 이유’로 전달된다.</div>
+    </div>
+    <div class="term"><span class="dim"># .claude/hooks/run-tests.sh</span>
+INPUT=$(cat)
+<span class="dim"># 무한 반복 방지</span>
+[ "$(echo "$INPUT" | jq -r
+  '.stop_hook_active')" = "true" ] &amp;&amp; exit 0
+python3 -m pytest -q 1&gt;&amp;2 || <span class="warn">exit 2</span>
+
+<span class="dim">$</span> pytest -q
+<span class="ok">4 passed</span>  → 멈춤 허용</div>
+  </div>
+  <aside>구현은 에이전트가 하되, 끝나는 조건은 Claude Code가 강제합니다. Stop 훅은 에이전트가 턴을 끝내려 할 때마다 우리 스크립트를 실행하고, 종료 코드 2를 돌려주면 에이전트가 다시 일하러 돌아갑니다. 표준 오류로 내보낸 테스트 출력이 곧 에이전트가 받는 이유가 됩니다. 공식 문서에 따르면 연속 여덟 번 막으면 Claude Code가 그 막기를 넘기므로, 스크립트에서 stop_hook_active를 확인해 무한 반복을 피합니다. 저는 이 스크립트를 테스트 세 개가 실패한 상태와 네 개가 통과한 상태에서 각각 돌려 종료 코드가 2와 0인 것을 확인했습니다.</aside>
+</section>
+
+<!-- 09 단계 5a: 테스트 보호 훅 -->
+<section class="slide" data-title="단계 5 테스트 보호 훅">
+  <div class="tag"><b>단계 5 · 테스트 파일 보호 ①</b><span class="sep"></span>PreToolUse 훅(도구 실행 직전) · matcher "Edit|Write"</div>
+  <h2>단계 5-①: 훅으로 커밋된 테스트를 잠근다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/hooks-guide</span></div><img src="assets/captures/p08-hook-protect.jpg" alt="Claude Code 훅 가이드: 보호할 파일 편집 막기"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">훅 가이드의 ‘보호할 파일 편집 막기’ 예. 스크립트가 경로를 검사해 <b>보호 대상이면 exit 2로 편집을 취소</b>한다.</div>
+    </div>
+    <div class="term"><span class="dim"># protect-tests.sh 핵심</span>
+FILE_PATH=$(jq -r
+  '.tool_input.file_path // empty')
+git ls-files --error-unmatch \
+  "$FILE_PATH" &amp;&amp; { echo "Blocked" &gt;&amp;2
+                      exit <span class="warn">2</span>; }
+
+<span class="ok">✓</span> tests/test_store.py   <span class="dim">커밋됨 → 2</span>
+<span class="ok">✓</span> tests/test_overdue.py <span class="dim">새 파일 → 0</span>
+<span class="ok">✓</span> todo/store.py       <span class="dim">구현 → 0</span></div>
+  </div>
+  <aside>공식 문서의 보호 파일 예제를 우리 목적에 맞게 바꿨습니다. 훅 스크립트는 표준 입력으로 도구 호출 정보를 JSON으로 받고, tool_input.file_path에서 대상 파일을 읽습니다. 종료 코드 2로 끝나면 편집이 취소되고 표준 오류 메시지가 에이전트에게 돌아갑니다. 문서의 예제는 .env 같은 이름 패턴을 막지만, 저는 이미 커밋된 테스트만 막도록 git ls-files로 확인합니다. 그래서 새 테스트 파일을 추가하는 것은 허용됩니다. 설정에서는 PreToolUse 아래에 matcher를 Edit|Write로 두고 이 스크립트를 등록합니다. 위 세 줄은 같은 JSON을 직접 넣어서 확인한 결과입니다.</aside>
+</section>
+
+<!-- 10 단계 5b: deny 규칙 -->
+<section class="slide" data-title="단계 5 deny 규칙">
+  <div class="tag"><b>단계 5 · 테스트 파일 보호 ②</b><span class="sep"></span>permissions.deny · deny → ask → allow</div>
+  <h2>단계 5-②: deny 규칙 한 줄로도 테스트를 잠글 수 있다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/permissions</span></div><img src="assets/captures/p08-perm-edit.jpg" alt="Claude Code 권한 문서: Read와 Edit 규칙이 덮는 범위"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">권한 문서의 ‘Read·Edit 규칙이 덮는 범위’. <b>Edit 규칙은 파일 수정 도구 전체</b>에 적용된다고 설명.</div>
+    </div>
+    <div class="points">
+      <div class="term">{
+  "permissions": {
+    "deny": ["Edit(tests/**)"]
+  }
+}</div>
+      <ul>
+        <li>쓰는 규칙은 <b>Edit</b>. Write 규칙은 매칭되지 않음</li>
+        <li>새 테스트도 못 씀 → ③ 커밋 뒤에 켠다</li>
+        <li>Bash 안의 파이썬 스크립트는 못 막음 → 샌드박스(격리 실행)</li>
+      </ul>
+      <div class="next">→ 결론: 한 줄로 쉽지만 허점이 있어, 커밋 뒤에 켜거나 훅과 함께 쓴다</div>
+    </div>
+  </div>
+  <aside>훅 없이 설정 한 줄로도 막을 수 있습니다. 권한 문서에 따르면 Edit 규칙은 파일을 고치는 내장 도구 전체에 적용되고, Write나 NotebookEdit 경로 규칙은 선언해도 매칭되지 않으니 Edit로 써야 합니다. deny는 ask나 allow보다 먼저 평가되므로 허용 규칙으로 예외를 만들 수 없습니다. 단점은 이 규칙이 새 테스트 파일 작성까지 막는다는 점입니다. 그래서 테스트를 쓰고 커밋한 다음에 규칙을 켜거나, 앞 장의 훅을 씁니다. 또 문서는 파일 이름을 말하지 않고 스스로 파일을 여는 파이썬 같은 프로세스는 이 규칙이 막지 못하고, 그 경우는 샌드박스가 필요하다고 설명합니다.</aside>
+</section>
+
+<!-- 11 단계 6: 리뷰어 -->
+<section class="slide" data-title="단계 6 리뷰어">
+  <div class="tag"><b>단계 6 · 리뷰어 서브에이전트</b><span class="sep"></span>.claude/agents/*.md · 7교시 복습</div>
+  <h2>단계 6: 스펙 기준으로 리뷰를 맡긴다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/sub-agents</span></div><img src="assets/captures/p08-subagent-file.jpg" alt="Claude Code 서브에이전트 문서: 정의 파일 예시"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">서브에이전트 문서의 정의 파일 예시. <b>이름·설명·도구·모델</b>은 맨 위 설정 블록에, 시스템 프롬프트는 그 아래에 쓴다.</div>
+    </div>
+    <div class="term"><span class="dim"># .claude/agents/spec-reviewer.md</span>
+---
+name: spec-reviewer
+description: 스펙 기준으로 diff(변경분) 검토
+tools: Read, Grep, Glob, Bash
+---
+docs/spec-overdue.md의 R1~R4가
+모두 구현·테스트됐는지만 본다.
+정확성에 영향 주는 빈틈만 보고.
+<span class="warn">스타일 지적은 하지 않는다.</span></div>
+  </div>
+  <aside>구현이 끝나면 리뷰어 서브에이전트에게 맡깁니다. 정의 파일은 YAML 머리말에 이름, 설명, 쓸 도구를 적고, 본문이 시스템 프롬프트가 됩니다. 별도 창에서 돌기 때문에 구현하던 대화의 변명이 섞이지 않습니다. 중요한 것은 검토 기준을 스펙으로 묶는 것입니다. 공식 문서의 예시 프롬프트에도 스펙 대비 검토와 함께 스타일은 건너뛰라는 말이 들어 있습니다. 이 말이 없으면 리뷰어는 항상 무언가를 찾아내고, 그것을 다 고치다 보면 불필요한 추상화가 생깁니다. 지적이 나오면 T3로 돌아가고, 테스트는 건드리지 않습니다.</aside>
+</section>
+
+<!-- 12 단계 7: 진행 파일 -->
+<section class="slide" data-title="단계 7 진행 파일">
+  <div class="tag"><b>단계 7 · 압축 대비 진행 파일</b><span class="sep"></span>SessionStart 훅 · matcher "compact"</div>
+  <h2>단계 7: 진행 파일을 압축 직후 다시 읽혀 잊지 않게 한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/hooks-guide</span></div><img src="assets/captures/p08-hook-compact.jpg" alt="Claude Code 훅 가이드: 압축 뒤 맥락 다시 넣기"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">훅 가이드의 ‘압축 뒤 맥락 다시 넣기’ 예. SessionStart 훅의 <b>compact 조건</b>으로 압축 직후 명령을 실행해 출력을 맥락에 넣는다.</div>
+    </div>
+    <div class="term"><span class="dim"># progress.md</span>
+<b>지금 상태</b> T1 끝, T2 진행 중
+<b>결정</b> 정렬은 due 오름차순(R4)
+<b>버린 것</b> (아직 없음)
+<b>다음 한 걸음</b> R3 경계 테스트부터
+
+<span class="dim"># settings.json</span>
+"SessionStart": [{ "matcher": "compact",
+  "hooks": [{ "type": "command",
+    "command": "cat progress.md" }]}]</div>
+  </div>
+  <aside>압축이 일어나면 왜 그렇게 결정했는지, 무엇을 시도했다 버렸는지가 사라집니다. 진행 파일은 그것을 파일로 밖에 적어 두는 방법입니다. Anthropic의 장기 실행 하네스 글에서도 진행 기록 파일을 쓰는 방식을 소개했습니다. 파일에는 현재 상태, 내린 결정, 버린 시도, 다음 한 걸음 네 가지를 적습니다. 에이전트가 Task 하나를 끝낼 때마다 이 파일을 고치게 지시하세요. 그리고 SessionStart 훅의 compact 매처를 쓰면 압축 직후에 이 파일 내용이 에이전트 맥락에 다시 들어갑니다. 훅 설정은 공식 문서 예제의 echo를 cat으로 바꾼 것입니다.</aside>
+</section>
+
+<!-- 13 확인 -->
+<section class="slide" data-title="확인 방법">
+  <div class="tag"><b>확인 방법</b><span class="sep"></span>제출 전에 네 가지를 직접 확인</div>
+  <h2>확인: 일부러 어겨 보고 막히는지 본다</h2>
+  <div class="row flip">
+    <div class="term"><span class="dim">$</span> git log --oneline
+a9827ef test: SPEC-001 실패하는 테스트
+698e062 chore: baseline
+<span class="ok">✓</span> 테스트 커밋이 구현보다 먼저
+
+<span class="dim">$</span> pytest -q
+<span class="ok">4 passed</span>
+<span class="ok">✓</span> Stop 훅이 통과 전에는 안 풀림
+
+<span class="dim">에이전트에게:</span> “test_store.py를 고쳐”
+<span class="warn">Blocked</span> 커밋된 테스트입니다 ...
+<span class="ok">✓</span> 보호 규칙이 실제로 막음</div>
+    <div class="points">
+      <ol>
+        <li>테스트 커밋이 구현 커밋보다 앞인가</li>
+        <li>실패 상태에서 에이전트가 멈추지 않는가</li>
+        <li>테스트 수정을 시켰을 때 막히는가</li>
+        <li>/compact 뒤 진행 파일이 다시 보이는가</li>
+      </ol>
+      <div class="next">막힌 화면을 제출 자료에 포함</div>
+    </div>
+  </div>
+  <aside>설정을 만들었다고 끝이 아니라 실제로 동작하는지 확인해야 합니다. 가장 좋은 방법은 일부러 어겨 보는 것입니다. 에이전트에게 테스트 파일을 고치라고 시켜서 막히는지 보고, 테스트가 실패한 상태에서 끝내라고 해서 계속 일하는지 봅니다. 마지막으로 수동으로 압축을 실행한 뒤 진행 파일 내용이 다시 나타나는지 확인합니다. 왼쪽 터미널의 앞 두 항목은 제가 데모 저장소에서 실제로 돌린 결과입니다. 막힌 장면의 화면 캡처나 대화 기록이 제출물의 증거가 됩니다.</aside>
+</section>
+
+<!-- 14 과제 2 -->
+<section class="slide" data-title="과제 2 두 트랙">
+  <div class="tag"><b>과제 2 · 하네스 v1</b><span class="sep"></span>코드형 · 설정형 두 트랙 모두 가능</div>
+  <h2>과제 2: 내 하네스에 네 가지 방어를</h2>
+  <div class="diagram">{{svg:p08-tracks}}</div>
+  <p class="under">트랙은 과제 1과 같게 가도 되고 바꿔도 됩니다. <b>같은 네 요소</b>를 <b>자기 방식</b>으로 구현합니다. 다른 도구의 훅·권한 문법은 그 도구 문서에서 확인하세요. <span class="next">→ 12교시 과제 3</span></p>
+  <aside>과제 2는 하네스 v0 위에 딴길 방지를 얹는 것입니다. 네 요소는 스펙과 Task 파일, 테스트를 완료 기준으로 삼는 것, 테스트 파일 보호 규칙, 압축 대비 진행 파일입니다. 코드형은 직접 짠 루프 안에서 구현합니다. 파일 쓰기 도구가 tests 경로를 거부하게 만들고, 루프 끝에서 테스트를 돌려 실패하면 한 번 더 돌게 합니다. 설정형은 Claude Code나 Codex 같은 도구의 훅, 권한 규칙, 지침 파일로 조합합니다. 오늘 화면은 Claude Code 문법이며 다른 도구의 문법은 직접 문서에서 찾아야 합니다. 도구마다 지원이 다르니 못 하는 부분은 대체 방법을 보고서에 적으세요.</aside>
+</section>
+
+<!-- 15 제출·기한·기준 -->
+<section class="slide" data-title="제출 · 기한 · 평가">
+  <div class="tag"><b>과제 2 · 제출</b><span class="sep"></span>기한 2026-11-19 · 3회차 시작 전</div>
+  <h2>제출물, 기한, 평가 기준</h2>
+  <div class="row even">
+    <div class="points">
+      <table class="tbl">
+        <tr><th>제출물</th><th>내용</th></tr>
+        <tr><td>스펙·Task</td><td>spec 파일, TASKS.md</td></tr>
+        <tr><td>커밋 기록</td><td>테스트 먼저 커밋이 보이는 git log</td></tr>
+        <tr><td>보호 증거</td><td>설정 파일 + 막힌 화면 또는 대화 기록</td></tr>
+        <tr><td>진행 파일</td><td>progress.md (실제 사용 흔적)</td></tr>
+        <tr><td>회고</td><td>에이전트가 딴길로 샌 사례 1개</td></tr>
+      </table>
+    </div>
+    <div class="points">
+      <table class="tbl">
+        <tr><th>평가 기준</th><th>배점(100점)</th></tr>
+        <tr><td>스펙·Task가 검증 가능한가</td><td class="mono">20</td></tr>
+        <tr><td>테스트 먼저 커밋 순서</td><td class="mono">25</td></tr>
+        <tr><td>테스트 보호가 실제로 동작</td><td class="mono">20</td></tr>
+        <tr><td>진행 파일의 쓸모</td><td class="mono">15</td></tr>
+        <tr><td>통과·리뷰 실행 증거</td><td class="mono">10</td></tr>
+        <tr><td>회고의 구체성</td><td class="mono">10</td></tr>
+      </table>
+      <div class="next">제출: 저장소 링크 + 증거 자료 · 2026-11-19</div>
+    </div>
+  </div>
+  <aside>제출 기한은 2026년 11월 19일입니다. 제출물은 다섯 가지입니다. 스펙과 Task 파일, 테스트를 먼저 커밋한 기록, 보호 규칙의 설정과 막힌 증거, 진행 파일, 그리고 에이전트가 딴길로 샌 사례를 하나 적은 회고입니다. 평가는 백 점 만점으로, 테스트 먼저 커밋 순서에 가장 큰 비중을 둡니다. 이 과정 전체에서 가장 중요한 습관이기 때문입니다. 설정만 있고 실제로 막힌 증거가 없으면 보호 항목은 감점됩니다. 실패한 시도도 회고에 적으면 좋은 평가를 받습니다. 이 과제는 12교시 과제 3의 바탕이 됩니다.</aside>
+</section>
+
+<!-- 16 막힐 때 -->
+<section class="slide" data-title="막힐 때">
+  <div class="tag"><b>막힐 때</b><span class="sep"></span>자주 막히는 증상과 확인 순서</div>
+  <h2>막힐 때: 증상별로 먼저 볼 곳</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/best-practices</span></div><img src="assets/captures/p08-best-review.jpg" alt="Claude Code 모범 사례: 스펙 대비 리뷰 프롬프트"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">모범 사례 문서의 리뷰 프롬프트 대목. <b>‘skip style’(스타일 건너뛰기)을 빼지 말라</b>고 경고: 리뷰어는 늘 뭔가 찾아낸다.</div>
+    </div>
+    <div class="term"><span class="warn">훅이 안 도는 것 같다</span>
+  → <span class="dim">claude --debug</span> 로그 확인
+  → .claude/settings.json 위치, JSON 문법
+  → 스크립트 chmod +x
+<span class="warn">Stop 훅이 계속 못 끝낸다</span>
+  → stop_hook_active 확인 (연속 8번 막으면 자동 해제)
+<span class="warn">리뷰가 끝없이 나온다</span>
+  → “스타일은 제외” 한 줄 추가
+<span class="warn">테스트도 못 쓴다</span>
+  → deny는 ③ 커밋 뒤에 켜기, 또는 훅
+<span class="warn">그래도 막히면</span> 증상 + 로그를 같이 보내기</div>
+  </div>
+  <aside>막히는 지점은 대개 정해져 있습니다. 훅이 아예 안 도는 것 같으면 설정 파일 위치와 JSON 문법을 의심하고, 공식 문서가 안내하는 디버그 로그로 어떤 키가 무시됐는지 봅니다. 스크립트에 실행 권한이 없는 경우도 흔합니다. Stop 훅이 계속 끝나지 않으면 stop_hook_active 확인을 빠뜨린 것입니다. 리뷰어가 끝없이 지적하면 프롬프트에 스타일은 제외하라는 문장을 넣으세요. 그래도 풀리지 않으면 질문할 때는 증상과 로그를 그대로 함께 보내 주세요. 도구가 달라 문법을 모르겠다면 그 도구의 공식 문서에서 훅이나 권한 항목부터 찾아보면 됩니다.</aside>
+</section>

@@ -1,0 +1,25 @@
+grid-rows: 3
+grid-columns: 4
+horizontal-gap: 90
+vertical-gap: 90
+s1: "1 이슈 분석"
+s2: "2 ADR 점검"
+s3: "3 이슈 스펙"
+s4: "4 스펙 리뷰"
+s8: "8 구현 리뷰"
+s7: "7 구현"
+s6: "6 계획 리뷰"
+s5: "5 구현 계획"
+s9: "9 PR"
+s10: "10 CI 통과?"
+s11: "11 스쿼시\n머지"
+s12: "12 머지 후\n스모크"
+s1 -> s2 -> s3 -> s4
+s4 -> s5
+s5 -> s6 -> s7 -> s8
+s8 -> s9
+s9 -> s10 -> s11 -> s12
+s2.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

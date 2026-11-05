@@ -1,0 +1,20 @@
+grid-rows: 2
+grid-columns: 4
+horizontal-gap: 150
+vertical-gap: 80
+t1: "1단 · 규칙\n읽기 전용"
+t2: "2단 · 프로젝트\n안 편집"
+t3: "3단 · 분류기\n빠른 검사 → 추론" { style.stroke: "#ff00ff" }
+ok: "실행"
+z4: "" { style.opacity: 0 }
+human: "3회 연속·20회 누적\n→ 사람에게 묻기"
+no: "차단 → 사유를\nClaude에게"
+z7: "" { style.opacity: 0 }
+t1 -> t2: "아니면"
+t2 -> t3: "아니면"
+t3 -> ok: "통과"
+t3 -> no: "차단"
+no -> human
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

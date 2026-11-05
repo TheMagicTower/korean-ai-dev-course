@@ -1,0 +1,19 @@
+direction: down
+iss: "이슈 4개 (가상 예시)" {
+  grid-columns: 1
+  i1: "#201 수동 저장 중복"
+  i2: "#202 같은 문제 + 브라우저 로그"
+  i3: "#203 가져오기 중복"
+  i4: "#204 오류 안내 + 초점 복구"
+}
+pr1: "PR 하나\nCloses #201, #203\n한 번에 검토·출시·롤백"
+dup: "#201에 로그 이관\n중복 정리로 종료"
+part: "별도 PR\n초점 복구는 열어 둠"
+iss.i1 -> pr1
+iss.i3 -> pr1
+iss.i2 -> dup
+iss.i4 -> part: "Related만"
+pr1.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

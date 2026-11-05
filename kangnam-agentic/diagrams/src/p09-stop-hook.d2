@@ -1,0 +1,18 @@
+grid-rows: 3
+grid-columns: 2
+horizontal-gap: 130
+vertical-gap: 80
+a: "작업 ·\n도구 호출"
+b: "응답 끝,\n멈추려 함"
+d: "완료 조건 확인" { style.stroke: "#ff00ff" }
+c: "Stop 훅이\n종료 가로채기" { style.stroke: "#ff00ff" }
+fin: "종료"
+z5: "" { style.opacity: 0 }
+a -> b
+b -> c: "매 턴 끝"
+c -> d
+d -> a: "미충족"
+d -> fin: "충족"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

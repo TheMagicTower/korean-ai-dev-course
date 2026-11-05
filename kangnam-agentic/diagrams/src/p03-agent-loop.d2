@@ -1,0 +1,15 @@
+direction: down
+prompt: "프롬프트 “실패하는 테스트를 고쳐 줘”"
+loop: "에이전트 루프 (도구를 부르는 동안 반복)" {
+  style.stroke: "#ff00ff"
+  grid-columns: 3
+  ctx: "1 맥락 수집\nRead · Grep"
+  act: "2 행동\nEdit · Bash"
+  chk: "3 결과 확인\n테스트 실행"
+}
+done: "도구 호출 없음 → 응답하고 멈춤"
+prompt -> loop
+loop -> done
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 28

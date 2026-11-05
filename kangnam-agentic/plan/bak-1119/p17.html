@@ -1,0 +1,160 @@
+<!-- 17교시 · 발표 진행 안내와 템플릿 (60분) -->
+
+<!-- 01 표지 -->
+<section class="slide section-slide" data-title="표지">
+  <div class="big">5회차 · 17교시</div>
+  <h1>산출물 발표 안내</h1>
+  <p class="lead">2026-12-03 · 5분 발표 + 2분 질의 · 같은 기준 과제로 비교합니다.</p>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="하네스 엔지니어링 글 화면"></div><figcaption><b>3회차</b><span>하네스</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-skills.jpg" alt="스킬 문서 화면"></div><figcaption><b>3회차</b><span>스킬</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-uxagent.jpg" alt="UXAgent 논문 화면"></div><figcaption><b>4회차</b><span>페르소나 평가</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-scion.jpg" alt="Anthropic Scion 글 화면"></div><figcaption><b>4회차</b><span>팩토리</span></figcaption></figure>
+  </div>
+  <aside>오늘은 5회차, 마지막 날입니다. 네 번의 실습으로 각자 키워 온 하네스를 같은 기준 과제로 돌려 본 결과를 발표합니다. 새로 소개할 내용은 없습니다. 아래 네 장은 지난 회차에서 본 화면이고, 여러분의 하네스는 이 도구들 위에, 또는 이 도구들을 흉내 내어 쌓은 것입니다. 17교시에는 진행 방법과 발표 템플릿을 안내하고, 18교시부터 발표를 시작합니다.</aside>
+</section>
+
+<!-- 02 오늘의 흐름 -->
+<section class="slide" data-title="오늘 순서">
+  <div class="tag"><b>2026-12-03</b><span class="sep"></span>5회차 일정 · 17~20교시</div>
+  <h2>오늘은 안내, 발표 두 교시, 마무리 순서로 진행합니다</h2>
+  <div class="diagram">{{svg:p17-day-flow}}</div>
+  <p class="under">발표는 <b>18교시와 19교시</b>에 나누어 합니다. 한 교시에 발표자 8명 안팎이 목표입니다.</p>
+  <aside>오늘 일정입니다. 17교시는 안내와 템플릿 설명, 18교시와 19교시는 발표, 20교시는 마무리와 수료 인사입니다. 교시 사이에는 10분씩 쉽니다. 발표자가 많아서 시간 관리가 중요합니다. 한 사람이 7분을 쓰면 한 교시에 여덟 명이 한계입니다. 시간을 넘기면 뒤 순서 발표자의 시간이 줄어듭니다. 그래서 저는 시간 관리를 가장 신경 씁니다.</aside>
+</section>
+
+<!-- 03 시간 배분 -->
+<section class="slide" data-title="5분 + 2분">
+  <div class="tag"><b>발표 규칙</b><span class="sep"></span>발표 5분 · 질의 2분 · 엄수</div>
+  <h2>5분 발표 중 가장 오래 말할 곳은 실행 기록과 실패입니다</h2>
+  <div class="diagram">{{svg:p17-slot}}</div>
+  <p class="under">가장 오래 말할 곳은 <b>실행 기록과 실패</b>입니다. 구조도는 읽어 주지 말고 흐름만 짚습니다.</p>
+  <aside>5분은 짧습니다. 구조도는 한 장 보여 주고 일 분 반 안에 흐름만 말합니다. 트랙 선택은 코드형인지 설정형인지 한마디면 됩니다. 시간을 가장 많이 쓸 곳은 같은 기준 과제의 실행 기록과 실패입니다. 청중이 가장 궁금해하는 것도, 비교가 되는 것도 여기입니다. 마지막 한 줄 정리 뒤에 2분 동안 질의를 받습니다. 타이머는 제가 화면에 띄웁니다.</aside>
+</section>
+
+<!-- 04 기준 과제 -->
+<section class="slide" data-title="기준 과제">
+  <div class="tag"><b>같은 기준 과제</b><span class="sep"></span>모두 같은 시작점 · 같은 과제 문장</div>
+  <h2>모두 같은 과제를 돌리므로, 차이는 내 하네스에서 나옵니다</h2>
+  <div class="row">
+    <div class="diagram">{{svg:p17-baseline}}</div>
+    <div class="points">
+      <div class="term"><span class="dim"># 예시. 확정 과제 문장은 강사가 공지</span>
+<span class="acc">과제</span>  작은 웹앱에 기능 1개 추가
+<span class="acc">조건</span>  기존 테스트 통과 + 새 테스트 1개
+<span class="acc">증거</span>  브라우저 스모크(화면 동작 확인) 1개</div>
+      <ul>
+        <li>시작 저장소와 과제 문장은 모두 같다</li>
+        <li>다른 것은 <b>내 하네스</b>뿐이다</li>
+      </ul>
+    </div>
+  </div>
+  <aside>발표를 서로 비교할 수 있도록 모두 같은 기준 과제를 돌립니다. 시작 저장소와 과제 문장이 같기 때문에 결과의 차이는 하네스에서 나옵니다. 화면의 과제 문장은 예시이고, 실제 문장과 시작 저장소는 공지한 것을 씁니다. 과제를 고쳐서 돌리면 비교가 안 되므로 그대로 돌립니다. 몇 번 돌려도 좋지만 발표에는 대표 한 번의 기록과 횟수를 함께 적어 주세요.</aside>
+</section>
+
+<!-- 05 평가표 -->
+<section class="slide" data-title="평가표">
+  <div class="tag"><b>평가 기준</b><span class="sep"></span>발표 평가 100점 + 동료 평가</div>
+  <h2>점수는 성공 여부가 아니라 기록의 정직함에 줍니다</h2>
+  <div class="diagram">{{svg:p17-rubric}}</div>
+  <p class="under">구조·설계 25, 실행 기록 25, 점검 장치 20, 실패 분석 20, 발표 10점(합계 100점). <b>실패해도 감점하지 않습니다.</b></p>
+  <aside>평가는 발표 평가 100점과 동료 평가로 나뉩니다. 발표 평가는 16교시 최종 과제 평가 기준과 같습니다. 구조·설계 25점, 실행 기록 25점, 점검 장치 20점, 실패 분석 20점, 발표 10점입니다. 과제가 성공했는지보다 기록이 정직한지, 실패의 원인과 고친 장치가 연결되는지를 봅니다. 동료 평가는 발표마다 이해했다, 믿을 만하다, 써 보고 싶다 세 항목을 1점에서 5점으로 입력하고 질문을 하나 남깁니다. 점수 배분은 안내한 기준이고, 확정되면 공지한 것을 따릅니다.</aside>
+</section>
+
+<!-- 06 템플릿 개요 -->
+<section class="slide" data-title="템플릿 5장">
+  <div class="tag"><b>발표 템플릿</b><span class="sep"></span>4~5장 · 아래 순서 그대로</div>
+  <h2>발표 템플릿은 다섯 장입니다</h2>
+  <div class="diagram">{{svg:p17-template-map}}</div>
+  <p class="under">다음 네 장이 각 장의 <b>빈칸 양식</b>입니다. 그대로 복사해 채우면 됩니다.</p>
+  <aside>템플릿은 다섯 장입니다. 하네스 구조도, 트랙, 기준 과제 실행 기록, 실패한 것, 배운 것입니다. 마지막 두 장은 한 장으로 합쳐도 됩니다. 장 수가 정해져 있으니 꾸미는 데 시간을 쓰기보다 내용을 채우는 쪽이 좋습니다. 다음 장부터 한 장씩 빈칸 양식을 보여 드립니다.</aside>
+</section>
+
+<!-- 07 템플릿 1: 구조도 -->
+<section class="slide" data-title="템플릿 1 구조도">
+  <div class="tag"><b>템플릿 장 1</b><span class="sep"></span>하네스 구조도</div>
+  <h2>장 1 · 상자 이름을 내 하네스의 실제 이름으로 바꿉니다</h2>
+  <div class="diagram">{{svg:p17-harness-arch}}</div>
+  <p class="under">상자 이름을 <b>내 하네스의 실제 이름</b>으로 바꿉니다. 없는 장치는 지우고, 직접 추가한 장치는 넣습니다.</p>
+  <aside>첫 장은 구조도입니다. 화면은 양식이고 상자 이름은 바꿔도 됩니다. 목표와 완료 조건이 들어가고, 하네스가 워커를 돌리고, 규칙과 스킬이 워커를 붙들고, 테스트와 스모크로 점검하고, 기록이 남는 흐름입니다. 사용하지 않은 상자는 과감히 지웁니다. 여러분이 직접 만든 장치가 있다면 그것이 구조도의 주인공입니다. 발표에서는 일 분 반 안에 화살표를 따라가며 한 번만 설명합니다.</aside>
+</section>
+
+<!-- 08 템플릿 2: 트랙 -->
+<section class="slide" data-title="템플릿 2 트랙">
+  <div class="tag"><b>템플릿 장 2</b><span class="sep"></span>트랙 선택: 코드형 · 설정형</div>
+  <h2>장 2 · 코드형과 설정형은 장단점이 다르고, 평가는 같은 기준입니다</h2>
+  <div class="compare" style="--cols:2;flex:none">
+    <div>
+      <div class="k">코드형 · Agent SDK 등으로 직접 짠 루프</div>
+      <ul>
+        <li><b>장점</b>: 도구 호출과 종료 조건을 <b>코드로 정확히 통제</b></li>
+        <li><b>단점</b>: 루프·도구 표를 <b>직접 구현</b>해야 해 손이 많이 간다</li>
+        <li><b>고르는 때</b>: 통제 지점을 코드로 보여 주고 싶을 때</li>
+      </ul>
+    </div>
+    <div class="on">
+      <div class="k">설정형 · Claude Code·Codex 위에 조합</div>
+      <ul>
+        <li><b>장점</b>: 규칙·훅·스킬·MCP·권한을 <b>설정으로 빠르게</b> 조합</li>
+        <li><b>단점</b>: 동작은 <b>도구가 정한 틀 안</b>에서만 바꿀 수 있다</li>
+        <li><b>고르는 때</b>: 기존 도구 위에서 빠르게 쌓아 보고 싶을 때</li>
+      </ul>
+    </div>
+  </div>
+  <p class="under">→ 어느 쪽이 더 낫다는 평가는 없습니다. <b>구조도와 같은 과제의 실행 기록</b>을 내면 같은 기준으로 평가합니다.</p>
+  <aside>두 번째 장은 트랙 표시입니다. 코드형은 Agent SDK나 직접 짠 루프로 도구 호출과 종료 조건을 코드로 통제한 경우입니다. 장점은 통제가 정확하다는 것이고, 단점은 루프와 도구 표를 직접 구현해야 한다는 것입니다. 설정형은 Claude Code나 Codex 같은 도구 위에 규칙, 훅, 스킬, MCP, 권한, 루프를 조합한 경우입니다. 장점은 빠르게 쌓을 수 있다는 것이고, 단점은 도구가 정한 틀 안에서만 바꿀 수 있다는 것입니다. 어느 트랙이 더 낫다는 평가는 없습니다. 다만 어떤 이유로 이 트랙을 골랐는지 한 문장을 적어 주세요. 이 장은 30초면 충분합니다.</aside>
+</section>
+
+<!-- 09 템플릿 3: 실행 기록 -->
+<section class="slide" data-title="템플릿 3 실행 기록">
+  <div class="tag"><b>템플릿 장 3</b><span class="sep"></span>기준 과제 실행 기록: 토큰 · 시간 · 성공 여부</div>
+  <h2>장 3 · 토큰·시간·결과를 표 한 줄로 적습니다</h2>
+  <div class="row">
+    <div class="diagram">{{svg:p17-runlog}}</div>
+    <div class="points">
+      <div class="term"><span class="dim">| 항목 | 값 |</span>
+토큰 합계   <span class="warn">___</span>
+소요 시간   <span class="warn">___ 분</span>
+실행 횟수   <span class="warn">___ 회</span>
+결과        <span class="ok">성공</span> / 부분 / 실패</div>
+      <ul>
+        <li>토큰(AI가 처리한 글자 단위)은 도구가 보여 주는 값 그대로</li>
+        <li>못 잰 항목은 “못 쟀다”고 적는다</li>
+      </ul>
+    </div>
+  </div>
+  <aside>가장 중요한 장입니다. 토큰, 시간, 성공 여부를 표 한 줄로 적습니다. 토큰은 사용하는 도구가 보여 주는 값을 그대로 옮기고, 추정하지 않습니다. 재지 못한 항목은 비워 두지 말고 못 쟀다고 적어 주세요. 그것도 하나의 기록입니다. 성공 판정은 과제 문장의 완료 조건을 통과했는지로 합니다. 여러 번 돌렸다면 횟수를 함께 적습니다.</aside>
+</section>
+
+<!-- 10 템플릿 4·5: 실패와 배운 점 -->
+<section class="slide" data-title="템플릿 4·5 실패와 배운 점">
+  <div class="tag"><b>템플릿 장 4·5</b><span class="sep"></span>실패한 것 · 배운 것</div>
+  <h2>장 4·5 · 실패는 하나만 골라 네 칸을 채웁니다</h2>
+  <div class="diagram">{{svg:p17-lessons}}</div>
+  <p class="under">실패는 <b>하나만 골라</b> 이 네 칸을 채웁니다. 여러 개를 나열하지 않습니다.</p>
+  <aside>마지막 장은 실패입니다. 가장 아쉬웠던 실패 하나를 골라 무엇이 실패했는지, 왜 그랬는지, 어떤 장치로 고쳤는지, 다음에 먼저 할 일이 무엇인지를 한 줄씩 적습니다. 고치지 못했다면 고치지 못했다고 쓰고 다음 일만 적어도 됩니다. 이 과정에서 계속 본 것처럼, 장치는 앞 단계의 실패에서 나왔습니다. 여러분의 실패가 하네스를 한 단계 키운 근거가 됩니다.</aside>
+</section>
+
+<!-- 11 시작 전 확인 -->
+<section class="slide" data-title="발표 전 확인">
+  <div class="tag"><b>발표 준비</b><span class="sep"></span>18교시 시작 전 점검</div>
+  <h2>발표 시작 전에 여섯 가지를 점검합니다</h2>
+  <div class="row">
+    <div class="term"><span class="dim">$ 발표 전에 확인</span>
+<span class="ok">[ ]</span> 템플릿 5장 완성
+<span class="ok">[ ]</span> 구조도 화면에서 글자 읽힘
+<span class="ok">[ ]</span> 실행 기록 숫자 3개(토큰·시간·횟수) 기입
+<span class="ok">[ ]</span> 화면 공유·HDMI 연결 테스트
+<span class="ok">[ ]</span> 발표 순서 번호 확인
+<span class="ok">[ ]</span> 5분 리허설 1회</div>
+    <div class="points">
+      <ul>
+        <li>화면 공유는 발표자 교체 때 시간을 가장 많이 먹는다</li>
+        <li>발표 파일은 <b>미리 열어 둔다</b></li>
+        <li>평가표는 <b>듣는 중에 입력</b>한다</li>
+      </ul>
+      <div class="next">→ 18교시: 발표 1부</div>
+    </div>
+  </div>
+  <aside>남은 시간에 마지막 점검을 합니다. 템플릿 다섯 장이 모두 채워졌는지, 구조도 글자가 교실 뒤에서도 읽히는지, 실행 기록의 숫자가 들어갔는지 확인합니다. 화면 연결은 발표자가 바뀔 때마다 시간을 가장 많이 잡아먹습니다. 파일은 미리 열어 두고, 자기 순서 직전에는 자리 근처에서 기다려 주세요. 동료 평가는 발표가 끝난 뒤가 아니라 듣는 동안 입력합니다.</aside>
+</section>

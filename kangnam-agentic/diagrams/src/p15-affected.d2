@@ -1,0 +1,22 @@
+direction: right
+change: "변경된 파일"
+area: "변경 영역\n(공고)"
+cons: "전이적 소비자\n(지원 기록 → 알림)"
+contract: "경계 계약 검사"
+sel: "선택된 검사" {
+  s1: "공고 단위"
+  s2: "지원 기록·알림"
+  s3: "계약·통합"
+}
+full: "확실하지 않으면 전체 검사" {
+  f: "공통 라이브러리·설정이 바뀜\n또는 영향 범위를 모름"
+}
+change -> area
+area -> cons
+cons -> contract
+contract -> sel
+change -> full {style.stroke-dash: 4}
+sel.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

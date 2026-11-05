@@ -1,0 +1,19 @@
+direction: right
+job: "공고" {
+  r: "소유: 공고 ID · 마감일\n규칙: 중복 URL 거부"
+  s: "'상태' = 공개 · 마감"
+}
+app: "지원 기록" {
+  r: "소유: 지원 단계\n규칙: 허용된 전환만"
+  s: "'상태' = 작성 중 · 제출 · 면접"
+}
+noti: "알림" {
+  r: "소유: 전송 예약\n규칙: 중복 전송 방지"
+  s: "'상태' = 대기 · 발송 · 실패"
+}
+job -> app: "조회 계약"
+app -> noti: "제출 이벤트"
+app.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

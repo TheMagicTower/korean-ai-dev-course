@@ -1,0 +1,20 @@
+direction: right
+prs: "대기열 (최신 main 위에 쌓음)" {
+  a: "PR A"
+  b: "PR B"
+  c: "PR C"
+}
+cand: "누적 후보를 차례로 검증" {
+  c1: "main + A"
+  c2: "main + A + B"
+  c3: "main + A + B + C"
+}
+ok: "모두 통과한 순서대로\n기본 브랜치에 병합"
+fail: "실패 시: B가 빠지고\n뒤 후보를 B 없이 다시 검증"
+prs -> cand
+cand -> ok
+cand -> fail {style.stroke-dash: 4}
+cand.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,15 @@
+grid-rows: 2
+grid-columns: 2
+horizontal-gap: 130
+vertical-gap: 80
+w: "작업"
+d: "‘다 했습니다’"
+c: "예전엔 사람이,\n지금은 장치가 ‘계속’"
+t: "실제 상태\n테스트 3개 실패" { style.stroke: "#ff00ff" }
+w -> d
+d -> t: "확인"
+t -> c
+c -> w: "계속"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

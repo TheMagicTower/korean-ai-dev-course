@@ -1,0 +1,16 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 150
+vertical-gap: 110
+enter: "진입\nShift+Tab · /plan"
+read: "읽기 전용 조사\n파일 읽기·탐색"
+plan: "계획 작성\n소스는 수정 안 함" {style.stroke: "#ff00ff"}
+exec: "편집 시작\n(계획이 기준)"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+ask: "승인 화면\n자동 실행·편집마다 확인"
+enter -> read -> plan
+plan <-> ask: "승인 / 수정" {style.font-size: 26}
+ask -> exec: "승인"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

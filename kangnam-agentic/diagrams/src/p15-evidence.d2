@@ -1,0 +1,18 @@
+direction: right
+run: "에이전트가 앱을 띄워 시나리오 실행"
+files: "증거 폴더\nsmoke/runs/날짜/" {
+  grid-columns: 1
+  a: "단계별 스크린샷 .png"
+  b: "콘솔 로그 .txt"
+  c: "실패한 네트워크 요청"
+  d: "report.md (PASS/FAIL)"
+}
+pr: "PR 또는 이슈 댓글\n보고서 + 핵심 이미지"
+gate: "머지 큐 앞 게이트\n사람이 증거를 보고 판정"
+run -> files
+files -> pr
+pr -> gate
+files.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

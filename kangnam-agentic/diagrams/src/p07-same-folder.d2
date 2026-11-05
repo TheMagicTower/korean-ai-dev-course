@@ -1,0 +1,24 @@
+grid-rows: 3
+grid-columns: 4
+horizontal-gap: 120
+vertical-gap: 80
+h1: "한 폴더\n에이전트 둘"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+h2: "워크트리\n폴더 둘" {style.stroke: "#ff00ff"}
+x2: "" {style.opacity: 0; style.stroke-width: 0}
+a1: "에이전트 A\n로그인 기능"
+dir: "app/\n작업 폴더 1개"
+b1: "에이전트 A"
+w1: "app-login/\nfeat/login"
+a2: "에이전트 B\n검색 기능"
+x3: "" {style.opacity: 0; style.stroke-width: 0}
+b2: "에이전트 B"
+w2: "app-search/\nfeat/search"
+h1 -> h2: "나눈다"
+a1 -> dir: "수정"
+a2 -> dir: "수정"
+b1 -> w1
+b2 -> w2
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

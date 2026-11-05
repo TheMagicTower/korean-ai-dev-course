@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 150
+vertical-gap: 70
+sdd: "SDD · 스펙\n무엇을 만드나"
+tdd: "TDD · 테스트\n맞게 만들었나" {style.stroke: "#ff00ff"}
+ddd: "DDD · 경계\n어디까지 고치나"
+f1: "막는 실패\n딴길로 샘"
+f2: "막는 실패\n가짜 '다 했다'"
+f3: "막는 실패\n범위 폭주"
+sdd -> tdd: "테스트로"
+tdd -> ddd: "도메인별"
+sdd -> f1
+tdd -> f2
+ddd -> f3
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

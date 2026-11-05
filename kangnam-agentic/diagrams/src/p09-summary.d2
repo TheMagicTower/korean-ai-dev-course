@@ -1,0 +1,24 @@
+direction: right
+h: "사람이 하던 것" {
+  a: "도구마다 승인"
+  b: "턴마다 ‘계속’"
+  c: "창 관리·압축"
+}
+m: "기계가 맡은 방식" {
+  a2: "분류기 (auto mode)"
+  b2: "평가자 (/goal)"
+  c2: "큰 창 (1M)"
+}
+need: "그래도 사람 몫" {
+  n1: "완료 조건 쓰기"
+  n2: "상한·테스트 보호"
+  n3: "결과 판정"
+}
+need.style.stroke: "#ff00ff"
+h.a -> m.a2
+h.b -> m.b2
+h.c -> m.c2
+m -> need
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

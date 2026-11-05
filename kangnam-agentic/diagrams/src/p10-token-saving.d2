@@ -1,0 +1,26 @@
+direction: right
+in: "창에 들어가는 것" {
+  i1: "CLI 출력"
+  i2: "검색 결과"
+  i3: "MCP 도구 정의"
+  i4: "라이브러리 문서"
+}
+tools: "줄이는 방법" {
+  t1: "셸 출력 압축 · rtk\n출력을 압축해서 전달"
+  t2: "재귀 검색 · ripgrep\n빠르고 필터된 검색"
+  t3: "도구 검색\n쓸 때만 정의 로드"
+  t4: "문서 조회 · 심볼 탐색\n(Context7 · Serena)\n필요한 부분만 가져옴"
+}
+tools.style.stroke: "#ff00ff"
+out: "남는 것" {
+  o1: "일에 쓸 창"
+  o2: "더 긴 세션"
+}
+in.i1 -> tools.t1
+in.i2 -> tools.t2
+in.i3 -> tools.t3
+in.i4 -> tools.t4
+tools -> out
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

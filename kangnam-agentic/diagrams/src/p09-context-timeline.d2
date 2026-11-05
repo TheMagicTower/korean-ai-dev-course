@@ -1,0 +1,22 @@
+direction: right
+a: "2023-05" {
+  x: "Claude 100K"
+}
+b: "2025-04" {
+  x: "GPT-4.1 1M"
+}
+c: "2025-08" {
+  x: "Sonnet 4 1M 베타"
+}
+d: "2026-02" {
+  x: "Opus 4.6 1M 베타"
+}
+e: "2026-03-13" {
+  x: "Claude 1M 정식"
+  y: "할증 없음"
+}
+e.style.stroke: "#ff00ff"
+a -> b -> c -> d -> e
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,17 @@
+grid-rows: 3
+grid-columns: 2
+horizontal-gap: 70
+vertical-gap: 90
+agent: "평가 에이전트\n페르소나·과업 한 줄"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+browser2: "브라우저 도구\nPlaywright MCP"
+log: "증거 저장\n스크린샷·기록·요약"
+app: "내 앱\n화면·콘솔 돌려줌"
+x2: "" {style.opacity: 0; style.stroke-width: 0}
+agent -> browser2: "클릭·입력"
+browser2 <-> app
+browser2 -> log
+agent.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

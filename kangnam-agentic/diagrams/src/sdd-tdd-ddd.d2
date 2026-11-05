@@ -1,0 +1,20 @@
+direction: right
+ddd: "DDD · 도메인 경계 안에서" {
+  grid-columns: 1
+  spec: "스펙\n(무엇을)"
+  task: "Task 목록\n(어떤 순서로)"
+  test: "실패하는 테스트\n(완료 기준)"
+  impl: "구현\n(통과할 때까지)"
+  spec -> task -> test -> impl
+  impl -> test: "빨강 → 초록"
+}
+ddd.test.style.stroke: "#ff00ff"
+lvl: "프롬프트에 수준을 명시" {
+  grid-columns: 1
+  poc: "PoC · MVP\n최소 구현, 계층 없음"
+  ent: "엔터프라이즈\n클린 아키텍처·경계"
+}
+ddd -> lvl: "범위를 정한다"
+
+**.style.font-size: 26
+(** -> **)[*].style.font-size: 22

@@ -1,0 +1,24 @@
+direction: down
+human: "사람" {
+  grid-columns: 1
+  h1: "방향을 정한다"
+  h2: "결과를 검증한다"
+}
+agent: "Codex 에이전트" {
+  grid-columns: 1
+  a1: "코드 작성"
+  a2: "리뷰"
+}
+repo: "저장소가 기록 체계" {
+  grid-columns: 1
+  r1: "AGENTS.md\n약 100줄 · 목차 역할"
+  r2: "docs/\n설계 · 실행 계획 · 제품 스펙 · 품질 등급"
+  r3: "린터 · CI\n문서가 낡았는지 검사"
+  r1 -> r2
+}
+repo.style.stroke: "#ff00ff"
+human -> agent: "Humans steer"
+agent -> repo: "읽고 갱신"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

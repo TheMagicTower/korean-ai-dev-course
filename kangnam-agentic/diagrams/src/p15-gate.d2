@@ -1,0 +1,17 @@
+direction: down
+ev: "pull_request\nmerge_group" 
+an: "범위 분석\n(항상 실행)"
+jobs: "선택된 작업" {
+  grid-columns: 1
+  j1: "공고 검사"
+  j2: "지원 기록 검사"
+  j3: "건너뛴 작업"
+}
+gate: "최종 게이트\n(필수 검사, 항상 실행)"
+ev -> an
+an -> jobs
+jobs -> gate
+gate.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

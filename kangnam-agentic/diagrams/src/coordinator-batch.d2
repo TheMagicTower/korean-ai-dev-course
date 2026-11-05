@@ -1,0 +1,10 @@
+direction: down
+coord: "코디네이터 세션\n목표 · 완료 조건" {style.stroke: "#ff00ff"}
+workers: "워커 A · B · C\n/batch · 워크트리별"
+ledger: "이슈 원장\nPR · CI"
+coord -> workers: "나눠 줌"
+workers -> ledger: "기록"
+ledger -> coord: "깨어나 점검"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

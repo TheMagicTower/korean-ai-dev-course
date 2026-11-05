@@ -1,0 +1,24 @@
+grid-rows: 3
+grid-columns: 4
+horizontal-gap: 80
+vertical-gap: 90
+s1: "1 이슈 분석"
+s2: "2 ADR 점검"
+s3: "3 이슈 단위 스펙" {style.stroke: "#ff00ff"}
+s4: "4 스펙 리뷰\n블로커 → 3으로" {style.stroke: "#ff00ff"}
+s8: "8 구현 리뷰\n블로커 → 7로" {style.stroke: "#ff00ff"}
+s7: "7 구현"
+s6: "6 계획 리뷰\n블로커 → 5로" {style.stroke: "#ff00ff"}
+s5: "5 구현 계획" {style.stroke: "#ff00ff"}
+s9: "9 PR"
+s10: "10 CI\n실패 → 7로"
+s11: "11 스쿼시 머지"
+s12: "12 머지 후 스모크"
+s1 -> s2 -> s3 -> s4
+s4 -> s5
+s5 -> s6 -> s7 -> s8
+s8 -> s9
+s9 -> s10 -> s11 -> s12
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

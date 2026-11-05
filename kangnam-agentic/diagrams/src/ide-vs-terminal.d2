@@ -1,0 +1,19 @@
+direction: right
+ide: "IDE 안의 AI" {
+  grid-columns: 1
+  ext: "AI 확장"
+  api: "편집기가 열어 준 API만"
+  app: "편집기 앱 · 앱의 권한"
+  ext -> api -> app
+}
+term: "터미널 에이전트" {
+  grid-columns: 1
+  style.stroke: "#ff00ff"
+  agent: "에이전트"
+  shell: "사용자 셸 · 사용자의 권한"
+  tools: "git · npm · docker · gh · 내 CLI 전부" {style.stroke: "#ff00ff"}
+  agent -> shell -> tools
+}
+
+**.style.font-size: 26
+(** -> **)[*].style.font-size: 22

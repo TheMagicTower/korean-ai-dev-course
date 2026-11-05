@@ -1,0 +1,18 @@
+direction: right
+host: "MCP 호스트\n서버마다 클라이언트 1개\nClaude Code · Cursor"
+s1: "로컬 서버\nPlaywright · Serena"
+s2: "원격 서버\nGitHub · Sentry"
+s3: "원격 서버\nSupabase · Figma"
+prim: "서버가 내놓는 것" {
+  p1: "tools\n실행할 수 있는 함수"
+  p2: "resources\n읽을 수 있는 데이터"
+  p3: "prompts\n재사용 템플릿"
+}
+prim.style.stroke: "#ff00ff"
+host -> s1: "stdio"
+host -> s2: "HTTP"
+host -> s3: "HTTP"
+s2 -> prim
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

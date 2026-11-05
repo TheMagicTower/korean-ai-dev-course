@@ -1,0 +1,422 @@
+<!-- 7교시 · 서브에이전트와 워크트리 (60분, 23장). 2회차 2026-11-12. -->
+
+<!-- 01 표지 -->
+<section class="slide section-slide" data-title="표지">
+  <div class="tag"><b>2회차 · 7교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-12</div>
+  <div class="big">7교시</div>
+  <h1>서브에이전트와 워크트리</h1>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/p07-subagents-top.jpg" alt="Claude Code 서브에이전트 공식 문서 첫 화면"></div><figcaption><b>2025-07</b><span>서브에이전트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p07-cursor-050.jpg" alt="Cursor 0.50 변경 기록: Background Agent"></div><figcaption><b>2025-05</b><span>백그라운드 에이전트</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p07-worktrees-top.jpg" alt="Claude Code 워크트리 공식 문서 첫 화면"></div><figcaption><b>2026-02</b><span>--worktree</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p07-codex-app.jpg" alt="Codex 앱 워크트리 공식 문서 화면"></div><figcaption><b>2026-02</b><span>Codex 앱</span></figcaption></figure>
+  </div>
+  <aside>이번 교시는 두 가지 질문에 답합니다. 하나는 컨텍스트 창 하나에 모든 일을 담을 수 없을 때 어떻게 나눠 쓰는가입니다. 다른 하나는 에이전트 여러 개가 한 저장소에서 동시에 일할 때 어떻게 서로 방해하지 않게 하는가입니다. 앞의 답이 서브에이전트이고, 뒤의 답이 워크트리입니다. 아래 네 장은 모두 실제 공식 문서와 변경 기록 화면입니다. 마지막에는 둘을 함께 써서 계획, 병렬 구현, 리뷰, 합치기로 이어지는 흐름을 그려 보겠습니다.</aside>
+</section>
+
+<!-- 02 지난 교시와의 연결 -->
+<section class="slide" data-title="앞 단계의 문제">
+  <div class="tag"><b>2025-03-18 → 2025-07-14</b><span class="sep"></span>자동 압축 · Chroma ‘Context Rot’</div>
+  <h2>압축만으로는 창이 모자라서, 일을 나눠 맡기게 됐다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>research.trychroma.com/context-rot</span></div><img src="assets/captures/page-context-rot.jpg" alt="Chroma 기술 보고서 Context Rot 첫 화면"></div>
+      <div class="kind">Chroma 기술 보고서 화면 캡처 · 5교시에서 본 자료</div>
+      <div class="ko">Chroma의 기술 보고서(2025-07-14). 입력이 길어질수록 <b>LLM 성능이 고르지 않게 떨어진다</b>는 것을 모델 18개로 확인했다.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>스펙·테스트를 갖춰도 탐색과 로그가 창(한 번에 읽는 입력 범위)을 채운다</li>
+        <li>압축하면 결정의 이유가 사라진다</li>
+        <li>해법 ①: 일을 맡겨 <b>창을 나눈다</b></li>
+        <li>해법 ②: 일을 맡겨 <b>폴더를 나눈다</b></li>
+      </ul>
+      <div class="next">← 5교시 · 6교시</div>
+    </div>
+  </div>
+  <aside>5교시에서 압축의 한계를 봤습니다. 스펙과 Task 목록이 있어도 코드를 뒤지고 테스트 로그를 읽다 보면 컨텍스트 창이 금방 찹니다. 압축을 하면 왜 그렇게 결정했는지가 빠집니다. 오늘 보는 서브에이전트는 이 문제를 일을 나눠 맡기는 방식으로 풉니다. 탐색은 다른 창에서 하고 결과 요약만 받는 것입니다. 워크트리는 이어서 다른 문제를 풉니다. 에이전트 여러 개를 동시에 돌리면 같은 폴더의 파일을 서로 덮어쓰는 문제입니다. 두 장치는 다른 문제를 풀지만 함께 쓰는 일이 많습니다.</aside>
+</section>
+
+<!-- 03 서브에이전트란 -->
+<section class="slide" data-title="서브에이전트란">
+  <div class="tag"><b>2025-07-24</b><span class="sep"></span>Claude Code 커스텀 서브에이전트(1.0.60) · 공식 문서</div>
+  <h2>서브에이전트는 자기 창에서 일하고 요약만 돌려준다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/sub-agents</span></div><img src="assets/captures/p07-subagents-top.jpg" alt="Create custom subagents 공식 문서 첫 화면"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 공식 문서 ‘커스텀 서브에이전트 만들기’ 첫 화면. 검색 결과·로그가 메인 대화를 채우지 않게 <b>별도 에이전트에 맡기는 기능</b>이라고 설명.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“the subagent does that work in its own context and returns only the summary.”<span class="tr">서브에이전트가 그 일을 자기 컨텍스트에서 처리하고, 요약만 돌려준다.</span><cite>Claude Code Docs · Create custom subagents</cite></div>
+      <div class="pmi col">
+    <div class="p">검색·로그가 <b>자기 창</b>에서 처리돼 메인 대화가 깨끗하다. 시스템 프롬프트·도구·권한도 따로 준다.</div>
+    <div class="m">대화 이력과 읽은 파일을 <b>보지 못한다</b>. 요청도 보내므로 사용량은 메인과 같은 한도에서 차감된다.</div>
+    <div class="i">압축이 쌓인 맥락을 줄인다면, 이쪽은 <b>애초에 쌓이지 않게</b> 한다. 7교시의 첫 번째 장치.</div>
+  </div>
+    </div>
+  </div>
+  <aside>서브에이전트는 메인 에이전트가 일을 맡기는 별도의 에이전트입니다. 공식 문서 첫머리가 이것을 정확히 말합니다. 검색 결과, 로그, 파일 내용처럼 다시 볼 일 없는 것들이 메인 대화를 채울 때 쓰라는 것입니다. 서브에이전트는 자기 컨텍스트 창과 시스템 프롬프트, 도구 접근, 독립된 권한을 가집니다. Claude Code는 2025년 7월 24일 배포된 1.0.60에서 사용자가 직접 서브에이전트를 만드는 기능을 넣었습니다. 변경 기록에는 한 줄만 있습니다. 장점은 탐색 결과가 메인 창을 채우지 않는다는 것입니다. 단점은 대화 이력을 보지 못하고, 서브에이전트도 자기 요청을 보내기 때문에 사용량이 메인 대화와 같은 한도에서 차감된다는 것입니다. 의미는 압축과 달리 애초에 맥락이 쌓이지 않게 하는 장치라는 점입니다.</aside>
+</section>
+
+<!-- 04 맥락 나눠 쓰기 -->
+<section class="slide" data-title="맥락을 나눠 쓴다">
+  <div class="tag"><b>개념</b><span class="sep"></span>컨텍스트 창을 둘로 나누기</div>
+  <h2>탐색은 다른 창에서, 메인에는 결론만</h2>
+  <div class="diagram">{{svg:p07-context-split}}</div>
+  <p class="under">서브에이전트는 <b>대화 이력을 보지 못합니다</b>. 메인이 작업 내용을 요약해 건네고, 서브에이전트는 거기서 시작합니다.</p>
+  <aside>그림에서 위의 메인 창에는 목표와 계획, 판단만 쌓입니다. 파일 수십 개를 읽고, 긴 로그를 보고, 검색 결과 수백 줄을 훑는 일은 아래의 서브에이전트 창에서 합니다. 일이 끝나면 요약만 메인으로 돌아옵니다. 압축은 이미 쌓인 맥락을 줄이는 방식이고, 서브에이전트는 애초에 쌓이지 않게 하는 방식입니다. 대가도 있습니다. 공식 문서에 따르면 서브에이전트는 새 창으로 시작해서 지금까지의 대화 이력, 이미 읽은 파일을 보지 못합니다. 메인이 작성한 위임 메시지가 전부이므로, 맡길 때 무엇을 알려 줄지가 중요합니다.</aside>
+</section>
+
+<!-- 05 내장 서브에이전트 -->
+<section class="slide" data-title="내장 서브에이전트">
+  <div class="tag"><b>공식 문서</b><span class="sep"></span>Claude Code 내장 서브에이전트 · 2026-10-28 확인</div>
+  <h2>기본 제공 서브에이전트 셋: 읽기 전용 둘, 만능 하나</h2>
+  <table class="tbl">
+    <tr><th>이름</th><th>도구</th><th>쓰임</th></tr>
+    <tr><td class="mono">Explore</td><td>읽기 전용 (Write·Edit 거부)</td><td>파일 찾기, 코드 검색. 깊이를 quick(빠르게) · medium(보통) · very thorough(꼼꼼히)로 지정</td></tr>
+    <tr><td class="mono">Plan</td><td>읽기 전용 (Write·Edit 거부)</td><td>Plan 모드(계획만 세우는 모드)에서 코드베이스 조사</td></tr>
+    <tr><td class="mono">general-purpose</td><td>사용 가능한 모든 도구</td><td>탐색과 수정이 함께 필요한 복잡한 다단계 작업</td></tr>
+  </table>
+  <div class="pmi">
+    <div class="p">직접 만들지 않아도 <b>이미 쓰고 있다</b>. 읽기 전용이라 조사만 시켜 안전하고 빠르다.</div>
+    <div class="m">Explore·Plan은 <b>CLAUDE.md(프로젝트 지침 파일)와 git 상태 없이</b> 시작한다. 세부 동작은 버전마다 바뀐다.</div>
+    <div class="i">일에 맞춰 <b>도구를 제한</b>하는 설계의 기본형. 8교시 리뷰어 서브에이전트도 같은 방향.</div>
+  </div>
+  <aside>직접 만들지 않아도 서브에이전트는 이미 쓰고 있습니다. Claude Code가 코드를 찾을 때 Explore라는 내장 서브에이전트에게 맡기는 경우가 많습니다. Explore와 Plan은 읽기 전용이라 파일을 고치지 못합니다. 조사만 시킬 수 있다는 점이 안전하고 빠릅니다. 일반 목적 에이전트는 모든 도구를 가지고 탐색과 수정을 함께 합니다. 장점은 이미 기본으로 쓰고 있다는 것과 읽기 전용이라 안전하다는 것입니다. 단점은 Explore와 Plan이 CLAUDE.md와 git 상태 없이 시작한다는 점입니다. 의미는 일에 맞춰 도구를 제한하는 설계의 기본형이라는 것으로, 8교시 리뷰어도 같은 방향입니다. 이 표는 공식 문서 내용을 그대로 옮겼습니다. 모델과 세부 동작은 버전마다 바뀌므로 수업 전에 문서를 다시 확인하겠습니다.</aside>
+</section>
+
+<!-- 06 정의 파일 -->
+<section class="slide" data-title="정의 파일">
+  <div class="tag"><b>2025-07-24</b><span class="sep"></span>.claude/agents/*.md · 공식 문서 예시 그대로</div>
+  <h2>서브에이전트는 마크다운 파일 한 장으로 정의한다</h2>
+  <div class="row flip">
+    <div class="points">
+      <ol>
+        <li><b>name · description</b>(이름·설명)만 필수. description이 위임 기준</li>
+        <li><b>tools</b>로 쓸 수 있는 도구를 제한</li>
+        <li><b>model</b>로 가벼운 모델을 지정</li>
+        <li>본문 전체가 시스템 프롬프트(기본 지시문)</li>
+      </ol>
+      <div class="next">→ 8교시 실습에서 직접 만들기</div>
+    </div>
+    <div class="term"><span class="dim"># .claude/agents/code-reviewer.md</span>
+<span class="acc">---</span>
+name: code-reviewer
+description: Reviews code for quality and best practices
+tools: Read, Glob, Grep
+model: sonnet
+<span class="acc">---</span>
+
+You are a code reviewer. When invoked, analyze the code and provide
+specific, actionable feedback on quality, security, and best practices.
+
+<span class="ok">✓</span> 읽기 도구만 → 코드를 고치지 못한다
+<span class="ok">✓</span> sonnet → 리뷰는 가벼운 모델로</div>
+  </div>
+  <aside>서브에이전트 정의는 .claude/agents 폴더의 마크다운 파일입니다. 위쪽 프런트매터에 이름과 설명, 도구, 모델을 적고, 아래 본문이 곧 그 에이전트의 시스템 프롬프트가 됩니다. 이 예시는 공식 문서의 빠른 시작에 나오는 코드 리뷰어를 그대로 가져온 것입니다. 필수는 name과 description 두 가지뿐입니다. 도구를 Read, Glob, Grep으로 제한했기 때문에 이 에이전트는 코드를 읽고 의견만 낼 수 있고 고칠 수는 없습니다. 6교시에서 말한 테스트 파일 보호와 같은 방향의 장치입니다. 서브에이전트는 Claude Code의 전체 시스템 프롬프트가 아니라 이 본문과 기본 환경 정보만 받습니다.</aside>
+</section>
+
+<!-- 07 필드와 위치 -->
+<section class="slide" data-title="필드와 위치">
+  <div class="tag"><b>공식 문서</b><span class="sep"></span>프런트매터 필드 · 저장 위치와 우선순위</div>
+  <h2>필드 몇 개로 정의하고, 같은 이름이면 위쪽 위치가 이긴다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/sub-agents</span></div><img src="assets/captures/p07-subagents-locations.jpg" alt="서브에이전트 저장 위치와 우선순위 표"></div>
+      <div class="kind">공식 문서 표 캡처 · 같은 이름이면 위쪽이 이깁니다</div>
+      <div class="ko">서브에이전트 정의 파일을 둘 수 있는 위치 표. 관리 설정, 실행 옵션, 프로젝트, 내 홈, 플러그인 순으로 <b>숫자가 작을수록 우선</b>.</div>
+    </div>
+    <div class="points" style="font-size:26px;gap:18px">
+      <table class="tbl" style="font-size:22px">
+        <tr><th>필드</th><th>역할</th></tr>
+        <tr><td class="mono">disallowedTools</td><td>쓰지 못할 도구</td></tr>
+        <tr><td class="mono">permissionMode</td><td>권한 모드(승인 방식)</td></tr>
+        <tr><td class="mono">maxTurns</td><td>최대 턴 수(주고받는 횟수)</td></tr>
+        <tr><td class="mono">background</td><td>항상 백그라운드</td></tr>
+        <tr><td class="mono">isolation</td><td>worktree로 격리(별도 폴더)</td></tr>
+      </table>
+    </div>
+  </div>
+  <aside>필드는 이 밖에도 스킬, MCP 서버, 훅, 메모리, 색상 같은 것이 있습니다. 오늘은 자주 쓰는 다섯 가지만 보겠습니다. 이름이 정확히 맞아야 하고, 모르는 필드는 오류 없이 무시된다는 점에 주의하세요. 저장 위치는 프로젝트의 .claude/agents와 내 홈의 .claude/agents가 중심입니다. 팀이 공유할 에이전트는 프로젝트에 두고 저장소에 커밋합니다. 같은 이름이 여러 곳에 있으면 관리 설정, 명령줄 옵션, 프로젝트, 사용자, 플러그인 순서로 우선합니다. 오른쪽 맨 아래 isolation은 뒤에서 워크트리와 만날 때 다시 나옵니다.</aside>
+</section>
+
+<!-- 08 부르는 법 -->
+<section class="slide" data-title="서브에이전트 부르기">
+  <div class="tag"><b>공식 문서</b><span class="sep"></span>서브에이전트를 부르는 네 가지 방법</div>
+  <h2>서브에이전트는 자동 위임·말로·@-멘션·--agent로 부른다</h2>
+  <div class="term"><span class="dim">$</span> claude
+<span class="dim">&gt;</span> use the test-runner subagent to fix failing tests          <span class="dim"># 말로 지정</span>
+<span class="dim">&gt;</span> @"code-reviewer (agent)" look at the auth changes          <span class="dim"># @로 에이전트 지정</span>
+<span class="dim">&gt;</span> <span class="dim"># 아무 말 없어도 description이 맞으면 Claude가 알아서 위임</span>
+
+<span class="dim">$</span> claude --agent code-reviewer      <span class="dim"># 세션 전체를 그 에이전트로 실행</span>
+
+<span class="ok">✓</span> description에 “use proactively”를 넣으면 더 적극적으로 위임
+<span class="warn">!</span> 좋은 description = 언제 맡길지에 대한 한 줄 기준</div>
+  <p class="under">서브에이전트가 일하는 동안 <b>메인은 다른 일</b>을 할 수 있습니다(백그라운드). <span class="next">→ 8교시</span></p>
+  <aside>정의한 에이전트를 부르는 방법은 네 가지입니다. 가장 흔한 것은 자동 위임입니다. 요청 내용과 각 에이전트의 description이 맞으면 Claude가 스스로 맡깁니다. 그래서 description을 정성껏 써야 합니다. 말로 지정할 수도 있고, @-멘션으로 특정 에이전트를 고를 수도 있습니다. --agent 옵션은 세션 전체를 그 에이전트로 돌립니다. 위 명령은 모두 공식 문서의 예시입니다. 어떤 에이전트가 있는지는 .claude/agents 폴더를 열어 보면 되고, 예전에 있던 /agents 마법사는 최근 버전에서 안내 문구로 바뀌었다고 문서에 적혀 있습니다.</aside>
+</section>
+
+<!-- 09 병렬 호출 -->
+<section class="slide" data-title="병렬 호출">
+  <div class="tag"><b>공식 문서</b><span class="sep"></span>서브에이전트 병렬 호출</div>
+  <h2>독립된 조사는 동시에 시킨다</h2>
+  <div class="diagram">{{svg:p07-parallel-sub}}</div>
+  <p class="under">공식 예시: <b>“Research the authentication, database, and API modules in parallel using separate subagents”</b>(인증·DB·API 모듈을 서브에이전트 따로 병렬로 조사해 줘). 조사 경로가 서로 독립일 때 잘 맞습니다.</p>
+  <aside>서브에이전트는 병렬로도 돌립니다. 인증, 데이터베이스, API 모듈을 각각 다른 서브에이전트에게 조사시키고, 세 개의 요약만 받는 식입니다. 메인 창에는 세 요약만 남으니 맥락이 깨끗합니다. 공식 문서는 이 방식이 조사 경로가 서로 의존하지 않을 때 가장 잘 맞는다고 덧붙입니다. 반대로 상세한 결과를 돌려주는 서브에이전트가 너무 많으면 그 결과가 메인 창을 다시 채울 수 있다고 경고합니다. 동시 실행 수에도 기본 상한이 있습니다.</aside>
+</section>
+
+<!-- 10 언제 쓰나 -->
+<section class="slide" data-title="언제 쓰고 안 쓰나">
+  <div class="tag"><b>공식 문서 + 강사 운영 방식</b><span class="sep"></span>서브에이전트를 쓸 때와 안 쓸 때</div>
+  <h2>탐색·로그·리뷰는 맡기고, 되묻는 일은 메인에서</h2>
+  <div class="compare" style="--cols:2">
+    <div class="on">
+      <div class="k">맡긴다</div>
+      <h3>서브에이전트가 맞는 일</h3>
+      <ul><li>출력이 길고 다시 볼 필요 없는 일: 탐색, 로그 읽기</li><li>도구·권한을 제한하고 싶은 일: 리뷰어</li><li>혼자 끝낼 수 있고 요약으로 돌려줄 수 있는 일</li></ul>
+    </div>
+    <div>
+      <div class="k">맡기지 않는다</div>
+      <h3>메인에서 하는 일</h3>
+      <ul><li>자주 되묻고 고쳐 가는 일</li><li>계획·구현·테스트가 맥락을 공유하는 일</li><li>작고 빠른 수정</li><li><b>같은 파일을 동시에 고치는 일</b>: 워크트리로 분리하거나 순서를 정한다</li></ul>
+    </div>
+  </div>
+  <aside>판단 기준은 두 가지입니다. 결과가 요약으로 충분한가, 그리고 과정이 메인 창에 남을 필요가 없는가입니다. 코드 탐색, 긴 로그 분석, 리뷰가 대표적입니다. 반대로 사람과 자주 주고받으며 다듬는 일, 계획부터 테스트까지 맥락을 공유해야 하는 일은 메인이 낫습니다. 새 창으로 시작하는 서브에이전트는 맥락을 모으는 시간이 들기 때문입니다. 위의 앞 두 묶음은 공식 문서 기준이고, 마지막 항목인 같은 파일 동시 수정은 제가 운영하면서 정한 규칙입니다. 이 문제는 곧 워크트리에서 다룹니다.</aside>
+</section>
+
+<!-- 11 한계 -->
+<section class="slide" data-title="서브에이전트의 한계">
+  <div class="tag"><b>공식 문서</b><span class="sep"></span>기본값 · 2026-10-28 확인</div>
+  <h2>서브에이전트는 맥락을 아끼지만 사용량은 줄이지 않는다</h2>
+  <div class="stats">
+    <div class="stat"><div class="n">20</div><p class="d">동시 실행 서브에이전트 기본 상한</p><p class="s">CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS</p></div>
+    <div class="stat"><div class="n">3</div><p class="d">서브에이전트가 또 서브에이전트를 부르는 최대 단계(기본)</p><p class="s">CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH</p></div>
+    <div class="stat"><div class="n">×N</div><p class="d">병렬로 돌린 만큼 토큰(AI가 처리하는 글 조각) 사용량도 증가</p><p class="s">같은 사용량 한도에서 차감</p></div>
+  </div>
+  <p class="under">기본값은 동시 <b>20개</b>, 중첩 <b>3단계</b>. <b>→ 결론: 맥락은 아끼지만 비용은 늘고, 결과가 길면 메인 창도 다시 찹니다.</b></p>
+  <aside>장점만 말하면 안 되니 한계도 짚겠습니다. 첫째, 서브에이전트가 보내는 요청도 사용량에 포함됩니다. 병렬로 많이 돌릴수록 토큰 사용량도 그만큼 늘어난다고 생각하셔야 합니다. 둘째, 서브에이전트가 또 서브에이전트를 부를 수 있고, 기본 깊이 제한은 세 단계입니다. 셋째, 동시에 돌릴 수 있는 개수의 기본 상한이 있습니다. 숫자는 현재 문서 기준이고 환경 변수로 바꿀 수 있습니다. 맥락을 아낀다고 해서 비용도 아끼는 것은 아닙니다. 그래서 읽기 전용 리뷰어에게 가벼운 모델을 지정하는 식으로 균형을 잡습니다.</aside>
+</section>
+
+<!-- 12 한 폴더 두 에이전트 -->
+<section class="slide" data-title="한 폴더, 두 에이전트">
+  <div class="tag"><b>2025-05 → 2026-02</b><span class="sep"></span>문제: 같은 작업 폴더를 함께 쓰면</div>
+  <h2>한 폴더에서 에이전트 둘이 일하면 서로 덮어쓴다</h2>
+  <div class="diagram">{{svg:p07-same-folder}}</div>
+  <p class="under">해법은 작업마다 <b>폴더와 브랜치(코드 갈래)를 따로</b> 주는 것입니다. 로그인·검색 같은 작업을 동시에 시킬 때 필요합니다.</p>
+  <aside>서브에이전트로 맥락은 나눴지만 아직 한 폴더를 같이 씁니다. 큰 프로젝트에서는 로그인 기능과 검색 기능처럼 서로 다른 작업을 동시에 시키고 싶어집니다. 같은 폴더에서 에이전트 두 개가 파일을 고치면 한쪽의 수정이 다른 쪽에 의해 덮어써지거나, 테스트가 반쯤 고친 상태의 코드 위에서 돌아갑니다. 사람 개발자도 한 폴더에서 브랜치를 바꿔 가며 일하면 같은 일을 겪습니다. git이 오래전부터 제공하던 해법이 워크트리입니다. 에이전트가 늘어나자 이 오래된 기능이 다시 주목받았습니다.</aside>
+</section>
+
+<!-- 13 git worktree -->
+<section class="slide" data-title="git worktree">
+  <div class="tag"><b>git worktree</b><span class="sep"></span>git 공식 문서 · git-worktree (2.56.0 문서 기준)</div>
+  <h2>git worktree로 한 저장소에서 브랜치마다 작업 폴더를 갖는다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>git-scm.com/docs/git-worktree</span></div><img src="assets/captures/p07-git-worktree.jpg" alt="git-worktree 공식 문서 첫 화면"></div>
+      <div class="kind">git 공식 문서 화면 캡처</div>
+      <div class="ko">git 공식 문서의 git-worktree 설명. 한 저장소에 작업 폴더를 여럿 붙여 <b>브랜치 여러 개를 한 번에 체크아웃</b>(펼치기)할 수 있다.</div>
+    </div>
+    <div class="term" style="font-size:19px"><span class="dim">$</span> git worktree add ../app-login -b feat/login
+<span class="dim">$</span> git worktree add ../app-search -b feat/search
+<span class="dim">$</span> git worktree list
+<span class="dim">/home/me/app          a1b2c3d [main]
+/home/me/app-login    a1b2c3d [feat/login]
+/home/me/app-search   a1b2c3d [feat/search]</span>
+<span class="dim">$</span> git worktree remove ../app-login
+
+<span class="ok">✓</span> “check out more than one branch at a time”
+   <span class="dim">= 브랜치 여럿을 한 번에 펼친다</span>
+<span class="warn">!</span> 같은 브랜치는 두 곳에 못 연다(기본값)</div>
+  </div>
+  <div class="pmi">
+    <div class="p"><b>git이 오래전부터 제공</b>한 기능. 브랜치마다 폴더가 생기고 기록은 공유해, 합치기도 일반 머지다.</div>
+    <div class="m">같은 브랜치는 <b>두 곳에 못 연다</b>. 새 체크아웃이라 의존성 설치 등 환경 준비가 따로 필요하다. 서브모듈은 실험적.</div>
+    <div class="i">에이전트 병렬화의 해법은 <b>새 발명이 아니라 오래된 git 기능</b>. Claude Code·Codex가 이를 제품에 넣었다.</div>
+  </div>
+  <aside>워크트리는 새 기능이 아닙니다. git 공식 문서의 설명처럼 한 저장소에 작업 트리를 여럿 붙여서 한 번에 브랜치 여러 개를 체크아웃해 둘 수 있습니다. git worktree add가 새 폴더와 브랜치를 만들고, list로 목록을 보고, 끝나면 remove로 지웁니다. 터미널 예시는 문서의 문법을 따라 쓴 것이고 경로와 해시는 설명용입니다. 같은 브랜치를 이미 다른 워크트리가 쓰고 있으면 add가 거절됩니다. 두 곳에서 같은 브랜치를 건드리지 못하게 하는 안전장치입니다. 문서는 서브모듈이 있는 저장소의 다중 체크아웃은 아직 실험적이라고 경고합니다. 정리하면 장점은 오래 검증된 git 기능이라는 것, 단점은 환경 준비가 따로 필요하다는 것, 의미는 에이전트 병렬화의 해법이 새 발명이 아니라는 것입니다.</aside>
+</section>
+
+<!-- 14 공유와 분리 -->
+<section class="slide" data-title="공유와 분리">
+  <div class="tag"><b>git worktree</b><span class="sep"></span>무엇을 나누고 무엇을 같이 쓰나</div>
+  <h2>저장소 기록은 하나, 작업 파일은 각자</h2>
+  <div class="diagram">{{svg:p07-worktree-layout}}</div>
+  <p class="under">커밋과 브랜치는 <b>모든 워크트리에 즉시 보입니다</b>. 파일, HEAD(현재 커밋 표시), 인덱스(커밋 대기 목록)는 <b>워크트리마다 따로</b>입니다.</p>
+  <aside>워크트리를 새로 clone하는 것과 혼동하지 마세요. clone은 저장소 전체를 복사하지만 워크트리는 .git 안의 기록을 공유합니다. 한 워크트리에서 만든 커밋이 다른 워크트리에서도 바로 보이는 이유입니다. 반대로 작업 파일, 현재 가리키는 HEAD, 인덱스는 워크트리마다 따로 있습니다. 그래서 에이전트 A가 파일을 고쳐도 에이전트 B의 폴더에는 영향이 없습니다. 이 공유 덕에 나중에 합치는 일도 같은 저장소 안에서 일반적인 머지로 처리됩니다. 새로 만든 워크트리는 새 체크아웃이라 의존성 설치 같은 환경 준비가 따로 필요합니다.</aside>
+</section>
+
+<!-- 15 Cursor -->
+<section class="slide" data-title="Cursor 백그라운드 에이전트">
+  <div class="tag"><b>2025-05-15</b><span class="sep"></span>Cursor 0.50 · Background Agent(프리뷰)</div>
+  <h2>Cursor는 2025년 5월 백그라운드 에이전트로 병렬 실행을 내놓았다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>cursor.com/changelog/0-50</span></div><img src="assets/captures/p07-cursor-050.jpg" alt="Cursor 0.50 변경 기록 화면"></div>
+      <div class="kind">공식 변경 기록 화면 캡처 · 2025-05-15</div>
+      <div class="ko">Cursor 0.50 업데이트 소개 글. 요금제 단순화와 함께 <b>병렬 작업용 Background Agent</b>(백그라운드 에이전트)를 처음 내놓았다.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“Background Agent for parallel task execution.”<span class="tr">병렬 작업 실행을 위한 백그라운드 에이전트.</span><cite>Cursor Changelog 0.50 · 2025-05-15</cite></div>
+      <div class="pmi col">
+    <div class="p">에이전트가 <b>편집기와 별개로</b> 돌아, 여러 작업을 동시에 맡길 수 있다.</div>
+    <div class="m"><b>초기 프리뷰</b>로 점진 배포. 이 글에는 격리 방식의 세부가 없어 확인할 수 없다.</div>
+    <div class="i">병렬 실행을 <b>제품 기능으로 먼저</b> 내놓은 사례. 동시 실행이 기본 기능이 되어 가는 출발점.</div>
+  </div>
+    </div>
+  </div>
+  <aside>병렬 실행을 제품 기능으로 먼저 들고 나온 쪽은 Cursor입니다. 2025년 5월 15일의 0.50 변경 기록 제목에 백그라운드 에이전트가 들어 있고, 소개 글은 병렬 작업 실행을 위한 기능이라고 말합니다. 본문에는 초기 프리뷰로 점진적으로 배포한다고 적혀 있습니다. 이 화면에서 확인한 것은 여기까지입니다. 장점은 편집기와 별개로 여러 작업을 동시에 돌린다는 것, 단점은 초기 프리뷰라는 것, 의미는 병렬 실행이 제품 기능으로 먼저 나왔다는 것입니다. 격리 방식의 세부 구현은 이 글에 없으므로 말하지 않겠습니다. 중요한 점은 이 시기부터 에이전트 여러 개를 동시에 돌리는 것이 이상한 일이 아니라 기본 기능이 되어 갔다는 것입니다.</aside>
+</section>
+
+<!-- 16 Claude Code --worktree -->
+<section class="slide" data-title="Claude Code --worktree">
+  <div class="tag"><b>2026-02-19</b><span class="sep"></span>Claude Code --worktree(2.1.49) · 공식 CHANGELOG</div>
+  <h2>Claude Code는 --worktree 한 줄로 격리된 세션을 연다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/worktrees</span></div><img src="assets/captures/p07-worktrees-top.jpg" alt="Run parallel sessions with worktrees 공식 문서 첫 화면"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 공식 문서 ‘워크트리로 병렬 세션 실행’. 워크트리는 <b>파일·브랜치는 따로, 저장소 기록은 공유</b>하는 작업 폴더라고 설명.</div>
+    </div>
+    <div class="term" style="font-size:19px"><span class="dim"># CHANGELOG 2.1.49</span>
+Added --worktree (-w) flag to start Claude in an isolated git worktree
+<span class="dim"># = 격리된 워크트리에서 Claude를 시작하는 옵션 추가</span>
+<span class="dim">$</span> claude --worktree feature-auth
+<span class="dim">$</span> claude -w feature-search      <span class="dim"># 다른 터미널에서</span>
+
+<span class="ok">✓</span> .claude/worktrees/&lt;이름&gt;/
+<span class="ok">✓</span> 브랜치 worktree-&lt;이름&gt;
+<span class="ok">✓</span> 나갈 때 변경을 확인하고 유지·삭제를 묻는다
+<span class="warn">!</span> .env 같은 파일은 .worktreeinclude(복사 목록)로 복사</div>
+  </div>
+  <div class="pmi">
+    <div class="p">이름만 주면 <b>폴더와 브랜치를 자동 생성</b>. 다른 터미널에서 또 실행하면 격리 세션이 하나 더 생긴다.</div>
+    <div class="m">새 체크아웃이라 <b>.env 같은 gitignore 파일이 없다</b>. .worktreeinclude에 복사 목록을 적어야 한다.</div>
+    <div class="i">앞 장의 git 기능을 <b>옵션 한 줄</b>로 감쌌다. 병렬 격리가 도구의 기본 기능이 됐다.</div>
+  </div>
+  <aside>Claude Code에서는 2026년 2월 2.1.49 버전에 --worktree 옵션이 들어왔습니다. 변경 기록에 한 줄로 적혀 있습니다. 이름만 주면 저장소의 .claude/worktrees 아래에 폴더를 만들고 worktree-이름이라는 브랜치를 새로 따서 그 안에서 Claude를 시작합니다. 다른 터미널에서 다른 이름으로 한 번 더 실행하면 두 번째 격리 세션이 됩니다. 나갈 때 변경이 있으면 남길지 지울지 묻고, 이름 없는 세션은 변경이 없을 때 알아서 정리합니다. 새 체크아웃이라 gitignore 대상인 .env는 없으므로 .worktreeinclude 파일로 복사할 목록을 적습니다. .claude/worktrees는 .gitignore에 넣으세요. 정리하면 장점은 옵션 한 줄로 격리 세션이 열린다는 것, 단점은 .env 같은 파일이 없어 따로 복사해야 한다는 것, 의미는 git 기능이 도구의 기본 기능이 됐다는 것입니다.</aside>
+</section>
+
+<!-- 17 Codex 앱 -->
+<section class="slide" data-title="Codex 앱 워크트리">
+  <div class="tag"><b>2026-02</b><span class="sep"></span>Codex 앱 출시 · 내장 워크트리 · 공식 문서</div>
+  <h2>Codex 앱은 워크트리를 기본 기능으로 넣었다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>developers.openai.com/codex/app/worktrees</span></div><img src="assets/captures/p07-codex-app.jpg" alt="Codex 앱 Worktrees 공식 문서 화면"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">OpenAI Codex 앱의 Worktrees 문서. 워크트리를 <b>저장소의 두 번째 복사본</b>으로 정의하고 Local·Worktree·Handoff 용어를 풀이.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+    <div class="p">같은 프로젝트의 여러 채팅이 <b>서로 방해 없이</b> 돈다. <b>Local</b>(원래 폴더)↔<b>Worktree</b>(복사본)를 <b>Handoff</b>(넘기기)로 오간다.</div>
+    <div class="m"><b>Git 저장소에서만</b> 동작한다. 출시일은 2월 초까지만 확인했다.</div>
+    <div class="i">Claude Code · Cursor · Codex가 <b>같은 방향</b>으로 모였다. 특정 도구만 정답이 아니다.</div>
+  </div>
+    </div>
+  </div>
+  <aside>OpenAI는 2026년 2월 Codex 앱을 내놓으면서 여러 에이전트가 같은 저장소에서 충돌 없이 일할 수 있게 워크트리를 내장했다고 소개했습니다. 공식 문서 화면을 보면 워크트리는 로컬 체크아웃에서 만든 두 번째 복사본이고, 채팅을 로컬과 워크트리 사이에 옮기는 흐름을 핸드오프라고 부릅니다. 워크트리는 git 저장소에서만 동작합니다. 출시 날짜는 연표에서 2월 초로 확인한 것이고, 정확한 일자는 확인하지 못해 월까지만 적었습니다. 장점은 채팅끼리 방해 없이 돈다는 것, 단점은 git 저장소에서만 동작한다는 것입니다. 의미는 세 도구가 같은 방향으로 모였다는 점이며, 수업에서는 어느 도구를 써도 좋습니다.</aside>
+</section>
+
+<!-- 18 서브에이전트+워크트리 -->
+<section class="slide" data-title="서브에이전트와 워크트리를 함께">
+  <div class="tag"><b>2026-02-19</b><span class="sep"></span>서브에이전트 isolation: worktree(2.1.49) · 공식 문서 예시</div>
+  <h2>둘을 합치면 서브에이전트마다 자기 워크트리를 갖는다</h2>
+  <div class="row flip">
+    <div class="points">
+      <div class="under" style="margin:0 0 10px">프런트매터(파일 맨 위 설정) 한 줄 <b>isolation: worktree</b></div>
+      <div class="pmi col">
+    <div class="p">서브에이전트마다 <b>임시 워크트리</b>라 파일을 고쳐도 내 폴더는 그대로. 변경이 없으면 끝날 때 자동 삭제.</div>
+    <div class="m">기본은 <b>default 브랜치에서 분기</b>. 작업 중인 브랜치 상태가 필요하면 worktree.baseRef 설정이 필요하다.</div>
+    <div class="i">맥락 분리와 파일 분리를 <b>한 줄로 결합</b>. 13교시 코디네이터-배치의 기반.</div>
+  </div>
+    </div>
+    <div class="term"><span class="dim"># .claude/agents/refactorer.md</span>
+<span class="acc">---</span>
+name: refactorer
+description: Applies mechanical refactors across many files
+isolation: worktree
+<span class="acc">---</span>
+
+Apply the requested refactor across every affected file, then run the tests
+and report the results.
+
+<span class="dim"># refactorer = 여러 파일을 기계적으로 고치는 에이전트</span>
+<span class="ok">✓</span> 파일을 고쳐도 내 작업 폴더는 그대로
+<span class="warn">!</span> 기본은 default 브랜치에서 분기(worktree.baseRef)</div>
+  </div>
+  <aside>서브에이전트와 워크트리를 겹쳐 쓰는 방법이 isolation 필드입니다. 변경 기록에 따르면 같은 2.1.49 버전에서 서브에이전트가 임시 워크트리에서 일하는 기능도 함께 들어왔습니다. 위의 정의 파일은 공식 문서의 예시입니다. 이 서브에이전트는 호출될 때마다 자기만의 워크트리에서 작업합니다. 변경이 없으면 끝날 때 자동으로 지워지고, 변경이 있으면 남습니다. 기본적으로 저장소의 기본 브랜치에서 분기하므로, 내가 작업 중인 브랜치 상태가 필요하면 설정으로 바꿔야 합니다. 장점은 호출마다 파일이 격리된다는 것, 단점은 기본 분기 기준이 default 브랜치라는 것, 의미는 맥락 분리와 파일 분리가 한 줄로 결합된다는 것입니다. 같은 구조가 13교시 코디네이터-배치 패턴의 기반이 됩니다.</aside>
+</section>
+
+<!-- 19 합칠 때 충돌 -->
+<section class="slide" data-title="합칠 때 충돌">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>병렬 작업의 비용은 합칠 때 나온다</div>
+  <h2>합칠 때 충돌: 격리는 충돌을 미룰 뿐</h2>
+  <div class="diagram">{{svg:p07-merge-conflict}}</div>
+  <p class="under">워크트리는 <b>작업 중</b>의 덮어쓰기를 막을 뿐, <b>합칠 때</b>의 충돌은 막지 못합니다. 변경 범위를 <b>미리 나누는 것</b>이 가장 싼 해법입니다.</p>
+  <aside>워크트리가 충돌을 없애 주는 것은 아닙니다. 두 워크트리가 같은 파일의 같은 줄을 고쳤다면 먼저 합친 쪽은 문제없이 들어가고, 나중에 합치는 쪽에서 충돌이 납니다. 이때는 사람이 두 의도를 보고 판단해야 합니다. 제가 운영하는 기준은 워크트리마다 변경 범위와 담당 이슈를 미리 정하고, 겹치는 파일이나 공유 데이터를 바꾸는 작업은 순서를 조율하는 것입니다. 각 작업의 성공과 합친 뒤의 성공은 다르다는 점도 기억해 주세요. 합친 뒤에도 테스트를 다시 돌려야 합니다. 이 비용을 줄이는 머지 큐는 15교시에서 다룹니다.</aside>
+</section>
+
+<!-- 20 워크플로우 -->
+<section class="slide" data-title="워크플로우">
+  <div class="tag"><b>워크플로우</b><span class="sep"></span>계획 → 병렬 구현 → 리뷰 → 합치기 · 강사 운영 방식</div>
+  <h2>이어 붙이면 한 흐름: 계획에서 합치기까지</h2>
+  <div class="diagram">{{svg:p07-workflow}}</div>
+  <p class="under">계획은 <b>스펙과 Task</b>(5교시), 완료 기준은 <b>테스트</b>(6교시), 리뷰어는 <b>읽기 전용 서브에이전트</b>, 구현은 <b>워크트리 안의 워커</b>입니다. <span class="next">→ 8교시 실습</span></p>
+  <aside>지금까지 배운 것을 이어 붙이면 이런 흐름이 됩니다. 먼저 스펙과 Task 목록으로 일을 쪼갭니다. Task마다 워커를 하나씩 붙이고, 각자 자기 워크트리에서 테스트를 완료 기준으로 구현합니다. 끝난 브랜치는 읽기 전용 리뷰어 서브에이전트가 검토합니다. 통과한 것만 합치고, 충돌은 사람이 풉니다. 핵심은 사람이 병목이 되는 지점이 어디인지 아는 것입니다. 구현은 병렬로 늘릴 수 있지만 리뷰와 합치기는 한곳으로 모이기 때문에 여기서 줄이 섭니다. 8교시에서는 이 흐름의 작은 버전을 직접 해 보겠습니다.</aside>
+</section>
+
+<!-- 21 병렬 방법 지도 -->
+<section class="slide" data-title="병렬 방법 지도">
+  <div class="tag"><b>2026-02-28 · 공식 문서</b><span class="sep"></span>Claude Code 병렬 실행 방법 비교 · /batch(2.1.63)</div>
+  <h2>병렬 방법은 여럿이고, 서브에이전트·워크트리·/batch는 역할이 다르다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/agents</span></div><img src="assets/captures/p07-agents-compare.jpg" alt="Run agents in parallel 공식 문서의 방법 비교 표"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 공식 문서 ‘에이전트 병렬 실행’의 비교 표. 서브에이전트 등 <b>5가지 방식이 각각 언제 맞는지</b>를 나란히 설명.</div>
+    </div>
+    <div class="points">
+      <table class="tbl" style="font-size:20px">
+        <tr><th>방법</th><th>장점</th><th>한계</th></tr>
+        <tr><td><b>서브에이전트</b></td><td>한 세션 안에서 맡기고 맥락을 나눈다</td><td>사용량 ×N, 이력을 못 본다</td></tr>
+        <tr><td><b>워크트리</b></td><td>파일 편집을 격리한다</td><td>합칠 때 충돌은 못 막는다</td></tr>
+        <tr><td><b>/batch</b>(스킬)</td><td>큰 변경 하나를 서브에이전트 5~30개로 쪼개 각자 워크트리에서 작업</td><td>두 방법의 한계를 함께 진다</td></tr>
+      </table>
+      <p class="under" style="margin:6px 0 0"><b>→ 의미:</b> 워크트리는 돌리는 방법이 아니라 <b>편집 격리 도구</b>, /batch는 둘을 묶은 스킬</p>
+      <div class="next">→ 13교시 · agent teams</div>
+    </div>
+  </div>
+  <aside>공식 문서는 병렬 실행 방법을 한 표로 비교합니다. 서브에이전트는 한 세션 안에서 일을 맡기는 방식입니다. 에이전트 뷰, 에이전트 팀, 워크플로우, 프로젝트는 더 큰 단위입니다. 이 문서의 설명이 핵심을 정리해 줍니다. 워크트리는 에이전트를 돌리는 방법이 아니라 파일 편집을 격리하는 도구이고, /batch는 서브에이전트와 워크트리를 묶어 쓰는 스킬이라는 것입니다. 변경 기록에서 /batch는 2.1.63에서 처음 나왔습니다. 오른쪽 표의 장점과 한계는 앞 장들의 내용을 같은 기준으로 맞춘 것입니다. /batch는 두 방법을 묶은 스킬이라 두 한계를 함께 집니다. 에이전트 팀과 에이전트 뷰는 이름만 소개하고 13교시에서 다시 보겠습니다.</aside>
+</section>
+
+<!-- 22 확인 질문 -->
+<section class="slide" data-title="확인 질문">
+  <div class="tag"><b>확인 질문</b><span class="sep"></span>서브에이전트와 워크트리</div>
+  <h2>확인 질문</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/common-workflows</span></div><img src="assets/captures/page-worktree.jpg" alt="Claude Code 공통 워크플로 문서의 워크트리 절"></div>
+      <div class="kind">공식 문서 화면 캡처 · 힌트는 문서 안에</div>
+      <div class="ko">Claude Code ‘공통 워크플로’ 문서 첫 화면. 목차에 <b>워크트리·서브에이전트 위임</b> 항목이 있어 힌트로 쓸 수 있다.</div>
+    </div>
+    <div class="points">
+      <ol>
+        <li>테스트 로그 5천 줄을 읽어야 합니다. 메인에서 읽으면 안 되는 이유와 대안은?</li>
+        <li>에이전트 둘이 같은 파일을 고쳐야 합니다. 워크트리로 충분한가요?</li>
+        <li>코드 리뷰어 서브에이전트의 tools에 무엇을 넣고, 무엇을 뺄까요?</li>
+      </ol>
+    </div>
+  </div>
+  <aside>세 가지를 짧게 물어보겠습니다. 첫째는 5천 줄 로그 문제입니다. 메인 창을 채우고 압축 때 사라질 수 있으니 서브에이전트에게 읽히고 원인 요약만 받는 것이 답입니다. 둘째는 워크트리의 한계입니다. 작업 중 덮어쓰기는 막지만 합칠 때 충돌은 막지 못하므로 변경 범위를 나누거나 순서를 정해야 합니다. 셋째는 리뷰어의 도구입니다. Read, Glob, Grep처럼 읽기 도구만 주고 Write와 Edit은 주지 않는 것이 기본입니다. 정답은 하나가 아니니, 이유를 말하는 것이 중요합니다.</aside>
+</section>
+
+<!-- 23 정리 -->
+<section class="slide" data-title="정리와 다음 교시">
+  <div class="tag"><b>정리</b><span class="sep"></span>문제 → 해결 · 2025-05 → 2026-02</div>
+  <h2>정리: 창을 나누고, 폴더를 나누고, 다음은 ‘얼마나 오래’</h2>
+  <div class="diagram">{{svg:p07-recap}}</div>
+  <p class="under">서브에이전트는 <b>맥락</b>을, 워크트리는 <b>파일</b>을 나눕니다. <span class="next">→ 8교시 실습 2 · 과제 2</span></p>
+  <aside>오늘 내용을 정리합니다. 압축으로도 해결되지 않던 창의 한계를 서브에이전트가 일을 나눠 맡기는 방식으로 풀었습니다. 병렬로 일할 때 생기는 덮어쓰기는 워크트리로 풀었습니다. 날짜로 보면 Cursor의 백그라운드 에이전트가 2025년 5월, 서브에이전트가 7월, Claude Code의 --worktree가 2026년 2월이었습니다. 실제로는 여러 장치가 같은 시기에 쌓였지만 문제와 해결의 논리 순서로 설명했습니다. 다음 8교시는 실습입니다. 스펙, Task, 테스트 먼저, 구현으로 기능 하나를 추가하고 서브에이전트로 리뷰합니다. 3회차에서는 오래 맡기는 문제, 승인과 계속의 자동화로 넘어갑니다.</aside>
+</section>

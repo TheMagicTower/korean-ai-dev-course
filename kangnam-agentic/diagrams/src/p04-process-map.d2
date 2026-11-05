@@ -1,0 +1,14 @@
+grid-rows: 2
+grid-columns: 2
+horizontal-gap: 120
+vertical-gap: 90
+a: "1회차 · 4교시\n1–7단계: 분석 → 개요 → ADR\n→ 내 하네스 첫 버전" {style.stroke: "#ff00ff"}
+b: "2회차 · 8교시\n8·13·14단계: 스펙 → Task → 이슈\n이슈 하나를 스펙→계획→구현→리뷰"
+d: "4회차 · 16교시\n16–18단계: PR·CI·스모크\n→ 피드백 → 다음 루프"
+c: "3회차 · 12교시\n15단계: 워크트리·워크플로\n스킬·MCP·/goal 중 골라 쓰기"
+a -> b
+b -> c
+c -> d
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

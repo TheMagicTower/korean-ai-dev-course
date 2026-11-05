@@ -1,0 +1,544 @@
+<!-- 10교시 · 하네스와 MCP: 주로 쓰는 MCP 도구 (60분, 28장). 3회차 2026-11-19. 사실 확인일 2026-10-28. -->
+
+<!-- 01 표지 -->
+<section class="slide" data-title="표지">
+  <div class="tag"><b>3회차 · 10교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-19</div>
+  <div class="title-wrap">
+    <h1>하네스와 MCP<br>주로 쓰는 MCP 도구</h1>
+    <p class="lead">에이전트를 둘러싼 장치에 이름이 붙은 과정, 그 장치 가운데 바깥 세계와 잇는 MCP, 그리고 실제로 많이 쓰는 MCP 도구를 하나씩 봅니다.</p>
+  </div>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="Anthropic 장기 실행 하네스 글"></div><figcaption><b>하네스</b><span>2025-11-26</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p10-mcp-arch.jpg" alt="MCP 공식 문서의 구조 설명"></div><figcaption><b>MCP</b><span>구조·보안</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-serena.jpg" alt="Serena GitHub 저장소"></div><figcaption><b>Serena</b><span>심볼 탐색</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p10-playwright-mcp.jpg" alt="Playwright MCP 공식 문서"></div><figcaption><b>Playwright</b><span>브라우저</span></figcaption></figure>
+  </div>
+  <div class="arrowline"></div>
+  <aside>오늘 10교시는 세 덩어리입니다. 먼저 지금까지 쌓은 장치들을 통틀어 하네스라고 부르는 이유를 봅니다. 다음으로 그 가운데 에이전트를 바깥 세계와 연결하는 MCP의 구조와 보안을 봅니다. 마지막으로 제가 실제로 쓰거나 많이 쓰이는 MCP 도구를 한 장에 하나씩 소개하고, 도구가 많아질수록 창을 잡아먹는 문제와 토큰 절약 방법으로 마무리합니다. 아래 화면은 모두 오늘 확인한 실제 공식 문서입니다.</aside>
+</section>
+
+<!-- 02 지난 교시 연결 -->
+<section class="slide" data-title="지난 교시와 연결">
+  <div class="tag"><b>9교시 → 10교시</b><span class="sep"></span>오래 맡기기에서 남은 문제</div>
+  <h2>오래 돌려 보니 남는 세 가지 문제</h2>
+  <div class="diagram">{{svg:p10-roadmap}}</div>
+  <p class="under">9교시에서 승인, 계속, 창 크기를 풀었습니다. <b>기록, 연결, 비용</b>은 하네스와 MCP의 몫입니다. <span class="next">→ 9교시</span></p>
+  <aside>9교시에서는 사람이 하던 승인과 계속을 자동화하고, 컨텍스트 창을 1M까지 키우는 이야기를 했습니다. 그런데 몇 시간씩 돌려 보면 새 문제가 나옵니다. 세션이 끊기면 에이전트는 앞의 일을 기억하지 못합니다. 저장소 밖에 있는 브라우저, 이슈, 데이터베이스는 보지 못합니다. 그리고 연결하는 도구가 늘수록 그 설명만으로 창이 찹니다. 오늘 수업은 이 세 문제에 대한 답을 차례로 보는 시간입니다.</aside>
+</section>
+
+<!-- 03 하네스 연표 -->
+<section class="slide" data-title="하네스라는 말의 등장">
+  <div class="tag"><b>2025-02-24 → 2026-02-11</b><span class="sep"></span>Anthropic · OpenAI 공식 글</div>
+  <h2>‘하네스’는 Claude Code 출시 7개월 뒤에야 공식 글에 등장했다</h2>
+  <div class="diagram">{{svg:p10-harness-timeline}}</div>
+  <p class="under">Claude Code 출시 때는 없던 말입니다. 하네스는 모델을 둘러싼 장치 전부를 뜻합니다. 공식 글 가운데 <b>첫 사용은 2025-09-29</b>입니다. <span class="next">→ 다음 3장</span></p>
+  <aside>Claude Code가 2025년 2월에 나왔을 때는 하네스라는 말을 쓰지 않았습니다. 제가 확인한 공식 글에서 처음 나온 것은 2025년 9월 29일 Anthropic의 Agent SDK 글입니다. 그 두 달 뒤 Anthropic이 장기 실행 에이전트를 위한 하네스 글을 냈고, 2026년 2월에는 OpenAI가 하네스 엔지니어링이라는 글로 같은 말을 썼습니다. 말이 퍼졌다는 것은 모델만큼 모델 주변 장치가 중요하다는 합의가 생겼다는 뜻입니다. 이 시기와 방식은 공식 글에서 확인한 범위이고, 블로그나 커뮤니티에서는 더 일찍 쓰였을 수 있습니다.</aside>
+</section>
+
+<!-- 04 첫 공식 사용 -->
+<section class="slide" data-title="Agent SDK 글">
+  <div class="tag"><b>2025-09-29</b><span class="sep"></span>Anthropic · Building agents with the Claude Agent SDK</div>
+  <h2>첫 공식 사용: Claude Code를 움직이는 하네스</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.com/blog/building-agents-with-the-claude-agent-sdk</span></div><img src="assets/captures/p10-agent-sdk.jpg" alt="Anthropic Agent SDK 글"></div>
+      <div class="kind">공식 블로그 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Anthropic 블로그 ‘Claude Agent SDK로 에이전트 만들기’(2025-09-29). SDK는 <b>Claude Code 위에서 에이전트를 만드는 도구 모음</b>이라고 소개.</div>
+    </div>
+    <div class="points">
+      <div class="quote">“the agent harness that powers Claude Code”<span class="tr">Claude Code를 움직이는 에이전트 하네스</span><cite>Anthropic · 2025-09-29</cite></div>
+      <div class="pmi col">
+        <div class="p">Claude Code의 <b>루프(맥락 모으기→행동→확인)</b>를 다른 에이전트에도 쓰도록 SDK로 열었다.</div>
+        <div class="m">공식 글에서 ‘하네스’는 <b>본문에 딱 한 번</b> 나온다. SDK 이름은 이후 Agent SDK로 바뀌었다.</div>
+        <div class="i">Claude Code를 모델이 아니라 <b>하네스</b>로 보는 관점이 공식화된 첫 글.</div>
+      </div>
+    </div>
+  </div>
+  <aside>이 글에서 하네스는 본문에 딱 한 번 나옵니다. Claude Code를 움직이는 에이전트 하네스가 다른 종류의 에이전트도 움직일 수 있다는 문장입니다. 즉 Claude Code는 모델 하나가 아니라, 모델에 도구와 루프를 붙인 하네스라는 관점이 여기서 공식화됩니다. 글은 에이전트의 일을 맥락 모으기, 행동하기, 결과 확인하기의 반복으로 설명합니다. 이 과정에서 만들 여러분의 하네스도 같은 모양의 루프를 갖게 됩니다. 정리하면 장점은 Claude Code의 루프를 다른 에이전트에도 쓸 수 있다는 것이고, 단점은 하네스라는 말이 본문에 한 번만 나와 정의가 빈약하다는 것입니다. 의미는 Claude Code를 하네스로 보는 관점의 공식화입니다.</aside>
+</section>
+
+<!-- 05 Anthropic 장기 하네스 -->
+<section class="slide" data-title="장기 실행 하네스">
+  <div class="tag"><b>2025-11-26</b><span class="sep"></span>Anthropic Engineering · Effective harnesses for long-running agents</div>
+  <h2>장기 실행 하네스: 세션이 끊겨도 이어 가게</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/effective-harnesses-for-long-running-agents</span></div><img src="assets/captures/page-harness.jpg" alt="Effective harnesses for long-running agents 글"></div>
+      <div class="kind">Anthropic Engineering 화면 캡처 · 2025-11-26</div>
+      <div class="ko">Anthropic Engineering 글 ‘장기 실행 에이전트를 위한 하네스’(2025-11-26). 여러 창에 걸친 긴 일은 <b>초기화 에이전트 + 코딩 에이전트</b>로 나눠 푼다.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p">세션이 끊겨도 <b>진행 기록·기능 목록·git 로그</b>로 이어 가, 한 창에 안 끝나는 큰 일을 맡긴다.</div>
+        <div class="m">새 세션은 앞의 일을 기억하지 못해 <b>파일 기록이 곧 기억</b>이다. 초기화·코딩 에이전트는 첫 프롬프트만 다르다.</div>
+        <div class="i">2교시 진행 파일의 확장판. 12교시 누적 과제 하네스에 <b>가져올 구조</b>.</div>
+      </div>
+    </div>
+  </div>
+  <aside>글의 문제의식은 단순합니다. 컨텍스트 창은 한정돼 있고, 큰 프로젝트는 한 창에 끝나지 않으며, 새 세션은 앞의 기억 없이 시작합니다. 교대 근무하는 엔지니어가 인수인계 없이 출근하는 것과 같다고 비유합니다. Anthropic은 첫 세션에서 환경을 준비하는 초기화 에이전트와, 이후 세션마다 조금씩 진전시키는 코딩 에이전트로 나눴습니다. 둘은 이름만 다르고 첫 사용자 프롬프트만 다릅니다. 다음 장에서 이 구조를 그림으로 봅니다. 정리하면 장점은 세션이 끊겨도 파일과 git으로 이어 간다는 것이고, 단점은 기록이 곧 기억이라 기록이 빠지면 이어 가지 못한다는 것입니다. 의미는 2교시 진행 파일의 확장판이라는 점입니다.</aside>
+</section>
+
+<!-- 06 장기 하네스 구조 -->
+<section class="slide" data-title="인수인계 파일">
+  <div class="tag"><b>2025-11-26</b><span class="sep"></span>Anthropic 장기 실행 하네스의 구조</div>
+  <h2>세션 사이를 건너는 것은 파일과 git</h2>
+  <div class="diagram">{{svg:p10-long-harness}}</div>
+  <p class="under">기능 목록은 마크다운이 아니라 <b>JSON</b>. 모델이 함부로 고치지 않도록 <b>passes 항목만</b> 바꾸게 했습니다. <span class="next">→ 8교시 진행 파일</span></p>
+  <aside>초기화 에이전트는 개발 서버를 띄우는 init.sh, 진행 기록 파일, 기능 목록 JSON, 첫 git 커밋을 만듭니다. 이후 세션의 코딩 에이전트는 이 진행 기록과 git 로그를 읽고 상황을 파악한 다음, 기능 하나만 구현하고 테스트하고 기록을 갱신합니다. 글은 기능 목록에 JSON을 쓴 이유로, 모델이 마크다운보다 JSON을 덜 함부로 고친다는 점을 듭니다. 2교시 과제 2에서 만든 진행 파일이 바로 이 생각의 작은 버전입니다. 여러분 하네스에 이 구조를 가져와도 좋습니다.</aside>
+</section>
+
+<!-- 07 OpenAI Harness engineering -->
+<section class="slide" data-title="OpenAI 하네스 엔지니어링">
+  <div class="tag"><b>2026-02-11</b><span class="sep"></span>OpenAI · Harness engineering: leveraging Codex in an agent-first world</div>
+  <h2>OpenAI의 하네스 엔지니어링: 저장소가 기록 체계</h2>
+  <div class="row flip">
+    <div class="points">
+      <div class="quote">“Humans steer. Agents execute.”<span class="tr">사람은 방향을 잡고, 에이전트가 실행한다.</span><cite>OpenAI · 2026-02-11</cite></div>
+      <div class="pmi col">
+        <div class="p"><b>저장소 안 문서</b>만 에이전트에게 존재한다는 원칙으로, 사람 코드 0줄에 약 5개월 만에 약 100만 줄(내부 베타 제품).</div>
+        <div class="m">AGENTS.md에 다 적으면 맥락을 밀어내고 <b>금방 낡아</b> 약 100줄 목차로 줄였다. 한 작은 팀의 사례다.</div>
+        <div class="i">구글 문서·슬랙·머릿속 지식은 Codex에게 없는 것과 같다. <b>14교시 ADR</b>로 이어진다.</div>
+      </div>
+    </div>
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>openai.com/index/harness-engineering</span></div><img src="assets/captures/oai-limits.jpg" alt="OpenAI 원문 그림: 에이전트 지식의 한계, Codex가 볼 수 없는 것은 존재하지 않는다"></div>
+      <div class="kind">OpenAI 원문 그림 · 2026-02-11</div>
+      <div class="ko">OpenAI 원문 그림. 구글 문서·슬랙 메시지·머릿속 지식은 Codex에게 없는 것과 같으니 <b>마크다운으로 저장소에 넣으라</b>는 뜻.</div>
+    </div>
+  </div>
+  <aside>OpenAI가 2026년 2월 11일에 낸 글입니다. 작은 팀이 Codex로 약 5개월 동안 코드를 한 줄도 직접 쓰지 않고 약 100만 줄짜리 내부 베타 제품을 만들었다고 합니다. 사람은 방향을 정하고 결과를 검증하고, 에이전트가 쓰고 리뷰합니다. 흥미로운 것은 지침 파일입니다. AGENTS.md 하나에 다 적었더니 맥락을 밀어내고 금방 낡아서, 약 100줄 목차로 줄이고 깊은 내용은 docs 디렉터리에 두었다고 합니다. 저장소 밖에 있는 지식은 에이전트에게는 없는 것이라는 주장이, 14교시 ADR 이야기와 이어집니다. 오른쪽 그림이 원문의 그림입니다. 구글 문서, 슬랙 메시지, 머릿속 지식처럼 저장소 밖에 있는 것은 Codex가 볼 수 없으니, 마크다운으로 저장소에 넣으라는 뜻입니다. 정리하면 장점은 저장소를 기록 체계로 삼아 사람 코드 없이 큰 제품을 만들었다는 것이고, 단점은 한 작은 팀의 사례이며 지침 파일이 금방 낡는다는 것입니다. 의미는 저장소 밖 지식은 에이전트에게 없다는 점입니다.</aside>
+</section>
+
+<!-- 08 하네스 구성요소 지도 -->
+<section class="slide" data-title="하네스 구성요소 지도">
+  <div class="tag"><b>개념 · 하네스 지도</b><span class="sep"></span>이 과정에서 하나씩 더해 온 장치</div>
+  <h2>에이전트 = 모델 + 하네스</h2>
+  <div class="diagram">{{svg:p10-harness-map}}</div>
+  <p class="under">같은 모델도 하네스에 따라 결과가 달라집니다. 이 과정의 누적 과제가 <b>나만의 하네스 만들기</b>입니다.</p>
+  <aside>지금까지 배운 것을 한 장으로 모으면 이렇습니다. 지침 파일, 권한, 도구, MCP, 훅, 스킬, 서브에이전트, 루프, 그리고 세션을 건너는 기록입니다. 모델은 같아도 이 장치들을 어떻게 구성하느냐에 따라 실패율과 비용이 크게 달라집니다. 강조한 MCP가 오늘의 주제이고, 스킬은 11교시, 나머지는 앞 교시에서 이미 다뤘습니다. 도구마다 다르게 부르지만 구성요소는 거의 같다는 점이 중요합니다. Claude Code, Codex, Cursor 어느 도구를 쓰든 같은 지도로 읽을 수 있습니다.</aside>
+</section>
+
+<!-- 09 MCP 발표 -->
+<section class="slide" data-title="MCP의 등장">
+  <div class="tag"><b>2024-11-25</b><span class="sep"></span>Anthropic · Introducing the Model Context Protocol</div>
+  <h2>MCP: AI와 도구를 잇는 하나의 표준</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/news/model-context-protocol</span></div><img src="assets/captures/p10-mcp-intro.jpg" alt="MCP 오픈소스 발표 글"></div>
+      <div class="kind">Anthropic 공식 발표 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Anthropic의 MCP 공개 글(2024-11-25). 데이터 소스마다 따로 만들던 연결을 <b>하나의 프로토콜로 대체</b>한다고 설명.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p">연결마다 따로 만들던 구현을 <b>하나의 프로토콜</b>로 통일해, 한 번 만든 서버를 여러 AI 앱이 쓴다.</div>
+        <div class="m">도구 정의가 창을 차지하고, 서버가 <b>권한을 요구</b>해 보안 문제도 따라온다(뒤의 세 장).</div>
+        <div class="i">오늘 볼 도구들이 <b>Cursor·Codex·VS Code</b>에서도 같은 방식으로 연결되는 이유.</div>
+      </div>
+    </div>
+  </div>
+  <aside>MCP, Model Context Protocol은 2024년 11월 25일에 Anthropic이 오픈소스로 공개했습니다. 그 전에는 AI 앱마다 데이터 소스마다 연결 코드를 따로 만들어야 했습니다. MCP는 이 연결을 하나의 프로토콜로 통일합니다. 발표 때 Google Drive, Slack, GitHub, Git, Postgres, Puppeteer용 서버를 함께 냈습니다. 이후 다른 회사들도 받아들여서, 오늘 볼 도구들은 대부분 Claude Code가 아니어도 Cursor, Codex, VS Code에서 같은 방식으로 연결됩니다. 정리하면 장점은 연결 구현의 통일이고, 단점은 창 점유와 보안 문제가 따라온다는 것입니다. 의미는 오늘 볼 도구들이 여러 앱에서 같은 방식으로 붙는 이유입니다.</aside>
+</section>
+
+<!-- 10 MCP 구조 -->
+<section class="slide" data-title="MCP 구조">
+  <div class="tag"><b>MCP 아키텍처</b><span class="sep"></span>modelcontextprotocol.io · 명세 2026-07-28판</div>
+  <h2>호스트, 클라이언트, 서버</h2>
+  <div class="diagram">{{svg:p10-mcp-arch}}</div>
+  <p class="under">호스트는 서버마다 <b>클라이언트를 하나씩</b> 만듭니다. 로컬은 <b>stdio</b>(표준 입출력), 원격은 <b>Streamable HTTP</b>(웹 통신)입니다. <span class="next">→ 12교시 MCP 연결</span></p>
+  <aside>MCP의 참여자는 셋입니다. Claude Code나 VS Code 같은 AI 앱이 호스트이고, 호스트는 서버 하나당 클라이언트 하나를 만들어 전용 연결을 유지합니다. 서버는 컨텍스트를 제공하는 프로그램입니다. 내 컴퓨터에서 도는 로컬 서버는 표준 입출력, 즉 stdio로 통신하고, GitHub나 Sentry처럼 서비스가 호스팅하는 원격 서버는 Streamable HTTP를 씁니다. 서버가 내놓는 것은 세 가지입니다. 실행할 수 있는 도구, 읽을 수 있는 리소스, 재사용 프롬프트입니다. 이 가운데 에이전트가 가장 많이 쓰는 것이 도구입니다. 2026년 7월판 명세는 요청마다 필요한 정보를 담는 무상태 방식으로 바뀌었다는 점도 참고만 하세요.</aside>
+</section>
+
+<!-- 11 MCP 문서 캡처 + 연결 -->
+<section class="slide" data-title="MCP 연결하기">
+  <div class="tag"><b>Claude Code</b><span class="sep"></span>claude mcp add · 범위 3종 · 2026-10-28 확인</div>
+  <h2>claude mcp add 한 줄로 MCP 서버를 연결한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/mcp</span></div><img src="assets/captures/p10-cc-mcp.jpg" alt="Claude Code MCP 문서"></div>
+      <div class="kind">공식 문서 화면 캡처</div>
+      <div class="ko">Claude Code 문서 ‘MCP로 도구에 연결하기’. 이슈 트래커 기능 구현, 모니터링 분석, DB 질의 같은 <b>MCP로 할 수 있는 일</b>이 첫 절에 나온다.</div>
+    </div>
+    <div class="points">
+      <div class="term"><span class="dim">$</span> claude mcp add --transport http notion \
+    https://mcp.notion.com/mcp
+<span class="dim">$</span> claude mcp add --transport stdio airtable \
+    -- npx -y airtable-mcp-server
+<span class="dim">$</span> claude mcp add --scope project ...
+<span class="ok">✓</span> project 범위는 <span class="acc">.mcp.json</span>에 저장</div>
+      <ul>
+        <li>범위: local(기본) · project(팀 공유) · user</li>
+        <li>project 서버는 처음 쓸 때 승인을 묻는다</li>
+      </ul>
+    </div>
+  </div>
+  <aside>연결은 claude mcp add 한 줄입니다. 원격 서버는 transport를 http로 주고 주소를 적고, 내 컴퓨터에서 실행하는 서버는 stdio로 두고 대시 두 개 뒤에 실행 명령을 적습니다. 공식 문서는 원격에는 HTTP를 권하고, SSE 방식은 더 이상 권하지 않는다고 합니다. 저장 범위는 local, project, user 세 가지입니다. project로 두면 저장소 루트의 .mcp.json에 들어가서 팀이 함께 쓸 수 있고, 보안을 위해 처음 쓸 때 승인을 묻습니다. 12교시 실습에서 여러분이 MCP 서버 하나를 직접 연결해 봅니다.</aside>
+</section>
+
+<!-- 12 보안 1: 도구 설명 주입 -->
+<section class="slide" data-title="MCP 보안: 도구 설명 주입">
+  <div class="tag"><b>2025-04-01</b><span class="sep"></span>Invariant Labs · Tool Poisoning Attacks</div>
+  <h2>보안 ①: 도구 설명에 숨긴 명령이 모델을 조종한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks</span></div><img src="assets/captures/p10-invariant.jpg" alt="Invariant Labs의 Tool Poisoning 글"></div>
+      <div class="kind">보안 연구 글 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Invariant Labs 보안 공지(2025-04-01) ‘도구 오염 공격’. MCP의 심각한 취약점을 발견했고 <b>Anthropic·OpenAI·Cursor 등이 영향권</b>이라고 적었다.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p">도구 설명이 프롬프트에 그대로 들어가는 구조를 짚어, <b>MCP 클라이언트의 검증 공백</b>을 구체적 시연으로 보여 준다.</div>
+        <div class="m">시연은 도구 설명을 <b>검증·표시하지 않는 클라이언트</b>가 대상이다. 확인창에는 단순한 도구 이름만 보였다.</div>
+        <div class="i">도구 설명도 <b>신뢰 경계 밖의 입력</b>이다. 출처를 모르는 MCP 서버는 연결하지 않는다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>MCP 서버가 주는 도구 설명은 모델의 프롬프트에 그대로 들어갑니다. 2025년 4월 Invariant Labs는 이것을 악용한 도구 오염 공격을 공개했습니다. 겉보기에는 두 수를 더하는 도구인데, 설명 안에 숨은 지시가 있어서 모델이 사용자의 SSH 키와 MCP 설정 파일을 읽어 도구 인자로 넘기게 만들었습니다. 사용자는 확인창에서 단순한 도구 이름만 봤습니다. 글은 도구 설명을 제대로 검증하거나 보여 주지 않는 모든 MCP 클라이언트에서 재현될 수 있다고 말합니다. 그래서 출처를 모르는 서버를 함부로 연결하면 안 됩니다. 정리하면 장점은 위험을 구체적으로 시연했다는 것이고, 단점은 도구 설명을 검증하지 않는 클라이언트에 한정된 시연이라는 것입니다. 의미는 출처를 모르는 서버를 연결하면 안 된다는 점입니다.</aside>
+</section>
+
+<!-- 13 보안 2: 원칙과 방어 -->
+<section class="slide" data-title="MCP 보안: 원칙과 방어">
+  <div class="tag"><b>명세 2026-07-28판 · Supabase·Vercel 문서</b><span class="sep"></span>공식 보안 원칙</div>
+  <h2>보안 ②: 도구는 임의 코드 실행과 같다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>modelcontextprotocol.io/specification/latest</span></div><img src="assets/captures/p10-mcp-spec.jpg" alt="MCP 명세 첫 화면"></div>
+      <div class="kind">MCP 명세 화면 캡처 · 보안 절은 3장</div>
+      <div class="ko">MCP 명세(2026-07-28판) 첫 화면. 오른쪽 목차의 <b>‘3. Security and Trust &amp; Safety(보안·신뢰·안전)’</b> 절이 도구 보안 원칙을 다룬다.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>명세: 도구는 임의 코드 실행, 호출 전 사용자 동의</li>
+        <li>신뢰한 서버만, 최소 권한: 읽기 전용, 프로젝트 한정</li>
+        <li>승인 단계를 끄지 않는다. 운영 데이터엔 연결 금지</li>
+      </ul>
+      <div class="next">→ 결론: MCP 도구는 자동 승인에서 빼고 최소 권한으로 연결한다</div>
+    </div>
+  </div>
+  <aside>MCP 명세의 보안 절은 도구를 임의 코드 실행으로 취급하라고 말합니다. 도구가 하는 일을 설명하는 주석 같은 것도 신뢰할 수 있는 서버에서 받은 것이 아니면 믿지 말고, 도구를 부르기 전에 사용자의 명시적 동의를 받으라고 합니다. 서비스 쪽 문서도 같은 이야기를 합니다. Supabase는 읽기 전용 옵션과 프로젝트 한정 옵션을 쓰고 운영 데이터에는 연결하지 말라고 하고, Vercel은 연결하면 내 계정과 같은 권한을 AI에 주는 것이니 사람 확인을 켜 두라고 합니다. 9교시의 자동 승인과 연결해서, MCP 도구는 자동 승인 대상에서 신중하게 다뤄야 합니다.</aside>
+</section>
+
+<!-- 14 토큰 비용: 도구 정의 -->
+<section class="slide" data-title="MCP의 토큰 비용">
+  <div class="tag"><b>MCP 토큰 비용</b><span class="sep"></span>Claude Code 공식 문서 · 2026-10-28 확인</div>
+  <h2>도구가 많으면 일하기 전에 창이 찬다</h2>
+  <div class="diagram">{{svg:p10-tool-cost}}</div>
+  <p class="under">MCP 도구는 <b>이름·설명·입력 스키마</b>(받는 입력의 형식)가 모델에게 전달됩니다. 서버를 많이 붙일수록 <b>쓰지도 않는 도구</b>가 창을 차지합니다. <span class="next">→ 다음 장</span></p>
+  <aside>MCP 서버를 연결하면 그 서버의 모든 도구 정의가 모델의 컨텍스트에 들어가야 합니다. 도구 이름, 설명, 입력 스키마가 도구마다 있으니, 서버를 여럿 붙이면 아직 일을 시작하기도 전에 창이 상당히 차 있게 됩니다. 이것은 9교시에서 본 컨텍스트 로트와 압축 문제를 더 빨리 만나게 합니다. 그래서 요즘 도구들은 도구 정의를 미리 다 싣지 않고, 필요할 때 찾아서 싣는 방식을 씁니다. 다음 장에서 Claude Code 공식 문서의 설명을 봅니다.</aside>
+</section>
+
+<!-- 15 도구 검색 -->
+<section class="slide" data-title="도구 검색·지연 로딩">
+  <div class="tag"><b>Claude Code · MCP tool search</b><span class="sep"></span>code.claude.com/docs/en/mcp · 2026-10-28 확인</div>
+  <h2>도구 검색: 이름만 싣고, 필요할 때 불러온다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/mcp#scale-with-mcp-tool-search</span></div><img src="assets/captures/p10-cc-mcp-toolsearch.jpg" alt="Claude Code 문서의 Scale with MCP tool search 절"></div>
+      <div class="kind">공식 문서 화면 캡처</div>
+      <div class="ko">Claude Code 문서 ‘MCP 도구 검색으로 확장하기’. 도구 정의를 <b>필요할 때까지 미뤄</b> 세션 시작에는 도구 이름과 서버 지침만 싣는다.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p">시작에는 <b>도구 이름·서버 지침만</b> 싣고 필요할 때 정의를 불러와, 서버를 더 붙여도 창이 덜 찬다.</div>
+        <div class="m"><b>Claude Code 기준 기능</b>이라 다른 도구는 방식이 다를 수 있다. 서버 지침이 부실하면 검색에서 잘 안 찾힌다.</div>
+        <div class="i">앞 장의 <b>창 낭비 문제</b>에 대한 답. 도구 출력도 1만 토큰 초과 시 경고, 기본 상한 2.5만 토큰.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Claude Code 공식 문서에 따르면 도구 검색은 지금 기본값입니다. 세션을 시작할 때는 도구 이름과 서버 지침만 로드하고, 도구 정의는 클로드가 필요하다고 판단할 때 불러옵니다. 그래서 서버를 더 붙여도 창에 미치는 영향이 작다고 설명합니다. 환경 변수 ENABLE_TOOL_SEARCH로 끄거나, auto 뒤에 퍼센트를 붙여 도구 정의가 창의 그 비율을 넘을 때만 켜게 할 수도 있습니다. 도구가 돌려주는 출력도 별도로 제한합니다. 1만 토큰을 넘으면 경고하고 기본 상한은 2만 5천 토큰입니다. 서버를 만드는 쪽은 서버 지침을 잘 써야 검색에서 잘 찾힌다는 안내도 있습니다. 이 기능은 Claude Code 기준이고, 다른 도구는 방식이 다를 수 있습니다. 정리하면 장점은 서버를 늘려도 창이 덜 찬다는 것이고, 단점은 Claude Code 기준 기능이고 서버 지침이 부실하면 검색이 어렵다는 것입니다. 의미는 앞 장의 창 낭비 문제에 대한 답이라는 점입니다.</aside>
+</section>
+
+<!-- 17 도구 지도 -->
+<section class="slide" data-title="MCP 도구 지도">
+  <div class="tag"><b>개념 · 도구 지도</b><span class="sep"></span>하는 일로 나눈 9개</div>
+  <h2>무엇을 하게 해 주는가로 고른다</h2>
+  <div class="diagram">{{svg:p10-mcp-map}}</div>
+  <p class="under">이 목록은 <b>예시</b>입니다. 필요한 일이 생길 때 하나씩 붙이고, 안 쓰면 뺍니다.</p>
+  <aside>이 아홉 개를 하는 일로 나눠 봅니다. 코드를 이해하는 쪽은 최신 문서를 가져오는 Context7과 심볼 단위로 코드를 찾고 고치는 Serena입니다. 브라우저를 보는 쪽은 Playwright MCP와 Chrome DevTools MCP로, 앞서 스모크 테스트 이야기에서 나온 도구입니다. 일하는 곳과 잇는 쪽은 GitHub, Figma, Sentry이고, 배포와 데이터는 Vercel과 Supabase입니다. 도구는 많이 붙일수록 좋은 것이 아니라 필요한 만큼만 붙이는 것이 좋습니다. 다음 장부터 하나씩 보겠습니다.</aside>
+</section>
+
+<!-- 18 Context7 -->
+<section class="slide" data-title="Context7">
+  <div class="tag"><b>2025-03-29 첫 커밋</b><span class="sep"></span>upstash/context7 · 원격 서버 mcp.context7.com</div>
+  <h2>Context7: 최신 라이브러리 문서를 바로</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>context7.com</span></div><img src="assets/captures/page-context7.jpg" alt="Context7 첫 화면"></div>
+      <div class="kind">공식 사이트 화면 캡처</div>
+      <div class="ko">Context7 첫 화면 ‘AI 에이전트를 위한 최신 문서’. <b>15만 3천 개 넘는 라이브러리</b> 문서를 검색해 Claude·Codex·Cursor에 넣어 준다.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 최신 프레임워크 API가 헷갈릴 때. 버전에 맞는 문서·예제만 가져온다. <b>연결:</b> 원격 mcp.context7.com, 프롬프트에 use context7.</div>
+        <div class="m"><b>비용·위험:</b> 무료 API 키(호출 한도 상향용). 라이브러리 문서는 커뮤니티 등록이라 README가 <b>정확성·안전을 보장하지 않는다</b>고 밝힌다.</div>
+        <div class="i">모델 지식의 <b>날짜 한계</b>를 문서 조회로 메운다. MCP 외에 CLI·스킬 방식도 있어 토큰 면에서 비교해 볼 만하다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>모델의 지식에는 날짜가 있어서, 최근에 바뀐 라이브러리 API를 옛 버전 기준으로 알려 주기도 합니다. Context7은 라이브러리 이름과 질문을 주면 해당 버전의 공식 문서와 예제를 찾아 그 부분만 가져옵니다. 도구는 두 개입니다. 라이브러리 이름을 식별자로 바꾸는 도구와, 그 식별자로 문서를 질의하는 도구입니다. 프롬프트 끝에 use context7을 적으면 쓰도록 유도할 수 있습니다. README는 MCP 방식과 별도로 CLI와 스킬 방식도 지원한다고 설명합니다. 저장소의 첫 커밋은 2025년 3월 29일입니다. 정리하면 장점은 버전에 맞는 문서를 가져온다는 것이고, 비용·위험은 무료 API 키와 문서 정확성 비보장입니다. 의미는 모델 지식의 날짜 한계를 메운다는 점입니다.</aside>
+</section>
+
+<!-- 19 Serena -->
+<section class="slide" data-title="Serena">
+  <div class="tag"><b>2025-03-23 첫 커밋</b><span class="sep"></span>oraios/serena · GPL-3.0</div>
+  <h2>Serena: 함수·클래스(심볼) 단위로 코드를 찾고 고친다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/oraios/serena</span></div><img src="assets/captures/page-serena.jpg" alt="Serena GitHub 저장소"></div>
+      <div class="kind">GitHub 저장소 화면 캡처</div>
+      <div class="ko">Serena GitHub 저장소. 소개문은 <b>‘의미 기반 검색·편집을 주는 코딩용 MCP 도구, 에이전트를 위한 IDE’</b>. 별 3만 개 이상.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 큰 코드베이스·리팩터링. 필요한 심볼만 읽어 창을 아낀다. <b>연결:</b> MCP 서버, 언어 서버(LSP) 기반 40개 넘는 언어.</div>
+        <div class="m"><b>비용·위험:</b> 오픈소스지만 <b>GPL-3.0</b>이라 회사 프로젝트는 라이선스 확인이 필요하다.</div>
+        <div class="i">파일 전체 대신 <b>심볼 단위로 읽고 고쳐</b>, 창 절약 원칙을 코드 탐색에 적용한 예.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Serena는 코딩 에이전트에게 IDE 같은 능력을 주는 MCP 서버입니다. README 설명으로는 줄 번호나 단순 문자열 검색 대신 심볼 단위의 의미 검색, 편집, 리팩터링 도구를 제공합니다. 내부에서는 언어 서버 프로토콜을 쓰며 40개가 넘는 언어를 지원합니다. 코드베이스가 크면 파일 전체를 읽는 것보다 필요한 함수와 그 참조만 찾는 쪽이 창을 아낍니다. 첫 커밋은 2025년 3월 23일입니다. 라이선스가 GPL이니 회사 프로젝트에 쓸 때는 확인하세요. 정리하면 장점은 필요한 심볼만 읽어 창을 아낀다는 것이고, 위험은 GPL 라이선스입니다. 의미는 창 절약 원칙을 코드 탐색에 적용했다는 점입니다.</aside>
+</section>
+
+<!-- 20 Playwright MCP -->
+<section class="slide" data-title="Playwright MCP">
+  <div class="tag"><b>2025-03-21 첫 커밋</b><span class="sep"></span>microsoft/playwright-mcp</div>
+  <h2>Playwright MCP: 요소 구조(접근성 트리)로 브라우저를 조작</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>playwright.dev/docs/getting-started-mcp</span></div><img src="assets/captures/p10-playwright-mcp.jpg" alt="Playwright MCP 공식 문서"></div>
+      <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Playwright MCP 공식 문서 첫 화면. LLM이 <b>구조화된 접근성 스냅샷</b>으로 웹 페이지를 다루며 비전 모델이 필요 없다고 소개.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 구현한 화면의 스모크 테스트. 스크린샷 대신 <b>구조화된 스냅샷</b>이라 비전 모델이 필요 없다. <b>연결:</b> npx 한 줄, 기본은 화면이 보이는 브라우저.</div>
+        <div class="m"><b>비용·위험:</b> 도구 정의와 긴 스냅샷이 토큰을 먹어, README도 코딩 에이전트에는 <b>CLI+스킬이 더 효율적</b>이라 안내한다.</div>
+        <div class="i">조작은 Playwright, 진단은 다음 장 DevTools. <b>지속 상태가 필요한 탐색</b>엔 MCP, 단순 점검엔 CLI를 재서 고른다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Playwright MCP는 Microsoft가 만든 브라우저 자동화 서버입니다. 화면을 이미지로 보는 것이 아니라 접근성 트리, 즉 요소와 역할과 텍스트를 구조화한 스냅샷으로 페이지를 읽고, 요소 참조 번호로 클릭하거나 입력합니다. 그래서 비전 모델이 필요 없다고 문서는 설명합니다. 저장소의 첫 커밋은 2025년 3월 21일입니다. 한 가지 주의할 점이 있습니다. 저장소 README는 코딩 에이전트에는 CLI와 스킬 조합이 도구 정의와 긴 스냅샷을 싣지 않아 토큰 효율이 더 낫다고 스스로 안내합니다. 지속적인 브라우저 상태가 필요한 탐색형 작업에는 MCP가 맞습니다. 정리하면 장점은 비전 모델 없이 브라우저를 다룬다는 것이고, 단점은 토큰이 많이 들어 CLI와 스킬 조합이 더 효율적일 수 있다는 것입니다. 의미는 직접 재서 고르라는 점입니다.</aside>
+</section>
+
+<!-- 21 Chrome DevTools MCP -->
+<section class="slide" data-title="Chrome DevTools MCP">
+  <div class="tag"><b>2025-09-23</b><span class="sep"></span>Chrome for Developers · DevTools MCP 공개 프리뷰</div>
+  <h2>Chrome DevTools MCP: 콘솔과 성능까지 본다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>developer.chrome.com/blog/chrome-devtools-mcp</span></div><img src="assets/captures/page-devtools-mcp.jpg" alt="Chrome DevTools MCP 발표 글"></div>
+      <div class="kind">Chrome 공식 블로그 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Chrome 개발자 블로그(2025-09-23). 코딩 에이전트는 자기 코드의 브라우저 동작을 못 봐 <b>‘눈가리개를 하고 코딩하는 셈’</b>이라는 문제의식.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 화면이 깨졌는데 원인을 모를 때. 콘솔 오류·네트워크·성능 트레이스를 본다. <b>연결:</b> Chrome 팀의 MCP 서버(공개 프리뷰로 출발).</div>
+        <div class="m"><b>비용·위험:</b> 사용 통계 수집이 <b>기본 켜짐</b>(끄는 옵션 있음). 브라우저 내용이 MCP 클라이언트에 노출되니 민감 정보 주의.</div>
+        <div class="i">Playwright가 <b>조작</b>, 이쪽은 <b>진단</b>. ‘눈가리개 코딩’에서 벗어나는 대신 노출 범위를 감안한다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Chrome 팀이 2025년 9월 23일 공개 프리뷰로 낸 서버입니다. 발표 글의 문제의식은 코딩 에이전트가 자기가 만든 코드가 브라우저에서 실제로 어떻게 동작하는지 보지 못한다는 것입니다. 이 서버를 붙이면 에이전트가 콘솔 오류와 네트워크 요청을 읽고, 레이아웃을 점검하고, 성능 트레이스를 기록할 수 있습니다. Playwright MCP가 조작 쪽이라면 이쪽은 진단 쪽입니다. 저장소 README는 사용 통계 수집이 기본으로 켜져 있고 옵션으로 끌 수 있다고 안내하며, 브라우저 내용이 MCP 클라이언트에 노출되므로 민감한 정보를 주의하라고 경고합니다. 정리하면 장점은 콘솔과 성능까지 진단한다는 것이고, 위험은 통계 수집 기본값과 민감 정보 노출입니다. 의미는 Playwright가 조작이라면 이쪽은 진단이라는 점입니다.</aside>
+</section>
+
+<!-- 22 GitHub MCP -->
+<section class="slide" data-title="GitHub MCP 서버">
+  <div class="tag"><b>2025-03-10 첫 커밋</b><span class="sep"></span>github/github-mcp-server · 원격 api.githubcopilot.com/mcp/</div>
+  <h2>GitHub MCP 서버: 이슈, PR, Actions를 에이전트가</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com · GitHub MCP 서버 설정</span></div><img src="assets/captures/p10-github-mcp.jpg" alt="GitHub MCP 서버 공식 문서"></div>
+      <div class="kind">GitHub 공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">github/github-mcp-server 저장소 화면. 소개문은 <b>‘GitHub 공식 MCP 서버’</b>, 별 3만 4천 개, 최신 릴리스 2.0.3.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 이슈·PR·Actions를 에이전트가 읽고 쓸 때. <b>연결:</b> 원격(OAuth·PAT) 또는 Docker 로컬 서버, toolsets로 필요한 기능만 켠다.</div>
+        <div class="m"><b>비용·위험:</b> 토큰은 <b>필요한 권한만</b>(최소 스코프) 주고 쓰기를 막으려면 --read-only. 같은 일이 <b>gh CLI</b>로도 된다.</div>
+        <div class="i">14교시 <b>이슈 원장</b>을 에이전트가 읽고 쓰는 길. MCP와 gh CLI 중 편한 쪽을 고른다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>GitHub가 직접 만든 MCP 서버입니다. 이슈와 풀 리퀘스트, 코드 검색, Actions 상태를 에이전트가 도구로 다룰 수 있습니다. GitHub가 호스팅하는 원격 서버가 가장 쉽고, 원격을 지원하지 않는 호스트에는 로컬 서버를 씁니다. README는 toolsets 옵션으로 필요한 기능 묶음만 켜면 모델의 도구 선택에 도움이 되고 컨텍스트 크기도 줄어든다고 설명합니다. 14교시에서 이슈 원장 이야기를 할 때, 에이전트가 이슈와 PR을 읽고 쓰게 하는 길이 바로 이것입니다. 다만 gh CLI로도 같은 일이 되니 둘 중 편한 쪽을 고르세요. 정리하면 장점은 이슈와 PR을 도구로 다룬다는 것이고, 위험은 토큰 권한이며 gh CLI로도 같은 일이 된다는 점입니다. 의미는 이슈 원장을 에이전트가 읽고 쓰는 길이라는 것입니다.</aside>
+</section>
+
+<!-- 23 Figma MCP -->
+<section class="slide" data-title="Figma MCP 서버">
+  <div class="tag"><b>공식 문서</b><span class="sep"></span>Figma Developers · 원격 mcp.figma.com/mcp</div>
+  <h2>Figma MCP: 디자인을 코드의 맥락으로</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>developers.figma.com/docs/figma-mcp-server</span></div><img src="assets/captures/p10-figma-mcp.jpg" alt="Figma MCP 서버 공식 문서"></div>
+      <div class="kind">Figma 공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Figma 개발자 문서의 MCP 서버 소개. Figma를 AI 작업에 연결해 <b>디자인 맥락으로 코드를 생성</b>하고 캔버스에 직접 쓰는 기능도 소개.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 디자인 시안을 화면으로 옮길 때. 변수·컴포넌트·레이아웃을 읽고 Code Connect로 내 컴포넌트를 재사용. <b>연결:</b> 원격 mcp.figma.com/mcp(권장).</div>
+        <div class="m"><b>비용·위험:</b> 캔버스 쓰기는 <b>베타</b>이고 원격 서버와 <b>유료 좌석</b>이 필요하다. 플랜 조건은 바뀔 수 있다.</div>
+        <div class="i">디자인이 그림이 아니라 <b>구조화된 맥락</b>으로 코드 생성에 들어온다. 실습 전 문서를 다시 확인.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Figma MCP 서버는 선택한 프레임의 변수, 컴포넌트, 레이아웃 정보를 에이전트에게 주어 코드를 만들게 합니다. Code Connect를 쓰면 생성 코드가 우리 코드베이스의 실제 컴포넌트를 재사용합니다. 공식 문서는 Figma가 호스팅하는 원격 서버를 권장하고, 데스크톱 앱을 통하는 서버는 조직 요구용으로 따로 둔다고 설명합니다. 캔버스에 쓰는 기능은 베타이고 쓰려면 원격 서버와 유료 좌석이 필요하다고 합니다. 플랜이나 좌석 조건은 바뀔 수 있으니 실습 전에 문서를 다시 확인하세요. 정리하면 장점은 디자인 맥락으로 코드를 만든다는 것이고, 단점은 캔버스 쓰기가 베타이고 유료 좌석이 필요하다는 것입니다. 의미는 디자인이 구조화된 맥락으로 들어온다는 점입니다.</aside>
+</section>
+
+<!-- 24 Supabase MCP -->
+<section class="slide" data-title="Supabase MCP 서버">
+  <div class="tag"><b>supabase-community 첫 커밋 2024-12-20</b><span class="sep"></span>원격 mcp.supabase.com/mcp</div>
+  <h2>Supabase MCP: DB를 다루게 하되 가둔다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>supabase.com/docs/guides/getting-started/mcp</span></div><img src="assets/captures/p10-supabase-mcp.jpg" alt="Supabase MCP 공식 문서"></div>
+      <div class="kind">Supabase 공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Supabase MCP 문서. 위쪽에 ‘LLM 연결은 보안 위험이 있다’는 경고, 아래에 <b>Read-only(읽기 전용)</b> 토글과 기능 그룹 선택이 보인다.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 스키마 변경과 개발 DB 점검. 테이블 조회·마이그레이션·SQL·타입 생성. <b>연결:</b> 원격 mcp.supabase.com/mcp.</div>
+        <div class="m"><b>비용·위험:</b> 사용자 입력 속 <b>프롬프트 주입</b>으로 위험한 쿼리가 실행될 수 있다고 문서가 경고. 개발자 권한이라 고객에게 주지 말 것.</div>
+        <div class="i">가장 좋은 <b>보안 설정 예시</b>: read_only=true, project_ref로 한 프로젝트 한정, 승인은 켜 둔다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Supabase MCP는 테이블 목록, 마이그레이션 적용, SQL 실행, 로그 조회, 타입 생성 같은 일을 에이전트가 하게 합니다. 이 도구는 보안 설정 이야기를 하기에 가장 좋은 예입니다. 공식 문서는 LLM 고유의 공격 경로로 프롬프트 주입을 꼽고, 지원 티켓 같은 사용자 입력 안의 명령이 위험한 쿼리를 실행시킬 수 있다고 경고합니다. 권장 설정은 읽기 전용 모드, 한 프로젝트로 한정하는 project_ref, 필요한 기능 그룹만 여는 features입니다. 개발자 권한으로 돌아가므로 고객에게 주지 말라는 말도 있습니다. 도구 승인은 켜 두세요. 정리하면 장점은 DB 작업을 맡길 수 있다는 것이고, 위험은 프롬프트 주입과 개발자 권한입니다. 의미는 읽기 전용과 프로젝트 한정으로 가두는 보안 설정의 좋은 예라는 점입니다.</aside>
+</section>
+
+<!-- 25 Sentry MCP -->
+<section class="slide" data-title="Sentry MCP 서버">
+  <div class="tag"><b>getsentry/sentry-mcp 첫 커밋 2025-03-29</b><span class="sep"></span>원격 mcp.sentry.dev/mcp</div>
+  <h2>Sentry MCP: 운영 오류를 에이전트가 읽는다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>mcp.sentry.dev</span></div><img src="assets/captures/p10-sentry-mcp.jpg" alt="Sentry MCP 공식 문서"></div>
+      <div class="kind">Sentry 공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Sentry(오류 수집 서비스) MCP 소개 화면(베타). Sentry 데이터를 LLM에 연결해 <b>운영 오류 디버깅</b>을 돕고, 왼쪽은 이슈 주소를 붙여 고치는 시연.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 운영 오류를 고칠 때. 스택 트레이스를 읽고 원인 코드·수정 PR까지. <b>연결:</b> 원격 mcp.sentry.dev/mcp, OAuth.</div>
+        <div class="m"><b>비용·위험:</b> 소개 화면에 <b>베타</b> 표기. 오류 안의 사용자 입력 문자열이 <b>프롬프트 주입 경로</b>가 될 수 있어 조직·프로젝트로 범위를 좁힌다.</div>
+        <div class="i">오류 메시지를 <b>복사해 붙이던 일</b>을 에이전트가 직접 조회하는 흐름으로 바꾼다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Sentry에 쌓인 오류를 에이전트가 직접 찾아 읽게 하는 서버입니다. 문서에 따르면 오류 검색, 성능 분석, 이슈 분류, 문서 읽기, 프로젝트 관리를 지원합니다. 연결은 OAuth이고, 주소 끝에 조직과 프로젝트 이름을 붙이면 그 범위로 도구가 한정됩니다. 문서는 가능하면 프로젝트까지 한정하라고 권합니다. 오류 메시지를 복사해 붙이던 일을 에이전트가 스택 트레이스를 읽고 코드에서 원인을 찾는 흐름으로 바꿉니다. 운영 오류 안에는 사용자가 입력한 문자열이 들어 있으니, 앞에서 본 프롬프트 주입 관점으로 도구 승인을 켜 두세요. 정리하면 장점은 스택 트레이스에서 원인 코드까지 이어진다는 것이고, 위험은 베타 표기와 사용자 입력 문자열입니다. 의미는 복사해 붙이던 일이 직접 조회로 바뀐다는 점입니다.</aside>
+</section>
+
+<!-- 26 Vercel MCP -->
+<section class="slide" data-title="Vercel MCP 서버">
+  <div class="tag"><b>공식 문서 · 2026-09-15 갱신본</b><span class="sep"></span>원격 mcp.vercel.com · OAuth</div>
+  <h2>Vercel MCP: 배포 상태와 로그를 묻는다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>vercel.com/docs/agent-resources/vercel-mcp</span></div><img src="assets/captures/p10-vercel-mcp.jpg" alt="Vercel MCP 공식 문서"></div>
+      <div class="kind">Vercel 공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Vercel(웹 배포 서비스) 문서 ‘Vercel MCP 서버 쓰기’. 문서 검색, 프로젝트·배포 관리, 로그 분석이 가능한 <b>공식 원격 서버(OAuth)</b>.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p"><b>언제:</b> 배포 실패 원인을 찾을 때. 문서 검색·프로젝트·배포 관리·로그 분석. <b>연결:</b> 원격 mcp.vercel.com, OAuth.</div>
+        <div class="m"><b>비용·위험:</b> 연결하면 <b>내 계정과 같은 권한</b>을 AI가 갖는다. Vercel이 승인한 클라이언트만 연결되고 사람 확인을 켜 둔다.</div>
+        <div class="i">승인 클라이언트 제한은 보안의 좋은 예. 9교시 자동 승인과 달리 MCP 도구는 <b>사람 확인을 유지</b>한다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>Vercel MCP는 Vercel이 호스팅하는 공식 원격 서버입니다. 문서 검색, 프로젝트와 배포 관리, 배포 로그 분석, 웹 분석 조회를 지원합니다. 보안 쪽이 인상적입니다. Vercel이 검토해 승인한 클라이언트만 연결할 수 있고, 클라이언트마다 사용자가 명시적으로 동의해야 합니다. 문서는 연결하는 순간 AI가 내 계정과 같은 권한을 갖는다고 분명히 적고, 신뢰할 수 없는 도구가 있으면 로그를 외부로 빼돌리는 명령도 가능하다고 경고합니다. 항상 사람 확인을 켜 두라는 권고는 이 교시 내내 반복되는 이야기입니다. 정리하면 장점은 배포 상태와 로그를 바로 묻는다는 것이고, 위험은 내 계정과 같은 권한을 준다는 것입니다. 의미는 승인된 클라이언트만 연결되는 보안 모범 사례라는 점입니다.</aside>
+</section>
+
+<!-- 27 rtk -->
+<section class="slide" data-title="rtk: CLI 출력 압축">
+  <div class="tag"><b>2026-01-22 첫 커밋</b><span class="sep"></span>rtk-ai/rtk · Rust 단일 바이너리</div>
+  <h2>rtk: 명령 출력을 줄여서 에이전트에게 준다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>www.rtk-ai.app</span></div><img src="assets/captures/p10-rtk-site.jpg" alt="rtk 공식 사이트"></div>
+      <div class="kind">공식 사이트 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">rtk 공식 사이트 첫 화면. 문구는 <b>‘AI 에이전트가 잡음에 빠져 있다. RTK가 정리해 준다’</b>. GitHub 별 8만 4천 개.</div>
+    </div>
+    <div class="points">
+      <div class="term"><span class="dim">$</span> rtk init -g
+<span class="dim">$</span> git status
+<span class="ok">✓</span> 자동으로 rtk git status 로 바뀜</div>
+      <div class="pmi col">
+        <div class="p">테스트는 <b>실패만</b>, git log는 요약만 남겨 셸 출력의 잡음을 줄인다. 설치는 rtk init -g 한 줄.</div>
+        <div class="m">훅이 <b>Bash 호출에만</b> 걸려 Read·Grep은 지나가지 않는다. 줄어든 출력이 곧 줄어든 청구서는 아니다.</div>
+        <div class="i">MCP가 아닌 CLI 프록시. 효과는 <b>내 작업에서 직접 재서</b> 확인한다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>rtk는 MCP 서버가 아니라 CLI 프록시입니다. 훅으로 에이전트가 부르는 셸 명령을 가로채서, 출력의 잡음을 지우고 비슷한 항목을 묶고 길이를 자른 뒤 에이전트에게 돌려줍니다. 예를 들어 테스트는 실패한 것만, git log는 해시와 제목만 보여 줍니다. 첫 커밋은 2026년 1월 22일입니다. README는 정직한 단서를 붙입니다. 줄어드는 것은 셸 출력일 뿐이고, 입력 토큰의 일부이며 청구서의 일부이므로 같은 비율로 비용이 줄지는 않는다는 것입니다. 또 훅은 Bash 도구 호출에만 걸려서, 내장 Read와 Grep 도구는 지나가지 않는다고 합니다. 효과는 직접 재 보세요. 정리하면 장점은 셸 출력의 잡음을 줄인다는 것이고, 단점은 Bash 호출에만 적용되고 청구서가 같은 비율로 줄지 않는다는 것입니다. 의미는 효과를 직접 재서 확인하라는 점입니다.</aside>
+</section>
+
+<!-- 28 ripgrep -->
+<section class="slide" data-title="ripgrep">
+  <div class="tag"><b>2016-02-27 첫 커밋</b><span class="sep"></span>BurntSushi/ripgrep · Claude Code 내장</div>
+  <h2>ripgrep: 검색 결과를 걸러 주는 grep</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/troubleshooting</span></div><img src="assets/captures/p10-cc-ripgrep.jpg" alt="Claude Code 문서의 ripgrep 안내"></div>
+      <div class="kind">Claude Code 공식 문서 화면 캡처 · 2026-10-28 확인</div>
+      <div class="ko">Claude Code 문제 해결 문서. 오른쪽 목차의 <b>‘Search and discovery issues(검색 문제)’</b> 절에 ripgrep 안내가 있다.</div>
+    </div>
+    <div class="points">
+      <div class="pmi col">
+        <div class="p">.gitignore를 따르고 숨김·바이너리를 건너뛰어, node_modules 같은 잡음이 <b>창에 못 들어온다</b>.</div>
+        <div class="m">Claude Code는 내장 ripgrep을 쓰지만, 시스템에서 안 돌면 <b>직접 설치</b>해야 한다.</div>
+        <div class="i">검색 결과가 걸러질수록 <b>창에 들어오는 양도 준다</b>. 가장 기본적인 토큰 절약.</div>
+      </div>
+      <div class="term"><span class="dim">$</span> rg "TODO" src/</div>
+    </div>
+  </div>
+  <aside>ripgrep, rg는 정규식으로 디렉터리를 재귀 검색하는 도구입니다. README에 따르면 기본으로 gitignore 규칙을 따르고 숨김 파일과 바이너리 파일은 건너뜁니다. 에이전트에게 중요한 이유는 의미 없는 결과, 즉 node_modules나 빌드 산출물이 섞여 들어와 창을 낭비하는 것을 자연스럽게 막기 때문입니다. Claude Code 공식 문서는 검색과 파일 탐색에 내장 ripgrep을 쓰고, 이 바이너리가 시스템에서 안 돌면 패키지 관리자로 직접 설치해 쓰게 하라고 안내합니다. 다른 도구가 grep을 rg로 바꿨는지는 1차 출처를 찾지 못해 말하지 않겠습니다. 정리하면 장점은 잡음 파일을 걸러 창을 아낀다는 것이고, 단점은 내장 바이너리가 안 돌면 직접 설치해야 한다는 것입니다. 의미는 검색 단계에서 이미 토큰 절약이 시작된다는 점입니다.</aside>
+</section>
+
+<!-- 29 토큰 절약 정리 -->
+<section class="slide" data-title="토큰 절약 정리">
+  <div class="tag"><b>정리 · 토큰 절약</b><span class="sep"></span>들어오는 것을 줄이는 네 가지 길</div>
+  <h2>창에 들어오는 것을 줄인다</h2>
+  <div class="diagram">{{svg:p10-token-saving}}</div>
+  <p class="under">도구는 <b>필요한 만큼만</b>. 서버 수, 도구 수, 출력 길이를 <b>직접 재고</b> 줄이는 것이 순서입니다.</p>
+  <aside>오늘 본 것을 창에 들어오는 것 기준으로 다시 묶으면 네 갈래입니다. 셸 출력은 rtk가 줄이고, 검색 결과는 ripgrep이 걸러 줍니다. MCP 도구 정의는 도구 검색이 필요할 때만 싣고, 문서나 코드는 Context7과 Serena가 필요한 부분만 가져옵니다. 한 가지 더 기억할 점이 있습니다. Playwright와 Context7 모두 MCP 말고 CLI와 스킬 방식도 내놓고 있고, 토큰 효율이 이유로 거론됩니다. 정답은 도구마다 다르니, 내 작업에서 직접 재 보고 정하세요.</aside>
+</section>
+
+<!-- 30 확인 질문 -->
+<section class="slide" data-title="확인 질문">
+  <div class="tag"><b>확인 질문</b><span class="sep"></span>10교시</div>
+  <h2>이 세 가지에 답해 보세요</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/mcp</span></div><img src="assets/captures/p10-cc-mcp.jpg" alt="Claude Code MCP 문서"></div>
+      <div class="kind">힌트: 연결 · 범위 · 도구 검색</div>
+      <div class="ko">힌트 화면: Claude Code MCP 문서.</div>
+    </div>
+    <div class="points">
+      <ol>
+        <li>내 하네스의 구성요소 아홉 가지 중 지금 있는 것과 없는 것은?</li>
+        <li>MCP 서버를 연결하기 전에 확인할 세 가지는?</li>
+        <li>같은 일을 MCP와 CLI로 할 때 무엇을 재서 고르나?</li>
+      </ol>
+    </div>
+  </div>
+  <aside>세 가지 질문입니다. 첫째, 하네스 지도의 아홉 가지 가운데 내 프로젝트에 이미 있는 것과 빠진 것을 말해 보세요. 둘째, 서버를 연결하기 전에 누가 만든 서버인지, 어떤 권한을 주는지, 승인 단계가 켜져 있는지를 확인하는 습관을 이야기해 보세요. 셋째, 토큰 효율이든 안정성이든 감으로 고르지 말고 같은 작업을 두 방식으로 돌려 보고 비교해서 정해야 합니다. 답은 12교시 실습에서 직접 확인합니다.</aside>
+</section>
+
+<!-- 31 정리 + 예고 -->
+<section class="slide" data-title="정리와 다음 교시">
+  <div class="tag"><b>정리</b><span class="sep"></span>10교시 → 11교시</div>
+  <h2>하네스는 장치의 총합, MCP는 그중 연결</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/effective-harnesses-for-long-running-agents</span></div><img src="assets/captures/page-harness.jpg" alt="Anthropic 장기 실행 하네스 글"></div>
+      <div class="kind">Anthropic Engineering · 2025-11-26</div>
+      <div class="ko">다시 보는 화면: Anthropic 장기 실행 하네스 글(2025-11-26).</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>하네스 = 모델을 둘러싼 장치 전부. 파일과 git으로 세션을 잇는다</li>
+        <li>MCP = 호스트·클라이언트·서버. 연결하면 권한도 준다</li>
+        <li>도구는 필요한 만큼. 정의·출력·검색을 줄인다</li>
+      </ul>
+      <div class="next">→ 11교시: 스킬, Superpowers에서 Ponytail까지</div>
+    </div>
+  </div>
+  <aside>정리합니다. 하네스는 모델을 둘러싼 장치의 총합이고, 장기 작업에서는 파일과 git이 세션 사이를 잇습니다. MCP는 에이전트를 바깥 세계와 잇는 표준이고, 연결하는 순간 그 서버에 내 권한의 일부를 준다는 점을 잊지 마세요. 도구는 필요한 만큼만 붙이고, 정의와 출력과 검색 결과를 줄이는 방법을 함께 씁니다. 다음 11교시에서는 하네스의 또 다른 구성요소인 스킬을 봅니다. 스킬은 필요할 때만 읽히는 지침 폴더이고, 도구 검색과 비슷한 점진적 공개 원리로 움직입니다.</aside>
+</section>

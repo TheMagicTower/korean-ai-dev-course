@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 100
+vertical-gap: 100
+a: "1987 IEEE 1016\nSoftware Design Description\n사람에게 설계를 전하는 문서"
+b: "1998·2009 개정\n같은 SDD, 같은 독자(사람)\n2020 비활성"
+c: "2004 Ostroff 외\nAgile Specification-Driven Dev.\nTDD + 계약에 의한 설계"
+f: "2025-10-15 Böckeler\nspec-first · spec-anchored\n· spec-as-source"
+e: "2025-07 Kiro · 2025-09-02 Spec Kit\nSpec-Driven Development\n에이전트가 읽는 스펙" {style.stroke: "#ff00ff"}
+d: "MDD · BDD\n모델 → 코드 생성\n실행 가능한 시나리오"
+a -> b
+b -> c
+c -> d
+d -> e
+e -> f
+
+**.style.font-size: 30
+(** -> **)[*].style.font-size: 24

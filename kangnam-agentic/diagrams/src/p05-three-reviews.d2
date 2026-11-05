@@ -1,0 +1,16 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 140
+vertical-gap: 90
+spec: "스펙 리뷰\n무엇이 맞는 동작인가?" {style.stroke: "#ff00ff"}
+plan: "계획 리뷰\n어디를 어떤 순서로?"
+impl: "구현 리뷰\n요구와 결정을 지켰나?"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+x2: "" {style.opacity: 0; style.stroke-width: 0}
+stop: "예산 소진·블로커 잔존\n통과시키지 않고 중단·인계"
+spec -> plan: "통과"
+plan -> impl: "통과"
+impl -> stop: "" { style.stroke-dash: 4 }
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

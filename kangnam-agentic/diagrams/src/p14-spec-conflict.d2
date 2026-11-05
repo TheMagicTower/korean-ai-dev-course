@@ -1,0 +1,16 @@
+direction: right
+agents: "병렬 에이전트 · 워크트리" {
+  a: "에이전트 A\n결제 이슈"
+  b: "에이전트 B\n알림 이슈"
+  c: "에이전트 C\n권한 이슈"
+}
+spec: "SPEC.md\n하나의 큰 스펙"
+spec.style.stroke: "#ff00ff"
+agents.a -> spec: "같은 절"
+agents.b -> spec: "같은 절"
+agents.c -> spec: "같은 절"
+res: "머지 충돌\n사람이 풀어야 함"
+spec -> res
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

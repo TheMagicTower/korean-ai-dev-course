@@ -1,0 +1,575 @@
+<!-- 16교시 · 페르소나 평가, REA, 마지막 실습 안내 (60분, 4회차 2026-11-26). 강의 + 실습: 이슈별 워크플로우 9–12 · 17·18단계 · 내 하네스 v3 해 볼 것. 2026-10-29 실습·과제 장을 프롬프트+스모크 구성으로 재작성. 2026-10-29 11:30 자유 하네스(plan/free-harness-brief.md) 반영. -->
+
+<!-- 01 표지 -->
+<section class="slide section-slide" data-title="표지">
+  <div class="tag"><b>4회차 · 16교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-26</div>
+  <div class="big">4회차 · 16교시</div>
+  <h1>페르소나 평가,<br>REA, 마지막 실습</h1>
+  <div class="strip">
+    <figure><div class="thumb"><img src="assets/captures/page-devtools-mcp.jpg" alt="Chrome DevTools MCP 발표 글"></div><figcaption><b>스모크</b><span>동작하는가</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-uxagent.jpg" alt="UXAgent 논문 초록 화면"></div><figcaption><b>2025-02</b><span>UXAgent</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p16-tinytroupe.jpg" alt="TinyTroupe 논문 arXiv 화면"></div><figcaption><b>2025-07</b><span>TinyTroupe</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/p16-rea-site.jpg" alt="REA 공식 사이트 첫 화면"></div><figcaption><b>최근 동향</b><span>REA(Reverse Engineer Anything, 무엇이든 역공학)</span></figcaption></figure>
+  </div>
+  <aside>오늘은 4회차 마지막 교시입니다. 앞 교시에서 AI가 직접 앱을 눌러보는 스모크 테스트를 봤습니다. 오늘은 한 걸음 더 나가 특정 고객이 되어 눌러보는 페르소나 평가를 소개합니다. 그다음 최근 동향으로 REA(Reverse Engineer Anything, 무엇이든 역공학)라는 도구를 소개하고, 짧게 실습한 뒤, 다음 회차까지 내 하네스를 한 번 더 키워 볼 방법을 안내합니다. 아래 네 장은 모두 오늘 다룰 실제 화면입니다.</aside>
+</section>
+
+<!-- 02 지난 교시와의 연결 -->
+<section class="slide" data-title="스모크 다음 질문">
+  <div class="tag"><b>2024-10-22 → 2025-09-23</b><span class="sep"></span>15교시 복습 · computer use · Chrome DevTools MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)</div>
+  <h2>스모크가 통과해도 남는 질문: 쓸 만한가</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>developer.chrome.com/blog/chrome-devtools-mcp</span></div><img src="assets/captures/page-devtools-mcp.jpg" alt="Chrome DevTools MCP 발표 글"></div>
+      <div class="kind">Chrome for Developers 화면 캡처 · 15교시에서 본 화면</div>
+      <div class="ko">15교시에서 본 Chrome DevTools MCP 발표 글. 에이전트가 브라우저에서 <b>콘솔 오류·요청 실패</b>를 직접 읽는 스모크용 도구.</div>
+    </div>
+    <div class="points">
+      <ul>
+        <li>스모크는 <b>동작하는지</b>를 본다: 열리고, 눌리고, 오류가 없는가</li>
+        <li>버튼이 있어도 <b>그 사람이 찾을 수 있는지</b>는 모른다</li>
+        <li>다음 장치: 특정 고객이 되어 눌러보게 한다</li>
+      </ul>
+      <div class="next">→ 15교시 이어서</div>
+    </div>
+  </div>
+  <aside>15교시에서 에이전트가 브라우저를 열고 클릭하고 콘솔 오류를 읽는 스모크 테스트를 했습니다. 스모크가 통과하면 동작한다는 것은 확인됩니다. 하지만 예약 변경 버튼이 화면 구석에 숨어 있어도 스모크는 통과합니다. 버튼의 존재와 사람이 그것을 찾는지는 다른 문제입니다. 오늘 첫 주제는 이 간극을 메우는 페르소나 평가입니다.</aside>
+</section>
+
+<!-- 03 페르소나 평가란 -->
+<section class="slide" data-title="페르소나 평가">
+  <div class="tag"><b>페르소나 평가</b><span class="sep"></span>강사 운영 방식 · 단계 20</div>
+  <h2>페르소나 평가: 고객이 되어 눌러보고, 고친다</h2>
+  <div class="diagram">{{svg:p16-persona-loop}}</div>
+  <p class="under">사람 대신 <b>에이전트가 고객 한 명(페르소나: 고객을 글로 적은 프로필)을 연기</b>하며 앱을 씁니다. 막힌 곳은 이슈가 되고, 고친 뒤 같은 사람으로 다시 평가합니다.</p>
+  <aside>먼저 용어를 세우면, LLM(Large Language Model, 대규모 언어 모델)이 가상 인물(페르소나)을 연기하며 행동하게 하는 일을 LLM 페르소나 시뮬레이션이라고 부릅니다. 이것을 앱 평가에 쓰는 것이 페르소나 평가이고, 대표적인 연구와 도구로 UXAgent와 TinyTroupe가 있습니다. 페르소나 평가는 네 단계입니다. 첫째, 실제 고객을 글로 적은 페르소나 파일을 에이전트에게 주입합니다. 둘째, 에이전트가 브라우저로 앱을 직접 눌러봅니다. 이때 개발자의 관점이 아니라 그 고객의 목표와 버릇으로 행동하게 합니다. 셋째, 막힌 곳과 불편을 이슈로 남깁니다. 넷째, 워커가 고친 뒤 같은 페르소나로 다시 돌립니다. 저는 이 루프를 자기 개선 루프라고 부르고, 이슈 원장과 코디네이터 위에서 돌립니다.</aside>
+</section>
+
+<!-- 04 UXAgent -->
+<section class="slide" data-title="UXAgent">
+  <div class="tag"><b>LLM(Large Language Model, 대규모 언어 모델) 가상 사용자 시뮬레이션 · 대표 연구 UXAgent</b><span class="sep"></span>2025-02-18 · arXiv 2502.12561 · 2025-04-05 v3</div>
+  <h2>LLM 가상 사용자 시뮬레이션의 연구 사례, UXAgent: 사용성 시험을 미리 돌려 본다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>arxiv.org/abs/2502.12561</span></div><img src="assets/captures/page-uxagent.jpg" alt="UXAgent 논문 초록 화면"></div>
+      <div class="kind">arXiv 화면 캡처 · 논문 초록</div>
+      <div class="ko">UXAgent 논문 초록. LLM 에이전트가 <b>수천 명의 가상 사용자</b>처럼 웹사이트를 쓰게 해 사용성 시험을 돕는다는 내용.</div>
+    </div>
+    <div>
+      <div class="pmi col">
+        <div class="p">참가자를 모으기 전에 <b>수천 명의 가상 사용자</b>로 시험해 연구 설계를 점검한다. 생각·행동·영상이 남는다.</div>
+        <div class="m">가상 사용자일 뿐이라 <b>실제 사람 실험을 대신하지 못한다</b>. 논문도 사람 연구 이전 단계로 제안한다.</div>
+        <div class="i">우리 과정에서는 <b>페르소나 평가의 근거 ①</b>: 사람에게 가기 전 막힌 곳을 싸게 찾는다.</div>
+      </div>
+    </div>
+  </div>
+  <aside>LLM 가상 사용자 시뮬레이션의 첫 번째 근거는 2025년 2월에 공개된 UXAgent 논문입니다. 사용성 테스트는 참가자를 모집하기 어렵고 설계가 틀리면 다시 해야 한다는 문제가 있습니다. 논문은 LLM 에이전트와 브라우저 연결 모듈을 묶어 수천 명의 시뮬레이션 사용자로 웹사이트를 시험하는 체계를 제안합니다. 결과는 에이전트가 어떻게 생각했는지, 몇 번 행동했는지, 영상으로 남습니다. 초록이 밝히는 목적은 실제 사람 실험 전에 연구 설계를 평가하고 다듬는 것이라는 점에 주목합니다. 장점은 사람을 모으기 전에 설계를 점검하는 것, 단점은 사람 실험의 대체가 아니라는 것, 의미는 페르소나 평가의 근거라는 점입니다.</aside>
+</section>
+
+<!-- 05 TinyTroupe -->
+<section class="slide" data-title="TinyTroupe">
+  <div class="tag"><b>LLM 페르소나 시뮬레이션 · 대표 도구 TinyTroupe</b><span class="sep"></span>2025-07-13 · 2026-03-28 · arXiv 2507.09788 · microsoft/TinyTroupe 0.7.0</div>
+  <h2>LLM 페르소나 시뮬레이션 라이브러리, TinyTroupe: 성격과 목표를 준 가상 인물</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>arxiv.org/abs/2507.09788</span></div><img src="assets/captures/p16-tinytroupe.jpg" alt="TinyTroupe 논문 arXiv 화면"></div>
+      <div class="kind">arXiv 화면 캡처 · 2025-07-13 제출 · 2026-06-09 v3</div>
+      <div class="ko">TinyTroupe 논문의 arXiv 화면. Microsoft의 <b>가상 인물 시뮬레이션 Python 라이브러리</b>를 다룬 논문.</div>
+    </div>
+    <div>
+      <div class="pmi col">
+        <div class="p">성격·관심사·목표를 가진 <b>가상 인물</b>을 만들어 대화·행동시킨다. 광고 평가·포커스 그룹 등에 쓴다.</div>
+        <div class="m">Microsoft의 <b>실험적</b> 라이브러리다. README는 결과를 “통찰용”으로만 쓰고 직접 의사결정에는 쓰지 말라고 한다.</div>
+        <div class="i">그대로 쓰지 않아도, <b>페르소나를 상세히 정의해 주입</b>한다는 발상을 가져온다. ②번 근거.</div>
+      </div>
+    </div>
+  </div>
+  <aside>두 번째 근거는 LLM 페르소나 시뮬레이션 라이브러리인 Microsoft의 TinyTroupe입니다. 성격과 관심사와 목표를 가진 가상 인물을 만들어 서로 대화하고 행동하게 하는 실험적 Python 라이브러리입니다. README는 활용 예로 광고를 가상 청중으로 평가하기, 소프트웨어에 테스트 입력을 주고 결과를 평가하기, 포커스 그룹 시뮬레이션, 특정 직군 관점의 제안 피드백을 듭니다. 2025년 7월 논문이 공개됐고, README 소식란에는 2026년 3월 28일 0.7.0 릴리스가 적혀 있습니다. 저희는 이 라이브러리를 그대로 쓰지 않아도, 페르소나를 상세히 정의해 주입한다는 발상을 가져옵니다. 장점은 가상 인물을 상세히 정의할 수 있다는 것, 단점은 실험적이고 의사결정용이 아니라는 것, 의미는 페르소나 주입 발상을 가져온다는 점입니다.</aside>
+</section>
+
+<!-- 06 한계 -->
+<section class="slide" data-title="사람 테스트의 대체가 아니다">
+  <div class="tag"><b>한계</b><span class="sep"></span>UXAgent 초록 · TinyTroupe README 경고문</div>
+  <h2>가상 사용자는 사전 점검이다, 최종 판정이 아니다</h2>
+  <div class="diagram">{{svg:p16-evidence-ladder}}</div>
+  <p class="under">TinyTroupe README: 결과는 <b>“insight generation”(통찰을 얻기)</b>용이고 직접 의사결정용이 아닙니다. UXAgent도 실제 참가자 연구 <b>이전</b> 단계로 제안합니다.</p>
+  <aside>두 출처가 공통으로 경고하는 점이 있습니다. TinyTroupe README는 연구와 시뮬레이션 용도이며 산출물을 통찰을 얻는 데 쓰고 직접적인 의사결정에 쓰지 말라고 적습니다. UXAgent도 실제 참가자 실험 전에 설계를 점검하는 도구로 제안합니다. 그래서 저는 페르소나 평가를 스모크와 실제 사용자 사이의 중간 단계로 둡니다. 싸고 빠르게 막힌 곳을 많이 찾아 주지만, 진짜 고객이 그렇게 느끼는지는 사람에게 확인해야 합니다. 이 한계를 아는 것이 5회차 공유에서 나누면 좋은 이야기이기도 합니다.</aside>
+</section>
+
+<!-- 07 페르소나 출처 -->
+<section class="slide" data-title="페르소나는 어디서 오나">
+  <div class="tag"><b>입력 준비</b><span class="sep"></span>실제 고객 자료 → 페르소나 파일 · 강사 운영 방식</div>
+  <h2>페르소나는 지어내지 않고, 실제 고객에서 뽑는다</h2>
+  <div class="diagram">{{svg:p16-persona-source}}</div>
+  <p class="under">문의·불만·인터뷰에서 <b>반복되는 사람 유형</b>을 한 명씩 적습니다. 이름·연락처 같은 식별 정보는 지웁니다.</p>
+  <aside>페르소나를 상상으로 쓰면 에이전트가 그럴듯한 고객을 연기할 뿐, 실제 고객이 겪는 문제는 나오지 않습니다. 저는 실제 고객의 문의, 불만, 인터뷰 메모에서 반복되는 유형을 뽑아 한 명씩 파일로 만듭니다. 이때 개인을 식별할 수 있는 정보는 반드시 지웁니다. 실제 고객 자료가 없는 과제에서는 가상 고객을 만들되, 어떤 근거로 그렇게 정했는지 한 줄이라도 남겨 둡니다.</aside>
+</section>
+
+<!-- 08 페르소나 파일 -->
+<section class="slide" data-title="페르소나 파일 예시">
+  <div class="tag"><b>예시 · 가상 인물</b><span class="sep"></span>personas/seoyeon.md</div>
+  <h2>페르소나 파일: 목표와 포기 조건까지 적는다</h2>
+  <div class="row even">
+    <div class="term"><span class="acc"># 페르소나: 서연 (가상)</span>
+<span class="dim">누구</span>  38세 사무직, 반려견 2마리를 키움
+<span class="dim">목표</span>  점심시간 10분 안에 예약 변경
+<span class="dim">환경</span>  스마트폰, 지하철, 한 손 조작
+<span class="dim">버릇</span>  약관은 안 읽음. 용어가 낯서면
+      바로 전화를 검토함
+<span class="dim">포기</span>  같은 화면에서 2번 막히거나
+      3분이 넘으면 그만둠
+<span class="dim">근거</span>  최근 문의 기록 중 ‘예약 변경’
+      관련 반복 불만</div>
+    <div class="diagram">{{svg:p16-persona-anatomy}}</div>
+  </div>
+  <aside>페르소나 파일은 마크다운 한 장이면 충분합니다. 핵심은 두 가지입니다. 첫째, 이 사람이 앱으로 이루려는 목표를 적습니다. 둘째, 포기하는 조건을 적습니다. 포기 조건이 없으면 에이전트는 끈기 있게 끝까지 성공해 버려서 실제 고객이 떠나는 지점을 찾지 못합니다. 환경과 버릇을 적어 두면 한 손 조작이나 용어에 대한 반응 같은 구체적인 피드백이 나옵니다. 예시의 인물은 가상이고, 마지막 줄처럼 근거를 한 줄 남겨 둡니다.</aside>
+</section>
+
+<!-- 09 눌러보게 하기 -->
+<section class="slide" data-title="눌러보게 하기">
+  <div class="tag"><b>실행</b><span class="sep"></span>페르소나 + 과업 한 줄 + 브라우저 도구 · 강사 운영 방식</div>
+  <h2>실행: 과업은 한 줄, 증거는 파일로</h2>
+  <div class="row even">
+    <div class="term"><span class="dim">$</span> claude "personas/seoyeon.md 를 읽고
+  그 사람이 되어 localhost:8000 에서
+  '예약 변경'을 해 보세요.
+  - 브라우저 도구로 직접 클릭
+  - 단계마다 보이는 것과 누른 이유를 한 줄
+  - 포기 조건에 닿으면 멈추고 이유 기록
+  - 결과는 evals/2026-11-26/seoyeon.md"
+
+<span class="ok">✓</span> evals/2026-11-26/seoyeon-01.png …
+<span class="ok">✓</span> evals/2026-11-26/seoyeon.md</div>
+    <div class="diagram">{{svg:p16-run-flow}}</div>
+  </div>
+  <aside>실행은 이렇게 합니다. 페르소나 파일을 읽히고, 과업을 한 줄로 줍니다. 브라우저 도구로 직접 클릭하게 하되, 단계마다 무엇이 보였고 왜 눌렀는지를 한 줄씩 남기게 합니다. 이 생각 기록이 가장 값진 산출물입니다. 스크린샷은 증거로 파일에 저장합니다. 도구는 Playwright MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)든 Chrome DevTools MCP든 자유입니다. 에이전트가 개발자 지식을 끌어와 쉽게 성공하지 않도록, 그 사람이 모르는 것은 모른 채 행동하라고 명시합니다.</aside>
+</section>
+
+<!-- 10 관찰 항목 -->
+<section class="slide" data-title="관찰 항목">
+  <div class="tag"><b>관찰 항목</b><span class="sep"></span>페르소나 평가 · 한 사람, 한 과업마다 채움</div>
+  <h2>관찰 항목: 판정보다 증거 한 줄</h2>
+  <table class="tbl">
+    <tr><th>항목</th><th>묻는 것</th><th>수월</th><th>헤맴</th><th>막힘</th></tr>
+    <tr><td>과업 완수</td><td>목표를 이루었나</td><td>막힘 없이 완수</td><td>헤맨 뒤 완수</td><td>포기</td></tr>
+    <tr><td>찾기</td><td>필요한 버튼·메뉴를 찾았나</td><td>첫 화면에서</td><td>2~3군데 뒤짐</td><td>못 찾음</td></tr>
+    <tr><td>이해</td><td>문구·용어를 이해했나</td><td>바로 이해</td><td>추측해서 진행</td><td>오해하거나 전화 검토</td></tr>
+    <tr><td>신뢰·오류</td><td>오류·불안 요소가 있었나</td><td>없음</td><td>경고·지연 있음</td><td>오류로 중단</td></tr>
+    <tr><td>수고</td><td>단계 수·시간이 적절한가</td><td>기대 이내</td><td>1.5배 이내</td><td>포기 조건 초과</td></tr>
+  </table>
+  <p class="under">항목마다 수월·헤맴·막힘 중 하나. 각 칸에는 <b>스크린샷 번호나 기록 줄</b>을 붙입니다. 증거 없는 판정은 이슈로 만들지 않습니다.</p>
+  <aside>관찰은 다섯 항목으로 합니다. 과업을 완수했는지, 필요한 곳을 쉽게 찾았는지, 문구를 이해했는지, 오류나 불안 요소가 있었는지, 수고가 적절했는지입니다. 항목마다 수월, 헤맴, 막힘 중 하나를 표시하되, 표시보다 중요한 것은 근거 한 줄입니다. 몇 번째 스크린샷에서 어떤 일이 있었는지를 붙입니다. 이 표 자체는 제가 쓰는 시작점이니 여러분 앱에 맞게 항목을 바꿔도 됩니다. 다만 매번 같은 항목으로 봐야 고친 뒤 좋아졌는지 비교할 수 있습니다.</aside>
+</section>
+
+<!-- 11 이슈화 -->
+<section class="slide" data-title="피드백을 이슈로">
+  <div class="tag"><b>이슈 원장 연결</b><span class="sep"></span>14교시 이슈 원장 · 강사 운영 방식</div>
+  <h2>피드백은 이슈로: 재현 경로와 증거를 붙인다</h2>
+  <div class="row even">
+    <div class="term"><span class="acc">제목</span> [페르소나] 예약 변경 버튼이 없어 포기
+<span class="dim">페르소나</span> seoyeon (포기 조건: 3분 초과)
+<span class="dim">재현</span> 홈 → 내 예약 → 카드에 ‘취소’만 있음
+<span class="dim">증거</span> evals/2026-11-26/seoyeon-03.png
+<span class="dim">반응</span> “취소하고 다시 잡아야 하나?”
+<span class="dim">기대</span> 예약 카드에 ‘변경’ 노출
+<span class="dim">라벨</span> persona-eval · ux · p1</div>
+    <div class="diagram">{{svg:p16-issue-chain}}</div>
+  </div>
+  <aside>평가 결과는 대화창에 두지 않고 이슈로 만듭니다. 14교시에서 본 이슈 원장에 들어가야 워커가 집어 가서 고칠 수 있습니다. 이슈에는 어떤 페르소나였는지, 어디서 막혔는지, 재현 경로, 증거 스크린샷, 페르소나의 반응, 기대하는 모습을 적습니다. 예시처럼 페르소나 평가에서 나온 이슈라는 라벨을 달아 두면 나중에 같은 페르소나로 다시 평가할 때 어떤 이슈가 해결됐는지 추적하기 쉽습니다.</aside>
+</section>
+
+<!-- 12 자기 개선 루프 -->
+<section class="slide" data-title="자기 개선 루프">
+  <div class="tag"><b>자기 개선 루프</b><span class="sep"></span>코디네이터 + 이슈 원장 + 페르소나 평가 · 강사 운영 방식</div>
+  <h2>자기 개선 루프: 평가가 다음 배치를 만든다</h2>
+  <div class="row flip">
+    <div class="points">
+      <ul>
+        <li>코디네이터가 평가 에이전트를 부르고, 결과를 이슈로 받는다</li>
+        <li>워커가 이슈를 고치면 테스트·스모크를 거쳐 머지</li>
+        <li>같은 페르소나로 재평가. <b>멈춤 조건</b>은 막힘 0 또는 반복 상한</li>
+      </ul>
+      <div class="next">→ 마지막 실습에서 골라 쓸 수 있음</div>
+    </div>
+    <div class="diagram">{{svg:p16-self-improve}}</div>
+  </div>
+  <aside>이 부분이 13교시의 코디네이터와 14교시의 이슈 원장이 이어지는 곳입니다. 코디네이터가 평가 에이전트를 부르면 페르소나들이 앱을 눌러보고 피드백을 이슈로 남깁니다. 이슈는 워커에게 배치되고, 워커의 수정은 테스트와 스모크를 통과해야 합니다. 그다음 같은 페르소나로 다시 평가합니다. 저는 멈춤 조건부터 정해 둡니다. 막힘이 없어지거나 반복 횟수가 상한에 닿으면 멈춥니다. 상한이 없으면 에이전트가 끝없이 사소한 불편을 고치려 합니다.</aside>
+</section>
+
+<!-- 질문 시간 (중간) -->
+<section class="slide section-slide" data-title="질문 시간">
+  <div class="big">질문 시간 · 약 5분</div>
+  <h1>여기까지,<br>질문 받습니다</h1>
+  <p class="lead">지금까지 다룬 것: TinyTroupe · 사람 테스트의 대체가 아니다 · 페르소나는 어디서 오나 · 페르소나 파일 예시 · 눌러보게 하기 · 관찰 항목 · 피드백을 이슈로 · 자기 개선 루프</p>
+  <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-devtools-mcp.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-uxagent.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p16-tinytroupe.jpg" alt="앞에서 본 화면"></div></figure></div>
+  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래의 화면들 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
+</section>
+
+<!-- 13 강사 실제 실행 -->
+<section class="slide" data-title="강사 실제 실행">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>페르소나 평가 실행 화면 · 교체 예정</div>
+  <h2>제 서비스에서 돌리는 모습</h2>
+  <div class="diagram">{{svg:p16-instructor-run}}</div>
+  <div class="kind" style="text-align:center">직접 도식 · 강사 실제 화면으로 교체 예정</div>
+  <aside>여기서는 제가 실제 서비스에 페르소나 평가를 돌리는 화면을 보여 드릴 예정입니다. 구조는 앞서 본 그대로입니다. 실제 고객 페르소나를 평가 에이전트에게 주입하면, 에이전트가 운영 중인 서비스를 눌러보고, 피드백을 GitHub 이슈로 남기고, 워커가 고쳐 배포합니다. 실제 화면에서 이슈 목록과 스크린샷이 어떻게 쌓이는지 보시면 됩니다. 이 장은 제 실행 화면으로 교체해서 보여 드립니다.</aside>
+</section>
+
+<!-- 14 REA 무엇 -->
+<section class="slide" data-title="REA: 무엇인가">
+  <div class="tag"><b>역공학 MCP · 대표 도구 REA</b><span class="sep"></span>최근 동향 · 2026-10-28 README 확인 · github.com/morluto/rea · rea.tools</div>
+  <h2>역공학(리버스 엔지니어링) MCP의 예, REA: 소스 없이 앱의 동작을 조사한다</h2>
+  <div class="row">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/morluto/rea</span></div><img src="assets/captures/p16-rea-repo.jpg" alt="REA GitHub 저장소 첫 화면: Reverse engineer anything with agents"></div>
+      <div class="kind">GitHub 저장소 화면 캡처 · 2026-10-29</div>
+      <div class="ko">REA GitHub 저장소 첫 화면. 제목은 <b>“에이전트로 무엇이든 역공학”</b>(Reverse engineer anything with agents).</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="quote">“One MCP for reverse engineering across binaries, applications, and runtime behavior.”<span class="tr">바이너리·애플리케이션·실행 중 동작을 아우르는, 역공학(완성품을 뜯어 원리 파악)용 MCP 하나.</span><cite>REA README</cite></div>
+      <div class="pmi col">
+        <div class="p">소스 없이 앱·바이너리·웹사이트가 <b>어떻게 동작하는지</b> 조사하고, 근거와 한계를 함께 돌려준다. 분석은 로컬에서 한다.</div>
+        <div class="m">대상에 따라 Hopper·Ghidra·IDA 등 <b>별도 분석 도구</b>가 필요하다. 허가받은 소프트웨어에만 쓴다.</div>
+        <div class="i">에이전트 도구가 내 앱 테스트를 넘어 <b>남의 앱 조사</b>로 넓어지는 <b>최근 동향</b>의 예.</div>
+      </div>
+    </div>
+  </div>
+  <aside>마지막 주제는 최근 동향입니다. 완성된 앱이나 바이너리를 뜯어 원리를 파악하는 일을 역공학(리버스 엔지니어링)이라고 하는데, 이를 에이전트에게 맡기는 MCP의 예가 REA입니다. REA는 Reverse Engineer Anything의 약자이고, README는 바이너리, 애플리케이션, 런타임 동작을 가로지르는 역공학용 MCP 하나라고 소개합니다. 쓰는 방식은 이렇습니다. 마음에 드는 기능이 있는 앱을 에이전트에게 조사시키면, 소스 코드 없이 그 기능이 어떻게 동작하는지 살펴보고 근거를 보여 주고, 내 프로젝트용 버전을 만들 수 있다고 README는 설명합니다. 분석은 로컬에서 이뤄지고 결과에는 근거와 한계가 함께 담깁니다. 모든 설명은 README에 있는 내용만 말씀드립니다. 장점은 소스 없이 동작을 조사하는 것, 단점은 별도 도구와 허가 범위의 제약, 의미는 에이전트 도구가 앱 조사로 넓어진다는 점입니다.</aside>
+</section>
+
+<!-- 15 REA 어떻게 -->
+<section class="slide" data-title="REA: 어떻게 쓰나">
+  <div class="tag"><b>2026-10-28 README 확인</b><span class="sep"></span>REA 조사 흐름</div>
+  <h2>REA 쓰는 법: 에이전트에게 묻고, 근거를 받는다</h2>
+  <div class="row even">
+    <div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/morluto/rea · How REA works 그림</span></div><img src="assets/captures/p16-rea-flow.jpg" alt="REA 조사 흐름: 질문, 조사와 추적, 근거 읽기, 에이전트가 활용"></div>
+      <div class="kind">README 그림 화면 · 질문 → 조사·추적 → 근거 → 활용, 추가 질문으로 반복</div>
+      <div class="ko">REA README의 ‘How REA works’ 그림. <b>질문 → 조사·추적 → 근거 읽기 → 에이전트 활용</b>, 추가 질문으로 반복.</div>
+    </div>
+    <div class="term"><span class="dim"># 설치는 각자. 붙인 뒤에는 평소처럼 묻는다</span>
+<span class="acc">에이전트에게</span>
+Understand how search works in the
+Notes app, show me the evidence, and
+build a similar feature for my project.
+
+<span class="dim">번역</span> Notes 앱의 검색이 어떻게 동작하는지
+  설명하고, 근거를 보여 주고, 내 프로젝트에
+  비슷한 기능을 만들어 줘.
+
+<span class="warn">!</span> 대상에 따라 Hopper · Ghidra · IDA,
+  Node.js, Chrome 계열 브라우저 등 필요</div>
+  </div>
+  <aside>설치는 각자 README대로 하면 됩니다. 붙이면 REA의 MCP 서버와 작업 지침이 에이전트에 등록되고, README는 Claude Code, Codex, Cursor, Gemini CLI(Command-Line Interface, 명령줄 도구) 등을 지원한다고 적습니다. 쓰는 법은 에이전트에게 평소처럼 묻는 것입니다. README의 예시는 Notes 앱의 검색이 어떻게 동작하는지 증거와 함께 설명하고 비슷한 기능을 내 프로젝트에 만들라는 요청입니다. 그림처럼 에이전트의 질문을 REA가 조사하고 추적해 근거를 돌려주고, 에이전트가 설명하거나 구현합니다. 대상에 따라 별도 분석 도구가 필요합니다.</aside>
+</section>
+
+<!-- 16 REA 분석 대상과 RL 환경 -->
+<section class="slide" data-title="REA: 무엇을 분석하나">
+  <div class="tag"><b>2026-10-28 README · 가이드 확인</b><span class="sep"></span>REA 분석 대상 · RL(Reinforcement Learning, 강화학습) 환경 만들기</div>
+  <h2>REA는 앱 안을 넓게 들여다보되, 허가받은 소프트웨어에만 쓴다</h2>
+  <div class="frames">
+    <div>
+      <div class="frame" style="max-height:290px"><div class="bar"><i></i><i></i><i></i><span>github.com/morluto/rea · 네이티브 분석 예시</span></div><img src="assets/captures/p16-rea-hopper.jpg" alt="REA가 Hopper 안에서 분석 브리지를 실행하는 화면"></div>
+      <div class="kind">README 이미지 · Hopper 안에서 네이티브 바이너리 분석</div>
+      <div class="ko">Hopper(바이너리 분석 앱) 안에서 분석을 돌리는 화면. 분석 대상은 <b>/usr/bin/true</b>.</div>
+    </div>
+    <div>
+      <div class="frame" style="max-height:290px"><div class="bar"><i></i><i></i><i></i><span>rea.tools/guides/rl-environments</span></div><img src="assets/captures/p16-rea-rl.jpg" alt="REA 가이드: Build RL environments"></div>
+      <div class="kind">가이드 화면 캡처 · 녹화한 웹앱 세션을 에이전트용 환경으로</div>
+      <div class="ko">REA 가이드 ‘RL 환경 만들기’. 녹화한 웹앱 세션을 <b>AI 에이전트 훈련·시험용 환경</b>으로 바꾼다(RL: 강화학습).</div>
+    </div>
+  </div>
+  <div class="pmi">
+    <div class="p">네이티브 바이너리·JS/Electron·웹·.NET·APK(Android Package Kit, 안드로이드 앱 설치 파일)까지 <b>분석 대상이 넓다</b>. 녹화한 웹앱 세션을 에이전트용 환경으로 바꾼다.</div>
+    <div class="m"><b>내 소유이거나 분석 허가를 받은</b> 소프트웨어에만 써야 한다는 README 면책이 있다.</div>
+    <div class="i">에이전트를 <b>같은 조건에서 재현해 평가</b>하는 환경을 만드는 방향으로 도구가 확장되고 있다.</div>
+  </div>
+  <aside>README의 분석 대상 표는 네이티브 바이너리, JavaScript와 Electron 앱, 웹사이트, .NET 어셈블리, Android APK(Android Package Kit, 안드로이드 앱 설치 파일) 등 매우 넓습니다. 왼쪽은 REA가 Hopper 안에서 분석 브리지를 띄워 네이티브 바이너리를 보는 README 이미지입니다. 오른쪽 가이드는 웹앱 사용 기록을 도구 호출 가능한 형태의 환경으로 바꿔, 에이전트가 연습하거나 평가받는 환경을 만든다는 내용입니다. 이 과정과 이어 보면, 에이전트의 성능을 같은 조건에서 재현해 평가하는 방향으로 도구가 확장되고 있다는 점이 눈에 띕니다. 마지막으로 README의 면책 문구는 합법적 연구, 교육, 상호운용, 소프트웨어 보존, 그리고 소유하거나 분석 권한이 있는 소프트웨어에 한해 쓰라고 합니다. 장점은 넓은 분석 대상, 단점은 허가받은 소프트웨어로 제한된다는 것, 의미는 평가용 환경으로 확장된다는 점입니다.</aside>
+</section>
+
+<!-- 17 이번 시간의 흐름 -->
+<section class="slide" data-title="실습: 이번 시간의 흐름">
+  <div class="tag"><b>실습 · 약 25분</b><span class="sep"></span>18단계 중 16·17·18단계 · 이슈별 워크플로우 9–12 · 프롬프트와 스모크</div>
+  <h2>이슈 하나를 PR에서 스모크까지 보내고, 결과는 코드 대신 스모크로 확인한다</h2>
+  <div class="diagram">{{svg:p16-practice-flow}}</div>
+  <p class="under">저는 코드를 읽지 않습니다. <b>하네스에게 시키고, 돌려서 확인합니다.</b> 사람이 보는 것은 내 답, 정리된 결정, 스모크 결과 세 가지입니다. 이것은 <b>제 방식</b>이고, 내 하네스에 맞게 바꿔도 됩니다.</p>
+  <aside>오늘 실습은 제 운영 기준의 이슈별 워크플로우 뒷부분입니다. 12교시에서 구현 리뷰까지 끝낸 이슈 하나를 PR(Pull Request, 변경 병합 요청)로 만들고, CI(Continuous Integration, 지속적 통합)를 거쳐 스쿼시로 머지한 뒤, 머지한 앱에 스모크를 돌립니다. 그다음 17단계 사용자 피드백과 18단계 다음 업데이트 루프로 이어집니다. 저는 이 과정에서 코드를 읽지 않습니다. 하네스에게 이렇게 시키고, 머지 후에 스모크와 페르소나 평가 결과를 이렇게 확인합니다. 이 교시는 스모크가 중심이라 시나리오 표가 계속 나옵니다. 설치는 각자 쓰던 도구 그대로입니다. 이 순서는 제가 쓰는 방식이라서, 필요한 단계만 골라 쓰거나 순서를 바꿔도 됩니다.</aside>
+</section>
+
+<!-- 18 에이전트가 물어야 할 질문 -->
+<section class="slide" data-title="전달 흐름 질문 6가지">
+  <div class="tag"><b>설계 대화 체크리스트</b><span class="sep"></span>이슈별 워크플로우 9–12 · 18단계 중 17·18 · 에이전트가 묻지 않으면 내가 먼저</div>
+  <h2>하네스는 PR 전에 여섯 가지를 하나씩 묻는다</h2>
+  <table class="tbl">
+    <tr><th>단계</th><th>하네스가 물을 것</th><th>예시 답</th><th>빠지면</th></tr>
+    <tr><td>9 PR</td><td>PR(Pull Request, 변경 병합 요청) 하나의 범위는</td><td>이슈 #7 하나, 수용 조건 첨부</td><td>일이 섞여 리뷰가 어렵다</td></tr>
+    <tr><td>10 CI(Continuous Integration, 지속적 통합)</td><td>필수 점검과 실패 시 처리는</td><td>테스트 전부 통과, 실패하면 머지 불가</td><td>“내 컴퓨터에선 됐다”로 머지</td></tr>
+    <tr><td>11 머지</td><td>누가 승인하고 어떤 방식인가</td><td>내가 승인, 스쿼시</td><td>main이 어지러워진다</td></tr>
+    <tr><td>12 스모크</td><td>무엇을 눌러 보고, 실패하면</td><td>로그인 → 예약 변경, 후보 제외</td><td>통과한 줄 알고 다음 일로</td></tr>
+    <tr><td>17 피드백</td><td>누구로 평가하고 이슈는 어떻게</td><td>서연 1명, 증거 있는 것만</td><td>막연한 불만이 이슈로 쌓인다</td></tr>
+    <tr><td>18 다음 루프</td><td>무엇을 하고 언제 멈추나</td><td>이슈 3건, 최대 2바퀴</td><td>사소한 개선이 끝없이 이어진다</td></tr>
+  </table>
+  <aside>하네스가 PR을 만들기 전에 이 여섯 가지가 정해져 있으면 덜 막힙니다. 이슈별 워크플로우의 9단계부터 12단계, 그리고 17단계와 18단계에 하나씩 대응합니다. 하네스가 일부를 묻지 않으면 제가 먼저 꺼냅니다. 특히 CI 실패 시 처리와 머지 후 스모크 실패 시 처리는 대개 빠집니다. 앞의 것은 통과하지 못한 변경이 머지되는 일로, 뒤의 것은 깨진 상태가 다음 배포 후보에 섞이는 일로 이어집니다. 모르는 항목은 하네스에게 선택지 두 개와 장단점을 달라고 하면 됩니다. 개인 도구나 PoC(Proof of Concept, 개념 증명)라면 정기 배포 같은 것은 필요할 때만 합니다.</aside>
+</section>
+
+<!-- 19 첫 프롬프트와 승인 -->
+<section class="slide" data-title="첫 프롬프트와 승인">
+  <div class="tag"><b>그대로 붙여 넣어도 됩니다</b><span class="sep"></span>각자 쓰는 에이전트 · 질문 → ADR(Architecture Decision Record, 아키텍처 결정 기록) 한 건 → 사람 승인</div>
+  <h2>첫 프롬프트로 질문부터 시키고, 다섯 가지를 보고 승인한다</h2>
+  <div class="row">
+    <div class="term" style="font-size:19px"><span class="acc">&gt;</span> 12교시에서 끝낸 이슈 #7로 이어서 한다.
+  (예약 앱, <span class="acc">PoC</span>(Proof of Concept, 개념 증명))
+
+  <span class="warn">아직 PR은 만들지 마.</span>
+  9–12단계(PR → CI → 스쿼시 머지 →
+  머지 후 스모크)와 17(페르소나 평가 →
+  피드백 이슈), 18(다음 루프)에 필요한
+  질문을 <span class="acc">한 번에 하나씩</span> 해 줘.
+  질문마다 추천 답과 이유를 주고
+  8개 안에서 끝내.
+
+  끝나면 <span class="acc">docs/adr/</span>에 ‘전달 흐름’ ADR
+  한 건을 쓰고, 내가 “승인”이라고 할
+  때까지 기다려.</div>
+    <div class="points">
+      <ol>
+        <li>내가 한 <b>답</b>이 ADR에 그대로 들어 있다</li>
+        <li>PR 범위·CI 필수 점검·머지 방식이 <b>한 줄 요약</b>으로 읽힌다</li>
+        <li><b>스모크 시나리오 표</b>가 있다 (핵심 흐름 + 막혀야 할 요청)</li>
+        <li>스모크·CI <b>실패 시 처리</b>가 적혀 있다</li>
+        <li>평가 <b>반복 상한</b>이 있고, 피드백 이슈에는 증거가 붙는다</li>
+      </ol>
+      <div class="next">→ 다섯이 ‘예’일 때만 “승인”</div>
+    </div>
+  </div>
+  <aside>4교시와 같은 방식으로 시작합니다. 아직 PR을 만들지 말 것, 질문은 한 번에 하나씩 할 것, 정리한 ADR(Architecture Decision Record, 아키텍처 결정 기록)을 내가 승인할 때까지 기다릴 것, 이 세 가지를 못 박습니다. 이슈 번호와 앱 이름은 각자 자기 것으로 바꿔 씁니다. 하네스가 ADR을 가져오면 오른쪽 다섯 가지를 확인합니다. 제가 보는 것은 내가 한 답, 정리된 결정의 한 줄 요약, 스모크 시나리오 표입니다. 코드는 보지 않습니다. 하나라도 비어 있으면 승인하지 말고 그 부분을 다시 묻게 합니다. 승인은 사람이 하고 하네스가 대신하지 않습니다.</aside>
+</section>
+
+<!-- 20 PR과 CI 결과 -->
+<section class="slide" data-title="PR과 CI 결과 확인">
+  <div class="tag"><b>이슈별 워크플로우 9–10단계</b><span class="sep"></span>하네스에게 시키고 요약을 받는다 · 결과 화면은 예시</div>
+  <h2>PR과 CI는 만들게 시키고, 결과 요약을 보여 달라고 한다</h2>
+  <div class="row" style="grid-template-columns:1.3fr 1fr;gap:36px">
+    <div>
+      <div class="term" style="font-size:18px;line-height:1.45"><span class="acc">&gt;</span> ADR대로 이슈 #7의 PR을 만들어 줘.
+  끝나면 이것만 보여 줘.
+  - 수용 조건별 충족 여부
+  - 테스트·CI 결과 요약 (실패하면 어느 것)
+  - 이 PR에서 눌러 볼 스모크 범위
+  - main에 ‘CI 통과 필수’ 규칙이 켜져 있는지
+
+<span class="dim"># 하네스가 보여 준 결과 (예시)</span>
+수용 조건 1/1 충족
+테스트·CI  <span class="ok">통과</span> (2번째 실행)
+스모크 범위  홈 → 내 예약 → 변경
+main 보호  <span class="ok">켜짐</span></div>
+      <div class="kind">결과 줄은 예시 · 실제 값은 각자 하네스가 보여 준다</div>
+    </div>
+    <table class="tbl" style="font-size:21px">
+      <tr><th>내가 확인</th><th>부족하면 이렇게</th></tr>
+      <tr><td>CI 요약</td><td>“실패한 항목과 이유를 한 줄씩 보여 줘”</td></tr>
+      <tr><td>main 보호</td><td>“CI가 빨간 PR이 머지되지 않는 것을 설정 화면으로 보여 줘”</td></tr>
+      <tr><td>CI 뒤 변경</td><td>“바뀐 버전으로 CI를 다시 돌리고 결과를 보여 줘”</td></tr>
+    </table>
+  </div>
+  <aside>저는 PR 본문이나 CI 설정 파일을 읽지 않고 하네스에게 요약을 보여 달라고 합니다. 수용 조건이 채워졌는지, 테스트와 CI가 통과했는지, 이 PR에서 어떤 화면을 눌러 볼지를 한 화면에 받습니다. 가장 자주 빠지는 것은 main 보호입니다. 이 규칙이 꺼져 있으면 CI가 빨개도 머지 버튼이 눌립니다. 그래서 규칙이 켜져 있다는 것을 설정 화면으로 보여 달라고 합니다. CI가 끝난 뒤 변경이 생기면 바뀐 버전으로 다시 돌리게 합니다. 오른쪽 표는 부족할 때 하네스에게 하는 말입니다.</aside>
+</section>
+
+<!-- 21 머지와 스모크 -->
+<section class="slide" data-title="스쿼시 머지와 스모크 시나리오">
+  <div class="tag"><b>이슈별 워크플로우 11–12단계</b><span class="sep"></span>머지 후 스모크 · 시나리오 표가 이 교시의 중심 · 실제 결과 열은 예시</div>
+  <h2>머지하고 나면, 합쳐진 앱을 눌러 보고 표로 남긴다</h2>
+  <div class="row" style="grid-template-columns:1fr 1.45fr;gap:32px">
+    <div>
+      <div class="term" style="font-size:17px;line-height:1.45"><span class="acc">&gt;</span> 승인한다. 스쿼시로 머지해 줘.
+
+<span class="acc">&gt;</span> main을 받아 앱을 띄우고
+  1) 로그인  2) 내 예약 → 변경
+  3) 콘솔 오류 0  4) 막혀야 할 요청 1개
+  를 눌러 보고 스크린샷을 남겨 줘.
+  결과는 시나리오 표로.
+  <span class="warn">실패하면</span> 이슈 #7을 다시 열고
+  원인·복구를 적고, 이 커밋을
+  배포 후보에서 빼.</div>
+    </div>
+    <div>
+      <table class="tbl" style="font-size:19px">
+        <tr><th>시나리오</th><th>기대 결과</th><th>실제 결과</th><th>통과</th></tr>
+        <tr><td>로그인</td><td>홈이 열린다</td><td>홈 표시</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>내 예약 → 변경</td><td>변경 화면이 열린다</td><td>버튼이 안 보임</td><td><span class="warn">✗</span></td></tr>
+        <tr><td>콘솔 오류</td><td>0건</td><td>0건</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>남의 예약 변경 요청</td><td>막히고 안내</td><td>안내 표시</td><td><span class="ok">✓</span></td></tr>
+      </table>
+      <div class="kind">‘실제 결과’는 예시 · ✗가 나오면 이슈 재오픈 + 후보 제외</div>
+    </div>
+  </div>
+  <aside>머지는 사람이 승인한 뒤에 합니다. 스쿼시로 합치면 이슈 하나가 main에 커밋 하나로 남아서 기록을 따라가기도, 되돌리기도 쉽습니다. 머지가 끝나면 합쳐진 앱을 하네스가 띄워서 핵심 흐름을 눌러 보고, 시나리오와 기대 결과와 실제 결과와 통과 여부를 표로 보여 줍니다. 저는 이 표와 스크린샷만 봅니다. 예시처럼 한 줄이 실패로 나오면 이슈를 다시 열고, 그 커밋을 다음 배포 후보에서 빼고, 원인과 복구와 재확인을 기록하게 합니다. 막혀야 할 요청을 한 줄 넣어 두면 권한 규칙까지 같이 확인됩니다. 이 표의 값은 예시이고, 실제 값은 각자 하네스가 보여 줍니다.</aside>
+</section>
+
+<!-- 22 일부러 어겨 보기 -->
+<section class="slide" data-title="일부러 어겨 보기와 기록">
+  <div class="tag"><b>약 10분</b><span class="sep"></span>이슈 하나를 9–12단계로 보내 보고 · 일부러 어기기 세 번 · 결과 열은 예시</div>
+  <h2>이슈 하나를 실제로 보내 보고, 규칙을 일부러 어겨 본다</h2>
+  <div class="row even">
+    <div class="term" style="font-size:18px"><span class="dim"># 1 이슈 #7을 9–12단계로</span>
+<span class="acc">&gt;</span> ADR대로 이슈 #7의 PR을 만들고
+  CI가 통과하면 알려 줘. 머지는 내가 한다
+
+<span class="dim"># 2 일부러 어기기 (하나씩)</span>
+<span class="acc">&gt;</span> CI가 실패한 PR을 그냥 머지해 줘
+<span class="acc">&gt;</span> 리뷰 없이 main 에 바로 푸시해 줘
+<span class="acc">&gt;</span> 버튼을 숨긴 채 머지 후 스모크를 돌려 줘
+
+<span class="ok">✓</span> 막혔다 → 어떤 메시지로?
+<span class="warn">!</span> 안 막혔다 →
+  “왜 통과됐는지 설명하고, 막히게 고친 뒤
+   같은 요청으로 다시 보여 줘”</div>
+    <div>
+      <table class="tbl" style="font-size:20px">
+        <tr><th>어겨 보기</th><th>기대</th><th>실제(예시)</th><th>통과</th></tr>
+        <tr><td>CI 실패 PR 머지</td><td>막힘</td><td>막힘</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>main에 바로 푸시</td><td>막힘</td><td>푸시됨</td><td><span class="warn">✗</span></td></tr>
+        <tr><td>버튼 숨기고 스모크</td><td>실패로 잡힘</td><td>잡힘</td><td><span class="ok">✓</span></td></tr>
+      </table>
+      <div class="kind">안 막힌 원인(예: main 보호 미설정) → ADR 한 줄 갱신 → 같은 요청으로 재확인</div>
+    </div>
+  </div>
+  <aside>이제 승인한 ADR대로 이슈 하나를 실제로 보냅니다. 하네스가 PR을 만들고 CI를 돌리고, 머지는 사람이 합니다. 그다음 규칙이 정말 작동하는지 일부러 어겨 봅니다. CI가 실패한 PR을 머지시켜 보고, main에 바로 푸시시켜 보고, 버튼을 숨긴 상태에서 머지 후 스모크가 실패로 잡는지 봅니다. 막히면 어떤 메시지로 막혔는지 적고, 안 막히면 그것이 이번 시간의 가장 좋은 발견입니다. 대개 main 보호를 안 켰거나 ADR에 규칙이 빠져 있습니다. 하네스에게 원인을 설명하게 하고 ADR을 한 줄 고친 뒤 같은 요청으로 다시 확인합니다. 값은 지어내지 않고 못 쟀으면 못 쟀다고 적어 둡니다.</aside>
+</section>
+
+<!-- 23 페르소나 평가 -> 피드백 이슈 -->
+<section class="slide" data-title="페르소나 평가와 피드백 이슈">
+  <div class="tag"><b>18단계 중 17단계 · 사용자 피드백</b><span class="sep"></span>앞 장의 페르소나 평가를 머지된 앱에 돌린다</div>
+  <h2>머지한 앱에 페르소나 평가를 돌리고, 피드백을 이슈로 남긴다</h2>
+  <div class="row even">
+    <div class="term" style="font-size:17px;line-height:1.5"><span class="acc">&gt;</span> main 을 띄우고 personas/seoyeon.md 의
+  사람이 되어 ‘예약 변경’을 해 봐.
+  - 브라우저 도구로 직접 클릭
+  - 단계마다 보이는 것과 이유를 한 줄
+  - 포기 조건에 닿으면 멈추고 이유 기록
+  - 증거는 evals/2026-11-26/ 에 저장
+  - 항목별 수월·헤맴·막힘. <span class="warn">증거 없는 판정은 이슈 금지</span>
+  - 이슈는 라벨 persona-eval, 평가는 최대 2바퀴
+  끝나면 만든 이슈 목록과 증거 위치를 보여 줘.</div>
+    <table class="tbl">
+      <tr><th>피드백 분류</th><th>처리</th></tr>
+      <tr><td>버그 · 콘솔 오류</td><td>자동 처리: 워커에 배치</td></tr>
+      <tr><td>문구 · 버튼 노출</td><td>자동 처리: 워커에 배치</td></tr>
+      <tr><td>ADR을 바꿔야 하는 제안</td><td><b>사람 판단</b> 대기</td></tr>
+      <tr><td>범위 변경 · 고복잡도 · 반려</td><td><b>사람 판단</b> 대기</td></tr>
+    </table>
+  </div>
+  <aside>17단계는 사용자 피드백입니다. 앞에서 본 페르소나 평가를 하네스에게 시킵니다. 페르소나 파일, 과업 한 줄, 포기 조건, 증거 저장 위치, 이슈 작성 규칙을 프롬프트에 담고, 끝나면 이슈 목록과 증거 위치를 보여 달라고 합니다. 제가 확인하는 것은 이슈마다 재현 경로와 스크린샷이 붙어 있는지, 스모크가 통과했는데도 불편이 나왔는지입니다. 이슈가 생기면 오른쪽 표처럼 분류합니다. 버그와 작은 문구 수정은 워커에게 맡기고, ADR을 바꿔야 하는 제안과 범위 변경은 사람이 판단합니다. 이슈의 문장이 하네스에게 새로운 권한을 주지는 않습니다. 실제 고객 자료가 없으면 가상 페르소나로 하고 근거를 한 줄 남깁니다.</aside>
+</section>
+
+<!-- 24 다음 업데이트 루프 -->
+<section class="slide" data-title="다음 업데이트 루프">
+  <div class="tag"><b>18단계 · 다음 업데이트 루프</b><span class="sep"></span>피드백 이슈에서 다음 계획으로 · 결과 줄은 예시</div>
+  <h2>피드백은 다음 계획이 되고, 새 이슈로 처음부터 이어진다</h2>
+  <div class="row even">
+    <div>
+      <div class="term" style="font-size:18px"><span class="acc">&gt;</span> 피드백 이슈를 보고 다음 계획을
+  유지 · 수정 · 추가 · 보류로 나눠 줘.
+  바뀌는 결정이 있으면 어느 ADR을
+  고칠지 알려 주고, 이미 내린 결정과
+  증거는 지우지 마.
+  <span class="warn">평가 2바퀴</span> 또는 열린 이슈 0이면 멈춰.
+
+<span class="dim"># 하네스가 보여 준 결과 (예시)</span>
+<span class="acc">유지</span>  예약 목록·취소 (막힘 없음)
+<span class="acc">수정</span>  ‘변경’ 노출 → 이슈 #14
+<span class="acc">추가</span>  변경 알림 → ADR 갱신 필요
+<span class="acc">보류</span>  결제 화면 → 사람 판단</div>
+    </div>
+    <div class="diagram">{{svg:p16-next-loop}}</div>
+  </div>
+  <aside>마지막 18단계입니다. 쌓인 피드백 이슈를 보고 무엇을 유지하고, 고치고, 추가하고, 보류할지 하네스가 정리하고 사람이 판정합니다. 결정이 바뀌는 곳은 ADR이나 스펙을 갱신하되, 이미 내린 결정과 증거는 지우지 않고 보존합니다. 모든 변경에 새 ADR을 만들 필요는 없고 중요한 결정이 바뀔 때만 합니다. 그다음 새 이슈를 등록하면 이슈별 워크플로우가 처음부터 다시 돕니다. 이 루프가 끝없이 돌지 않도록 반복 상한이나 열린 이슈 수 같은 멈춤 조건을 프롬프트에 적어 둡니다. 이 루프를 사람 대신 돌리게 만드는 한 가지 방법이 코디네이터입니다. 필요하면 내 하네스에 넣어 봅니다. 결과 줄과 이슈 번호는 예시입니다.</aside>
+</section>
+
+<!-- 25 내 하네스 한 번 더 -->
+<section class="slide" data-title="내 하네스를 한 번 더">
+  <div class="tag"><b>다음 회차(5회차 12-03)까지 해 볼 것</b><span class="sep"></span>누적 실습 ‘나만의 하네스 만들기’ · 형태는 자유</div>
+  <h2>내 하네스를 한 번 더 키운다: 무엇을 하는 하네스인지는 내가 정한다</h2>
+  <div class="row flip" style="grid-template-columns:.9fr 1.3fr">
+    <div class="points">
+      <ul>
+        <li>하네스의 <b>기능과 스펙은 내가 정한다</b>. 정해진 형태나 구조는 없다</li>
+        <li>오늘까지 소개한 장치 가운데 <b>내 하네스에 필요한 것을 골라</b> 하네스에게 시킨다</li>
+        <li>방법은 오늘과 같다: 하네스의 질문 → 결정 문서 → 승인 → 시키기 → 스모크로 확인</li>
+        <li>오른쪽 그림은 <b>이런 식으로도 만들 수 있다</b>는 예시일 뿐이다</li>
+      </ul>
+    </div>
+    <div class="diagram">{{svg:p16-harness-v3}}</div>
+  </div>
+  <aside>이번 실습은 지금까지 쌓은 하네스를 회차마다 한 번씩 키워 온 것의 연장입니다. 무엇을 하는 하네스인지, 어떤 기능과 스펙을 갖는지는 각자 정합니다. 형태나 구조를 정해 두지 않습니다. 오늘 소개한 장치들은 메뉴라고 생각해 주세요. 내 하네스에 필요한 것만 골라 하네스에게 시키면 됩니다. 오른쪽 그림은 제가 쓰는 예시로, 코디네이터가 이슈 원장의 열린 이슈를 읽고 워커에게 나눠 맡기고, 테스트와 스모크를 거쳐 머지한 앱에 페르소나 평가가 돌아 새 이슈를 만드는 형태입니다. 이렇게 만들어도 되고 전혀 다르게 만들어도 됩니다. 만드는 방법은 오늘과 같고 코드는 읽지 않습니다. 동작은 스모크 기록으로 확인합니다.</aside>
+</section>
+
+<!-- 26 장치 메뉴 -->
+<section class="slide" data-title="고를 수 있는 장치">
+  <div class="tag"><b>예시 메뉴</b><span class="sep"></span>내 하네스에 필요한 것만 골라 쓴다 · 하네스에게 물어볼 것 포함</div>
+  <h2>고를 수 있는 장치 여섯 가지: 필요한 것만 골라 하네스에게 시킨다</h2>
+  <table class="tbl" style="font-size:22px">
+    <tr><th>장치</th><th>하네스에게 물어볼 것</th><th>이런 식으로 (예시)</th><th>남기면 좋은 기록</th></tr>
+    <tr><td>코디네이터</td><td>무엇을 읽고 언제 멈추나</td><td>이슈 원장을 읽고 워커에 배치</td><td>프롬프트 · 배치 기록</td></tr>
+    <tr><td>워커</td><td>이슈마다 어떻게 격리하나</td><td>이슈별 워크트리·브랜치</td><td>브랜치·PR 목록</td></tr>
+    <tr><td>점검</td><td>통과 기준은 무엇인가</td><td>테스트(CI) + 머지 후 스모크 시나리오 표</td><td>스모크 표 · 화면 · 로그</td></tr>
+    <tr><td>페르소나 평가</td><td>누구로, 이슈는 어떻게</td><td>페르소나 파일, 관찰 항목, 증거 있는 이슈</td><td>페르소나 파일 · 이슈</td></tr>
+    <tr><td>멈춤·인계</td><td>언제 사람에게 넘기나</td><td>완료 기준 또는 반복 상한</td><td>종료 사유 · 인계 기록</td></tr>
+    <tr><td>설계 기록</td><td>왜 그렇게 정했나</td><td>설계 대화 → 결정 문서 → 사람 승인</td><td>대화 기록 · 개요·ADR·스펙</td></tr>
+  </table>
+  <aside>여섯 가지는 반드시 갖춰야 하는 구성이 아니라 고를 수 있는 메뉴입니다. 내 하네스가 하려는 일에 필요한 것만 고르면 되고, 여기에 없는 장치를 직접 만들어도 됩니다. 두 번째 열은 하네스에게 설계 질문을 시킬 때 빠지지 않게 챙길 것이고, 세 번째 열은 제가 쓰는 방식의 예시입니다. 점검의 기록은 코드가 아니라 스모크 시나리오 표와 화면, 로그입니다. 어떤 장치가 필요한지 모르겠으면 하네스에게 내 하네스가 하려는 일을 말하고, 필요한 장치와 이유를 선택지로 달라고 하면 됩니다.</aside>
+</section>
+
+<!-- 27 다음 회차까지 -->
+<section class="slide" data-title="다음 회차까지 해 볼 것">
+  <div class="tag"><b>5회차 12-03</b><span class="sep"></span>집에서 이어서 · 있는 만큼만 나눕니다</div>
+  <h2>다음 회차까지 해 볼 것과, 그때 나누면 좋은 것</h2>
+  <div class="row even">
+    <table class="tbl">
+      <tr><th>해 볼 일</th></tr>
+      <tr><td>1 내 하네스가 할 일(기능·스펙)을 한두 문장으로 적는다</td></tr>
+      <tr><td>2 필요한 장치를 골라 하네스에게 시키고, 스모크로 확인한다</td></tr>
+      <tr><td>3 돌릴 때마다 시간·토큰·결과를 한 줄 적는다 <span class="muted">(실패한 회차도)</span></td></tr>
+    </table>
+    <table class="tbl">
+      <tr><th>5회차에 나누면 좋은 것</th></tr>
+      <tr><td>쓴 프롬프트 하나 <span class="muted">(잘 먹힌 것 또는 안 먹힌 것)</span></td></tr>
+      <tr><td>스모크 표 한 장 <span class="muted">(시나리오·기대·실제 결과)</span></td></tr>
+      <tr><td>막힌 곳 하나와 고친 방법 <span class="muted">(못 고쳤으면 그대로)</span></td></tr>
+      <tr><td>구조도 한 장 <span class="muted">(있다면)</span></td></tr>
+    </table>
+  </div>
+  <p class="under">코드는 읽지 않아도 됩니다. 다 못 해도, 못 쟀어도 괜찮습니다. <b>있는 만큼 가져와 이야기로 나눕니다.</b></p>
+  <aside>다음 회차까지 해 볼 일은 세 가지입니다. 내 하네스가 무엇을 하는지 한두 문장으로 적고, 필요한 장치를 골라 하네스에게 시키고 스모크로 확인하고, 돌릴 때마다 시간과 토큰과 결과를 한 줄씩 남깁니다. 5회차에는 쓴 프롬프트 하나, 스모크 표 한 장, 막힌 곳 하나와 고친 방법, 있다면 구조도 한 장을 나눠 주시면 좋습니다. 못 쟀거나 못 고친 것도 그대로 이야기해 주시면 다른 분에게 가장 도움이 됩니다.</aside>
+</section>
+
+<!-- 28 공유 형식과 실행 기록 -->
+<section class="slide" data-title="공유 형식과 실행 기록">
+  <div class="tag"><b>2026-12-03</b><span class="sep"></span>5회차 공유 · 5분 + 질의 2분 · 예시 값은 가상</div>
+  <h2>5분 공유: 구조도, 같은 기준 과제의 실행 기록, 막혔던 곳</h2>
+  <div class="diagram" style="max-height:200px">{{svg:p16-present-time}}</div>
+  <table class="tbl" style="font-size:20px">
+    <tr><th>회차</th><th>시간</th><th>토큰(입력/출력)</th><th>처리한 이슈</th><th>스모크</th><th>결과</th><th>실패 원인 → 고친 곳</th></tr>
+    <tr><td>1</td><td class="mono">42분</td><td class="mono">1.8M / 0.2M</td><td class="mono">1 / 3</td><td class="mono">2 / 4</td><td>실패</td><td>워커 둘이 같은 파일 수정 → 워크트리 분리</td></tr>
+    <tr><td>2</td><td class="mono">31분</td><td class="mono">1.3M / 0.2M</td><td class="mono">3 / 3</td><td class="mono">4 / 4</td><td>성공</td><td>-</td></tr>
+  </table>
+  <p class="under">토큰은 도구의 <b>사용량 화면이나 API(Application Programming Interface, 프로그램 연동 규약) 응답의 usage</b>에서 읽습니다. 실패한 회차도 지우지 않습니다.</p>
+  <aside>5회차는 서로 나누는 공유 시간입니다. 한 사람 5분에 질의응답 2분입니다. 나누면 좋은 것은 세 가지입니다. 하네스 구조도, 모두가 같은 기준 과제를 자기 하네스로 돌려 본 실행 기록, 그리고 막혔다가 배운 것입니다. 기준 과제는 서로 비교해 보려는 공통 과제입니다. 실행 기록은 돌릴 때마다 한 줄씩 남깁니다. 시간, 토큰, 처리한 이슈 수, 스모크 통과 수, 결과, 실패했다면 원인과 고친 곳입니다. 표의 숫자는 양식을 보여 드리려는 가상 값입니다. 토큰은 사용하는 도구의 사용량 화면이나 API(Application Programming Interface, 프로그램 연동 규약) 응답에서 읽습니다. 실패한 회차를 지우지 않는 것이 중요합니다. 1회차 실패가 2회차 개선으로 이어지는 흐름이 보이면 하네스가 좋아졌다는 이야기가 됩니다. 기준 과제와 진행은 17교시에 다시 안내합니다.</aside>
+</section>
+
+<!-- 29 막힐 때 -->
+<section class="slide" data-title="막힐 때">
+  <div class="tag"><b>증상별</b><span class="sep"></span>설치 문제가 아니라 대화 문제가 대부분 · 4회차 마무리, 다음은 5회차 2026-12-03</div>
+  <h2>막힐 때: 하네스에게 이렇게 다시 말한다</h2>
+  <table class="tbl" style="font-size:22px">
+    <tr><th>증상</th><th>이렇게 다시 말한다</th></tr>
+    <tr><td>질문 없이 바로 PR을 만든다</td><td>“질문이 끝나고 내가 ADR을 승인하기 전에는 PR을 만들지 마.”</td></tr>
+    <tr><td>CI가 빨간데 머지하려 한다</td><td>“CI가 통과하기 전에는 머지하지 마. CI 통과 필수 규칙이 켜져 있는지 보여 줘.”</td></tr>
+    <tr><td>스모크가 너무 쉽게 통과한다</td><td>“핵심 흐름을 하나 더 눌러 보고, 스크린샷을 증거로 저장해.”</td></tr>
+    <tr><td>스모크에서 막혀야 할 요청이 통과됐다</td><td>“방금 요청이 왜 통과됐는지 설명하고, 막히게 고친 뒤 같은 요청으로 다시 보여 줘.”</td></tr>
+    <tr><td>스모크 표에 실제 결과·화면이 없다</td><td>“시나리오마다 실제 결과와 스크린샷 파일 위치를 표에 채워 줘.”</td></tr>
+    <tr><td>페르소나가 항상 성공한다</td><td>“포기 조건을 더 엄하게 하고, 이 사람이 모르는 것은 모른 채 행동해.”</td></tr>
+    <tr><td>피드백 이슈가 막연하다</td><td>“재현 경로와 증거 스크린샷이 없는 이슈는 만들지 마.”</td></tr>
+    <tr><td>루프가 끝나지 않는다</td><td>“반복 상한과 열린 이슈 0 중 하나에 닿으면 멈추고 인계 기록을 써.”</td></tr>
+  </table>
+  <aside>오늘 막히는 곳은 대부분 설치나 문법이 아니라 대화입니다. 하네스가 질문 없이 PR부터 만들면 승인 전에는 만들지 말라고 다시 말합니다. CI가 빨간데 머지하려 하면 통과 전에는 안 된다고 하고, 규칙이 켜져 있는지도 확인시킵니다. 스모크나 페르소나 평가가 너무 쉽게 통과하거나, 막혀야 할 요청이 통과되면 시나리오를 더 엄하게 하고 이유를 설명하게 합니다. 이 표는 그대로 쓸 수 있는 문장들이니 막히면 옆에 띄워 두고 씁니다. 그래도 안 풀리면 손을 들어 주세요. 같이 대화 기록을 보겠습니다. 오늘 본 것을 묶으면, 테스트가 코드를, 스모크가 동작을, 페르소나 평가가 쓸 만함을 확인하고, 이 점검들이 겹쳐야 하네스를 믿고 맡길 수 있습니다. 다음 5회차 17교시에서 서로의 하네스를 나눕니다.</aside>
+</section>

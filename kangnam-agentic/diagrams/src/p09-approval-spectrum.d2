@@ -1,0 +1,22 @@
+direction: down
+manual: "수동 승인" {
+  a: "안전"
+  b: "승인 93% 그냥 누름"
+}
+sandbox: "샌드박스" {
+  a: "안전"
+  b: "기능마다 설정, 네트워크 필요하면 깨짐"
+}
+skip: "--dangerously-skip-permissions" {
+  a: "보호 없음"
+  b: "관리 비용 0"
+}
+auto: "auto mode" {
+  a: "분류기가 판단"
+  b: "프롬프트 줄고 위험 행동은 차단"
+}
+auto.style.stroke: "#ff00ff"
+manual -> sandbox -> skip -> auto: ""
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

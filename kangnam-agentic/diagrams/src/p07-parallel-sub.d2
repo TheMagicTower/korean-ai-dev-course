@@ -1,0 +1,15 @@
+direction: right
+lead: "메인 에이전트\n“인증·DB·API를\n따로 조사해 줘”"
+lead.style.stroke: "#ff00ff"
+a: "서브에이전트 A\n인증 모듈"
+b: "서브에이전트 B\nDB 모듈"
+c: "서브에이전트 C\nAPI 모듈"
+sum: "요약 3개\n→ 메인 창에만 남음"
+lead -> a
+lead -> b
+lead -> c
+a -> sum
+b -> sum
+c -> sum
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

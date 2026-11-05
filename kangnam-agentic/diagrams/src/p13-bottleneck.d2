@@ -1,0 +1,21 @@
+grid-rows: 2
+grid-columns: 4
+horizontal-gap: 100
+vertical-gap: 80
+h1: "12교시까지\n사람 1명"
+e1: "하네스 1개\n/goal · 스킬 · MCP"
+t1: "긴 작업 1개"
+z3: "" { style.opacity: 0 }
+h2: "13교시부터\n사람 1명"
+e2: "하네스 여러 개\n워크트리마다 하나"
+t2: "작업 여러 개가\n동시에"
+q: "새 문제\n누가 나눠 주고\n점검하나" { style.stroke: "#ff00ff" }
+h1 -> e1
+e1 -> t1
+h2 -> e2
+e2 -> t2
+t2 -> q
+h1 -> h2: "병목"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

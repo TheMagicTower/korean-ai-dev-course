@@ -1,0 +1,19 @@
+grid-rows: 3
+grid-columns: 2
+horizontal-gap: 130
+vertical-gap: 80
+pr: "PR 올라옴"
+cancel: "1 취소\n낡은 실행 중단"
+cache: "3 재사용\n의존성·빌드 캐시"
+filter: "2 거르기\n경로 필터·영향 분석"
+queue2: "4 묶기\n머지 큐·머지 트레인"
+main: "기본 브랜치\n항상 초록"
+pr -> cancel
+cancel -> filter
+filter -> cache
+cache -> queue2
+queue2 -> main
+queue2.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

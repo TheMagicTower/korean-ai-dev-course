@@ -1,0 +1,19 @@
+direction: right
+real: "실제 고객 자료" {
+  grid-columns: 1
+  a: "문의·불만 기록"
+  b: "인터뷰 메모"
+  c: "사용 로그 요약"
+}
+clean: "정리" {
+  grid-columns: 1
+  d: "개인 식별 정보 제거"
+  e: "공통 패턴으로 묶기"
+}
+file: "페르소나 파일\npersonas/*.md"
+real -> clean: "요약"
+clean -> file: "한 명씩 작성"
+file.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 130
+vertical-gap: 100
+ans: "답 · 제안 받기"
+apply: "사람: 적용"
+run: "사람: 실행"
+err: "사람: 오류\n다시 입력"
+chk: "사람: 결과 판단" {style.stroke: "#ff00ff"}
+done: "성공 → 끝"
+ans -> apply -> run
+run -> chk
+chk -> err: "실패"
+err -> ans: "계속"
+chk -> done
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

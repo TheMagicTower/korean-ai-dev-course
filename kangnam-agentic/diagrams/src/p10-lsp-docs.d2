@@ -1,0 +1,17 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 120
+vertical-gap: 90
+a1: "에이전트\n‘이 함수 어디서 쓰여?’"
+l: "언어 서버 (LSP)\n정의·참조·진단" {style.stroke: "#ff00ff"}
+c: "내 코드\n그 심볼과 참조만"
+a2: "에이전트\n‘이 API 최신 사용법?’"
+d: "문서 조회 서버\n라이브러리·버전 검색" {style.stroke: "#ff00ff"}
+o: "공식 문서·예제\n필요한 부분만"
+a1 -> l: "LSP"
+l -> c
+a2 -> d: "MCP"
+d -> o
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

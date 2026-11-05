@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 100
+vertical-gap: 100
+a: "1992 Perry · Wolf\n아키텍처 = 요소·형태·근거\n(rationale)"
+b: "2005 Tyree · Akerman\nIEEE Software 결정 서식\n문제·결정·가정·대안"
+c: "2011 ISO/IEC/IEEE 42010\n결정과 근거를\n표준 문서 항목으로"
+f: "지금: 에이전트가 읽는 ADR\n저장소의 결정 = 지켜야 할 규칙\n(18단계 중 7단계)" {style.stroke: "#ff00ff"}
+e: "2016-11 Trial → 2017-11 Adopt\nThoughtworks Radar\n2018 MADR(마크다운)"
+d: "2011-11-15 Nygard\n가벼운 ADR 다섯 칸\n코드 저장소에 둔다"
+a -> b
+b -> c
+c -> d: "무거운 문서 → 한두 쪽"
+d -> e
+e -> f
+
+**.style.font-size: 30
+(** -> **)[*].style.font-size: 24

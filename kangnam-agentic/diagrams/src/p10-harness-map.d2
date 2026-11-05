@@ -1,0 +1,19 @@
+direction: right
+model: "모델"
+harness: "하네스 = 모델을 둘러싼 장치 전부" {
+  grid-columns: 3
+  g1: "지침 파일\nCLAUDE.md · AGENTS.md"
+  g2: "권한\n허용·거부 규칙"
+  g3: "도구\n파일·셸·검색"
+  g4: "MCP\n바깥 세계 연결"
+  g5: "훅\n정해진 때 실행"
+  g6: "스킬\n필요할 때 읽는 지침"
+  g7: "서브에이전트\n창을 나눠 씀"
+  g8: "루프 · /goal\n‘계속’의 자동화"
+  g9: "메모리 · 진행 파일\n세션을 건너는 기록"
+  g4.style.stroke: "#ff00ff"
+}
+model -> harness: "에이전트 = 모델 + 하네스"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,20 @@
+direction: right
+req: "같은 요구사항\n지원 제출 기능"
+poc: "PoC · MVP" {
+  grid-columns: 1
+  p1: "app.py + test\n계층 없음"
+}
+ent: "엔터프라이즈 · 클린 아키텍처" {
+  grid-columns: 1
+  infra: "인프라\nDB · 메일 · 웹"
+  app: "응용\n유스케이스"
+  dom: "도메인\n엔티티 · 규칙"
+  infra -> app: "의존"
+  app -> dom: "의존"
+}
+req -> poc: "'PoC입니다'"
+req -> ent: "'클린 아키텍처로'"
+ent.dom.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

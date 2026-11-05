@@ -1,0 +1,19 @@
+direction: down
+no: "경계 없음" {
+  grid-columns: 1
+  t1: "지원 기록 수정 요청"
+  t2: "공고 · 알림 · 인증까지\n전부 읽고 고침"
+  t3: "회귀 · 컨텍스트 낭비"
+  t1 -> t2 -> t3
+}
+yes: "경계 있음" {
+  grid-columns: 1
+  y1: "지원 기록 수정 요청"
+  y2: "지원 기록 폴더 + 공개 계약만"
+  y3: "해당 영역 테스트만 실행"
+  y1 -> y2 -> y3
+}
+yes.y2.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,17 @@
+direction: right
+s: "스모크 시나리오 1개" {
+  g: "1 목적: 어떤 약속을 확인하나"
+  p: "2 전제: 주소 · 계정 · 데이터"
+  st: "3 단계: 사용자가 하는 행동 순서"
+  ex: "4 판정: 화면에 보여야 할 것"
+  ev: "5 증거: 스크린샷 · 콘솔 · 네트워크"
+}
+out: "결과" {
+  pass: "PASS + 증거 파일"
+  fail: "FAIL + 어느 단계에서 왜"
+}
+s -> out
+s.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

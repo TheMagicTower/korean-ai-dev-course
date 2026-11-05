@@ -1,0 +1,16 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 100
+vertical-gap: 100
+see: "프롬프트에 들어가는 것\n현재 파일 · 커서 앞뒤\n열린 탭의 닮은 조각"
+model: "코드 생성 모델" {style.stroke: "#ff00ff"}
+res: "돌려주는 것\n다음 줄 · 함수 본문"
+x1: "" {style.opacity: 0; style.stroke-width: 0}
+no: "들어가지 않는 것\n실행 · 테스트 결과 · 오류"
+x2: "" {style.opacity: 0; style.stroke-width: 0}
+see -> model
+model -> res
+no -> model: "사람이 옮김" {style.stroke-dash: 4}
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

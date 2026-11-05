@@ -1,0 +1,20 @@
+direction: right
+before: "모두 미리 싣는 방식" {
+  grid-columns: 1
+  b1: "서버 5개 · 도구 수십 개"
+  b2: "도구 이름 + 설명 + 입력 스키마\n전부 세션 시작에 창으로"
+  b3: "쓰지 않아도 창을 차지"
+  b1 -> b2 -> b3
+}
+after: "도구 검색 (지연 로딩)" {
+  grid-columns: 1
+  a1: "시작 시: 도구 이름과\n서버 지침만 로드"
+  a2: "필요할 때 ToolSearch로\n해당 도구 정의만 로드"
+  a3: "창은 일에 쓴다"
+  a1 -> a2 -> a3
+}
+after.style.stroke: "#ff00ff"
+before -> after: "기본값"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,15 @@
+grid-rows: 2
+grid-columns: 2
+horizontal-gap: 130
+vertical-gap: 90
+goal: "코디네이터 (코딩 안 함)\n목표·완료 조건·진행 기록" { style.stroke: "#ff00ff" }
+plan: "배치 계획\n(독립 작업 묶음)"
+ledger: "이슈 원장 · PR · CI\n(상태의 단일 출처)"
+wt: "워커 3개 · 워크트리\n서브에이전트 · 서브 하네스"
+goal -> plan
+plan -> wt: "배치 발송"
+wt -> ledger: "PR·결과"
+ledger -> goal: "읽기"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,25 @@
+grid-rows: 3
+grid-columns: 4
+horizontal-gap: 90
+vertical-gap: 70
+t1: "8교시\n하네스 v1"
+a: "스펙 · Task 목록"
+b: "테스트 =\n완료 기준"
+c: "진행 파일"
+t2: "그래도\n사람이 남는 곳" { style.stroke: "#ff00ff" }
+p: "도구 호출마다\n승인" { style.stroke: "#ff00ff" }
+q: "턴이 끝날 때마다\n‘계속’" { style.stroke: "#ff00ff" }
+r: "창이 차면\n압축" { style.stroke: "#ff00ff" }
+t3: "9교시의 답"
+p2: "자동 승인\n(auto mode)"
+q2: "/goal · 루프"
+r2: "1M 컨텍스트"
+a -> b
+b -> c
+t1 -> t2: "딴길 막음"
+p -> p2
+q -> q2
+r -> r2
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

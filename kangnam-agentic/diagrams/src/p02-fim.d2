@@ -1,0 +1,18 @@
+direction: right
+pre: "커서 앞 코드 (prefix)" {
+  p: "def average(nums):\n    # 빈 리스트면 0"
+}
+cur: "커서 · 빈칸" {
+  style.stroke: "#ff00ff"
+  m: "모델이 가운데를 채움"
+}
+suf: "커서 뒤 코드 (suffix)" {
+  s: "print(average([3, 5]))"
+}
+out: "회색 제안 → Tab"
+pre -> cur: "앞 맥락"
+suf -> cur: "뒤 맥락"
+cur -> out
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

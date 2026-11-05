@@ -1,0 +1,14 @@
+direction: right
+big: "예전: 큰 단일 스펙 하나" {
+  s: "SPEC.md\n결정 + 요구 + 설계\n전부 한 파일"
+}
+new: "지금: 성격별로 나눠 둔다" {
+  adr: "ADR · 결정과 이유\n짧고 오래 감"
+  issue: "이슈 · 이번 작업의 스펙\n끝나면 닫힘"
+  code: "코드 · 테스트\n실제 동작의 기준"
+}
+new.adr.style.stroke: "#ff00ff"
+big -> new: "쪼개기"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

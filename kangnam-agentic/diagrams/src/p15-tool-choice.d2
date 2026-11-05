@@ -1,0 +1,18 @@
+direction: down
+q: "무엇을 확인하나"
+dom: "웹 앱이면" {
+  grid-columns: 1
+  pw: "Playwright MCP\n접근성 스냅샷으로 조작"
+  dt: "Chrome DevTools MCP\n콘솔·네트워크·성능"
+  cic: "Claude in Chrome\n내 로그인 상태의 Chrome"
+}
+nat: "브라우저 밖(데스크톱 앱)이면" {
+  grid-columns: 1
+  cu: "computer use\n스크린샷 + 마우스·키보드"
+}
+q -> dom
+q -> nat
+dom.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

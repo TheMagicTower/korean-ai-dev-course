@@ -1,0 +1,12 @@
+direction: right
+proj: "프로젝트 선택\n수준: PoC · MVP"
+code: "코드형 트랙\n약 100줄 루프\nread · edit · run · 멈춤"
+conf: "설정형 트랙\n권한 규칙 · 지침 파일\n같은 작업 1회"
+sub: "제출\n저장소 · 대화 기록\n승인 횟수 · 권한 설정" {style.stroke: "#ff00ff"}
+proj -> code
+proj -> conf
+code -> sub
+conf -> sub
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

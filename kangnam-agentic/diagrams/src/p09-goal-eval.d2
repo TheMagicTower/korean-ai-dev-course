@@ -1,0 +1,14 @@
+direction: right
+set: "/goal 조건\n최대 4,000자"
+turn: "Claude가\n한 턴 수행"
+ev: "평가자 (작은 모델)\n대화만 읽음" { style.stroke: "#ff00ff" }
+met: "충족 → 해제"
+imp: "불가능 → 해제"
+set -> turn
+turn -> ev: "턴 끝"
+ev -> turn: "미충족"
+ev -> met
+ev -> imp
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,15 @@
+direction: right
+q: "막혔다"
+s: "스킬이\n안 불러짐"
+m: "MCP 도구가\n안 보임"
+g: "/goal이\n안 끝남"
+s1: "description에 쓰이는 상황을\n앞쪽에 · /name으로 직접 호출"
+m1: "/mcp · claude mcp list로\n상태 확인 · 새 세션"
+g1: "조건을 측정 가능하게 ·\n상한 문구 추가 · 상태 보기"
+q -> s -> s1
+q -> m -> m1
+q -> g -> g1
+q.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

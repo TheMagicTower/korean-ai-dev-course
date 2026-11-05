@@ -1,0 +1,18 @@
+direction: right
+loop: "오래 맡긴 루프" {
+  a: "자동 승인"
+  b: "/goal · Ralph"
+  a -> b
+}
+g: "폭주를 막는 장치" {
+  g1: "횟수 상한: --max-iterations, ‘20턴’ 조항"
+  g2: "시간 상한: /loop 7일 만료"
+  g3: "분류기 차단: 연속 3회·누적 20회에서 멈춤"
+  g4: "테스트 파일 보호 · 격리 브랜치/워크트리"
+  g5: "비용 확인: /goal 상태의 토큰 소비"
+}
+g.style.stroke: "#ff00ff"
+loop -> g: "항상 같이"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,22 @@
+direction: right
+human: "IDE 채팅 · 사람이 도는 루프" {
+  q: "질문"
+  ans: "답 받기"
+  paste: "붙여넣기·실행"
+  err: "오류 복사"
+  q -> ans -> paste -> err
+  err -> q: "사람이 ‘계속’"
+}
+agent: "터미널 에이전트 · 에이전트가 도는 루프" {
+  ctx: "맥락 수집"
+  act: "행동(도구 호출)"
+  chk: "결과 확인"
+  ctx -> act -> chk
+  chk -> ctx: "에이전트가 ‘계속’"
+  done: "도구 호출 없음 → 멈춤"
+  chk -> done
+}
+agent.style.stroke: "#ff00ff"
+
+**.style.font-size: 26
+(** -> **)[*].style.font-size: 22

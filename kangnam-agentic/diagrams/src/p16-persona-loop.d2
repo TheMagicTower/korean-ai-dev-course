@@ -1,0 +1,16 @@
+grid-rows: 2
+grid-columns: 2
+horizontal-gap: 170
+vertical-gap: 120
+p: "1. 페르소나 주입\n고객 한 명을 적은 파일"
+c: "2. 그 사람처럼 클릭\n브라우저로 앱 사용"
+fix: "4. 고치고 재평가\n같은 페르소나로"
+f: "3. 피드백을 이슈로\n막힌 곳·증거·재현"
+p -> c
+c -> f
+f -> fix
+fix -> c: "개선 루프"
+c.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 110
+vertical-gap: 90
+ini: "첫 세션 ·\n초기화 에이전트"
+files: "세션 사이에 남는 것\ninit.sh · claude-progress.txt\nfeature_list.json · git 커밋" { style.stroke: "#ff00ff" }
+c1: "코딩 에이전트\n진행·git 로그 읽기"
+z3: "" { style.opacity: 0 }
+c3: "테스트 후\npasses 갱신·커밋"
+c2: "기능 하나만\n구현"
+ini -> files: "만든다"
+files -> c1: "읽는다"
+c1 -> c2
+c2 -> c3
+c3 -> files: "갱신"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

@@ -1,0 +1,20 @@
+grid-rows: 3
+grid-columns: 2
+horizontal-gap: 80
+vertical-gap: 80
+eval: "평가 에이전트\n페르소나 N명"
+ledger: "이슈 원장\n피드백 → 이슈"
+coord: "코디네이터"
+workers: "워커들\n워크트리별 수정"
+stop: "멈춤 조건\n통과 또는 상한"
+check: "점검 통과\n테스트·스모크"
+coord -> eval: "평가"
+eval -> ledger
+ledger -> workers: "배치"
+workers -> check: "PR"
+check -> coord
+coord -> stop: "판단"
+coord.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

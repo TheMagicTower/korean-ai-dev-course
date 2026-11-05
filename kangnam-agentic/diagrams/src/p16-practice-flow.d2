@@ -1,0 +1,18 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 110
+vertical-gap: 100
+a: "9–10 PR → CI\n이슈 하나, PR 버전 점검" {style.stroke: "#ff00ff"}
+b: "11 스쿼시 머지\n사람 승인 뒤 한 커밋"
+c: "12 머지 후 스모크\n합쳐진 앱을 눌러 본다"
+f: "18 다음 루프\n유지 · 수정 · 추가"
+e: "17 피드백 이슈\n증거 붙여 원장에"
+d: "17 페르소나 평가\n고객이 되어 눌러 본다"
+a -> b
+b -> c
+c -> d
+d -> e
+e -> f
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

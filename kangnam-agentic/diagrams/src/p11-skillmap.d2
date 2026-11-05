@@ -1,0 +1,26 @@
+grid-rows: 3
+grid-columns: 4
+horizontal-gap: 110
+vertical-gap: 80
+z0: "" { style.opacity: 0 }
+z1: "" { style.opacity: 0 }
+md: "kdev-model\n작업마다 모델·사고 수준 선택"
+z3: "" { style.opacity: 0 }
+st: "kdev-start\n문제·범위·완료 조건"
+pl: "kdev-plan\n설계·작은 Task"
+bu: "kdev-build\n범위 안에서 구현" { style.stroke: "#ff00ff" }
+db: "kdev-debug\n재현 → 원인 → 재검증"
+ho: "kdev-handoff\n다음 세션 인계"
+dl: "kdev-deliver\n전달·실제 사용 확인"
+rv: "kdev-review\n기준 대비 검토"
+z11: "" { style.opacity: 0 }
+st -> pl
+pl -> bu
+bu -> rv
+rv -> dl
+dl -> ho
+bu <-> db
+md -> bu { style.stroke-dash: 4 }
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

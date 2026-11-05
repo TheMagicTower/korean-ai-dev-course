@@ -1,0 +1,21 @@
+grid-rows: 4
+grid-columns: 2
+horizontal-gap: 110
+vertical-gap: 80
+z0: "" { style.opacity: 0 }
+done: "충족 → 종료\n기록 남김"
+turn: "1턴 실행\n(수정 · 테스트)"
+check: "평가\n조건 충족?"
+nxt: "다음 턴"
+limit: "상한 도달?\n턴 · 시간 · 토큰" { style.stroke: "#ff00ff" }
+z6: "" { style.opacity: 0 }
+stop: "상한 → 멈추고\n사람에게 보고"
+turn -> check
+check -> done: "예"
+check -> limit: "아니오"
+limit -> nxt: "아니오"
+nxt -> turn
+limit -> stop: "예"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

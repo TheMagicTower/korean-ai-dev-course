@@ -1,0 +1,15 @@
+direction: right
+p: "1차 출처" {
+  grid-columns: 1
+  a: "CHANGELOG·릴리스 노트"
+  b: "공식 문서·엔지니어링 블로그"
+  c: "논문·저장소 README"
+}
+s: "해설 글·영상\n2차 출처"
+x: "SNS 요약\n소문"
+p -> s: "확인"
+s -> x: "더 확인"
+p.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

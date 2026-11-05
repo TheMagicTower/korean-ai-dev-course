@@ -1,0 +1,20 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 190
+vertical-gap: 130
+board: "프로젝트 보드\n= 설계도"
+issue: "이슈 1개\n= 작업 1개"
+wt: "워크트리\n에이전트 작업"
+done: "이슈 닫힘 = 도장\nCloses #N"
+merge: "스쿼시 머지"
+pr: "PR → CI\n통과"
+board -> issue: "쪼개 등록"
+issue -> wt
+wt -> pr
+pr -> merge
+merge -> done
+done -> board: "남은 칸 확인" {style.stroke-dash: 4}
+board.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

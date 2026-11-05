@@ -1,0 +1,16 @@
+grid-rows: 2
+grid-columns: 2
+horizontal-gap: 190
+vertical-gap: 130
+coord: "코디네이터\n원장을 읽고 배치"
+workers: "워커 A·B·C\n이슈별 워크트리"
+ledger: "이슈 원장\n열린 이슈 · 기록"
+checks: "점검\n테스트 · 스모크 · 페르소나"
+coord -> workers: "배치"
+workers -> checks: "PR마다"
+checks -> ledger: "결과·이슈"
+ledger -> coord: "다음 배치"
+checks.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

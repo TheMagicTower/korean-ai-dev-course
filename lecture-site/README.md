@@ -1,16 +1,18 @@
 # MAKE FOR GOOD · 강남대 AI 소프트웨어 엔지니어링
 
-공개 주소: https://kangnam-ai-engineering.jih7hc.workers.dev
+> 운영 종료(2026-11-07): Worker `kangnam-ai-engineering`과 D1 `kangnam-ai-course`는 삭제했습니다. 강의 슬라이드는 Cloudflare Pages(https://lecture.themagictower.io, 저장소 `TheMagicTower/agentic-lecture-site`)로 제공합니다. 이 디렉터리는 참고용 소스로 남기며 배포 설정(`deploy` 스크립트, D1 바인딩)은 뺐습니다. 옛 workers.dev 주소는 더 이상 열리지 않으므로, 본문의 화면 링크는 저장소 안의 소스 경로(`public/…`)를 가리킵니다.
+
+옛 공개 주소: https://kangnam-ai-engineering.jih7hc.workers.dev
 
 20시간 강의 홈페이지, 인터랙티브 HTML 슬라이드 230장, 공공데이터 실습, 학생 과제 제출과 강사 평가를 함께 제공합니다.
 
 회차별 45·47·47·45·46장으로 구성합니다. 각 회차 240분이며 설명 271분, 시연 160분, 직접 실습 525분, 토의·피드백 144분, 휴식 100분으로 총 1,200분입니다. 23개 실습, 21개 확인 퀴즈, 26개 참고 자료 해설, 5개 AI 생성 개념 이미지를 포함합니다. 4일 진행안은 같은 학습 활동을 4회×300분으로 재배치합니다.
 
-2회차에는 [FlyBlock Arena](https://kangnam-ai-engineering.jih7hc.workers.dev/cases/#flyblock)를 7분 사례로 넣어 연결지도 데이터에서 사용자 경험으로 이어지는 인코더·디코더·검증 경계를 읽습니다. 3회차에는 [Jev와 Signal Magazine](https://kangnam-ai-engineering.jih7hc.workers.dev/cases/#jev)을 10분 사례로 넣어 좁은 분류 판단과 기사 작성·근거 확인·발행 승인을 분리합니다. 사례 토의는 기존 설명·시연·토의 시간을 재배치했고 실습 시간은 줄이지 않았습니다. 원래의 상세 제작 기록은 [FlyBlock](../course/cases/flyblock.md), [Signal Magazine](../course/cases/signal-magazine.md), [모델 해설](../docs/frontier-models.md)에 있습니다.
+2회차에는 [FlyBlock Arena](public/cases/)를 7분 사례로 넣어 연결지도 데이터에서 사용자 경험으로 이어지는 인코더·디코더·검증 경계를 읽습니다. 3회차에는 [Jev와 Signal Magazine](public/cases/)을 10분 사례로 넣어 좁은 분류 판단과 기사 작성·근거 확인·발행 승인을 분리합니다. 사례 토의는 기존 설명·시연·토의 시간을 재배치했고 실습 시간은 줄이지 않았습니다. 원래의 상세 제작 기록은 [FlyBlock](../course/cases/flyblock.md), [Signal Magazine](../course/cases/signal-magazine.md), [모델 해설](../docs/frontier-models.md)에 있습니다.
 
 ## Agentic Engineering 실무 · 1강 1교시
 
-[발표 화면](https://kangnam-ai-engineering.jih7hc.workers.dev/slides/?module=agentic-history&session=1#ah-01) · [자습 자료와 출처](https://kangnam-ai-engineering.jih7hc.workers.dev/agentic-history/)
+[발표 화면](public/slides/) · [자습 자료와 출처](public/agentic-history/)
 
 2026-10-27 개편 자료는 34장·60분으로 구성합니다. 코드 자동완성→대화→계획→실행 위임을 제품 발표와 공식 영상으로 비교하고, 컨텍스트 확대·선별·압축·메모리·규칙·권한이 하네스를 발전시킨 이유를 설명합니다. 장당 1~2분에 짧은 영상과 확인 질문을 포함합니다. 원본은 `content/agentic-history.json`, 자습 화면은 `public/history.js`입니다. 이미지 2종을 생성하고 공식 자료·영상 화면 6종을 함께 제공합니다. [제작·검수 기록](content/agentic-history-review.md)을 참고합니다.
 
@@ -42,36 +44,18 @@ Node.js 22 이상을 사용합니다. Wrangler는 package-lock.json에 고정합
 ```sh
 npm ci
 npm run build
-npx wrangler d1 migrations apply kangnam-ai-course --local
-# .dev.vars에 ADMIN_PASSWORD를 준비합니다. 이 파일은 Git에서 제외됩니다.
-npm run dev
+npm run dev  # 정적 화면만 확인합니다. D1 바인딩을 뺐으므로 /api는 동작하지 않습니다.
 ```
 
 ```sh
 npm run check
 npm run test:lecture
 npm run test:isolated
-# TEST_ADMIN_PASSWORD는 셸 이력에 남기지 않고 환경에서 전달합니다.
-npm run test:api
-npx wrangler deploy --dry-run
 ```
 
-테스트는 자신이 생성한 학생을 종료 시 삭제합니다. `TEST_BASE_URL`로 검증 환경을 선택합니다. 기본은 `http://localhost:8787`입니다. 운영 환경 테스트도 고유한 테스트 학생만 사용하며, 기존 학습자의 자료는 수정하지 않습니다.
+## Cloudflare 배포(종료)
 
-## Cloudflare 배포
-
-새 Worker `kangnam-ai-engineering`과 D1 `kangnam-ai-course`를 사용합니다. 기존 저장소의 8시간 교재와 배포는 변경하지 않습니다. Wrangler 계정과 리소스 ID는 wrangler.jsonc에 있습니다.
-
-```sh
-npm run build
-npx wrangler d1 migrations apply kangnam-ai-course --remote
-npx wrangler secret bulk private/secrets.json
-npm run deploy
-```
-
-`private/secrets.json`, `.dev.vars`, `private/강사-로그인.txt`는 공개·커밋 대상이 아닙니다. 강사 비밀번호를 변경할 때는 `npx wrangler secret put ADMIN_PASSWORD`의 입력 프롬프트를 사용합니다. 코드·명령 인자·로그에 비밀번호를 넣지 않습니다. 로컬 파일만 바꾸면 운영 비밀번호는 바뀌지 않습니다.
-
-배포 후 공개 페이지와 `/api/health`를 확인하고, 학생 제출→강사 평가→학생 피드백 재조회→재제출을 검증합니다. 공개 페이지·헬스 응답·과제 제출 흐름의 확인 결과를 각각 기록합니다.
+2026-11-07에 Worker와 D1을 삭제하고 배포 설정을 뺐습니다. 다시 운영하려면 D1을 새로 만들고 `wrangler.jsonc`에 `d1_databases` 바인딩(`binding: "DB"`, `migrations_dir: "migrations"`)과 `package.json`의 `deploy` 스크립트(`npm run build && wrangler deploy`)를 되살린 뒤 마이그레이션·비밀값을 다시 적용합니다. 이전 절차는 git 기록에 있습니다.
 
 ## 강사 운영
 

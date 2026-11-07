@@ -1,6 +1,8 @@
 # MAKE FOR GOOD · 강남대 AI 소프트웨어 엔지니어링
 
-공개 주소: https://kangnam-ai-engineering.jih7hc.workers.dev
+> 운영 종료(2026-11-07): Worker `kangnam-ai-engineering`과 D1 `kangnam-ai-course`는 삭제했습니다. 강의 슬라이드는 Cloudflare Pages(https://lecture.themagictower.io, 저장소 `TheMagicTower/agentic-lecture-site`)로 제공합니다. 이 디렉터리는 참고용 소스로 남기며 배포 설정(`deploy` 스크립트, D1 바인딩)은 뺐습니다. 아래의 workers.dev 주소는 더 이상 열리지 않습니다.
+
+옛 공개 주소: https://kangnam-ai-engineering.jih7hc.workers.dev
 
 20시간 강의 홈페이지, 인터랙티브 HTML 슬라이드 230장, 공공데이터 실습, 학생 과제 제출과 강사 평가를 함께 제공합니다.
 
@@ -42,36 +44,18 @@ Node.js 22 이상을 사용합니다. Wrangler는 package-lock.json에 고정합
 ```sh
 npm ci
 npm run build
-npx wrangler d1 migrations apply kangnam-ai-course --local
-# .dev.vars에 ADMIN_PASSWORD를 준비합니다. 이 파일은 Git에서 제외됩니다.
-npm run dev
+npm run dev  # 정적 화면만 확인합니다. D1 바인딩을 뺐으므로 /api는 동작하지 않습니다.
 ```
 
 ```sh
 npm run check
 npm run test:lecture
 npm run test:isolated
-# TEST_ADMIN_PASSWORD는 셸 이력에 남기지 않고 환경에서 전달합니다.
-npm run test:api
-npx wrangler deploy --dry-run
 ```
 
-테스트는 자신이 생성한 학생을 종료 시 삭제합니다. `TEST_BASE_URL`로 검증 환경을 선택합니다. 기본은 `http://localhost:8787`입니다. 운영 환경 테스트도 고유한 테스트 학생만 사용하며, 기존 학습자의 자료는 수정하지 않습니다.
+## Cloudflare 배포(종료)
 
-## Cloudflare 배포
-
-새 Worker `kangnam-ai-engineering`과 D1 `kangnam-ai-course`를 사용합니다. 기존 저장소의 8시간 교재와 배포는 변경하지 않습니다. Wrangler 계정과 리소스 ID는 wrangler.jsonc에 있습니다.
-
-```sh
-npm run build
-npx wrangler d1 migrations apply kangnam-ai-course --remote
-npx wrangler secret bulk private/secrets.json
-npm run deploy
-```
-
-`private/secrets.json`, `.dev.vars`, `private/강사-로그인.txt`는 공개·커밋 대상이 아닙니다. 강사 비밀번호를 변경할 때는 `npx wrangler secret put ADMIN_PASSWORD`의 입력 프롬프트를 사용합니다. 코드·명령 인자·로그에 비밀번호를 넣지 않습니다. 로컬 파일만 바꾸면 운영 비밀번호는 바뀌지 않습니다.
-
-배포 후 공개 페이지와 `/api/health`를 확인하고, 학생 제출→강사 평가→학생 피드백 재조회→재제출을 검증합니다. 공개 페이지·헬스 응답·과제 제출 흐름의 확인 결과를 각각 기록합니다.
+2026-11-07에 Worker와 D1을 삭제하고 배포 설정을 뺐습니다. 다시 운영하려면 D1을 새로 만들고 `wrangler.jsonc`에 `d1_databases` 바인딩(`binding: "DB"`, `migrations_dir: "migrations"`)과 `package.json`의 `deploy` 스크립트(`npm run build && wrangler deploy`)를 되살린 뒤 마이그레이션·비밀값을 다시 적용합니다. 이전 절차는 git 기록에 있습니다.
 
 ## 강사 운영
 

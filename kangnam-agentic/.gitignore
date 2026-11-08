@@ -3,3 +3,4 @@ site/
 # 파일 전송용 묶음·임시 작업 스크립트
 _sync/
 tmpw/
+tools/node_modules/

@@ -111,6 +111,39 @@
   <aside>공식 문서는 에이전트에게 통과 또는 실패를 돌려주는 검증 수단을 주라고 말합니다. 그것이 없으면 에이전트에게 남는 기준은 다 한 것 같다는 느낌뿐이고, 그러면 사람이 테스트 스위트 노릇을 하게 된다고 설명합니다. 검증 수단은 테스트 파일, 빌드 종료 코드, 린터 등 무엇이든 됩니다. CLAUDE.md에 그 명령을 적어 두는 것이 가장 유용한 한 줄입니다. 그리고 문서는 모두 통과했다는 말만으로는 알 수 있는 것이 적으니 실행한 명령과 출력을 요구하라고 권합니다. 이것이 8교시 실습의 완료 기준이 됩니다.</aside>
 </section>
 
+<!-- 06-1 사례: 쿠폰 중복 적용 -->
+<section class="slide" data-title="사례: 쿠폰 중복 적용">
+  <div class="tag"><b>사례</b><span class="sep"></span>통과가 곧 완료 · 가상 예(프롬프트·보고) / 실제 실행(출력)</div>
+  <h2>“구현 완료했습니다” 뒤에 숨은 쿠폰 중복 적용</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">1) 완료 기준 없이 시킴</div>
+      <div class="term"><span class="acc">&gt; 장바구니에 할인 쿠폰 적용 기능 만들어 줘</span>
+<span class="dim">에이전트:</span> 구현 완료했습니다.
+
+<span class="dim"># 같은 쿠폰 WELCOME3000을 두 번 적용</span>
+{'total': <span class="warn">14000</span>,
+ 'coupons': ['WELCOME3000', 'WELCOME3000']}</div>
+      <ul><li>20,000원 주문이 6,000원 할인</li><li>판정 기준이 없어 “완료”를 믿을 수밖에 없음</li></ul>
+    </div>
+    <div class="on">
+      <div class="k">2) 테스트를 완료 기준으로 줌</div>
+      <div class="term"><span class="acc">&gt; test_cart.py가 모두 통과해야 완료.
+  같은 쿠폰 두 번은 ValueError.
+  실행 출력을 붙여서 보고해.</span>
+
+<span class="dim">$</span> python3 test_cart.py   <span class="dim"># 첫 구현</span>
+<span class="warn">FAIL</span>: test_same_coupon_twice_is_rejected
+AssertionError: ValueError not raised
+<span class="dim">$</span> python3 test_cart.py   <span class="dim"># 수정 후</span>
+Ran 2 tests ... <span class="ok">OK</span></div>
+      <ul><li>같은 첫 구현이 이번엔 보고 전에 걸림</li></ul>
+    </div>
+  </div>
+  <p class="under">코드는 같아도 <b>판정 기준</b>이 있으면 빠진 규칙이 보고 전에 드러납니다.</p>
+  <aside>쇼핑몰에서 할인 쿠폰을 붙이는 기능을 맡긴 가상 상황입니다. 왼쪽처럼 기능만 말하면 에이전트는 할인이 한 번 들어가는 것을 확인하고 완료라고 보고합니다. 그런데 같은 쿠폰을 두 번 넣으면 할인이 두 번 들어갑니다. 이 출력은 그 첫 구현을 실제로 실행해 얻은 결과입니다. 오른쪽처럼 중복 규칙을 테스트로 적고 통과를 완료 조건으로 주면, 똑같은 첫 구현이 보고 전에 실패로 걸리고 에이전트가 스스로 고칩니다. 핵심은 에이전트가 더 똑똑해진 것이 아니라, 완료를 판정할 기준이 생겼다는 점입니다.</aside>
+</section>
+
 <!-- 07 실제 Red -> Green -->
 <section class="slide" data-title="Red에서 Green으로">
   <div class="tag"><b>실제 실행 결과</b><span class="sep"></span>domain-testing 예제 · Python unittest · 강사 운영 방식</div>
@@ -197,6 +230,36 @@ Ran 2 tests ... <span class="ok">OK (skipped=1)</span></div>
   <div class="diagram">{{svg:p06-cheat}}</div>
   <p class="under">테스트를 <b>먼저 커밋</b>해 기준을 고정하고, 파일을 <b>보호</b>하고, 다른 눈으로 <b>검토</b>합니다. 마지막 판정은 사람입니다.</p>
   <aside>대응은 네 겹입니다. 첫째, 테스트를 먼저 커밋합니다. 이후 테스트 파일이 바뀌면 git diff에 바로 드러납니다. 둘째, 에이전트가 테스트 파일을 수정하지 못하게 권한 deny나 훅으로 막습니다. 셋째, 구현한 에이전트와 별개의 리뷰어 서브에이전트가 스펙과 대조하게 합니다. 넷째, 결국 사람이 직접 실행해 봅니다. 1교시에서 말한 스모크 테스트의 이유입니다. 이어서 둘째와 셋째를 하나씩 보겠습니다.</aside>
+</section>
+
+<!-- 10-1 사례: 먼저 커밋한 테스트 -->
+<section class="slide" data-title="사례: 먼저 커밋한 테스트">
+  <div class="tag"><b>사례</b><span class="sep"></span>대응 전략 · 테스트 먼저 커밋 · 실제 실행(가상 예제 저장소)</div>
+  <h2>비밀번호 재설정: 기대값을 약하게 바꾼 것이 diff에 남는다</h2>
+  <div class="row even">
+    <div class="term"><span class="dim"># 스펙: 재설정 링크는 30분 뒤 만료</span>
+<span class="dim">$</span> git commit -m "test: 재설정 링크는 30분 뒤 만료"
+<span class="dim"># 에이전트 구현: 60분으로 잘못 → 테스트 실패
+# 에이전트가 테스트 쪽 단언을 바꿈</span>
+<span class="dim">$</span> python3 tests/test_reset.py
+Ran 2 tests ... <span class="ok">OK</span>
+
+<span class="dim">$</span> git diff -- tests/
+<span class="warn">-  self.assertFalse(is_token_valid(0, 31))</span>
+<span class="warn">+  self.assertIsNotNone(is_token_valid(0, 31))</span></div>
+    <div class="points">
+      <div class="term"><span class="dim"># 끝내기 전 관문: 테스트가 커밋 때와 같은가</span>
+<span class="dim">$</span> git diff --exit-code --stat HEAD -- tests/
+ tests/test_reset.py | 2 +-
+exit=<span class="warn">1</span>   <span class="dim">← 테스트가 바뀜, 완료 불가</span></div>
+      <ul>
+        <li>초록불만으로는 구분 불가</li>
+        <li>먼저 커밋했기 때문에 비교할 기준이 있음</li>
+        <li>관문 한 줄을 완료 조건에 추가</li>
+      </ul>
+    </div>
+  </div>
+  <aside>비밀번호 재설정 링크는 30분 뒤 만료된다는 스펙을 예로, 작은 예제 저장소를 만들어 실제로 돌려 본 결과입니다. 테스트를 먼저 커밋해 두고, 구현은 일부러 60분으로 틀리게 넣었습니다. 그다음 에이전트가 흔히 하는 식으로 만료를 확인하던 단언을 값이 있기만 하면 되는 단언으로 바꾸면 테스트는 초록불이 됩니다. 앞에서 본 skip과 달리 실행 결과에 아무 흔적도 남지 않습니다. 하지만 테스트를 먼저 커밋했기 때문에 git diff에 바뀐 줄이 그대로 보이고, 오른쪽 한 줄짜리 관문이 종료 코드 1로 완료를 막습니다. 이 관문을 완료 조건에 적어 두면 사람이 diff를 매번 읽지 않아도 됩니다.</aside>
 </section>
 
 <!-- 11 deny -->
@@ -339,6 +402,37 @@ exit=<span class="ok">0</span>   <span class="dim">← 통과</span></div>
   <aside>유비쿼터스 언어는 개발자와 사용자가 함께 쓰는 엄밀한 공통 언어입니다. Fowler는 소프트웨어가 모호함을 잘 다루지 못하기 때문에 엄밀해야 한다고 설명합니다. 에이전트에게도 똑같이 적용됩니다. 지원서, 제출, 마감 같은 단어를 스펙과 코드, 테스트 이름에서 같은 뜻으로 쓰면 에이전트가 엉뚱한 해석을 할 여지가 줄어듭니다. 용어집을 스펙이나 CLAUDE.md에 짧게 적어 두는 것은 원문의 내용이 아니라 제 운영 방식임을 밝혀 둡니다.</aside>
 </section>
 
+<!-- 16-1 사례: 회원·사용자·고객 -->
+<section class="slide" data-title="사례: 회원·사용자·고객">
+  <div class="tag"><b>사례</b><span class="sep"></span>유비쿼터스 언어 · 가상 예(팀 과제 쇼핑몰)</div>
+  <h2>회원 · 사용자 · 고객: 같은 사람, 모델 세 개</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">1) 요청마다 다른 단어 → 세션마다 새 모델</div>
+      <div class="term"><span class="acc">&gt; 회원 가입 기능 만들어 줘</span>
+<span class="acc">&gt; 사용자 프로필 수정 화면 추가해 줘</span>
+<span class="acc">&gt; 고객 주문 내역 페이지 만들어 줘</span>
+
+models/member.py     <span class="dim">class Member</span>
+models/user.py       <span class="dim">class User</span>
+models/customer.py   <span class="dim">class Customer</span>
+<span class="warn">테이블 3개, 이메일 컬럼 3개</span></div>
+      <ul><li>가입한 사람의 주문 내역이 안 보임</li></ul>
+    </div>
+    <div class="on">
+      <div class="k">2) CLAUDE.md에 용어집 몇 줄</div>
+      <div class="term"><span class="acc">## 용어집</span>
+- 회원(Member): 가입한 사람. 코드 이름 Member.
+  “사용자”, “고객”도 모두 회원을 뜻함.
+  새 사람 모델 만들지 말 것.
+- 주문(Order): 회원 한 명의 결제 한 건.
+- 비회원 주문: 이번 과제 범위 밖.</div>
+      <ul><li>세 요청이 모두 Member 하나로 모임</li><li>코드·테스트 이름도 같은 단어</li></ul>
+    </div>
+  </div>
+  <aside>팀 과제로 쇼핑몰을 만든다고 가정한 가상 예입니다. 기획 문서는 회원, 화면 담당은 사용자, 주문 담당은 고객이라는 말을 씁니다. 사람끼리는 같은 대상이라는 것을 눈치로 알지만, 세션을 새로 여는 에이전트는 각 요청을 새 개념으로 받아들여 모델과 테이블을 따로 만들 수 있습니다. 그러면 가입한 사람의 주문 내역이 안 보이는 식의 버그가 나중에야 드러납니다. 오른쪽처럼 용어집 몇 줄에 대표 단어와 동의어, 그리고 새로 만들지 말라는 금지를 적어 두면 이런 중복을 미리 막을 수 있습니다. 범위 밖인 개념을 적어 두는 것도 같은 효과가 있습니다.</aside>
+</section>
+
 <!-- 17 바운디드 컨텍스트 -->
 <section class="slide" data-title="바운디드 컨텍스트">
   <div class="tag"><b>2014-01-15</b><span class="sep"></span>Martin Fowler bliki · Bounded Context</div>
@@ -398,6 +492,51 @@ exit=<span class="ok">0</span>   <span class="dim">← 통과</span></div>
     </div>
   </div>
   <aside>클린 아키텍처의 핵심은 의존성 규칙입니다. 소스 코드 의존은 안쪽으로만 향하고, 안쪽 원은 바깥쪽 이름을 알아서는 안 됩니다. 가장 안쪽은 엔티티, 즉 업무 규칙이고, 바깥은 UI(User Interface, 사용자 화면), DB(Database, 데이터베이스), 프레임워크 같은 세부 사항입니다. 이 글의 원래 도식 이미지는 제가 가져온 화면에서 로딩되지 않아 본문 문단을 보여 드립니다. 프롬프트에 클린 아키텍처라고 적으면 에이전트는 이 계층 구조를 따라 도메인, 응용, 인프라로 나누려 합니다. 장점은 의존 방향이 하나라 단순하다는 것, 단점은 작은 PoC에는 과하다는 것, 의미는 규모를 프롬프트에 적어야 한다는 점입니다.</aside>
+</section>
+
+<!-- 20-0 클린 아키텍처 도식 -->
+<section class="slide" data-title="의존 방향 도식">
+  <div class="tag"><b>클린 아키텍처</b><span class="sep"></span>의존 방향 도식 · 강의실 예약 예</div>
+  <h2>import 화살표는 바깥에서 안쪽으로만</h2>
+  <div class="diagram">{{svg:p06-clean-layers}}</div>
+  <p class="under">화살표 = <b>import(소스 코드 의존)</b>. 호출과 데이터는 <b>양방향</b>으로 오가도, <b>import 화살표는 안쪽으로만</b>. DB가 필요하면 안쪽에 <b>RoomRepository</b> 인터페이스를 두고 바깥이 구현합니다(의존성 역전).</p>
+  <aside>도식을 바깥 겹부터 따라가 보겠습니다. 가장 바깥은 FastAPI, PostgreSQL 같은 프레임워크와 드라이버이고, 그 안에 컨트롤러와 저장소 구현이 있는 인터페이스 어댑터, 다시 그 안에 예약하기 같은 유스케이스, 가장 안쪽에 Room과 can_reserve 같은 엔티티가 있습니다. 화살표는 누가 누구를 import하는지를 뜻하고, 모두 바깥에서 안쪽으로만 향합니다. 실행 중에는 요청이 안으로 들어가고 결과가 밖으로 나오지만, 소스 코드의 import는 그 방향을 따르지 않는다는 점이 헷갈리는 지점입니다. 안쪽이 DB 조회가 필요하면 안쪽에 RoomRepository라는 인터페이스를 두고, 바깥의 SqlRoomRepository가 그것을 구현하게 해서 화살표 방향을 지킵니다. 분홍색 점선처럼 can_reserve가 PostgreSQL을 직접 부르는 것이 금지된 방향이고, 다음 장이 바로 그 위반을 실제로 만든 사례입니다.</aside>
+</section>
+
+<!-- 20-1 사례: 의존성 규칙 위반 -->
+<section class="slide" data-title="사례: 의존성 규칙 위반">
+  <div class="tag"><b>사례</b><span class="sep"></span>클린 아키텍처 · 의존성 규칙 · 실제 실행(가상 예제 저장소)</div>
+  <h2>강의실 예약 규칙이 DB와 현재 시각을 직접 부른다</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">1) “예약 가능 여부 검사 추가해 줘” 결과</div>
+      <div class="term"><span class="dim"># domain/reservation.py</span>
+from datetime import datetime
+<span class="warn">from infra.db import RoomTable</span>
+
+def can_reserve(room_id, start):
+    if start &lt; <span class="warn">datetime.now()</span>:
+        return False
+    return <span class="warn">RoomTable.get(room_id)</span>.is_open
+
+<span class="dim">$</span> sh check_deps.sh
+domain/reservation.py:2:from infra.db import RoomTable
+<span class="warn">FAIL</span>: domain이 infra를 import함   exit=<span class="warn">1</span></div>
+    </div>
+    <div class="on">
+      <div class="k">2) 바깥 것은 인자로 받기</div>
+      <div class="term"><span class="dim"># domain/reservation.py</span>
+def can_reserve(room, start, now):
+    if start &lt; now:
+        return False
+    return room.is_open
+
+<span class="dim">$</span> sh check_deps.sh
+<span class="ok">OK</span>: domain → infra 의존 없음   exit=<span class="ok">0</span></div>
+      <ul><li>DB 없이 테스트 가능</li><li>“지금”을 고정해 시간 테스트 가능</li><li>검사 스크립트를 완료 조건에</li></ul>
+    </div>
+  </div>
+  <aside>강의실 예약에서 지난 시각은 예약할 수 없다는 규칙을 가정한 예제를 실제로 돌려 본 결과입니다. 왼쪽은 에이전트가 흔히 내놓는 모양입니다. 업무 규칙 파일이 DB 테이블과 현재 시각을 직접 부르고 있어서, 규칙 하나를 테스트하려 해도 DB가 있어야 하고 시각에 따라 결과가 바뀝니다. 오른쪽은 강의실과 현재 시각을 바깥에서 받게 바꾼 것입니다. 의존이 안쪽으로만 향한다는 말이 코드로는 이런 차이입니다. 검사는 grep 몇 줄짜리 스크립트로도 충분하고, 종료 코드가 0이 아니면 완료가 아니라고 정해 두면 에이전트가 경계를 어긴 것을 바로 압니다.</aside>
 </section>
 
 <!-- 21 프롬프트 수준 -->

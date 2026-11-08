@@ -98,6 +98,38 @@
   <aside>SDD라는 말은 2025년에 갑자기 퍼졌고, 사람마다 뜻이 조금씩 다릅니다. Thoughtworks의 Birgitta Böckeler는 이 글에서 Kiro, Spec Kit, Tessl 세 도구를 살펴보고 현재 쓰이는 의미를 정리했습니다. 핵심은 AI로 코드를 쓰기 전에 스펙을 먼저 쓰고, 그 스펙이 사람과 AI 모두의 기준 문서가 된다는 것입니다. 다만 글쓴이도 정의가 아직 유동적이라고 말합니다. 스펙을 단순히 자세한 프롬프트라는 뜻으로 쓰는 경우도 있어서, 오늘은 이 글의 세 수준 구분을 기준으로 이야기하겠습니다. 장점은 비교 기준을 준다는 것, 단점은 정의가 아직 흔들린다는 것, 의미는 오늘 이야기의 기준 글이라는 점입니다.</aside>
 </section>
 
+<!-- 04a 사례: 한 줄 프롬프트 vs 수용 기준 -->
+<section class="slide" data-title="사례: 한 줄 vs 스펙">
+  <div class="tag"><b>사례</b><span class="sep"></span>SDD 정의 · 빈틈은 추측이 된다 · 가상 예</div>
+  <h2>“비밀번호 재설정 만들어줘”: 빈칸을 누가 채우나</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">한 줄 프롬프트</div>
+      <div class="term" style="font-size:20px"><span class="dim">&gt;</span> 비밀번호 재설정 기능 만들어줘</div>
+      <h3>에이전트가 추측으로 채운 것</h3>
+      <ul>
+        <li>링크 만료 <b>없음</b>: 한 달 뒤에도 열린다</li>
+        <li>없는 이메일엔 “가입되지 않은 이메일” → <b>가입 여부 노출</b></li>
+        <li>같은 링크로 <b>여러 번</b> 재설정 가능</li>
+        <li>다른 기기의 로그인은 그대로 유지</li>
+      </ul>
+    </div>
+    <div class="on">
+      <div class="k">스펙 · 수용 기준</div>
+      <div class="term" style="font-size:20px"><span class="acc">R1</span> 재설정 링크는 발급 <b>30분</b> 뒤 만료된다
+<span class="acc">R2</span> 등록 안 된 이메일에도 같은 안내 문구를 보인다
+<span class="acc">R3</span> 링크는 <b>한 번</b> 쓰면 무효가 된다
+<span class="acc">R4</span> 재설정하면 모든 기기에서 로그아웃된다
+<span class="acc">R5</span> 만료·사용된 링크는 “링크가 만료되었습니다”
+
+<span class="dim"># 각 R은 테스트 하나로 확인</span></div>
+      <h3>추측할 빈칸이 없다</h3>
+      <ul><li>리뷰는 “R1~R5를 지켰나”만 본다</li></ul>
+    </div>
+  </div>
+  <aside>같은 기능을 두 가지 방식으로 시켰다고 생각해 보겠습니다. 왼쪽처럼 한 줄만 주면 에이전트는 코드가 돌아가게는 만들지만, 만료 시간이나 실패했을 때의 동작은 아무도 정해 주지 않았으니 스스로 골라 채웁니다. 이 빈칸들이 보안 사고가 나는 바로 그 자리라는 점이 문제입니다. 오른쪽처럼 번호 붙은 수용 기준을 주면, 에이전트가 고를 것이 줄고 사람도 리뷰할 때 다섯 줄만 확인하면 됩니다. 수용 기준 하나하나가 그대로 테스트 이름이 된다는 점도 기억해 두십시오. 6교시 TDD에서 이 연결을 다시 씁니다. 이 장은 설명을 위해 지어낸 가상 예입니다.</aside>
+</section>
+
 <!-- 05 세 수준 -->
 <section class="slide" data-title="SDD 세 수준">
   <div class="tag"><b>SDD 세 수준</b><span class="sep"></span>Böckeler · martinfowler.com · 2025-10-15</div>
@@ -105,6 +137,28 @@
   <div class="diagram">{{svg:p05-sdd-levels}}</div>
   <p class="under">같은 SDD라도 <b>스펙의 수명</b>이 다릅니다. 글쓴이는 Kiro와 Spec Kit이 <b>대체로 spec-first</b>라고 평가했습니다.</p>
   <aside>세 수준을 구분하면 이야기가 선명해집니다. 첫째 spec-first는 작업 전에 스펙을 쓰고, 작업이 끝나면 그 스펙의 역할이 끝납니다. 모든 SDD 도구가 공유하는 수준입니다. 둘째 spec-anchored는 스펙을 작업 뒤에도 남겨 두고 기능을 고치고 유지할 때 다시 씁니다. 셋째 spec-as-source는 사람이 스펙만 고치고 코드는 손대지 않는 단계입니다. 글쓴이는 Kiro가 대체로 spec-first이고, Spec Kit은 기능마다 브랜치를 새로 만들기 때문에 역시 spec-first에 가깝다고 봤습니다. Tessl만이 anchored와 as-source를 목표로 탐색 중이라고 했습니다.</aside>
+</section>
+
+<!-- 05a 사례: 세 수준에서 같은 변경 -->
+<section class="slide" data-title="사례: 세 수준의 변경">
+  <div class="tag"><b>사례</b><span class="sep"></span>SDD 세 수준 · 재설정 링크 만료 30분 → 15분 · 가상 예</div>
+  <h2>“만료를 15분으로 줄여 주세요”가 들어왔을 때</h2>
+  <table class="tbl" style="font-size:24px">
+    <thead><tr><th></th><th>사람이 고치는 것</th><th>끝난 뒤 남는 것</th><th>흔한 문제</th></tr></thead>
+    <tbody>
+      <tr><td>spec-first</td><td>코드의 <span class="mono">RESET_TTL = 30 * 60</span>을 직접 수정. 옛 스펙은 안 본다</td><td>스펙엔 여전히 <b>“R1 … 30분”</b></td><td>다음 사람·에이전트가 낡은 스펙을 믿고 30분으로 <b>되돌린다</b></td></tr>
+      <tr><td>spec-anchored</td><td>스펙 R1을 먼저 15분으로 → 테스트 → 코드</td><td>스펙·테스트·코드가 <b>모두 15분</b></td><td>스펙을 고치는 수고가 매번 든다</td></tr>
+      <tr><td>spec-as-source</td><td>스펙 R1 <b>한 줄만</b>. 코드는 다시 생성</td><td>스펙이 원본, 코드는 생성물</td><td>생성 결과가 매번 같은지 보장하기 어렵다</td></tr>
+    </tbody>
+  </table>
+  <div class="term" style="font-size:20px"><span class="dim"># spec-anchored: 스펙 → 테스트 → 코드 순으로 한 줄씩</span>
+<span class="warn">- R1 재설정 링크는 발급 30분 뒤 만료된다</span>   <span class="dim">spec.md</span>
+<span class="ok">+ R1 재설정 링크는 발급 15분 뒤 만료된다</span>
+<span class="warn">- def test_link_expires_after_30_minutes():</span>   <span class="dim">test_reset.py</span>
+<span class="ok">+ def test_link_expires_after_15_minutes():</span>
+<span class="warn">- RESET_TTL = 30 * 60</span>   <span class="dim">reset.py</span>
+<span class="ok">+ RESET_TTL = 15 * 60</span></div>
+  <aside>앞 장의 R1을 그대로 가져와 요구가 바뀌는 상황을 만들어 보았습니다. 세 수준의 차이는 처음 만들 때가 아니라 이렇게 바꿀 때 드러납니다. spec-first에서는 스펙이 이미 할 일을 마친 문서라서 보통 코드만 고치게 되고, 그 결과 저장소에 서로 다른 두 숫자가 남습니다. 나중에 에이전트가 그 낡은 스펙을 읽으면 오히려 코드를 스펙에 맞춘다며 30분으로 되돌릴 수 있습니다. spec-anchored는 스펙부터 고치는 습관이고, spec-as-source는 사람이 코드를 아예 안 만지는 극단입니다. 여러분 과제에서는 spec-anchored 정도, 즉 스펙 한 줄과 테스트 한 줄을 같이 고치는 것을 권합니다. 표의 내용은 Böckeler의 세 수준 정의를 이 예에 대입한 가상 예입니다.</aside>
 </section>
 
 <!-- 06 Kiro 구조 -->
@@ -264,6 +318,42 @@
   <aside>SDD를 소개한 같은 글이 한계도 분명히 적었습니다. Kiro에서 작은 버그 하나가 사용자 스토리 네 개와 수용 기준 열여섯 개로 부풀었고, Spec Kit은 중간 크기 기능에도 무거웠다고 합니다. 또 스펙과 계획 파일이 많아지면 코드보다 마크다운을 리뷰하는 부담이 커지고, 에이전트는 스펙이 있어도 가끔 지시를 무시했습니다. 그래서 통제하고 있다는 착각을 경계하라고 합니다. 저는 이 비판을 받아들여서, 프로젝트 전체가 아니라 이슈 하나 단위로 스펙을 작게 씁니다. 그 방식을 잠시 뒤에 소개하겠습니다.</aside>
 </section>
 
+<!-- 12a 사례: 작은 버그에 큰 절차 -->
+<section class="slide" data-title="사례: 작은 버그">
+  <div class="tag"><b>사례</b><span class="sep"></span>SDD의 한계 · 쇼핑몰 무료 배송 기준 버그 · 상황은 가상 예, 테스트는 실제 실행</div>
+  <h2>“딱 5만 원이면 배송비가 붙어요”: 고칠 곳은 한 글자</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">풀 세트 절차로 처리하면</div>
+      <ul>
+        <li><span class="mono">requirements.md</span>: 사용자 스토리 여러 개와 수용 기준 목록</li>
+        <li><span class="mono">design.md</span>: 배송비 계산 구조 설명</li>
+        <li><span class="mono">tasks.md</span>: 작업 여러 개로 쪼갬</li>
+        <li>사람은 문서 세 개를 읽고 승인</li>
+      </ul>
+      <h3>리뷰할 문서 &gt; 고칠 코드</h3>
+      <p>바뀐 코드는 결국 <b>1줄</b></p>
+    </div>
+    <div class="on">
+      <div class="k">작게: 이슈 한 줄 + 실패 테스트 하나</div>
+      <div class="term" style="font-size:19px"><span class="dim"># 이슈: 합계가 정확히 50,000원이면 무료 배송</span>
+def test_exactly_50000_is_free():
+    assert shipping_fee(50000) == 0
+
+<span class="dim">$</span> python3 -m pytest -q
+<span class="warn">FAILED</span> test_cart.py::test_exactly_50000_is_free
+  - assert 3000 == 0
+
+<span class="warn">-</span>    if total &gt; FREE_SHIPPING_MIN:
+<span class="ok">+</span>    if total &gt;= FREE_SHIPPING_MIN:
+
+<span class="dim">$</span> python3 -m pytest -q
+<span class="ok">1 passed</span> in 0.00s</div>
+    </div>
+  </div>
+  <aside>앞 장에서 Böckeler가 작은 버그 하나가 사용자 스토리 네 개와 수용 기준 열여섯 개로 부풀었다고 했습니다. 그게 어떤 느낌인지 쇼핑몰 예로 보겠습니다. 무료 배송 기준이 5만 원 이상인데 코드에 초과로 적혀 있어서, 딱 5만 원을 담은 손님에게 배송비가 붙는 버그입니다. 이런 일에 요구사항, 설계, 작업 문서를 모두 만들면 사람이 읽을 문서가 고칠 코드보다 훨씬 많아집니다. 오른쪽처럼 이슈 한 줄과 실패하는 테스트 하나면 그것이 곧 스펙입니다. 오른쪽 테스트 출력은 임시 폴더에서 실제로 실행해 얻은 결과이고, 상황 자체는 가상 예입니다.</aside>
+</section>
+
 <!-- 13 Plan 모드 흐름 -->
 <section class="slide" data-title="Plan 모드 흐름">
   <div class="tag"><b>2025-06</b><span class="sep"></span>Claude Code CHANGELOG 1.0.33 · 공식 문서 2026-10-28 확인</div>
@@ -295,6 +385,42 @@
         <div class="i"><b>코드를 고치기 전에 사람이 방향을 확인</b>하는 지점. Cursor·Kiro도 같은 습관을 쓴다.</div>
       </div>
   <aside>왼쪽 화면은 진입 방법입니다. 읽고, 탐색 명령을 돌리고, 계획을 쓰되 소스는 수정하지 않는다고 적혀 있습니다. 오른쪽은 승인 선택지입니다. 자동 모드로 승인, 편집마다 직접 확인, 계속 계획이 있습니다. 계획을 Ctrl+G로 텍스트 편집기에서 직접 고칠 수도 있어서, 모델이 쓴 계획을 사람이 손봐서 기준을 고정할 수 있습니다. 한 가지 더, 공식 문서는 Plan 모드에서 쓴 계획이 압축 뒤에도 디스크에서 다시 주입된다고 설명합니다. 이 점이 뒤에 나올 압축의 한계와 이어집니다. 장점은 승인 전에 소스를 고치지 않는다는 것, 단점은 계획이 한 편이라 층별로 나뉘지 않고 자동 승인을 고르면 확인이 줄어든다는 것, 의미는 코드 수정 전에 사람이 방향을 확인하는 지점이라는 점입니다.</aside>
+</section>
+
+<!-- 14a 사례: 승인 전에 고친 계획 -->
+<section class="slide" data-title="사례: 계획 고치기">
+  <div class="tag"><b>사례</b><span class="sep"></span>Plan 모드 · 팀 과제 게시판에 닉네임 표시 · 가상 예</div>
+  <h2>승인 전에 계획 두 곳을 고친다</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">에이전트가 낸 계획</div>
+      <div class="term" style="font-size:20px"><span class="dim">## 계획: 게시글에 작성자 닉네임 표시</span>
+1. PostCard.tsx 에 author.nickname 출력
+2. posts API 응답에 nickname 포함
+3. <span class="warn">users 테이블에 nickname 컬럼 추가</span>
+   <span class="warn">(NOT NULL)</span>
+4. <span class="warn">.eslintrc 규칙 정리, README 갱신</span>
+5. 테스트 실행</div>
+      <ul>
+        <li>3번이 맨 뒤: 컬럼보다 코드가 <b>먼저</b> 배포된다</li>
+        <li>기존 사용자는 닉네임이 없어 NOT NULL이 <b>실패</b></li>
+        <li>4번은 이슈 <b>범위 밖</b>, 팀원 파일과 충돌</li>
+      </ul>
+    </div>
+    <div class="on">
+      <div class="k">사람이 고친 계획 (Ctrl+G)</div>
+      <div class="term" style="font-size:20px"><span class="dim">## 계획: 게시글에 작성자 닉네임 표시</span>
+1. <span class="ok">마이그레이션: nickname 컬럼 추가</span>
+   <span class="ok">NULL 허용, 기존 행은 이메일 앞부분</span>
+2. posts API 응답에 nickname 포함
+3. PostCard.tsx 에 author.nickname 출력
+   <span class="ok">없으면 “익명”</span>
+4. 테스트 실행
+<span class="ok">범위 밖: .eslintrc·README 손대지 않음</span></div>
+      <h3>고친 것: 순서 하나, 범위 하나</h3>
+    </div>
+  </div>
+  <aside>팀 과제 게시판에 작성자 닉네임을 보여 달라는 이슈를 Plan 모드로 맡겼다고 해 보겠습니다. 왼쪽 계획은 언뜻 그럴듯하지만, 데이터베이스 변경이 맨 뒤에 있어서 새 코드가 아직 없는 컬럼을 읽으려다 오류가 날 수 있습니다. 게다가 기존 사용자에게는 닉네임이 없는데 빈칸을 허용하지 않게 해 두었습니다. 네 번째 줄은 시키지도 않은 설정 정리여서, 같은 파일을 만지는 팀원과 충돌이 납니다. 사람은 코드를 한 줄도 쓰지 않고 계획 두 군데만 고쳤는데, 이것이 Plan 모드에서 사람이 하는 일의 전부이자 가장 값어치 있는 일입니다. 이 계획은 설명을 위해 지어낸 가상 예입니다.</aside>
 </section>
 
 <!-- 15 Cursor Plan -->
@@ -431,6 +557,42 @@
         <div class="i">8교시 진행 파일의 원형. 압축에만 기대지 않고 <b>파일로 인계</b>한다.</div>
       </div>
   <aside>Anthropic은 오래 걸리는 작업을 맡은 에이전트를 교대 근무하는 엔지니어에 비유했습니다. 새 세션은 앞 세션의 기억이 없으므로 압축에만 기대면 지시가 제대로 넘어가지 않습니다. 그래서 인계 파일을 둡니다. claude-progress.txt에 한 일을 기록하고, 기능 목록은 JSON(JavaScript Object Notation, 자바스크립트 객체 표기법)으로 만들어 처음에는 모두 실패 상태로 둡니다. 모델이 마크다운보다 JSON을 덜 덮어쓴다는 경험이 글에 적혀 있습니다. 세션은 기능 하나씩만 처리하고 커밋과 기록으로 마무리합니다. 8교시에 만들어 볼 진행 파일이 이 장치를 작게 줄인 것입니다. 장점은 새 세션이 파일만 읽고 상태를 알 수 있다는 것, 단점은 초기 준비와 매 세션의 기록 부담입니다.</aside>
+</section>
+
+<!-- 21a 사례: 압축 뒤 잊힌 결정 -->
+<section class="slide" data-title="사례: 잊힌 UTC 결정">
+  <div class="tag"><b>사례</b><span class="sep"></span>압축과 진행 파일 · 스터디룸 예약 · 상황은 가상 예, 시간 계산은 실제 실행</div>
+  <h2>초반에 정한 “시간은 UTC로 저장”이 압축 뒤 사라진다</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">대화에만 있던 결정</div>
+      <ul>
+        <li>세션 초반: “예약 시간은 UTC로 저장, 화면만 한국 시각”</li>
+        <li>몇 시간 뒤 자동 압축. 요약에 이 결정이 빠짐</li>
+        <li>새 “예약 수정” 코드는 한국 시각을 <b>시간대 없이</b> 저장</li>
+      </ul>
+      <div class="term" style="font-size:19px"><span class="dim">$</span> TZ=Asia/Seoul python3 tz.py
+기존 예약(UTC 저장): 2026-11-10T05:00:00+00:00
+새 예약(시간대 없음): 2026-11-10T14:00:00
+UTC로 읽으면 한국 시각: <span class="warn">23:00 KST</span></div>
+      <p>오후 2시 예약이 밤 11시로: <b>9시간 어긋남</b></p>
+    </div>
+    <div class="on">
+      <div class="k">진행 파일에 적어 둔 결정</div>
+      <div class="term" style="font-size:20px"><span class="dim"># progress.md</span>
+<span class="acc">## 결정 (바꾸려면 사람에게 먼저 묻기)</span>
+- 시간은 DB에 <b>UTC</b>로 저장한다
+- 화면 표시만 Asia/Seoul 로 바꾼다
+- 시간대 없는 datetime 은 쓰지 않는다
+
+<span class="acc">## 한 일</span>
+- 예약 생성 API 완료, 테스트 통과
+<span class="acc">## 다음</span>
+- 예약 수정 API</div>
+      <h3>파일은 압축 뒤에도 남는다 · 세션 시작에 읽게 한다</h3>
+    </div>
+  </div>
+  <aside>스터디룸 예약 앱을 긴 세션 하나로 만든다고 해 보겠습니다. 처음에 시간은 UTC로 저장하자고 정했고, 그때 만든 코드는 잘 지켰습니다. 그런데 몇 시간 뒤 자동 압축이 일어났고, 요약에 그 한 줄이 빠지면 에이전트는 그 결정을 알 길이 없습니다. 왼쪽 아래 출력은 시간대 없이 저장한 오후 2시를 다른 코드가 UTC로 읽으면 어떻게 되는지 실제로 실행해 본 결과이고, 밤 11시로 바뀝니다. 오른쪽처럼 진행 파일에 결정 세 줄만 적어 두고 CLAUDE.md 같은 지침 파일에 매 세션 처음과 압축 뒤에 이 파일을 읽으라고 적어 두면 이런 일을 막을 수 있습니다. 압축이 일어난 상황 자체는 설명을 위해 지어낸 가상 예입니다.</aside>
 </section>
 
 <!-- 22 파일이 세션을 넘는다 -->

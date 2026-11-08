@@ -448,7 +448,9 @@ def test_exactly_50000_is_free():
 <section class="slide" data-title="이슈별 흐름">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>프로젝트 구성·개발·운영 기준 · 이슈별 구현 워크플로우</div>
   <h2>강사 방식: 이슈 하나가 열두 단계를 지난다</h2>
-  <div class="diagram">{{svg:p05-issue-flow}}</div>
+  <div class="diagram pele-theme" style="flex:none;width:1028px;height:126px;margin-top:0px">{{svg:p05-issue-flow-1}}</div>
+  <div class="diagram pele-theme" style="flex:none;width:1085px;height:126px;margin-top:6px">{{svg:p05-issue-flow-2}}</div>
+  <div class="diagram pele-theme" style="flex:none;width:785px;height:178px;margin-top:6px">{{svg:p05-issue-flow-3}}</div>
   <p class="under"><b>스펙 · 계획 · 구현</b> 세 곳에서 리뷰하고, 블로커가 없을 때만 다음으로 넘어갑니다. <span class="kind" style="display:inline">직접 도식 · 강사 실제 화면으로 교체 예정</span></p>
   <aside>SDD를 프로젝트 전체에 쓰면 무겁다는 비판을 앞에서 봤습니다. 저는 단위를 이슈 하나로 줄였습니다. 이슈를 분석하고, 기존 ADR을 점검하고, 그 이슈만을 위한 작은 스펙을 씁니다. 스펙 리뷰에서 블로커가 없으면 구현 계획을 쓰고, 계획 리뷰를 통과하면 구현합니다. 구현 리뷰 뒤에 PR(Pull Request, 병합 요청)을 만들고, 그 PR 버전의 CI(Continuous Integration, 지속적 통합)가 통과해야 스쿼시 머지를 합니다. 머지 뒤에는 스모크 테스트를 합니다. 앞의 Spec Kit과 비교하면 spec, plan, tasks가 이슈 하나의 크기로 작아진 모양입니다. ADR과 이슈 원장, 스모크는 4회차에서 자세히 다룹니다.</aside>
   <div class="next">→ 14교시 ADR·이슈 원장 · 15교시 스모크</div>

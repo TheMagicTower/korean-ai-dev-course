@@ -25,7 +25,7 @@
 <!-- 03 IntelliSense -->
 <section class="slide" data-title="자동완성 이전">
   <div class="tag"><b>자동완성 이전</b><span class="sep"></span>VS Code 공식 문서 · IntelliSense</div>
-  <h2>예전 자동완성은 문법 규칙으로 이름 후보를 보여 줄 뿐이었다</h2>
+  <h2>예전 자동완성: 문법 규칙으로 고른 이름 후보뿐</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.visualstudio.com/docs/editing/intellisense</span></div><img src="assets/captures/p02-intellisense.jpg" alt="VS Code IntelliSense 공식 문서 화면"></div>
@@ -47,7 +47,7 @@
 <!-- 04 이전 vs 이후 -->
 <section class="slide" data-title="문법 vs 생성형">
   <div class="tag"><b>2021-06-29</b><span class="sep"></span>VS Code 문서 vs GitHub Copilot 발표</div>
-  <h2>생성형 자동완성은 이름이 아니라 함수 전체를 제안한다</h2>
+  <h2>생성형 자동완성: 이름이 아닌 함수 전체를 제안</h2>
   <div class="frames">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.visualstudio.com/docs/editing/intellisense</span></div><img src="assets/captures/p02-intellisense.jpg" alt="IntelliSense 문서"></div>
@@ -67,7 +67,7 @@
 <!-- 05 Copilot 등장 -->
 <section class="slide" data-title="Copilot의 등장">
   <div class="tag"><b>2021-06-29</b><span class="sep"></span>GitHub Copilot 기술 미리보기 · OpenAI Codex 기반</div>
-  <h2>생성형 자동완성은 코드 생성 모델을 에디터 안으로 가져왔다: 2021년 Copilot</h2>
+  <h2>2021년 Copilot: 에디터 안으로 들어온 코드 생성 모델</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer</span></div><img src="assets/captures/copilot-2021.jpg" alt="GitHub Copilot 발표문"></div>
@@ -89,7 +89,7 @@
 <!-- 06 정식 출시 -->
 <section class="slide" data-title="정식 출시">
   <div class="tag"><b>2022-06-21</b><span class="sep"></span>GitHub Copilot 정식 출시 발표</div>
-  <h2>2022년 Copilot은 월 10달러짜리 정식 개발 도구가 되었다</h2>
+  <h2>2022년 Copilot 정식 출시: 월 10달러 개발 도구</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/…/github-copilot-is-generally-available-to-all-developers</span></div><img src="assets/captures/p02-copilot-ga.jpg" alt="Copilot 정식 출시 발표문"></div>
@@ -114,7 +114,7 @@
 <!-- 07 함수명·주석이 프롬프트 -->
 <section class="slide" data-title="주석이 프롬프트">
   <div class="tag"><b>개념 · 수업용 재현 예시</b><span class="sep"></span>함수명과 주석이 곧 프롬프트</div>
-  <h2>함수 이름과 주석이 곧 AI에게 주는 지시문이다</h2>
+  <h2>AI에게 주는 지시문: 함수 이름과 주석</h2>
   <div class="row">
     <div class="term"><span class="dim"># utils.py</span>
 <span class="acc">def</span> average(nums):
@@ -138,7 +138,7 @@
 <!-- 08 FIM 도식 -->
 <section class="slide" data-title="어떻게 동작하나">
   <div class="tag"><b>2022-07-28 · 2023-05-17</b><span class="sep"></span>FIM(Fill-in-the-Middle, 가운데 채우기) · GitHub Copilot 엔지니어링 글</div>
-  <h2>자동완성은 커서 앞뒤 코드를 모두 보고 가운데를 채운다</h2>
+  <h2>자동완성: 커서 앞뒤 코드를 보고 가운데 채우기</h2>
   <div class="diagram">{{svg:p02-fim}}</div>
   <p class="under">예전에는 커서 <b>앞</b>만 프롬프트였습니다. 뒤 코드까지 알려 주자 중간에 끼워 넣는 제안이 좋아졌습니다.</p>
   <aside>자동완성 모델은 원래 앞의 글을 보고 뒤를 이어 쓰는 모델입니다. 그러면 파일 중간에 코드를 끼워 넣을 때는 불리합니다. 그래서 커서 앞의 코드와 뒤의 코드를 둘 다 모델에게 주고, 가운데를 채우게 합니다. 이것이 FIM(Fill-in-the-Middle, 가운데 채우기)입니다. GitHub 엔지니어링 글에 따르면 이전에는 커서 앞의 코드, 프리픽스만 프롬프트에 들어갔고, FIM에서는 뒤의 코드, 서픽스도 함께 넣습니다. 제안은 회색 글씨로 보이고 Tab으로 수락합니다.</aside>
@@ -147,7 +147,7 @@
 <!-- 09 FIM 근거 -->
 <section class="slide" data-title="FIM 근거">
   <div class="tag"><b>2022-07-28 · 2023-05-17</b><span class="sep"></span>OpenAI FIM 논문 · GitHub Copilot 엔지니어링 글</div>
-  <h2>FIM은 논문과 실제 제품에서 효과가 확인됐다</h2>
+  <h2>FIM의 효과: 논문과 실제 제품에서 확인</h2>
   <div class="frames">
     <div>
       <div class="frame" style="max-height:300px"><div class="bar"><i></i><i></i><i></i><span>arxiv.org/abs/2207.14255</span></div><img src="assets/captures/p02-fim-paper.jpg" alt="Fill in the Middle 논문 초록"></div>
@@ -171,7 +171,7 @@
 <!-- 10 보는 범위 -->
 <section class="slide" data-title="보는 범위">
   <div class="tag"><b>2023-05-17</b><span class="sep"></span>열린 탭(neighboring tabs)을 맥락으로</div>
-  <h2>자동완성은 열린 파일까지 보지만 실행 결과는 보지 못한다</h2>
+  <h2>자동완성이 보는 범위: 열린 파일까지, 실행 결과는 제외</h2>
   <div class="diagram">{{svg:p02-context-scope}}</div>
   <p class="under">GitHub는 열린 파일에서 <b>커서 주변과 닮은 코드</b>를 찾아 프롬프트에 더했고 수락이 상대적으로 5% 늘었다고 밝혔습니다.</p>
   <aside>자동완성이 보는 범위를 정리합니다. 현재 파일의 커서 앞뒤, 그리고 IDE에서 열려 있는 다른 파일에서 닮은 코드 조각입니다. GitHub 글에 따르면 이 인접 탭 기법으로 수락이 상대적으로 5% 늘었습니다. 반대로 프롬프트에 없는 것은 코드를 실행한 결과, 테스트 결과, 오류입니다. 그런 정보는 사람이 읽고 판단해서 다시 코드로 반영해야 합니다. 그래서 열어 둔 탭에 관련 파일을 두는 것이 제안 품질을 높이는 실용적인 요령이었습니다.</aside>
@@ -180,7 +180,7 @@
 <!-- 11 생산성 논문 -->
 <section class="slide" data-title="생산성 근거 읽기">
   <div class="tag"><b>2022-09-07 · 2023-02-13</b><span class="sep"></span>GitHub 연구 글 · arXiv 2302.06590</div>
-  <h2>Copilot을 쓴 쪽이 같은 과제를 55.8% 빨리 끝냈다</h2>
+  <h2>Copilot 실험: 같은 과제를 55.8% 빨리 완료</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>arxiv.org/abs/2302.06590</span></div><img src="assets/captures/p02-copilot-paper.jpg" alt="Copilot 생산성 논문 초록"></div>
@@ -219,7 +219,7 @@
 <!-- 12 한계 -->
 <section class="slide" data-title="한계 읽기">
   <div class="tag"><b>2022-09-07</b><span class="sep"></span>GitHub 연구 글 · 논문의 Discussion</div>
-  <h2>55.8%는 작은 과제 하나에서 나온, 신뢰구간이 넓은 값이다</h2>
+  <h2>55.8%의 한계: 작은 과제 하나, 넓은 신뢰구간</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/news-insights/research/research-quantifying-github-copilots-impact…</span></div><img src="assets/captures/p02-copilot-research.jpg" alt="GitHub 연구 글 화면"></div>
@@ -242,7 +242,7 @@
 <!-- 13 ChatGPT -->
 <section class="slide" data-title="ChatGPT와 복붙">
   <div class="tag"><b>2022-11-30</b><span class="sep"></span>OpenAI ChatGPT 공개 · 강사 정리 도식</div>
-  <h2>ChatGPT는 대화를 열었지만 코드를 옮기는 일은 사람 몫이었다</h2>
+  <h2>ChatGPT: 대화는 열렸지만 코드 운반은 사람 몫</h2>
   <div class="diagram">{{svg:p02-copypaste}}</div>
   <div class="pmi">
     <div class="p">대화 형식이라 <b>후속 질문</b>에 답할 수 있다. 개발자들이 곧 코드 질문에 썼다.</div>
@@ -255,7 +255,7 @@
 <!-- 14 Copilot Chat -->
 <section class="slide" data-title="IDE 안의 채팅">
   <div class="tag"><b>2023-03-22</b><span class="sep"></span>GitHub Copilot X 발표 · Copilot Chat</div>
-  <h2>IDE 채팅은 코드와 오류를 보고 답한다: 대표 예 Copilot Chat</h2>
+  <h2>코드와 오류를 보고 답하는 IDE 채팅: 대표 예 Copilot Chat</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:230px"><div class="bar"><i></i><i></i><i></i><span>github.blog/news-insights/product-news/github-copilot-x-the-ai-powered-developer-experience</span></div><img src="assets/captures/copilot-chat-2023.jpg" alt="Copilot Chat 시연 화면"></div>
@@ -277,7 +277,7 @@
 <!-- 15 자동완성 vs 채팅 -->
 <section class="slide" data-title="자동완성 vs 채팅">
   <div class="tag"><b>개념 비교</b><span class="sep"></span>같은 AI, 다른 입력과 출력</div>
-  <h2>자동완성은 코드 조각을, 채팅은 설명과 수정안을 돌려준다</h2>
+  <h2>돌려주는 것: 자동완성은 코드 조각, 채팅은 설명·수정안</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/…/github-copilot-x-the-ai-powered-developer-experience</span></div><img src="assets/captures/p02-copilot-x.jpg" alt="Copilot X 발표문"></div>
@@ -299,7 +299,7 @@
 <!-- 16 Cursor -->
 <section class="slide" data-title="AI 네이티브 IDE">
   <div class="tag"><b>2024-08-22 → 2024-11-24</b><span class="sep"></span>개념 AI 네이티브 IDE → 대표 도구 Cursor (0.40 · 0.43 변경 기록)</div>
-  <h2>AI 네이티브 IDE는 에디터 전체를 AI 채팅 중심으로 다시 짰다: 대표 도구 Cursor</h2>
+  <h2>AI 네이티브 IDE: AI 채팅 중심으로 다시 짠 에디터(Cursor)</h2>
   <div class="frames">
     <div>
       <div class="frame" style="max-height:290px"><div class="bar"><i></i><i></i><i></i><span>cursor.com/changelog/0-40-x</span></div><img src="assets/captures/p02-cursor-040.jpg" alt="Cursor 0.40 변경 기록"></div>
@@ -323,7 +323,7 @@
 <!-- 17 @ 참조 -->
 <section class="slide" data-title="코드베이스 맥락">
   <div class="tag"><b>2024-11-24 · 2026-10-28 확인</b><span class="sep"></span>Cursor 0.43 @Recommended · Cursor 문서 @ mentions</div>
-  <h2>AI 에디터의 채팅은 @로 고른 여러 파일을 맥락으로 삼는다(Cursor)</h2>
+  <h2>AI 에디터의 채팅 맥락: @로 고른 여러 파일(Cursor)</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>cursor.com/docs/context/mentions</span></div><img src="assets/captures/p02-cursor-mentions.jpg" alt="Cursor 문서의 @ mentions 설명"></div>
@@ -345,7 +345,7 @@
 <!-- 18 여러 파일 / 맥락 제한 -->
 <section class="slide" data-title="맥락 안에서만">
   <div class="tag"><b>2024-10-09</b><span class="sep"></span>Cursor 0.42 변경 기록</div>
-  <h2>AI 에디터는 환각을 막으려고 맥락에 넣은 파일에만 변경을 적용했다(Cursor Composer)</h2>
+  <h2>환각 방지: 맥락에 넣은 파일에만 변경 적용(Cursor Composer)</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>cursor.com/changelog/0-42-x</span></div><img src="assets/captures/p02-cursor-042.jpg" alt="Cursor 0.42 변경 기록"></div>
@@ -367,7 +367,7 @@
 <!-- 19 남은 문제 -->
 <section class="slide" data-title="남은 문제: 계속">
   <div class="tag"><b>축 2</b><span class="sep"></span>‘계속’을 누르는 사람</div>
-  <h2>자동완성도 채팅도 ‘계속’을 누르는 것은 사람이다</h2>
+  <h2>자동완성·채팅 모두 ‘계속’은 사람 몫</h2>
   <div class="diagram">{{svg:p02-human-loop}}</div>
   <p class="under">제안을 받아도 <b>적용 · 실행 · 판단 · 오류 전달</b>은 사람이 돕니다. 사람이 멈추면 루프도 멈춥니다. <span class="next">→ 3교시</span></p>
   <aside>자동완성도 채팅도 제안까지만 합니다. 제안을 받고, 코드에 적용하고, 실행하고, 결과가 맞는지 판단하고, 틀리면 오류를 다시 입력하고, 계속하라고 요청하는 순환은 전부 사람이 돕니다. AI는 한 번 한 번의 응답만 하고 스스로 이어 가지 않습니다. 그래서 사람이 자리를 비우면 일이 멈춥니다. 1교시에서 말한 두 번째 축, 사람이 누르던 ‘계속’이 바로 이것입니다. 3교시에서 이 순환을 에이전트가 돌게 되는 과정을 봅니다.</aside>
@@ -376,7 +376,7 @@
 <!-- 20 같은 버그 -->
 <section class="slide" data-title="같은 버그, 두 방식">
   <div class="tag"><b>수업용 재현 예시</b><span class="sep"></span>빈 리스트로 average() 호출</div>
-  <h2>같은 버그도 자동완성과 채팅 모두 사람이 실행해 확인한다</h2>
+  <h2>같은 버그: 자동완성도 채팅도 실행 확인은 사람</h2>
   <div class="compare" style="--cols:2">
     <div>
       <div class="k">자동완성</div>

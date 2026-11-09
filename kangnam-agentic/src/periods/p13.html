@@ -20,7 +20,7 @@
 <!-- 02 지난 교시와의 연결 -->
 <section class="slide" data-title="지난 교시와 연결">
   <div class="tag"><b>12교시 → 13교시</b><span class="sep"></span>하네스 1개의 한계</div>
-  <h2>새 병목: 여러 하네스의 분배와 점검</h2>
+  <h2>새 병목: 하네스별 일 분배와 점검</h2>
   <div class="diagram">{{svg:p13-bottleneck}}</div>
   <p class="under">지난 시간까지는 <b>한 하네스가 긴 일을 끝까지</b> 하게 만들었습니다. 이제는 <b>여러 하네스를 누가 나눠 주고 점검하나</b>가 문제입니다.</p>
   <aside>12교시에서 여러분은 스킬과 MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)를 붙이고 /goal이나 루프로 긴 작업을 맡겨 봤습니다. 그러면 곧 다음 불만이 생깁니다. 한 에이전트가 두 시간 일하는 동안 나는 기다리기만 해야 하나, 하는 불만입니다. 해법은 하네스를 여러 개 동시에 돌리는 것입니다. 하지만 그러면 일을 쪼개고, 진행을 보고, 결과를 합치는 일이 새로 생깁니다. 오늘 이야기는 이 새 일을 도구가 어떻게 돕는지, 그리고 제가 사람의 손을 어떻게 덜어 내는지를 다룹니다.</aside>
@@ -49,7 +49,7 @@
 
 <!-- 04 왜 팩토리 ② 한 개발자 -->
 <section class="slide" data-title="한 개발자, 여러 하네스">
-  <div class="tag"><b>에이전트 팩토리</b><span class="sep"></span>왜 팩토리인가 ② · 강사 운영 방식</div>
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>에이전트 팩토리의 이유 ②</div>
   <h2>한 사람이 큰 프로젝트를 맡는 조건: 여러 하네스</h2>
   <div class="diagram">{{svg:p13-fleet}}</div>
   <p class="under">개발자는 코드를 쓰는 사람에서 <b>일을 나누고 결과를 판정하는 사람</b>이 됩니다. 하네스가 여러 개여야 한 사람이 큰 프로젝트를 감당합니다.</p>
@@ -67,7 +67,7 @@
 <!-- 06 Agent HQ -->
 <section class="slide" data-title="GitHub Agent HQ">
   <div class="tag"><b>2025-10-28</b><span class="sep"></span>GitHub Universe 2025 · Agent HQ</div>
-  <h2>GitHub Agent HQ: 여러 회사 에이전트를 한곳에서 관리</h2>
+  <h2>GitHub Agent HQ: 여러 회사 에이전트 한곳 관리</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:280px"><div class="bar"><i></i><i></i><i></i><span>github.blog/news-insights/company-news/welcome-home-agents</span></div><img src="assets/captures/page-agenthq.jpg" alt="GitHub Agent HQ 발표 글 첫 화면"></div>
@@ -144,7 +144,7 @@
 <!-- 09 Cursor 3 -->
 <section class="slide" data-title="Cursor 3 Agents Window">
   <div class="tag"><b>2026-04-02</b><span class="sep"></span>Cursor 3 · Agents Window · /best-of-n</div>
-  <h2>Cursor 3 Agents Window: 여러 에이전트 병렬 실행</h2>
+  <h2>Cursor 3 Agents Window: 에이전트 병렬 실행</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>cursor.com/changelog/3-0</span></div><img src="assets/captures/p13-cursor3.jpg" alt="Cursor 3 변경 기록 화면"></div>
@@ -169,7 +169,7 @@
 
 <!-- 10 Orca 무엇인가 -->
 <section class="slide" data-title="Orca란">
-  <div class="tag"><b>워크트리 기반 병렬 에이전트 관리 · 대표 도구 Orca</b><span class="sep"></span>데스크톱 IDE · 2026-03-16 첫 커밋 → 지금</div>
+  <div class="tag"><b>대표 도구 Orca</b><span class="sep"></span>워크트리 기반 데스크톱 IDE · 2026-03-16 첫 커밋 → 지금</div>
   <h2>병렬 에이전트 관리의 대표 도구, Orca</h2>
   <div class="row">
     <div>
@@ -415,7 +415,7 @@
 <!-- 21 한 사이클 -->
 <section class="slide" data-title="깨어나는 한 사이클">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>/loop 자기 깨우기 + 이슈 원장</div>
-  <h2>한 사이클: 깨어나기 → 읽기 → 판단 → 보내기 → 잠들기</h2>
+  <h2>한 사이클: 깨어나기 → 읽기 → 판단·처리 → 잠들기</h2>
   <div class="diagram">{{svg:p13-wake-cycle}}</div>
   <p class="under">판단은 세 갈래입니다. <b>보낸다</b>(빈 자리가 있다), <b>고친다</b>(실패·충돌), <b>끝낸다</b>(완료 조건 충족). 끝내는 것도 코디네이터의 일입니다.</p>
   <aside>코디네이터의 한 사이클입니다. 깨어나면 가장 먼저 이슈, PR, CI 상태를 새로 읽습니다. 기억이 아니라 원장이 단일 출처입니다. 읽은 결과로 세 가지 중 하나를 합니다. 빈 자리가 있으면 다음 배치를 보내고, 실패나 충돌이 있으면 정리해서 재배정하고, 완료 조건이 충족되었으면 루프를 끝냅니다. 그리고 다음 깨우기 시각을 정해 잠듭니다. CI가 한창 도는 중이면 짧게, 모두 기다리는 중이면 길게 잡는 식으로 사이클 간격이 달라집니다. 이 단순한 반복을 며칠 동안 돌리는 것이 패턴의 전부입니다.</aside>
@@ -482,7 +482,7 @@
 <!-- 27 정리 -->
 <section class="slide" data-title="오늘 본 것과 다음 교시">
   <div class="tag"><b>오늘 본 것을 묶으면</b><span class="sep"></span>13교시 → 14교시</div>
-  <h2>묶으면: 병렬 실행보다 어려운 분배와 점검</h2>
+  <h2>정리: 병렬 실행보다 어려운 분배와 점검</h2>
   <div class="row">
     <div class="points">
       <ol>

@@ -208,7 +208,7 @@
 <!-- 12 압축 -->
 <section class="slide" data-title="압축의 한계">
   <div class="tag"><b>2025-03-18 · 2025-07-14</b><span class="sep"></span>Claude Code 자동 압축(0.2.47) · Chroma ‘Context Rot’</div>
-  <h2>압축의 한계: 요약마다 정보 손실, 길수록 성능 저하</h2>
+  <h2>압축 한계: 요약은 정보 손실, 긴 입력은 성능 저하</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>research.trychroma.com/context-rot</span></div><img src="assets/captures/page-context-rot.jpg" alt="Chroma 기술 보고서 Context Rot 첫 화면"></div>
@@ -239,7 +239,7 @@
 <!-- 14 DDD -->
 <section class="slide" data-title="DDD">
   <div class="tag"><b>SDD + TDD + DDD</b><span class="sep"></span>도메인 경계로 범위 묶기 · 강사 운영 방식</div>
-  <h2>범위는 도메인 경계로, 개발 수준은 프롬프트에 명시</h2>
+  <h2>범위는 도메인 경계로 제한, 수준은 프롬프트에 명시</h2>
   <div class="compare" style="--cols:2">
     <div>
       <div class="k">PoC(Proof of Concept, 시험용 시제품) · MVP(Minimum Viable Product, 최소 기능 제품)</div>
@@ -281,7 +281,7 @@
 <!-- 16 워크트리 -->
 <section class="slide" data-title="워크트리">
   <div class="tag"><b>2025-05-15 · 2026-02-19</b><span class="sep"></span>Cursor 백그라운드 에이전트 · Claude Code --worktree(2.1.49)</div>
-  <h2>워크트리: 작업별 폴더로 병렬 에이전트 덮어쓰기 방지</h2>
+  <h2>워크트리: 작업별 폴더로 에이전트 간 덮어쓰기 방지</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/common-workflows</span></div><img src="assets/captures/page-worktree.jpg" alt="Claude Code 공통 워크플로우 문서"></div>
@@ -307,7 +307,7 @@
 
 <section class="slide section-slide" data-title="질문 시간">
   <div class="big">질문 시간 · 약 5분</div>
-  <h1>여기까지,<br>질문 받습니다</h1>
+  <h1>여기까지,<br>질문 시간</h1>
   <p class="lead">지금까지 다룬 것: 1부 자동완성 · IDE 채팅 · 터미널 에이전트 · 승인 피로 · 2부 SDD와 Plan 모드 · 압축의 한계 · TDD · DDD · 서브에이전트 · 워크트리</p>
   <div class="strip"><figure><div class="thumb"><img src="assets/captures/copilot-2021.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-aider.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-speckit.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-cc-subagents.jpg" alt="앞에서 본 화면"></div></figure></div>
   <aside>3부로 넘어가기 전에 잠시 멈추고 질문을 받겠습니다. 1부와 2부에서 본 도구나 날짜 가운데 이해가 안 된 곳, 자기가 쓰는 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
@@ -388,7 +388,7 @@
 <!-- 21 토큰 절약·MCP -->
 <section class="slide" data-title="토큰 절약과 MCP">
   <div class="tag"><b>개념 · 코드 인텔리전스(LSP) · 문서 조회</b><span class="sep"></span>대표 도구 Serena · Context7 (2025-03)</div>
-  <h2>토큰 절약: 코드는 언어 서버(LSP), 최신 문서는 조회로</h2>
+  <h2>토큰 절약: 코드는 언어 서버(LSP), 최신 문서는 조회</h2>
   <div class="frames">
     <div>
       <div class="frame" style="max-height:270px"><div class="bar"><i></i><i></i><i></i><span>github.com/oraios/serena</span></div><img src="assets/captures/page-serena.jpg" alt="Serena GitHub 저장소"></div>
@@ -412,7 +412,7 @@
 <!-- 22 1M -->
 <section class="slide" data-title="1M 컨텍스트">
   <div class="tag"><b>2026-03-13</b><span class="sep"></span>Claude 1M 컨텍스트 정식 출시 · 할증 없음</div>
-  <h2>Claude 창 10만 → 100만 토큰: 드문 압축, 더 긴 작업</h2>
+  <h2>Claude 창 10만 → 100만 토큰: 압축 감소, 더 긴 작업</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.com/blog/1m-context-ga</span></div><img src="assets/captures/page-onem.jpg" alt="1M context is now generally available 발표 글"></div>
@@ -622,7 +622,7 @@
 
 <!-- 32 스모크 -->
 <section class="slide" data-title="스모크 테스트">
-  <div class="tag"><b>2024-10-22 → 2025-09-23</b><span class="sep"></span>브라우저 자동화 → 대표 Playwright MCP · Chrome DevTools MCP</div>
+  <div class="tag"><b>2024-10-22 → 2025-09-23</b><span class="sep"></span>브라우저 자동화 도구 → Playwright MCP · Chrome DevTools MCP</div>
   <h2>스모크 테스트: 테스트 통과에 더해 AI가 직접 눌러 확인</h2>
   <div class="row">
     <div>

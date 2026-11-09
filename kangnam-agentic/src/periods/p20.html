@@ -16,7 +16,7 @@
 
 <!-- 02 연표 -->
 <section class="slide" data-title="5년과 5주">
-  <div class="tag"><b>2021 → 2026</b><span class="sep"></span>1교시 연표 · 다시 보기</div>
+  <div class="tag"><b>1교시 다시 보기</b><span class="sep"></span>2021 → 2026</div>
   <h2>1교시 연표: 지나온 네 시대</h2>
   <div class="diagram pele-theme">{{svg:timeline-4eras}}</div>
   <p class="under">5주 동안 <b>제안하는 AI에서 공장이 된 AI까지</b> 한 번씩 손으로 만져 보았습니다.</p>
@@ -34,7 +34,7 @@
 
 <!-- 04 장치 순서 -->
 <section class="slide" data-title="장치가 쌓인 순서">
-  <div class="tag"><b>묶어 보면</b><span class="sep"></span>앞 단계의 실패에서 나온 장치들</div>
+  <div class="tag"><b>묶어 보면</b><span class="sep"></span>장치가 쌓인 순서</div>
   <h2>장치의 출처: 앞 단계의 실패</h2>
   <div class="diagram">{{svg:stack-order}}</div>
   <p class="under">ADR(Architecture Decision Record, 설계 결정 기록)과 스모크(간단한 동작 확인)는 <b>규모가 커진 뒤</b> 붙은 장치입니다.</p>
@@ -44,7 +44,7 @@
 <!-- 05 병목 이동 -->
 <section class="slide" data-title="병목의 이동">
   <div class="tag"><b>개념</b><span class="sep"></span>5년간 병목이 옮겨 간 여섯 자리</div>
-  <h2>병목의 이동: 타이핑 → 결과 판정</h2>
+  <h2>병목의 이동: 타이핑 → 품질 판정</h2>
   <div class="diagram">{{svg:p20-bottleneck}}</div>
   <p class="under">코드를 쓰는 속도는 더 이상 병목이 아닙니다. <b>맡기고, 믿을 수 있게 만드는 일</b>이 병목입니다.</p>
   <aside>5년 동안 병목은 한 칸씩 오른쪽으로 옮겨 갔습니다. 처음에는 타이핑, 다음에는 답을 붙여넣고 실행하는 일, 그다음은 승인 누르기, 딴길로 새는 에이전트를 붙드는 일, 규모가 커진 뒤에는 검증과 병합, 지금은 결과가 맞는지 판정하는 일입니다. 병목이 옮겨 갈 때마다 새 장치가 나왔습니다. 앞으로도 병목이 어디로 옮겨 가는지 보면 다음에 나올 장치를 짐작할 수 있습니다.</aside>
@@ -70,7 +70,7 @@
 
 <!-- 08 출처 1: CHANGELOG·문서 -->
 <section class="slide" data-title="앞으로 볼 것 1">
-  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 1 · 도구의 기록</div>
+  <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 1 · 변경 기록</div>
   <h2>CHANGELOG: 가장 빠른 기록, 바꾼 이유는 없음</h2>
   <div class="row even">
     <div>
@@ -89,7 +89,7 @@
 
 <section class="slide" data-title="앞으로 볼 것 2">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 2 · 공식 문서</div>
-  <h2>공식 문서: 기능의 사용법과 설정</h2>
+  <h2>공식 문서: 사용법, 변경 시점은 없음</h2>
   <div class="row even">
     <div>
       <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/overview</span></div><img src="assets/captures/p20-cc-docs-overview.jpg" alt="Claude Code 문서 개요 화면"></div>
@@ -125,7 +125,7 @@
 
 <section class="slide" data-title="앞으로 볼 것 4">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>앞으로 볼 것 4 · 다른 회사의 변경 기록</div>
-  <h2>GitHub Changelog: Copilot·Actions의 날짜별 변경</h2>
+  <h2>GitHub Changelog: 날짜별 변경, 자사 제품만</h2>
   <div class="row even">
     <div>
       <div class="frame" style="max-height:400px"><div class="bar"><i></i><i></i><i></i><span>github.blog/changelog</span></div><img src="assets/captures/p20-github-changelog.jpg" alt="GitHub Changelog 화면"></div>
@@ -144,7 +144,7 @@
 <!-- 10 출처 읽는 법 -->
 <section class="slide" data-title="출처 읽는 법">
   <div class="tag"><b>읽는 법</b><span class="sep"></span>1차 출처에서 멀어질수록 다시 확인</div>
-  <h2>출처 신뢰 순서: 1차 출처부터</h2>
+  <h2>신뢰 순서: 1차 출처부터</h2>
   <div class="diagram">{{svg:p20-source-ladder}}</div>
   <p class="under">소문을 들으면 <b>CHANGELOG와 공식 글에서 같은 내용을 찾아</b> 날짜를 확인합니다.</p>
   <aside>출처 읽는 순서입니다. 1차 출처는 CHANGELOG, 공식 문서, 엔지니어링 블로그, 논문과 저장소 README입니다. 해설 글과 영상은 이해에는 좋지만 틀리기도 합니다. SNS 요약은 가장 빠르지만 날짜와 범위가 자주 바뀝니다. 이 과정의 연표에서도 서사와 실제 날짜가 다른 곳이 여럿 있었습니다. 새 기능을 들으면 1차 출처에서 같은 내용을 찾고 날짜를 확인합니다.</aside>

@@ -70,8 +70,8 @@
 
 <!-- 04-1 사례: 결제 실패 조사 -->
 <section class="slide" data-title="사례: 결제 실패 조사">
-  <div class="tag"><b>사례</b><span class="sep"></span>맥락을 나눠 쓴다 · 가상 예</div>
-  <h2>“결제가 실패한다”를 혼자 뒤질 때와 셋에게 나눠 맡길 때</h2>
+  <div class="tag"><b>사례</b><span class="sep"></span>맥락 나눠 쓰기 · 가상 예</div>
+  <h2>“결제가 실패한다” 조사: 혼자 할 때와 셋에게 맡길 때</h2>
   <div class="compare" style="--cols:2">
     <div>
       <div class="k">메인 혼자</div>
@@ -176,7 +176,7 @@ specific, actionable feedback on quality, security, and best practices.
 <!-- 08 부르는 법 -->
 <section class="slide" data-title="서브에이전트 부르기">
   <div class="tag"><b>공식 문서</b><span class="sep"></span>서브에이전트를 부르는 네 가지 방법</div>
-  <h2>서브에이전트 부르기: 자동 위임·말로 지정·@-멘션·--agent</h2>
+  <h2>서브에이전트 호출: 자동 위임·말로 지정·@-멘션·--agent</h2>
   <div class="term"><span class="dim">$</span> claude
 <span class="dim">&gt;</span> use the test-runner subagent to fix failing tests          <span class="dim"># 말로 지정</span>
 <span class="dim">&gt;</span> @"code-reviewer (agent)" look at the auth changes          <span class="dim"># @로 에이전트 지정</span>
@@ -536,7 +536,7 @@ Fast-forward
 <!-- 22-1 GitHub Actions로 옮기기 -->
 <section class="slide" data-title="GitHub Actions에서 에이전트 부르기">
   <div class="tag"><b>GitHub Actions</b><span class="sep"></span>로컬 병렬 → 원격 실행 · 공식 문서 2종 · 2026-11-09 확인</div>
-  <h2>로컬에서 원격으로: GitHub Actions에서 에이전트 부르기</h2>
+  <h2>GitHub Actions: 저장소 이벤트로 에이전트 실행</h2>
   <div class="diagram">{{svg:p07-gha-modes}}</div>
   <p class="under">같은 에이전트를 <b>저장소 이벤트</b>로 실행. 부르는 방식은 <b>댓글 멘션(대화형)</b>과 <b>이벤트·일정 + 프롬프트(자동화)</b> 두 가지.</p>
   <aside>지금까지는 서브에이전트와 워크트리로 내 컴퓨터 안에서 일을 나눴습니다. 이번에는 같은 에이전트를 GitHub 저장소 안에서, GitHub Actions 러너 위에 띄워 보겠습니다. 부르는 방식은 두 가지입니다. 하나는 이슈나 PR 댓글에 @claude라고 적어 대화하듯 부르는 방식이고, 다른 하나는 PR이 열리거나 정해진 시각이 되면 미리 적어 둔 프롬프트로 자동 실행하는 방식입니다. 댓글 멘션 방식은 Anthropic 액션이 기본으로 제공하고, OpenAI 액션의 공식 문서는 이벤트와 프롬프트로 돌리는 방식을 설명합니다. 어느 쪽이든 러너가 저장소를 체크아웃하고, 워크플로우에 적은 권한과 비밀값만 가지고 일한다는 점은 같습니다.</aside>
@@ -673,7 +673,7 @@ jobs:
 <!-- 23 정리 -->
 <section class="slide" data-title="정리와 다음 교시">
   <div class="tag"><b>정리</b><span class="sep"></span>문제 → 해결 · 2025-05 → 2026-02</div>
-  <h2>오늘 본 것: 창 나누기·폴더 나누기</h2>
+  <h2>정리: 창 나누기·폴더 나누기</h2>
   <div class="diagram">{{svg:p07-recap}}</div>
   <p class="under">서브에이전트는 <b>맥락</b>을, 워크트리는 <b>파일</b>을 나눕니다. <span class="next">→ 8교시 실습 2 · 과제 2</span></p>
   <aside>오늘 본 것을 묶으면 이렇습니다. 압축으로도 해결되지 않던 창의 한계를 서브에이전트가 일을 나눠 맡기는 방식으로 풀었습니다. 병렬로 일할 때 생기는 덮어쓰기는 워크트리로 풀었습니다. 날짜로 보면 Cursor의 백그라운드 에이전트가 2025년 5월, 서브에이전트가 7월, Claude Code의 --worktree가 2026년 2월이었습니다. 실제로는 여러 장치가 같은 시기에 쌓였지만 문제와 해결의 논리 순서로 설명했습니다. 다음 8교시는 실습입니다. 스펙, Task, 테스트 먼저, 구현으로 기능 하나를 추가하고 서브에이전트로 리뷰합니다. 3회차에서는 오래 맡기는 문제, 승인과 계속의 자동화로 넘어갑니다.</aside>

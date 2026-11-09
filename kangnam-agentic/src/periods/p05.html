@@ -61,7 +61,7 @@
 <!-- 3b 문서에서 실행 계약으로 -->
 <section class="slide" data-title="문서에서 실행 계약으로">
   <div class="tag"><b>무엇이 바뀌었나</b><span class="sep"></span>설계 기술서와 스펙 주도 개발 비교</div>
-  <h2>설계 먼저라는 목적은 같고, 바뀐 것은 읽는 쪽과 스펙의 위상</h2>
+  <h2>목적은 같고, 바뀐 것은 읽는 쪽·스펙 위상·검증</h2>
   <table class="tbl" style="font-size:24px">
     <thead><tr><th></th><th>설계 기술서 (IEEE 1016, 1987~)</th><th>스펙 주도 개발 (2025~)</th></tr></thead>
     <tbody>
@@ -100,7 +100,7 @@
 
 <!-- 04a 사례: 한 줄 프롬프트 vs 수용 기준 -->
 <section class="slide" data-title="사례: 한 줄 vs 스펙">
-  <div class="tag"><b>사례</b><span class="sep"></span>SDD 정의 · 빈틈은 추측이 된다 · 가상 예</div>
+  <div class="tag"><b>사례</b><span class="sep"></span>SDD 정의 · 빈틈은 추측으로 · 가상 예</div>
   <h2>“비밀번호 재설정 만들어줘”: 빈칸을 누가 채우나</h2>
   <div class="compare" style="--cols:2">
     <div>
@@ -213,7 +213,7 @@
 <!-- 08 Spec Kit 흐름 -->
 <section class="slide" data-title="Spec Kit 흐름">
   <div class="tag"><b>2025-09-02</b><span class="sep"></span>GitHub Blog · Spec Kit 발표</div>
-  <h2>Spec Kit: 슬래시 명령으로 스펙 → 구현 단계 진행</h2>
+  <h2>Spec Kit: 원칙 → 구현, 슬래시 명령 다섯 단계</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:240px"><div class="bar"><i></i><i></i><i></i><span>github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit</span></div><img src="assets/captures/page-speckit.jpg" alt="GitHub Spec Kit 발표 글"></div>
@@ -426,7 +426,7 @@ def test_exactly_50000_is_free():
 <!-- 15 Cursor Plan -->
 <section class="slide" data-title="Cursor Plan Mode">
   <div class="tag"><b>2025-10-07</b><span class="sep"></span>Cursor Blog · Introducing Plan Mode</div>
-  <h2>Cursor Plan Mode: 계획 파일 → 사람의 수정 → 실행</h2>
+  <h2>Cursor Plan Mode: 계획 파일 → 수정 → 실행</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>cursor.com/blog/plan-mode</span></div><img src="assets/captures/p05-cursor-plan.jpg" alt="Cursor Plan Mode 발표문과 계획 파일 화면"></div>
@@ -537,7 +537,7 @@ def test_exactly_50000_is_free():
 <!-- 21 진행 파일 -->
 <section class="slide" data-title="진행 파일">
   <div class="tag"><b>2025-11-26</b><span class="sep"></span>Anthropic Engineering · Effective harnesses for long-running agents</div>
-  <h2>압축 대비: 진행 파일에 기록</h2>
+  <h2>압축 대비: 파일로 인계</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:270px"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/effective-harnesses-for-long-running-agents</span></div><img src="assets/captures/p05-anthropic-harness.jpg" alt="Anthropic Engineering 장기 실행 에이전트 하네스 글"></div>
@@ -600,7 +600,7 @@ UTC로 읽으면 한국 시각: <span class="warn">23:00 KST</span></div>
 <!-- 22 파일이 세션을 넘는다 -->
 <section class="slide" data-title="세션 경계">
   <div class="tag"><b>정리</b><span class="sep"></span>SDD와 압축 대비: 같은 해법</div>
-  <h2>세션 경계 뒤 그대로 남는 것: 파일</h2>
+  <h2>압축·새 세션 뒤에도 남는 것: 파일</h2>
   <div class="diagram">{{svg:p05-files-survive}}</div>
   <p class="under">스펙, 계획, 진행 기록을 <b>파일에 남기면</b>, 압축이나 새 세션 뒤에도 <b>같은 기준에서 다시 시작</b>합니다.</p>
   <aside>여기서 오늘 전반부와 후반부가 이어집니다. SDD의 스펙과 Task 목록은 에이전트가 딴길로 새지 않게 붙잡는 장치였고, 동시에 압축을 건너 살아남는 장치이기도 합니다. 대화에 있던 결정은 압축 때 흐려지지만 디스크의 파일은 그대로 있습니다. 새 세션이든 압축 뒤든 에이전트는 파일을 다시 읽어서 같은 기준으로 이어 갑니다. 그래서 스펙에 무엇이 맞는 동작인지, 계획 파일에 어디까지 했는지, 진행 파일에 왜 그렇게 결정했는지를 나누어 적습니다. 8교시 실습에서 이 세 파일을 만들어 볼 수 있습니다.</aside>
@@ -609,7 +609,7 @@ UTC로 읽으면 한국 시각: <span class="warn">23:00 KST</span></div>
 <!-- 24 정리 -->
 <section class="slide" data-title="정리와 다음 교시">
   <div class="tag"><b>정리</b><span class="sep"></span>5교시 요약 · 다음은 6교시</div>
-  <h2>오늘 본 것: 딴길은 스펙으로, 압축 망각은 파일로 방지</h2>
+  <h2>정리: 딴길은 스펙으로, 압축 망각은 파일로 방지</h2>
   <div class="diagram">{{svg:sdd-tdd-ddd}}</div>
   <p class="under">스펙과 Task 목록은 <b>딴길</b>을, 파일은 <b>압축</b>을 막습니다. 다음 시간에는 스펙을 <b>실패하는 테스트</b>로 바꿉니다. <span class="next">→ 6교시 TDD와 DDD</span></p>
   <aside>오늘 본 것을 묶으면 이렇습니다. 에이전트가 딴길로 새는 문제를 풀려고 도구 안의 Plan 모드와 문서 중심의 SDD가 같은 시기에 나왔습니다. SDD는 스펙을 얼마나 오래 쓰는지에 따라 spec-first, spec-anchored, spec-as-source 세 수준으로 나뉘고, 지금 도구는 대체로 첫째 수준입니다. 비판처럼 작은 일에는 무겁기 때문에 저는 이슈 하나 단위로 작게 씁니다. 압축은 대화를 요약하므로 결정의 이유가 사라지기 쉽고, 그래서 스펙, 계획, 진행 파일을 디스크에 남깁니다. 다음 6교시에서는 이 스펙을 실패하는 테스트로 바꾸고, 에이전트가 테스트를 속이는 문제를 다룹니다.</aside>

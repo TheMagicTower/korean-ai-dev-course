@@ -63,7 +63,7 @@
 <!-- 05 Scion -->
 <section class="slide" data-title="Anthropic Scion">
   <div class="tag"><b>2026-10-13</b><span class="sep"></span>Anthropic Engineering · Redesigning source control</div>
-  <h2>하루 머지 30,401건: Anthropic의 소스 관리 재설계</h2>
+  <h2>하루 머지 30,401건: Anthropic 소스 관리 재설계</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/redesigning-source-control</span></div><img src="assets/captures/scion-merges.jpg" alt="Anthropic 모노레포 하루 머지 수 차트, 9월 9일 30,401건"></div>
@@ -184,7 +184,7 @@
 <!-- 10 영향 분석 -->
 <section class="slide" data-title="영향 분석">
   <div class="tag"><b>2단계 · 거르기 심화</b><span class="sep"></span>강사 자료 parallel-ai-merge-train · Nx affected</div>
-  <h2>폴더 필터를 넘어: 영향받는 검사만 선택</h2>
+  <h2>경로 필터를 넘어: 영향받는 검사만 선택</h2>
   <div class="diagram">{{svg:p15-affected}}</div>
   <p class="under">기본 규칙은 <b>변경 영역 + 전이적 소비자(그 영역을 가져다 쓰는 곳) + 경계 계약 검사</b>. 확실하지 않으면 전체 검사로 돌아갑니다.</p>
   <aside>폴더 필터는 출발점일 뿐입니다. 공고 조회 응답에서 필드 하나가 사라지면 그것을 받아 쓰는 지원 기록과, 그 뒤의 알림까지 영향을 받을 수 있습니다. 그래서 변경 영역에 전이적 소비자를 더하고 경계 계약 검사를 붙여 고릅니다. Nx의 affected 기능도 Git 변경 파일과 프로젝트 의존성 그래프를 함께 씁니다. 이것이 가능하려면 DDD(Domain-Driven Design, 도메인 주도 설계)로 경계를 나눠 둬야 합니다. 6교시에서 본 도메인 경계가 여기서 실제로 비용을 줄입니다. 공통 라이브러리나 설정이 바뀌었거나 영향 범위를 모르겠으면 전체 검사로 돌아가는 것이 안전합니다.</aside>
@@ -192,7 +192,7 @@
 
 <!-- 11 머지 큐 -->
 <section class="slide" data-title="머지 큐">
-  <div class="tag"><b>2023-07-12</b><span class="sep"></span>GitHub merge queue 정식 출시 · GitHub Docs</div>
+  <div class="tag"><b>4단계 · 묶기</b><span class="sep"></span>2023-07-12 정식 출시 · GitHub Docs</div>
   <h2>4. 묶어서 검증: 머지 큐</h2>
   <div class="row">
     <div>
@@ -323,7 +323,7 @@
 
 <!-- 18 Playwright MCP -->
 <section class="slide" data-title="Playwright MCP">
-  <div class="tag"><b>브라우저 자동화 · 대표 도구 Playwright MCP</b><span class="sep"></span>2025-03-13 · Microsoft</div>
+  <div class="tag"><b>대표 도구 Playwright MCP</b><span class="sep"></span>2025-03-13 · Microsoft</div>
   <h2>브라우저 자동화의 대표 도구, Playwright MCP</h2>
   <div class="row">
     <div>
@@ -443,7 +443,7 @@
 <!-- 26 정리 -->
 <section class="slide" data-title="오늘 본 것과 다음 교시">
   <div class="tag"><b>오늘 본 것을 묶으면</b><span class="sep"></span>15교시 → 16교시</div>
-  <h2>묶으면: CI 축소와 초록불 확인</h2>
+  <h2>정리: CI 축소와 초록불 확인</h2>
   <div class="row">
     <div class="diagram">{{svg:p15-levers-b}}</div>
     <div class="points">

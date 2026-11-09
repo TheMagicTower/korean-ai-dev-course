@@ -90,7 +90,7 @@
 <!-- 6a ADR 용어의 계보 -->
 <section class="slide" data-title="ADR 용어의 계보">
   <div class="tag"><b>1992 → 2018</b><span class="sep"></span>Perry·Wolf · Tyree·Akerman · ISO/IEC/IEEE 42010 · Nygard · Thoughtworks · MADR</div>
-  <h2>결정 근거 기록은 1992년부터, ‘ADR’ 이름은 2011년부터</h2>
+  <h2>결정 근거 기록은 1992년, ‘ADR’ 이름은 2011년부터</h2>
   <div class="diagram">{{svg:p14-adr-lineage}}</div>
   <p class="under">ADR(Architecture Decision Record, 아키텍처 결정 기록) = 결정 <b>하나</b>와 그 <b>근거</b>. 무거운 아키텍처 문서에서 떼어 낸 <b>작은 기록</b>이다.</p>
   <aside>ADR도 새 말이 아닙니다. 1992년 Perry와 Wolf는 소프트웨어 아키텍처를 요소, 형태, 그리고 근거, rationale로 정의했습니다. 왜 그렇게 했는지가 처음부터 아키텍처의 일부였던 셈입니다. 2005년 IEEE Software에 Tyree와 Akerman이 아키텍처 결정을 문제, 결정, 가정, 제약, 대안 같은 칸으로 적는 서식을 냈고, 같은 해 Jansen과 Bosch는 아키텍처를 설계 결정의 집합으로 봤습니다. 2011년 ISO/IEC/IEEE 42010은 결정과 근거를 아키텍처 기술의 표준 항목으로 넣었습니다. 여기까지는 큰 아키텍처 문서 안의 한 부분이었습니다. 같은 2011년 11월 15일 Michael Nygard가 ‘Documenting Architecture Decisions’에서 큰 문서는 아무도 최신으로 유지하지 않는다며, 다섯 칸짜리 짧은 기록을 코드 저장소에 두자고 제안합니다. 이것이 지금 말하는 ADR입니다. Thoughtworks 기술 레이더는 2016년 11월 시도, 2017년 11월 도입 단계로 올렸고, 2018년 MADR이 마크다운 서식을 정리했습니다. 그리고 지금은 에이전트가 이 기록을 지켜야 할 규칙으로 읽습니다.</aside>
@@ -328,7 +328,7 @@ Spec: notifications §예약 · 이슈 #58 #61
 
 <!-- 15 다시 판단할 조건 -->
 <section class="slide" data-title="낡음을 알려 주는 조건">
-  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>이슈별 흐름 2단계 “ADR 점검”</div>
+  <div class="tag"><b>이슈별 워크플로우 2단계</b><span class="sep"></span>“ADR 점검”</div>
   <h2>‘다시 판단할 조건’: 낡음을 미리 알리는 신호</h2>
   <div class="diagram">{{svg:p14-revisit-check}}</div>
   <p class="under">스펙은 낡았는지 <b>스스로 말하지 못하지만</b>, ADR은 낡을 조건을 <b>미리 적어 둡니다</b>.</p>
@@ -466,7 +466,7 @@ Related: #204</div>
 
 <!-- 23 18단계 -->
 <section class="slide" data-title="18단계 운영 기준">
-  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>project-operating-standard · 18단계 · 7단계가 ADR</div>
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>project-operating-standard</div>
   <h2>운영 기준 18단계: ADR은 7단계</h2>
   <div class="diagram">{{svg:p14-18steps}}</div>
   <p class="under">방향 문서(개요·가이드라인·<b>ADR</b>·Spec 개요)를 먼저 세우고 → 쪼개서 이슈로 등록하고 → 이슈별로 만듭니다. <span class="next">→ 16교시</span></p>
@@ -475,7 +475,7 @@ Related: #204</div>
 
 <!-- 24 이슈별 흐름 -->
 <section class="slide" data-title="이슈별 12단계 흐름">
-  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>이슈별 구현 워크플로우 · 2단계가 ADR 점검</div>
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>이슈별 워크플로우 · 2단계가 ADR 점검</div>
   <h2>이슈 하나가 지나가는 열두 단계</h2>
   <div class="diagram">{{svg:p14-issue-flow}}</div>
   <p class="under">스펙·계획·구현은 각각 리뷰하고, <b>블로커가 있으면 그 단계로 되돌아갑니다</b>. CI(Continuous Integration, 지속적 통합) 실패는 구현으로 돌아갑니다.</p>
@@ -485,7 +485,7 @@ Related: #204</div>
 <!-- 26 정리 -->
 <section class="slide" data-title="오늘 본 것과 다음 교시">
   <div class="tag"><b>오늘 본 것을 묶으면</b><span class="sep"></span>14교시 요약 · 다음은 CI와 머지 큐</div>
-  <h2>묶으면: 짧은 결정 기록과 하나씩 닫는 이슈</h2>
+  <h2>정리: 짧은 결정 기록과 하나씩 닫는 이슈</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/…/managing-a-merge-queue</span></div><img src="assets/captures/page-mergequeue.jpg" alt="GitHub 머지 큐 문서"></div>

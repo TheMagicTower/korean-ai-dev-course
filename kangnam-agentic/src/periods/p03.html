@@ -77,7 +77,7 @@
 <!-- 05 왜 터미널 -->
 <section class="slide" data-title="왜 터미널인가">
   <div class="tag"><b>권한 구조</b><span class="sep"></span>IDE 확장 vs 터미널 에이전트</div>
-  <h2>터미널 에이전트의 권한: 내 셸 권한 그대로</h2>
+  <h2>터미널 에이전트: 내 셸 권한 그대로</h2>
   <div class="diagram">{{svg:ide-vs-terminal}}</div>
   <p class="under">터미널 에이전트는 <b>내 셸 권한</b>으로 내가 쓰던 git · 빌드 · 테스트 명령을 그대로 씁니다. 같은 권한이 곧 위험이기도 합니다.</p>
   <aside>IDE 확장은 편집기가 열어 준 API(Application Programming Interface, 응용 프로그램 인터페이스) 안에서만 움직입니다. 터미널 에이전트는 사용자의 셸에서 사용자와 같은 권한으로 git, 패키지 관리자, 테스트 러너를 그대로 씁니다. 그래서 고치고, 돌려 보고, 실패하면 다시 고치는 루프를 혼자 돌릴 수 있습니다. 반대로 말하면 에이전트가 사용자 계정으로 할 수 있는 일은 모두 할 수 있다는 뜻입니다. 이 장의 장점이 뒤쪽 장들의 문제가 됩니다.</aside>
@@ -158,8 +158,8 @@
 
 <!-- 10 시연 -->
 <section class="slide" data-title="시연: 같은 버그">
-  <div class="tag"><b>재현 예시</b><span class="sep"></span>2교시의 버그를 터미널 에이전트에게 맡기면 · 실제 출력 아님</div>
-  <h2>같은 버그를 에이전트에게: 찾기 → 고치기 → 재시험</h2>
+  <div class="tag"><b>재현 예시</b><span class="sep"></span>2교시와 같은 종류의 버그를 맡기면 · 실제 출력 아님</div>
+  <h2>버그 하나를 에이전트에게: 찾기 → 고치기 → 재시험</h2>
   <div class="row even">
     <div class="term"><span class="dim">$</span> claude
 <span class="acc">&gt;</span> 장바구니 합계가 틀려. 고쳐 줘
@@ -186,7 +186,7 @@
 <!-- 11 기록 읽기 -->
 <section class="slide" data-title="대화 기록 읽기">
   <div class="tag"><b>Claude Code 문서</b><span class="sep"></span>세션 기록은 로컬 JSONL(JSON Lines) 파일</div>
-  <h2>에이전트 감사: 도구 호출 기록 읽기</h2>
+  <h2>도구 호출 기록으로 에이전트 점검</h2>
   <table class="tbl">
     <tr><th>호출</th><th>무엇을 알려 주나</th><th>확인할 것</th></tr>
     <tr><td class="mono">Bash(테스트)</td><td>실패 상태와 오류 메시지</td><td>실제로 실패했는가</td></tr>
@@ -234,7 +234,7 @@
 <!-- 13 승인 피로 -->
 <section class="slide" data-title="승인 피로">
   <div class="tag"><b>2026-03-25</b><span class="sep"></span>Anthropic Engineering · “Claude Code auto mode”</div>
-  <h2>승인 피로: 승인 요청의 93%를 그대로 승인</h2>
+  <h2>승인 피로: 권한 요청의 93%를 그대로 허용</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/claude-code-auto-mode</span></div><img src="assets/captures/p03-anthropic-automode.jpg" alt="Anthropic 자동 모드 공학 블로그 첫 화면"></div>
@@ -385,7 +385,7 @@
 
 <!-- 21 왜 아직 -->
 <section class="slide" data-title="왜 아직 자동 작성 수준이었나">
-  <div class="tag"><b>2025</b><span class="sep"></span>강사 정리 · 승인, 작은 창, 미숙한 모델</div>
+  <div class="tag"><b>2025</b><span class="sep"></span>강사 정리 · 공식 통계 아님</div>
   <h2>짧은 일만 맡긴 이유: 승인 비용·작은 창·미숙한 모델</h2>
   <div class="diagram">{{svg:p03-why-not-yet}}</div>
   <p class="under">승인 비용, 작은 창(한 번에 볼 수 있는 분량), 미숙한 모델이 겹쳐 <b>짧은 일</b>만 맡길 수 있었습니다. 긴 일은 딴길로 새고 맥락을 잃었습니다. <span class="next">→ 2회차</span></p>

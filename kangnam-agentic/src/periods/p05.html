@@ -52,7 +52,7 @@
 <!-- 3a SDD 용어의 계보 -->
 <section class="slide" data-title="SDD 용어의 계보">
   <div class="tag"><b>1987 → 2025</b><span class="sep"></span>IEEE 1016 · Ostroff 외(2004) · Kiro · Spec Kit · Böckeler</div>
-  <h2>SDD의 계보: 1987년 ‘설계 기술서’ → 2025년 ‘스펙 주도 개발’</h2>
+  <h2>SDD의 두 뜻: 1987년 설계 기술서, 2025년 스펙 주도 개발</h2>
   <div class="diagram">{{svg:p05-sdd-lineage}}</div>
   <p class="under">같은 약어, 다른 말. <b>Software Design Description</b>(IEEE(Institute of Electrical and Electronics Engineers, 전기전자공학자협회) 1016, 1987)은 사람에게 설계를 전하는 <b>문서</b>, <b>Spec-Driven Development</b>는 스펙으로 개발을 <b>이끄는 방식</b>이다.</p>
   <aside>SDD라는 약어는 2025년에 새로 생긴 말이 아닙니다. 1987년 IEEE(Institute of Electrical and Electronics Engineers, 전기전자공학자협회) 1016, ‘소프트웨어 설계 기술서에 관한 권고 실무’가 Software Design Description을 SDD로 불렀습니다. 표준은 SDD를 소프트웨어 시스템의 표현이자 설계 정보를 전달하는 매체로 정의했고, 1998년과 2009년에 개정된 뒤 2020년에 비활성 상태가 됐습니다. 이때의 SDD는 사람이 읽고 사람이 코드를 쓰는 문서였습니다. 2004년에는 Ostroff, Makalsky, Paige가 애자일 학회에서 ‘Agile Specification-Driven Development’를 발표합니다. 테스트 주도 개발과 계약에 의한 설계를 묶어, 명세가 개발을 이끌게 하자는 제안이었습니다. 그 사이 모델에서 코드를 생성하는 MDD(Model-Driven Development, 모델 주도 개발), 시나리오를 실행 가능한 명세로 쓰는 BDD(Behavior-Driven Development, 행동 주도 개발)도 같은 생각을 다른 방식으로 시도했습니다. 그리고 2025년 Kiro와 Spec Kit이 에이전트가 읽는 스펙을 내세우면서 Spec-Driven Development라는 말이 퍼졌습니다. 10월에는 Böckeler의 글이 이를 세 수준으로 정리했습니다. 약어는 같지만 앞은 문서의 이름이고, 뒤는 일하는 방식의 이름입니다.</aside>
@@ -60,7 +60,7 @@
 
 <!-- 3b 문서에서 실행 계약으로 -->
 <section class="slide" data-title="문서에서 실행 계약으로">
-  <div class="tag"><b>무엇이 바뀌었나</b><span class="sep"></span>목적은 같고, 읽는 쪽과 스펙의 위상이 바뀌었다</div>
+  <div class="tag"><b>무엇이 바뀌었나</b><span class="sep"></span>설계 기술서와 스펙 주도 개발 비교</div>
   <h2>설계 먼저라는 목적은 같고, 바뀐 것은 읽는 쪽과 스펙의 위상</h2>
   <table class="tbl" style="font-size:24px">
     <thead><tr><th></th><th>설계 기술서 (IEEE 1016, 1987~)</th><th>스펙 주도 개발 (2025~)</th></tr></thead>
@@ -366,7 +366,7 @@ def test_exactly_50000_is_free():
 <!-- 14 Plan 모드 문서 -->
 <section class="slide" data-title="Plan 모드 공식 문서">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 공식 문서 · Permission modes</div>
-  <h2>Plan 모드: 승인 전 소스 수정 없음, 계획은 사람이 직접 수정</h2>
+  <h2>Plan 모드: 승인 전엔 소스 그대로, 계획은 사람이 편집</h2>
   <div class="frames">
     <div>
       <div class="frame" style="max-height:200px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/permission-modes</span></div><img src="assets/captures/p05-cc-planmode.jpg" alt="Claude Code 문서: Plan 모드 진입 방법"></div>
@@ -599,8 +599,8 @@ UTC로 읽으면 한국 시각: <span class="warn">23:00 KST</span></div>
 
 <!-- 22 파일이 세션을 넘는다 -->
 <section class="slide" data-title="세션 경계">
-  <div class="tag"><b>정리</b><span class="sep"></span>SDD와 압축 대비는 같은 해법이다</div>
-  <h2>세션 경계를 넘는 유일한 것: 파일</h2>
+  <div class="tag"><b>정리</b><span class="sep"></span>SDD와 압축 대비: 같은 해법</div>
+  <h2>세션 경계 뒤 그대로 남는 것: 파일</h2>
   <div class="diagram">{{svg:p05-files-survive}}</div>
   <p class="under">스펙, 계획, 진행 기록을 <b>파일에 남기면</b>, 압축이나 새 세션 뒤에도 <b>같은 기준에서 다시 시작</b>합니다.</p>
   <aside>여기서 오늘 전반부와 후반부가 이어집니다. SDD의 스펙과 Task 목록은 에이전트가 딴길로 새지 않게 붙잡는 장치였고, 동시에 압축을 건너 살아남는 장치이기도 합니다. 대화에 있던 결정은 압축 때 흐려지지만 디스크의 파일은 그대로 있습니다. 새 세션이든 압축 뒤든 에이전트는 파일을 다시 읽어서 같은 기준으로 이어 갑니다. 그래서 스펙에 무엇이 맞는 동작인지, 계획 파일에 어디까지 했는지, 진행 파일에 왜 그렇게 결정했는지를 나누어 적습니다. 8교시 실습에서 이 세 파일을 만들어 볼 수 있습니다.</aside>
@@ -609,7 +609,7 @@ UTC로 읽으면 한국 시각: <span class="warn">23:00 KST</span></div>
 <!-- 24 정리 -->
 <section class="slide" data-title="정리와 다음 교시">
   <div class="tag"><b>정리</b><span class="sep"></span>5교시 요약 · 다음은 6교시</div>
-  <h2>딴길은 스펙으로, 압축 망각은 파일로 방지</h2>
+  <h2>오늘 본 것: 딴길은 스펙으로, 압축 망각은 파일로 방지</h2>
   <div class="diagram">{{svg:sdd-tdd-ddd}}</div>
   <p class="under">스펙과 Task 목록은 <b>딴길</b>을, 파일은 <b>압축</b>을 막습니다. 다음 시간에는 스펙을 <b>실패하는 테스트</b>로 바꿉니다. <span class="next">→ 6교시 TDD와 DDD</span></p>
   <aside>오늘 본 것을 묶으면 이렇습니다. 에이전트가 딴길로 새는 문제를 풀려고 도구 안의 Plan 모드와 문서 중심의 SDD가 같은 시기에 나왔습니다. SDD는 스펙을 얼마나 오래 쓰는지에 따라 spec-first, spec-anchored, spec-as-source 세 수준으로 나뉘고, 지금 도구는 대체로 첫째 수준입니다. 비판처럼 작은 일에는 무겁기 때문에 저는 이슈 하나 단위로 작게 씁니다. 압축은 대화를 요약하므로 결정의 이유가 사라지기 쉽고, 그래서 스펙, 계획, 진행 파일을 디스크에 남깁니다. 다음 6교시에서는 이 스펙을 실패하는 테스트로 바꾸고, 에이전트가 테스트를 속이는 문제를 다룹니다.</aside>

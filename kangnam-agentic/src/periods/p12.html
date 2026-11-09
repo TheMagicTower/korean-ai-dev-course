@@ -4,9 +4,9 @@
 <section class="slide section-slide" data-title="표지">
   <div class="tag"><b>3회차 · 12교시</b><span class="sep"></span>실습 3 · 2026-11-17</div>
   <div class="big">실습 3</div>
-  <h1>하네스 한 번 더 키우기:<br>스킬 · MCP · /goal 중 필요한 것</h1>
+  <h1>하네스 한 번 더 키우기:<br>격리 규칙 · 스킬 · MCP · /goal</h1>
   <div class="strip">
-    <figure><div class="thumb"><img src="assets/captures/page-worktree.jpg" alt="Claude Code 공통 워크플로 문서: 워크트리로 병렬 세션"></div><figcaption><b>15단계</b><span>워크트리·규칙</span></figcaption></figure>
+    <figure><div class="thumb"><img src="assets/captures/page-worktree.jpg" alt="Claude Code 공통 워크플로우 문서: 워크트리로 병렬 세션"></div><figcaption><b>15단계</b><span>워크트리·규칙</span></figcaption></figure>
     <figure><div class="thumb"><img src="assets/captures/p12-cc-skills.jpg" alt="Claude Code 스킬 공식 문서"></div><figcaption><b>스킬</b><span>예: issue-flow</span></figcaption></figure>
     <figure><div class="thumb"><img src="assets/captures/p12-cc-mcp.jpg" alt="Claude Code MCP 공식 문서"></div><figcaption><b>MCP</b><span>Model Context Protocol, 필요하면</span></figcaption></figure>
     <figure><div class="thumb"><img src="assets/captures/p12-goal-cond.jpg" alt="Claude Code /goal 공식 문서"></div><figcaption><b>/goal</b><span>오래 맡기기</span></figcaption></figure>
@@ -17,8 +17,8 @@
 
 <!-- 02 이번 시간 순서 -->
 <section class="slide" data-title="이번 시간 순서">
-  <div class="tag"><b>약 55분 · 프롬프트 + 스모크</b><span class="sep"></span>18단계 중 15단계(워크플로·워크트리 설정) · 이슈별 워크플로우 1–8단계를 스킬로</div>
-  <h2>강사 방식: 질문 → 설계 승인 → 구현 → 스모크 → /goal로 이슈 하나</h2>
+  <div class="tag"><b>약 55분 · 프롬프트 + 스모크</b><span class="sep"></span>18단계 중 15단계(워크플로우·워크트리 설정) · 이슈별 워크플로우 1–8단계를 스킬로</div>
+  <h2>진행 순서: 질문 → 승인 → 구현 → 스모크 → /goal</h2>
   <div class="diagram">{{svg:p12-flow}}</div>
   <p class="under">여러분이 보는 것은 코드가 아니라 <b>내가 한 답, 에이전트가 정리한 결정, 스모크 결과</b> 세 가지입니다.</p>
   <aside>오늘은 제 운영 기준 18단계 가운데 15단계, 작업을 어떻게 격리하고 합칠 것인가를 하네스 크기로 줄여 적용합니다. 먼저 에이전트가 격리, 리뷰, 머지 규칙과 스킬, MCP(Model Context Protocol, 모델 컨텍스트 프로토콜), 완료 조건에 대해 질문하고 여러분이 답합니다. 에이전트는 답을 ADR(Architecture Decision Record, 아키텍처 결정 기록) 한 건과 스킬 설계로 정리하고, 여러분이 읽고 승인한 뒤에야 구현합니다. 구현 뒤에는 코드를 열어 보는 대신 스모크로 확인합니다. 스킬이 불리는지, MCP가 붙었는지 보고, 원하면 마지막으로 이슈 하나를 /goal로 맡겨 조건에서 멈추는지 봅니다. 설계 대화 12분, 승인 8분, 구현 10분, 스모크 10분, 이슈 완주 15분 정도로 잡습니다.</aside>
@@ -28,7 +28,7 @@
 <!-- 03 왜 스킬로 -->
 <section class="slide" data-title="왜 스킬로 만드나">
   <div class="tag"><b>이슈별 워크플로우 1–8단계</b><span class="sep"></span>11교시 스킬 · 목록에는 이름과 설명만 먼저 올라감</div>
-  <h2>스킬 후보: 지난 시간 매번 말로 시킨 순서</h2>
+  <h2>스킬 후보: 지난 회차에 매번 말로 시킨 순서</h2>
   <div class="row flip">
     <div class="points">
       <ul>
@@ -49,7 +49,7 @@
 
 <!-- 04 첫 프롬프트 -->
 <section class="slide" data-title="첫 프롬프트">
-  <div class="tag"><b>그대로 붙여 넣어도 됩니다</b><span class="sep"></span>강사가 쓰는 프롬프트의 예 · 내 하네스에 맞게 바꿔 쓰기 · 각자 쓰는 에이전트</div>
+  <div class="tag"><b>그대로 붙여 넣기 가능</b><span class="sep"></span>강사가 쓰는 프롬프트의 예 · 내 하네스에 맞게 바꿔 쓰기 · 각자 쓰는 에이전트</div>
   <h2>첫 프롬프트(예): 코드 전 질문은 하나씩, 설계는 ADR로</h2>
   <div class="row">
     <div class="term" style="font-size:19px"><span class="acc">&gt;</span> 내 하네스 저장소(메모 앱 <span class="acc">PoC</span>(Proof of Concept, 개념 증명))에 장치를 더하고 싶다.
@@ -66,9 +66,9 @@
   <span class="acc">스모크로 확인할 시나리오 목록</span>을 쓰고
   내가 “승인”이라고 할 때까지 기다려.</div>
     <div>
-      <div class="frame" style="max-height:330px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/common-workflows</span></div><img src="assets/captures/page-worktree.jpg" alt="Claude Code 공통 워크플로 문서"></div>
+      <div class="frame" style="max-height:330px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/common-workflows</span></div><img src="assets/captures/page-worktree.jpg" alt="Claude Code 공통 워크플로우 문서"></div>
       <div class="kind">공식 문서 화면 캡처 · 2026-10-28 확인</div>
-      <div class="ko">Claude Code 문서의 ‘공통 워크플로’. 목차에 <b>워크트리로 병렬 세션을 돌려 동시 수정이 충돌하지 않게</b> 하는 절이 있다.</div>
+      <div class="ko">Claude Code 문서의 ‘공통 워크플로우’. 목차에 <b>워크트리로 병렬 세션을 돌려 동시 수정이 충돌하지 않게</b> 하는 절이 있다.</div>
     </div>
   </div>
   <aside>4교시와 같은 방식의 프롬프트입니다. 아직 파일을 만들지 말 것, 질문은 한 번에 하나씩 추천 답과 함께, 정리한 설계는 사용자가 승인할 때까지 기다릴 것, 이 세 가지를 못 박습니다. 하나 더, 끝에 스모크 시나리오 목록을 달라고 합니다. 코드를 열어 보지 않는 대신 돌려서 확인하기 위해서입니다. 이번에는 고를 수 있는 항목이 몇 묶음 있습니다. 이슈를 어떻게 격리하고 합칠지, 이슈별 순서를 스킬로 만들지, 어떤 외부 도구를 붙일지, /goal로 맡길지입니다. 위 프롬프트는 제가 고른 경우이고, 여러분은 후보를 바꿔 쓰시면 됩니다. 결과는 새 ADR 한 건으로 남깁니다. 4교시에 만든 문서가 있으면 에이전트가 먼저 읽도록 저장소 안에서 시키면 됩니다. 오른쪽은 워크트리를 설명하는 공식 문서 화면입니다.</aside>
@@ -77,7 +77,7 @@
 
 <!-- 05 에이전트가 물어야 할 질문 -->
 <section class="slide" data-title="설계 질문 7가지">
-  <div class="tag"><b>설계 대화 체크리스트</b><span class="sep"></span>강사가 쓰는 질문의 예 · 15단계 + 스킬 · MCP · /goal · 에이전트가 묻지 않으면 내가 먼저 꺼낸다</div>
+  <div class="tag"><b>설계 대화 체크리스트</b><span class="sep"></span>강사가 쓰는 질문의 예 · 15단계 + 스킬 · MCP · /goal · 안 물으면 먼저 꺼내기</div>
   <h2>에이전트가 물을 질문: 격리·리뷰·스킬·MCP·완료 조건</h2>
   <table class="tbl">
     <tr><th>주제</th><th>에이전트가 물을 것</th><th>예시 답</th><th>빠지면</th></tr>
@@ -95,7 +95,7 @@
 
 <!-- 06 15단계 결정 요약 -->
 <section class="slide" data-title="15단계 결정 요약">
-  <div class="tag"><b>18단계 중 15단계</b><span class="sep"></span>에이전트가 정리한 결정 한 줄 요약 · 예시 · ADR 본문을 읽지 않고 이 표만 본다</div>
+  <div class="tag"><b>18단계 중 15단계</b><span class="sep"></span>에이전트가 정리한 결정 한 줄 요약 · 예시 · ADR 본문 대신 이 표만 확인</div>
   <h2>15단계의 결과: ADR 한 건의 결정 요약</h2>
   <div class="row" style="grid-template-columns:1.6fr 1fr;gap:36px">
     <table class="tbl">
@@ -118,7 +118,7 @@
 
 <!-- 07 승인 전에 볼 것 -->
 <section class="slide" data-title="승인 전에 볼 것">
-  <div class="tag"><b>승인 체크리스트</b><span class="sep"></span>내가 한 답 · 에이전트가 정리한 결정 · 스모크 시나리오, 이 세 가지만 본다</div>
+  <div class="tag"><b>승인 체크리스트</b><span class="sep"></span>내가 한 답 · 에이전트가 정리한 결정 · 스모크 시나리오, 이 세 가지만 확인</div>
   <h2>승인 전에 확인할 다섯 가지</h2>
   <div class="row flip">
     <div class="points">
@@ -141,7 +141,7 @@
 
 <!-- 08 스킬 프롬프트와 스모크 -->
 <section class="slide" data-title="스킬: 프롬프트와 스모크">
-  <div class="tag"><b>이슈별 워크플로우 1–8단계</b><span class="sep"></span>스킬 = 반복하는 작업 순서를 한 묶음으로 · 필요하면 · 아래 스모크 결과는 모두 예시</div>
+  <div class="tag"><b>이슈별 워크플로우 1–8단계</b><span class="sep"></span>스킬 = 반복하는 작업 순서를 한 묶음으로 · 선택 사항 · 아래 스모크 결과는 모두 예시</div>
   <h2>스킬 만들기: 하네스에게 맡기고 실제 호출로 확인</h2>
   <div class="row even">
     <div class="term" style="font-size:17px"><span class="dim"># 프롬프트</span>
@@ -164,7 +164,7 @@
 
 <!-- 09 MCP 프롬프트와 스모크 -->
 <section class="slide" data-title="MCP: 프롬프트와 스모크">
-  <div class="tag"><b>문서 조회 MCP 서버 하나</b><span class="sep"></span>외부 도구를 에이전트에 연결하는 규약 MCP · 필요하면 · 대표 Context7 · 스모크 결과는 예시</div>
+  <div class="tag"><b>문서 조회 MCP 서버 하나</b><span class="sep"></span>외부 도구를 에이전트에 연결하는 규약 MCP · 선택 사항 · 대표 Context7 · 스모크 결과는 예시</div>
   <h2>MCP 연결: 하네스에게 맡기고 직접 호출로 확인</h2>
   <div class="row even">
     <div class="term" style="font-size:17px"><span class="dim"># 프롬프트</span>
@@ -185,7 +185,7 @@
 
 <!-- 10 /goal 프롬프트와 스모크 -->
 <section class="slide" data-title="/goal: 프롬프트와 스모크">
-  <div class="tag"><b>2026-05-11</b><span class="sep"></span>/goal(조건을 만족할 때까지 계속 일하게 하는 기능) · 필요하면 · 완료 조건은 프롬프트 · 스모크 결과는 예시</div>
+  <div class="tag"><b>2026-05-11</b><span class="sep"></span>/goal(조건을 만족할 때까지 계속 일하게 하는 기능) · 선택 사항 · 완료 조건은 프롬프트 · 스모크 결과는 예시</div>
   <h2>이슈를 맡기는 /goal 조건: 끝 상태·증명·상한</h2>
   <div class="row" style="grid-template-columns:1.4fr 1fr;gap:36px">
     <div class="term" style="font-size:16px;line-height:1.4"><span class="warn">✗</span> /goal 12번 이슈 잘 처리해 줘
@@ -238,7 +238,7 @@
 
 <!-- 12 스모크 시나리오 표 -->
 <section class="slide" data-title="스모크 시나리오 표">
-  <div class="tag"><b>약 10분</b><span class="sep"></span>이슈별 워크플로우 1–8단계 · 내가 고른 장치에 맞게 시나리오를 바꾼다 · 실제 결과 칸은 직접 채운다</div>
+  <div class="tag"><b>약 10분</b><span class="sep"></span>이슈별 워크플로우 1–8단계 · 고른 장치에 맞게 시나리오 수정 · 실제 결과 칸은 직접 기록</div>
   <h2>스모크: 스킬 호출 확인과 일부러 어기기</h2>
   <table class="tbl">
     <tr><th>시나리오(내가 하는 말)</th><th>기대 결과</th><th>실제 결과</th><th>통과</th></tr>
@@ -302,7 +302,7 @@
 <!-- 15 막힐 때 -->
 <section class="slide" data-title="막힐 때">
   <div class="tag"><b>증상별</b><span class="sep"></span>설치·문법이 아니라 하네스에게 다시 할 말</div>
-  <h2>막힐 때 하네스에게 다시 할 말</h2>
+  <h2>막힐 때: 하네스에게 다시 할 말</h2>
   <table class="tbl">
     <tr><th>증상</th><th>이렇게 다시 말한다</th></tr>
     <tr><td>스모크에서 스킬이 안 불린다</td><td>“방금 왜 안 불렸는지 설명하고, 내가 실제로 할 말에 불리게 고친 뒤 같은 문장으로 다시 보여 줘.”</td></tr>

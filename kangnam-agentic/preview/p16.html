@@ -28,7 +28,7 @@ html,body{height:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
 .stage{position:fixed;inset:0;display:grid;place-items:center}
-.deck{width:1600px;height:900px;position:relative;transform-origin:center center}
+.deck{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center center}
 .slide{position:absolute;inset:0;display:none;padding:64px 88px 72px;flex-direction:column;gap:28px}
 .slide.on{display:flex}
 .slide aside{display:none}
@@ -161,7 +161,7 @@ p{margin:0}
 .hud button:focus-visible,.hud select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .notes{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:44px;max-height:38vh;overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.65}
 @media (prefers-reduced-motion:no-preference){.slide.on{animation:in .25s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
-@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
+@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;position:static;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
 
 /* keep captures inside their column: the wrapper shrinks, the frame clips from the top */
 .row > div:has(> .frame){display:flex;flex-direction:column;min-height:0;max-height:100%;align-self:stretch;justify-content:center}
@@ -195,11 +195,11 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 </style>
 <div class="stage"><div class="deck" id="deck">
-<!-- 16교시 · 페르소나 평가, REA, 마지막 실습 안내 (60분, 4회차 2026-11-26). 강의 + 실습: 이슈별 워크플로우 9–12 · 17·18단계 · 내 하네스 v3 해 볼 것. 2026-10-29 실습·과제 장을 프롬프트+스모크 구성으로 재작성. 2026-10-29 11:30 자유 하네스(plan/free-harness-brief.md) 반영. -->
+<!-- 16교시 · 페르소나 평가, REA, 마지막 실습 안내 (60분, 4회차 2026-11-24). 강의 + 실습: 이슈별 워크플로우 9–12 · 17·18단계 · 내 하네스 v3 해 볼 것. 2026-10-29 실습·과제 장을 프롬프트+스모크 구성으로 재작성. 2026-10-29 11:30 자유 하네스(plan/free-harness-brief.md) 반영. -->
 
 <!-- 01 표지 -->
 <section data-period="16" class="slide section-slide" data-title="표지">
-  <div class="tag"><b>4회차 · 16교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-26</div>
+  <div class="tag"><b>4회차 · 16교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-24</div>
   <div class="big">4회차 · 16교시</div>
   <h1>페르소나 평가,<br>REA, 마지막 실습</h1>
   <div class="strip">
@@ -235,20 +235,20 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 <!-- 03 페르소나 평가란 -->
 <section data-period="16" class="slide" data-title="페르소나 평가">
-  <div class="tag"><b>페르소나 평가</b><span class="sep"></span>강사 운영 방식 · 단계 20</div>
-  <h2>페르소나 평가: 고객이 되어 눌러보고, 고친다</h2>
+  <div class="tag"><b>페르소나 평가</b><span class="sep"></span>강사 운영 방식 · 스모크 다음</div>
+  <h2>페르소나 평가: 고객이 되어 눌러보기 → 고치기</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1071 406"><svg class="d2-2918997582 d2-svg" width="1071" height="406" viewBox="-21 -21 1071 406"><g class="cA=="><g class="shape" ><rect x="0.000000" y="0.000000" width="458.000000" height="122.000000" class="box-inner"  /></g><text x="229.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="229.000000" dy="0.000000">1. 페르소나 주입</tspan><tspan x="229.000000" dy="38.500000">고객 한 명을 적은 파일</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="628.000000" y="0.000000" width="401.000000" height="122.000000" class="box-inner hot"  /></g><text x="828.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="828.500000" dy="0.000000">2. 그 사람처럼 클릭</tspan><tspan x="828.500000" dy="38.500000">브라우저로 앱 사용</tspan></text></g><g class="Zml4"><g class="shape" ><rect x="0.000000" y="242.000000" width="458.000000" height="122.000000" class="box-inner"  /></g><text x="229.000000" y="298.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="229.000000" dy="0.000000">4. 고치고 재평가</tspan><tspan x="229.000000" dy="38.500000">같은 페르소나로</tspan></text></g><g class="Zg=="><g class="shape" ><rect x="628.000000" y="242.000000" width="401.000000" height="122.000000" class="box-inner"  /></g><text x="828.500000" y="298.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="828.500000" dy="0.000000">3. 피드백을 이슈로</tspan><tspan x="828.500000" dy="38.500000">막힌 곳·증거·재현</tspan></text></g><g class="KHAgLSZndDsgYylbMF0="><marker id="u1-mk-d2-2918997582-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 459.500000 61.000000 L 624.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-2918997582-3488378134)" mask="url(#u1-d2-2918997582)" /></g><g class="KGMgLSZndDsgZilbMF0="><path d="M 828.500000 124.000000 L 828.500000 238.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-2918997582-3488378134)" mask="url(#u1-d2-2918997582)" /></g><g class="KGYgLSZndDsgZml4KVswXQ=="><path d="M 626.000000 303.000000 L 462.000000 303.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-2918997582-3488378134)" mask="url(#u1-d2-2918997582)" /></g><g class="KGZpeCAtJmd0OyBjKVswXQ=="><path d="M 382.354359 241.250764 L 673.791283 123.498472" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-2918997582-3488378134)" mask="url(#u1-d2-2918997582)" /><text x="529.000000" y="192.000000" class="edge-label" style="text-anchor:middle;font-size:26px">개선 루프</text></g><mask id="u1-d2-2918997582" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1071" height="406">
 <rect x="-21" y="-21" width="1071" height="406" fill="white"></rect>
 <rect x="463.000000" y="166.000000" width="132" height="33" fill="black"></rect>
 </mask></svg></svg></div>
   <p class="under">사람 대신 <b>에이전트가 고객 한 명(페르소나: 고객을 글로 적은 프로필)을 연기</b>하며 앱을 씁니다. 막힌 곳은 이슈가 되고, 고친 뒤 같은 사람으로 다시 평가합니다.</p>
-  <aside>먼저 용어를 세우면, LLM(Large Language Model, 대규모 언어 모델)이 가상 인물(페르소나)을 연기하며 행동하게 하는 일을 LLM 페르소나 시뮬레이션이라고 부릅니다. 이것을 앱 평가에 쓰는 것이 페르소나 평가이고, 대표적인 연구와 도구로 UXAgent와 TinyTroupe가 있습니다. 페르소나 평가는 네 단계입니다. 첫째, 실제 고객을 글로 적은 페르소나 파일을 에이전트에게 주입합니다. 둘째, 에이전트가 브라우저로 앱을 직접 눌러봅니다. 이때 개발자의 관점이 아니라 그 고객의 목표와 버릇으로 행동하게 합니다. 셋째, 막힌 곳과 불편을 이슈로 남깁니다. 넷째, 워커가 고친 뒤 같은 페르소나로 다시 돌립니다. 저는 이 루프를 자기 개선 루프라고 부르고, 이슈 원장과 코디네이터 위에서 돌립니다.</aside>
+  <aside>먼저 용어부터 정리하겠습니다. LLM(Large Language Model, 대규모 언어 모델)이 가상 인물(페르소나)을 연기하며 행동하게 하는 일을 LLM 페르소나 시뮬레이션이라고 부릅니다. 이것을 앱 평가에 쓰는 것이 페르소나 평가이고, 대표적인 연구와 도구로 UXAgent와 TinyTroupe가 있습니다. 페르소나 평가는 네 단계입니다. 첫째, 실제 고객을 글로 적은 페르소나 파일을 에이전트에게 주입합니다. 둘째, 에이전트가 브라우저로 앱을 직접 눌러봅니다. 이때 개발자의 관점이 아니라 그 고객의 목표와 버릇으로 행동하게 합니다. 셋째, 막힌 곳과 불편을 이슈로 남깁니다. 넷째, 워커가 고친 뒤 같은 페르소나로 다시 돌립니다. 이 루프를 자기 개선 루프라고 부르며, 이슈 원장과 코디네이터 위에서 돌립니다.</aside>
 </section>
 
 <!-- 04 UXAgent -->
 <section data-period="16" class="slide" data-title="UXAgent">
   <div class="tag"><b>LLM(Large Language Model, 대규모 언어 모델) 가상 사용자 시뮬레이션 · 대표 연구 UXAgent</b><span class="sep"></span>2025-02-18 · arXiv 2502.12561 · 2025-04-05 v3</div>
-  <h2>LLM 가상 사용자 시뮬레이션의 연구 사례, UXAgent: 사용성 시험을 미리 돌려 본다</h2>
+  <h2>LLM 가상 사용자 연구 UXAgent: 사용성 시험 미리 돌리기</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>arxiv.org/abs/2502.12561</span></div><img src="assets/captures/page-uxagent.jpg" alt="UXAgent 논문 초록 화면"></div>
@@ -263,13 +263,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       </div>
     </div>
   </div>
-  <aside>LLM 가상 사용자 시뮬레이션의 첫 번째 근거는 2025년 2월에 공개된 UXAgent 논문입니다. 사용성 테스트는 참가자를 모집하기 어렵고 설계가 틀리면 다시 해야 한다는 문제가 있습니다. 논문은 LLM 에이전트와 브라우저 연결 모듈을 묶어 수천 명의 시뮬레이션 사용자로 웹사이트를 시험하는 체계를 제안합니다. 결과는 에이전트가 어떻게 생각했는지, 몇 번 행동했는지, 영상으로 남습니다. 초록이 밝히는 목적은 실제 사람 실험 전에 연구 설계를 평가하고 다듬는 것이라는 점에 주목합니다. 장점은 사람을 모으기 전에 설계를 점검하는 것, 단점은 사람 실험의 대체가 아니라는 것, 의미는 페르소나 평가의 근거라는 점입니다.</aside>
+  <aside>LLM 가상 사용자 시뮬레이션의 첫 번째 근거는 2025년 2월에 공개된 UXAgent 논문입니다. 사용성 테스트는 참가자를 모집하기 어렵고 설계가 틀리면 다시 해야 한다는 문제가 있습니다. 논문은 LLM 에이전트와 브라우저 연결 모듈을 묶어 수천 명의 시뮬레이션 사용자로 웹사이트를 시험하는 체계를 제안합니다. 결과로는 에이전트가 어떻게 생각했는지, 몇 번 행동했는지가 영상과 함께 남습니다. 초록이 밝히는 목적은 실제 사람 실험 전에 연구 설계를 평가하고 다듬는 것이라는 점에 주목해 주세요. 장점은 사람을 모으기 전에 설계를 점검하는 것, 단점은 사람 실험의 대체가 아니라는 것, 의미는 페르소나 평가의 근거라는 점입니다.</aside>
 </section>
 
 <!-- 05 TinyTroupe -->
 <section data-period="16" class="slide" data-title="TinyTroupe">
   <div class="tag"><b>LLM 페르소나 시뮬레이션 · 대표 도구 TinyTroupe</b><span class="sep"></span>2025-07-13 · 2026-03-28 · arXiv 2507.09788 · microsoft/TinyTroupe 0.7.0</div>
-  <h2>LLM 페르소나 시뮬레이션 라이브러리, TinyTroupe: 성격과 목표를 준 가상 인물</h2>
+  <h2>TinyTroupe: 성격·목표를 준 LLM 가상 인물 라이브러리</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>arxiv.org/abs/2507.09788</span></div><img src="assets/captures/p16-tinytroupe.jpg" alt="TinyTroupe 논문 arXiv 화면"></div>
@@ -284,39 +284,39 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       </div>
     </div>
   </div>
-  <aside>두 번째 근거는 LLM 페르소나 시뮬레이션 라이브러리인 Microsoft의 TinyTroupe입니다. 성격과 관심사와 목표를 가진 가상 인물을 만들어 서로 대화하고 행동하게 하는 실험적 Python 라이브러리입니다. README는 활용 예로 광고를 가상 청중으로 평가하기, 소프트웨어에 테스트 입력을 주고 결과를 평가하기, 포커스 그룹 시뮬레이션, 특정 직군 관점의 제안 피드백을 듭니다. 2025년 7월 논문이 공개됐고, README 소식란에는 2026년 3월 28일 0.7.0 릴리스가 적혀 있습니다. 저희는 이 라이브러리를 그대로 쓰지 않아도, 페르소나를 상세히 정의해 주입한다는 발상을 가져옵니다. 장점은 가상 인물을 상세히 정의할 수 있다는 것, 단점은 실험적이고 의사결정용이 아니라는 것, 의미는 페르소나 주입 발상을 가져온다는 점입니다.</aside>
+  <aside>두 번째 근거는 LLM 페르소나 시뮬레이션 라이브러리인 Microsoft의 TinyTroupe입니다. 성격과 관심사와 목표를 가진 가상 인물을 만들어 서로 대화하고 행동하게 하는 실험적 Python 라이브러리입니다. README가 드는 활용 예는 광고를 가상 청중으로 평가하기, 소프트웨어에 테스트 입력을 주고 결과를 평가하기, 포커스 그룹 시뮬레이션, 특정 직군 관점의 제안 피드백입니다. 2025년 7월 논문이 공개됐고, README 소식란에는 2026년 3월 28일 0.7.0 릴리스가 적혀 있습니다. 우리 과정에서는 이 라이브러리를 그대로 쓰지 않아도, 페르소나를 상세히 정의해 주입한다는 발상을 가져옵니다. 장점은 가상 인물을 상세히 정의할 수 있다는 것, 단점은 실험적이고 의사결정용이 아니라는 것, 의미는 페르소나 주입 발상을 가져온다는 점입니다.</aside>
 </section>
 
 <!-- 06 한계 -->
 <section data-period="16" class="slide" data-title="사람 테스트의 대체가 아니다">
   <div class="tag"><b>한계</b><span class="sep"></span>UXAgent 초록 · TinyTroupe README 경고문</div>
-  <h2>가상 사용자는 사전 점검이다, 최종 판정이 아니다</h2>
+  <h2>가상 사용자: 최종 판정이 아닌 사전 점검</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 443 628"><svg class="d2-1959908515 d2-svg" width="443" height="628" viewBox="-21 -21 443 628"><g class="c21va2U="><g class="shape" ><rect x="0.000000" y="0.000000" width="401.000000" height="122.000000" class="box-inner"  /></g><text x="200.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="200.500000" dy="0.000000">스모크 테스트</tspan><tspan x="200.500000" dy="38.500000">동작하는가?</tspan></text></g><g class="cGVyc29uYQ=="><g class="shape" ><rect x="0.000000" y="232.000000" width="401.000000" height="122.000000" class="box-inner hot"  /></g><text x="200.500000" y="288.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="200.500000" dy="0.000000">페르소나 평가</tspan><tspan x="200.500000" dy="38.500000">쓸 만한가?</tspan></text></g><g class="aHVtYW4="><g class="shape" ><rect x="0.000000" y="464.000000" width="401.000000" height="122.000000" class="box-inner"  /></g><text x="200.500000" y="520.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="200.500000" dy="0.000000">실제 사용자 테스트</tspan><tspan x="200.500000" dy="38.500000">진짜 사람이 확인</tspan></text></g><g class="KHNtb2tlIC0mZ3Q7IHBlcnNvbmEpWzBd"><marker id="u2-mk-d2-1959908515-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 200.500000 124.000000 L 200.500000 228.000000" class="edge" style="stroke-width:2;" marker-end="url(#u2-mk-d2-1959908515-3488378134)" mask="url(#u2-d2-1959908515)" /><text x="201.000000" y="187.000000" class="edge-label" style="text-anchor:middle;font-size:26px">자동 클릭</text></g><g class="KHBlcnNvbmEgLSZndDsgaHVtYW4pWzBd"><path d="M 200.500000 356.000000 L 200.500000 460.000000" class="edge" style="stroke-width:2;" marker-end="url(#u2-mk-d2-1959908515-3488378134)" mask="url(#u2-d2-1959908515)" /><text x="201.000000" y="419.000000" class="edge-label" style="text-anchor:middle;font-size:26px">사람 확인</text></g><mask id="u2-d2-1959908515" maskUnits="userSpaceOnUse" x="-21" y="-21" width="443" height="628">
 <rect x="-21" y="-21" width="443" height="628" fill="white"></rect>
 <rect x="135.000000" y="161.000000" width="132" height="33" fill="black"></rect>
 <rect x="135.000000" y="393.000000" width="132" height="33" fill="black"></rect>
 </mask></svg></svg></div>
   <p class="under">TinyTroupe README: 결과는 <b>“insight generation”(통찰을 얻기)</b>용이고 직접 의사결정용이 아닙니다. UXAgent도 실제 참가자 연구 <b>이전</b> 단계로 제안합니다.</p>
-  <aside>두 출처가 공통으로 경고하는 점이 있습니다. TinyTroupe README는 연구와 시뮬레이션 용도이며 산출물을 통찰을 얻는 데 쓰고 직접적인 의사결정에 쓰지 말라고 적습니다. UXAgent도 실제 참가자 실험 전에 설계를 점검하는 도구로 제안합니다. 그래서 저는 페르소나 평가를 스모크와 실제 사용자 사이의 중간 단계로 둡니다. 싸고 빠르게 막힌 곳을 많이 찾아 주지만, 진짜 고객이 그렇게 느끼는지는 사람에게 확인해야 합니다. 이 한계를 아는 것이 5회차 공유에서 나누면 좋은 이야기이기도 합니다.</aside>
+  <aside>두 출처가 공통으로 경고하는 점이 있습니다. TinyTroupe README는 연구와 시뮬레이션 용도이며 산출물을 통찰을 얻는 데 쓰고 직접적인 의사결정에 쓰지 말라고 적습니다. UXAgent도 실제 참가자 실험 전에 설계를 점검하는 도구로 제안합니다. 그래서 저는 페르소나 평가를 스모크와 실제 사용자 사이의 중간 단계로 둡니다. 싸고 빠르게 막힌 곳을 많이 찾아 주지만, 진짜 고객이 그렇게 느끼는지는 사람에게 확인해야 합니다. 이 한계는 5회차 공유에서 나누기 좋은 이야기이기도 합니다.</aside>
 </section>
 
 <!-- 07 페르소나 출처 -->
 <section data-period="16" class="slide" data-title="페르소나는 어디서 오나">
   <div class="tag"><b>입력 준비</b><span class="sep"></span>실제 고객 자료 → 페르소나 파일 · 강사 운영 방식</div>
-  <h2>페르소나는 지어내지 않고, 실제 고객에서 뽑는다</h2>
+  <h2>페르소나의 출처: 지어낸 인물 대신 실제 고객</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1821 506"><svg class="d2-1572103682 d2-svg" width="1821" height="506" viewBox="-9 -9 1821 506"><g class="cmVhbA=="><g class="shape" ><rect x="12.000000" y="12.000000" width="438.000000" height="464.000000" class="box-outer"  /></g><text x="231.000000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">실제 고객 자료</text></g><g class="Y2xlYW4="><g class="shape" ><rect x="652.000000" y="76.000000" width="528.000000" height="336.000000" class="box-outer"  /></g><text x="916.000000" y="115.000000" class="label-outer" style="text-anchor:middle;font-size:34px">정리</text></g><g class="ZmlsZQ=="><g class="shape" ><rect x="1484.000000" y="183.000000" width="307.000000" height="122.000000" class="box-inner hot"  /></g><text x="1637.500000" y="239.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1637.500000" dy="0.000000">페르소나 파일</tspan><tspan x="1637.500000" dy="38.500000">personas/*.md</tspan></text></g><g class="cmVhbC5h"><g class="shape" ><rect x="72.000000" y="72.000000" width="318.000000" height="88.000000" class="box-inner"  /></g><text x="231.000000" y="128.500000" class="label-inner" style="text-anchor:middle;font-size:34px">문의·불만 기록</text></g><g class="cmVhbC5i"><g class="shape" ><rect x="72.000000" y="200.000000" width="318.000000" height="88.000000" class="box-inner"  /></g><text x="231.000000" y="256.500000" class="label-inner" style="text-anchor:middle;font-size:34px">인터뷰 메모</text></g><g class="cmVhbC5j"><g class="shape" ><rect x="72.000000" y="328.000000" width="318.000000" height="88.000000" class="box-inner"  /></g><text x="231.000000" y="384.500000" class="label-inner" style="text-anchor:middle;font-size:34px">사용 로그 요약</text></g><g class="Y2xlYW4uZA=="><g class="shape" ><rect x="712.000000" y="136.000000" width="408.000000" height="88.000000" class="box-inner"  /></g><text x="916.000000" y="192.500000" class="label-inner" style="text-anchor:middle;font-size:34px">개인 식별 정보 제거</text></g><g class="Y2xlYW4uZQ=="><g class="shape" ><rect x="712.000000" y="264.000000" width="408.000000" height="88.000000" class="box-inner"  /></g><text x="916.000000" y="320.500000" class="label-inner" style="text-anchor:middle;font-size:34px">공통 패턴으로 묶기</text></g><g class="KHJlYWwgLSZndDsgY2xlYW4pWzBd"><marker id="u3-mk-d2-1572103682-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 452.000000 244.000000 L 648.000000 244.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-1572103682-3488378134)" mask="url(#u3-d2-1572103682)" /><text x="551.000000" y="254.000000" class="edge-label" style="text-anchor:middle;font-size:26px">요약</text></g><g class="KGNsZWFuIC0mZ3Q7IGZpbGUpWzBd"><path d="M 1182.000000 244.000000 L 1480.000000 244.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-1572103682-3488378134)" mask="url(#u3-d2-1572103682)" /><text x="1332.000000" y="254.000000" class="edge-label" style="text-anchor:middle;font-size:26px">한 명씩 작성</text></g><mask id="u3-d2-1572103682" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1821" height="506">
 <rect x="-9" y="-9" width="1821" height="506" fill="white"></rect>
 <rect x="518.000000" y="228.000000" width="66" height="33" fill="black"></rect>
 <rect x="1248.000000" y="228.000000" width="168" height="33" fill="black"></rect>
 </mask></svg></svg></div>
   <p class="under">문의·불만·인터뷰에서 <b>반복되는 사람 유형</b>을 한 명씩 적습니다. 이름·연락처 같은 식별 정보는 지웁니다.</p>
-  <aside>페르소나를 상상으로 쓰면 에이전트가 그럴듯한 고객을 연기할 뿐, 실제 고객이 겪는 문제는 나오지 않습니다. 저는 실제 고객의 문의, 불만, 인터뷰 메모에서 반복되는 유형을 뽑아 한 명씩 파일로 만듭니다. 이때 개인을 식별할 수 있는 정보는 반드시 지웁니다. 실제 고객 자료가 없는 과제에서는 가상 고객을 만들되, 어떤 근거로 그렇게 정했는지 한 줄이라도 남겨 둡니다.</aside>
+  <aside>페르소나를 상상으로 쓰면 에이전트가 그럴듯한 고객을 연기할 뿐, 실제 고객이 겪는 문제는 나오지 않습니다. 실제 고객의 문의, 불만, 인터뷰 메모에서 반복되는 유형을 뽑아 한 명씩 파일로 만듭니다. 이때 개인을 식별할 수 있는 정보는 반드시 지웁니다. 실제 고객 자료가 없는 과제에서는 가상 고객을 만들되, 어떤 근거로 그렇게 정했는지 한 줄이라도 남겨 둡니다.</aside>
 </section>
 
 <!-- 08 페르소나 파일 -->
 <section data-period="16" class="slide" data-title="페르소나 파일 예시">
   <div class="tag"><b>예시 · 가상 인물</b><span class="sep"></span>personas/seoyeon.md</div>
-  <h2>페르소나 파일: 목표와 포기 조건까지 적는다</h2>
+  <h2>페르소나 파일: 목표와 포기 조건까지 기록</h2>
   <div class="row even">
     <div class="term"><span class="acc"># 페르소나: 서연 (가상)</span>
 <span class="dim">누구</span>  38세 사무직, 반려견 2마리를 키움
@@ -347,10 +347,10 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
   - 브라우저 도구로 직접 클릭
   - 단계마다 보이는 것과 누른 이유를 한 줄
   - 포기 조건에 닿으면 멈추고 이유 기록
-  - 결과는 evals/2026-11-26/seoyeon.md"
+  - 결과는 evals/2026-11-24/seoyeon.md"
 
-<span class="ok">✓</span> evals/2026-11-26/seoyeon-01.png …
-<span class="ok">✓</span> evals/2026-11-26/seoyeon.md</div>
+<span class="ok">✓</span> evals/2026-11-24/seoyeon-01.png …
+<span class="ok">✓</span> evals/2026-11-24/seoyeon.md</div>
     <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 931 588"><svg class="d2-3542068362 d2-svg" width="931" height="588" viewBox="-21 -21 931 588"><g class="YWdlbnQ="><g class="shape" ><rect x="0.000000" y="0.000000" width="411.000000" height="122.000000" class="box-inner hot"  /></g><text x="205.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="205.500000" dy="0.000000">평가 에이전트</tspan><tspan x="205.500000" dy="38.500000">페르소나·과업 한 줄</tspan></text></g><g class="eDE=" style='opacity:0.000000'><g class="shape" ><rect x="481.000000" y="0.000000" width="408.000000" height="122.000000" class="box-inner"  /></g></g><g class="YnJvd3Nlcg=="><g class="shape" ><rect x="0.000000" y="212.000000" width="411.000000" height="122.000000" class="box-inner"  /></g><text x="205.500000" y="268.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="205.500000" dy="0.000000">브라우저 도구</tspan><tspan x="205.500000" dy="38.500000">Playwright MCP</tspan></text></g><g class="bG9n"><g class="shape" ><rect x="481.000000" y="212.000000" width="408.000000" height="122.000000" class="box-inner"  /></g><text x="685.000000" y="268.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="685.000000" dy="0.000000">증거 저장</tspan><tspan x="685.000000" dy="38.500000">스크린샷·기록·요약</tspan></text></g><g class="YXBw"><g class="shape" ><rect x="0.000000" y="424.000000" width="411.000000" height="122.000000" class="box-inner"  /></g><text x="205.500000" y="480.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="205.500000" dy="0.000000">내 앱</tspan><tspan x="205.500000" dy="38.500000">화면·콘솔 돌려줌</tspan></text></g><g class="eDI=" style='opacity:0.000000'><g class="shape" ><rect x="481.000000" y="424.000000" width="408.000000" height="122.000000" class="box-inner"  /></g></g><g class="KGFnZW50IC0mZ3Q7IGJyb3dzZXIpWzBd"><marker id="u5-mk-d2-3542068362-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 205.500000 124.000000 L 205.500000 208.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3542068362-3488378134)" mask="url(#u5-d2-3542068362)" /><text x="206.000000" y="177.000000" class="edge-label" style="text-anchor:middle;font-size:26px">클릭·입력</text></g><g class="KGJyb3dzZXIgJmx0Oy0mZ3Q7IGFwcClbMF0="><marker id="u5-mk-d2-3542068362-2451250203" markerWidth="10.000000" markerHeight="12.000000" refX="3.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="10.000000,0.000000 0.000000,6.000000 10.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 205.500000 338.000000 L 205.500000 420.000000" class="edge" style="stroke-width:2;" marker-start="url(#u5-mk-d2-3542068362-2451250203)" marker-end="url(#u5-mk-d2-3542068362-3488378134)" mask="url(#u5-d2-3542068362)" /></g><g class="KGJyb3dzZXIgLSZndDsgbG9nKVswXQ=="><path d="M 413.000000 273.000000 L 477.000000 273.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3542068362-3488378134)" mask="url(#u5-d2-3542068362)" /></g><mask id="u5-d2-3542068362" maskUnits="userSpaceOnUse" x="-21" y="-21" width="931" height="588">
 <rect x="-21" y="-21" width="931" height="588" fill="white"></rect>
 <rect x="139.000000" y="151.000000" width="134" height="33" fill="black"></rect>
@@ -378,12 +378,12 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 11 이슈화 -->
 <section data-period="16" class="slide" data-title="피드백을 이슈로">
   <div class="tag"><b>이슈 원장 연결</b><span class="sep"></span>14교시 이슈 원장 · 강사 운영 방식</div>
-  <h2>피드백은 이슈로: 재현 경로와 증거를 붙인다</h2>
+  <h2>피드백은 이슈로: 재현 경로·증거 첨부</h2>
   <div class="row even">
     <div class="term"><span class="acc">제목</span> [페르소나] 예약 변경 버튼이 없어 포기
 <span class="dim">페르소나</span> seoyeon (포기 조건: 3분 초과)
 <span class="dim">재현</span> 홈 → 내 예약 → 카드에 ‘취소’만 있음
-<span class="dim">증거</span> evals/2026-11-26/seoyeon-03.png
+<span class="dim">증거</span> evals/2026-11-24/seoyeon-03.png
 <span class="dim">반응</span> “취소하고 다시 잡아야 하나?”
 <span class="dim">기대</span> 예약 카드에 ‘변경’ 노출
 <span class="dim">라벨</span> persona-eval · ux · p1</div>
@@ -398,7 +398,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 12 자기 개선 루프 -->
 <section data-period="16" class="slide" data-title="자기 개선 루프">
   <div class="tag"><b>자기 개선 루프</b><span class="sep"></span>코디네이터 + 이슈 원장 + 페르소나 평가 · 강사 운영 방식</div>
-  <h2>자기 개선 루프: 평가가 다음 배치를 만든다</h2>
+  <h2>자기 개선 루프: 평가 결과 → 다음 배치</h2>
   <div class="row flip">
     <div class="points">
       <ul>
@@ -416,22 +416,22 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <rect x="124.000000" y="348.000000" width="66" height="33" fill="black"></rect>
 </mask></svg></svg></div>
   </div>
-  <aside>이 부분이 13교시의 코디네이터와 14교시의 이슈 원장이 이어지는 곳입니다. 코디네이터가 평가 에이전트를 부르면 페르소나들이 앱을 눌러보고 피드백을 이슈로 남깁니다. 이슈는 워커에게 배치되고, 워커의 수정은 테스트와 스모크를 통과해야 합니다. 그다음 같은 페르소나로 다시 평가합니다. 저는 멈춤 조건부터 정해 둡니다. 막힘이 없어지거나 반복 횟수가 상한에 닿으면 멈춥니다. 상한이 없으면 에이전트가 끝없이 사소한 불편을 고치려 합니다.</aside>
+  <aside>이 부분이 13교시의 코디네이터와 14교시의 이슈 원장이 이어지는 곳입니다. 코디네이터가 평가 에이전트를 부르면 페르소나들이 앱을 눌러보고 피드백을 이슈로 남깁니다. 이슈는 워커에게 배치되고, 워커의 수정은 테스트와 스모크를 통과해야 합니다. 그다음 같은 페르소나로 다시 평가합니다. 멈춤 조건부터 정해 둡니다. 막힘이 없어지거나 반복 횟수가 상한에 닿으면 멈춥니다. 상한이 없으면 에이전트가 끝없이 사소한 불편을 고치려 합니다.</aside>
 </section>
 
 <!-- 질문 시간 (중간) -->
 <section data-period="16" class="slide section-slide" data-title="질문 시간">
   <div class="big">질문 시간 · 약 5분</div>
-  <h1>여기까지,<br>질문 받습니다</h1>
+  <h1>여기까지,<br>질문 시간</h1>
   <p class="lead">지금까지 다룬 것: TinyTroupe · 사람 테스트의 대체가 아니다 · 페르소나는 어디서 오나 · 페르소나 파일 예시 · 눌러보게 하기 · 관찰 항목 · 피드백을 이슈로 · 자기 개선 루프</p>
   <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-devtools-mcp.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-uxagent.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p16-tinytroupe.jpg" alt="앞에서 본 화면"></div></figure></div>
-  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래의 화면들 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
+  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
 </section>
 
 <!-- 13 강사 실제 실행 -->
 <section data-period="16" class="slide" data-title="강사 실제 실행">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>페르소나 평가 실행 화면 · 교체 예정</div>
-  <h2>제 서비스에서 돌리는 모습</h2>
+  <h2>강사 서비스의 페르소나 평가</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1501 416"><svg class="d2-985212405 d2-svg" width="1501" height="416" viewBox="-21 -21 1501 416"><g class="Y3VzdA=="><g class="shape" ><rect x="0.000000" y="0.000000" width="401.000000" height="122.000000" class="box-inner"  /></g><text x="200.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="200.500000" dy="0.000000">실제 고객 페르소나</tspan><tspan x="200.500000" dy="38.500000">(강사 자료)</tspan></text></g><g class="YWdlbnQ="><g class="shape" ><rect x="601.000000" y="0.000000" width="351.000000" height="122.000000" class="box-inner hot"  /></g><text x="776.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="776.500000" dy="0.000000">평가 에이전트</tspan><tspan x="776.500000" dy="38.500000">브라우저로 클릭</tspan></text></g><g class="Ym9hcmQ="><g class="shape" ><rect x="1152.000000" y="0.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="1305.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1305.500000" dy="0.000000">GitHub 이슈</tspan><tspan x="1305.500000" dy="38.500000">프로젝트 보드</tspan></text></g><g class="eA==" style='opacity:0.000000'><g class="shape" ><rect x="0.000000" y="252.000000" width="401.000000" height="122.000000" class="box-inner"  /></g></g><g class="YXBw"><g class="shape" ><rect x="601.000000" y="252.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="776.500000" y="308.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="776.500000" dy="0.000000">강사 운영 중인</tspan><tspan x="776.500000" dy="38.500000">서비스</tspan></text></g><g class="Zml4"><g class="shape" ><rect x="1152.000000" y="252.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="1305.500000" y="308.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1305.500000" dy="0.000000">워커 수정</tspan><tspan x="1305.500000" dy="38.500000">PR → 머지</tspan></text></g><g class="KGN1c3QgLSZndDsgYWdlbnQpWzBd"><marker id="u8-mk-d2-985212405-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 402.500000 61.000000 L 597.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u8-mk-d2-985212405-3488378134)" mask="url(#u8-d2-985212405)" /><text x="501.000000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">주입</text></g><g class="KGFnZW50IC0mZ3Q7IGFwcClbMF0="><path d="M 776.500000 124.000000 L 776.500000 248.000000" class="edge" style="stroke-width:2;" marker-end="url(#u8-mk-d2-985212405-3488378134)" mask="url(#u8-d2-985212405)" /><text x="776.500000" y="197.000000" class="edge-label" style="text-anchor:middle;font-size:26px">눌러보기</text></g><g class="KGFnZW50IC0mZ3Q7IGJvYXJkKVswXQ=="><path d="M 953.500000 61.000000 L 1148.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u8-mk-d2-985212405-3488378134)" mask="url(#u8-d2-985212405)" /><text x="1052.500000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">피드백</text></g><g class="KGJvYXJkIC0mZ3Q7IGZpeClbMF0="><path d="M 1305.500000 124.000000 L 1305.500000 248.000000" class="edge" style="stroke-width:2;" marker-end="url(#u8-mk-d2-985212405-3488378134)" mask="url(#u8-d2-985212405)" /></g><g class="KGZpeCAtJmd0OyBhcHApWzBd"><path d="M 1150.500000 313.000000 L 955.500000 313.000000" class="edge" style="stroke-width:2;" marker-end="url(#u8-mk-d2-985212405-3488378134)" mask="url(#u8-d2-985212405)" /><text x="1052.000000" y="323.000000" class="edge-label" style="text-anchor:middle;font-size:26px">배포</text></g><mask id="u8-d2-985212405" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1501" height="416">
 <rect x="-21" y="-21" width="1501" height="416" fill="white"></rect>
 <rect x="468.000000" y="45.000000" width="66" height="33" fill="black"></rect>
@@ -446,7 +446,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 14 REA 무엇 -->
 <section data-period="16" class="slide" data-title="REA: 무엇인가">
   <div class="tag"><b>역공학 MCP · 대표 도구 REA</b><span class="sep"></span>최근 동향 · 2026-10-28 README 확인 · github.com/morluto/rea · rea.tools</div>
-  <h2>역공학(리버스 엔지니어링) MCP의 예, REA: 소스 없이 앱의 동작을 조사한다</h2>
+  <h2>역공학 MCP REA: 소스 없이 앱 동작 조사</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/morluto/rea</span></div><img src="assets/captures/p16-rea-repo.jpg" alt="REA GitHub 저장소 첫 화면: Reverse engineer anything with agents"></div>
@@ -462,13 +462,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       </div>
     </div>
   </div>
-  <aside>마지막 주제는 최근 동향입니다. 완성된 앱이나 바이너리를 뜯어 원리를 파악하는 일을 역공학(리버스 엔지니어링)이라고 하는데, 이를 에이전트에게 맡기는 MCP의 예가 REA입니다. REA는 Reverse Engineer Anything의 약자이고, README는 바이너리, 애플리케이션, 런타임 동작을 가로지르는 역공학용 MCP 하나라고 소개합니다. 쓰는 방식은 이렇습니다. 마음에 드는 기능이 있는 앱을 에이전트에게 조사시키면, 소스 코드 없이 그 기능이 어떻게 동작하는지 살펴보고 근거를 보여 주고, 내 프로젝트용 버전을 만들 수 있다고 README는 설명합니다. 분석은 로컬에서 이뤄지고 결과에는 근거와 한계가 함께 담깁니다. 모든 설명은 README에 있는 내용만 말씀드립니다. 장점은 소스 없이 동작을 조사하는 것, 단점은 별도 도구와 허가 범위의 제약, 의미는 에이전트 도구가 앱 조사로 넓어진다는 점입니다.</aside>
+  <aside>마지막 주제는 최근 동향입니다. 완성된 앱이나 바이너리를 뜯어 원리를 파악하는 일을 역공학(리버스 엔지니어링)이라고 하는데, 이를 에이전트에게 맡기는 MCP의 예가 REA입니다. REA는 Reverse Engineer Anything의 약자이고, README는 바이너리, 애플리케이션, 런타임 동작을 가로지르는 역공학용 MCP 하나라고 소개합니다. 쓰는 방식은 이렇습니다. 마음에 드는 기능이 있는 앱을 에이전트에게 조사시키면, 소스 코드 없이 그 기능이 어떻게 동작하는지 살펴보고 근거를 보여 줍니다. 그리고 내 프로젝트용 버전을 만들 수도 있다고 README는 설명합니다. 분석은 로컬에서 이뤄지고 결과에는 근거와 한계가 함께 담깁니다. 모든 설명은 README에 있는 내용만 말씀드립니다. 장점은 소스 없이 동작을 조사하는 것, 단점은 별도 도구와 허가 범위의 제약, 의미는 에이전트 도구가 앱 조사로 넓어진다는 점입니다.</aside>
 </section>
 
 <!-- 15 REA 어떻게 -->
 <section data-period="16" class="slide" data-title="REA: 어떻게 쓰나">
   <div class="tag"><b>2026-10-28 README 확인</b><span class="sep"></span>REA 조사 흐름</div>
-  <h2>REA 쓰는 법: 에이전트에게 묻고, 근거를 받는다</h2>
+  <h2>REA 쓰는 법: 에이전트에게 질문 → 근거 받기</h2>
   <div class="row even">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/morluto/rea · How REA works 그림</span></div><img src="assets/captures/p16-rea-flow.jpg" alt="REA 조사 흐름: 질문, 조사와 추적, 근거 읽기, 에이전트가 활용"></div>
@@ -488,13 +488,13 @@ build a similar feature for my project.
 <span class="warn">!</span> 대상에 따라 Hopper · Ghidra · IDA,
   Node.js, Chrome 계열 브라우저 등 필요</div>
   </div>
-  <aside>설치는 각자 README대로 하면 됩니다. 붙이면 REA의 MCP 서버와 작업 지침이 에이전트에 등록되고, README는 Claude Code, Codex, Cursor, Gemini CLI(Command-Line Interface, 명령줄 도구) 등을 지원한다고 적습니다. 쓰는 법은 에이전트에게 평소처럼 묻는 것입니다. README의 예시는 Notes 앱의 검색이 어떻게 동작하는지 증거와 함께 설명하고 비슷한 기능을 내 프로젝트에 만들라는 요청입니다. 그림처럼 에이전트의 질문을 REA가 조사하고 추적해 근거를 돌려주고, 에이전트가 설명하거나 구현합니다. 대상에 따라 별도 분석 도구가 필요합니다.</aside>
+  <aside>설치는 각자 README대로 하면 됩니다. 붙이면 REA의 MCP 서버와 작업 지침이 에이전트에 등록되고, README는 Claude Code, Codex, Cursor, Gemini CLI(Command-Line Interface, 명령줄 도구) 등을 지원한다고 적습니다. 쓰는 법은 에이전트에게 평소처럼 묻는 것입니다. README의 예시는 Notes 앱의 검색이 어떻게 동작하는지 증거와 함께 설명하고 비슷한 기능을 내 프로젝트에 만들어 달라는 요청입니다. 그림처럼 에이전트의 질문을 REA가 조사하고 추적해 근거를 돌려주고, 에이전트가 설명하거나 구현합니다. 대상에 따라 별도 분석 도구가 필요합니다.</aside>
 </section>
 
 <!-- 16 REA 분석 대상과 RL 환경 -->
 <section data-period="16" class="slide" data-title="REA: 무엇을 분석하나">
   <div class="tag"><b>2026-10-28 README · 가이드 확인</b><span class="sep"></span>REA 분석 대상 · RL(Reinforcement Learning, 강화학습) 환경 만들기</div>
-  <h2>REA는 앱 안을 넓게 들여다보되, 허가받은 소프트웨어에만 쓴다</h2>
+  <h2>REA: 넓은 분석 범위, 허가받은 소프트웨어에만 사용</h2>
   <div class="frames">
     <div>
       <div class="frame" style="max-height:290px"><div class="bar"><i></i><i></i><i></i><span>github.com/morluto/rea · 네이티브 분석 예시</span></div><img src="assets/captures/p16-rea-hopper.jpg" alt="REA가 Hopper 안에서 분석 브리지를 실행하는 화면"></div>
@@ -517,20 +517,20 @@ build a similar feature for my project.
 
 <!-- 17 이번 시간의 흐름 -->
 <section data-period="16" class="slide" data-title="실습: 이번 시간의 흐름">
-  <div class="tag"><b>실습 · 약 25분</b><span class="sep"></span>18단계 중 16·17·18단계 · 이슈별 워크플로우 9–12 · 프롬프트와 스모크</div>
-  <h2>이슈 하나를 PR에서 스모크까지 보내고, 결과는 코드 대신 스모크로 확인한다</h2>
+  <div class="tag"><b>실습 4 · 약 25분</b><span class="sep"></span>18단계 중 16·17·18단계 · 이슈별 워크플로우 9–12</div>
+  <h2>실습: 이슈 하나를 PR부터 다음 루프까지</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1593 386"><svg class="d2-1161645458 d2-svg" width="1593" height="386" viewBox="-21 -21 1593 386"><g class="YQ=="><g class="shape" ><rect x="0.000000" y="0.000000" width="466.000000" height="122.000000" class="box-inner hot"  /></g><text x="233.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="233.000000" dy="0.000000">9–10 PR → CI</tspan><tspan x="233.000000" dy="38.500000">이슈 하나, PR 버전 점검</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="576.000000" y="0.000000" width="414.000000" height="122.000000" class="box-inner"  /></g><text x="783.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="783.000000" dy="0.000000">11 스쿼시 머지</tspan><tspan x="783.000000" dy="38.500000">사람 승인 뒤 한 커밋</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="1100.000000" y="0.000000" width="451.000000" height="122.000000" class="box-inner"  /></g><text x="1325.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1325.500000" dy="0.000000">12 머지 후 스모크</tspan><tspan x="1325.500000" dy="38.500000">합쳐진 앱을 눌러 본다</tspan></text></g><g class="Zg=="><g class="shape" ><rect x="0.000000" y="222.000000" width="466.000000" height="122.000000" class="box-inner"  /></g><text x="233.000000" y="278.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="233.000000" dy="0.000000">18 다음 루프</tspan><tspan x="233.000000" dy="38.500000">유지 · 수정 · 추가</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="576.000000" y="222.000000" width="414.000000" height="122.000000" class="box-inner"  /></g><text x="783.000000" y="278.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="783.000000" dy="0.000000">17 피드백 이슈</tspan><tspan x="783.000000" dy="38.500000">증거 붙여 원장에</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="1100.000000" y="222.000000" width="451.000000" height="122.000000" class="box-inner"  /></g><text x="1325.500000" y="278.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1325.500000" dy="0.000000">17 페르소나 평가</tspan><tspan x="1325.500000" dy="38.500000">고객이 되어 눌러 본다</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u9-mk-d2-1161645458-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 468.000000 61.000000 L 572.000000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u9-mk-d2-1161645458-3488378134)" mask="url(#u9-d2-1161645458)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 991.500000 61.000000 L 1096.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u9-mk-d2-1161645458-3488378134)" mask="url(#u9-d2-1161645458)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1325.500000 124.000000 L 1325.500000 218.000000" class="edge" style="stroke-width:2;" marker-end="url(#u9-mk-d2-1161645458-3488378134)" mask="url(#u9-d2-1161645458)" /></g><g class="KGQgLSZndDsgZSlbMF0="><path d="M 1098.000000 283.000000 L 994.000000 283.000000" class="edge" style="stroke-width:2;" marker-end="url(#u9-mk-d2-1161645458-3488378134)" mask="url(#u9-d2-1161645458)" /></g><g class="KGUgLSZndDsgZilbMF0="><path d="M 574.000000 283.000000 L 470.000000 283.000000" class="edge" style="stroke-width:2;" marker-end="url(#u9-mk-d2-1161645458-3488378134)" mask="url(#u9-d2-1161645458)" /></g><mask id="u9-d2-1161645458" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1593" height="386">
 <rect x="-21" y="-21" width="1593" height="386" fill="white"></rect>
 
 </mask></svg></svg></div>
-  <p class="under">저는 코드를 읽지 않습니다. <b>하네스에게 시키고, 돌려서 확인합니다.</b> 사람이 보는 것은 내 답, 정리된 결정, 스모크 결과 세 가지입니다. 이것은 <b>제 방식</b>이고, 내 하네스에 맞게 바꿔도 됩니다.</p>
+  <p class="under">코드를 읽지 않습니다. <b>하네스에게 시키고, 돌려서 확인합니다.</b> 사람이 보는 것은 내 답, 정리된 결정, 스모크 결과 세 가지입니다. 이것은 <b>강사 방식</b>이고, 내 하네스에 맞게 바꿔도 됩니다.</p>
   <aside>오늘 실습은 제 운영 기준의 이슈별 워크플로우 뒷부분입니다. 12교시에서 구현 리뷰까지 끝낸 이슈 하나를 PR(Pull Request, 변경 병합 요청)로 만들고, CI(Continuous Integration, 지속적 통합)를 거쳐 스쿼시로 머지한 뒤, 머지한 앱에 스모크를 돌립니다. 그다음 17단계 사용자 피드백과 18단계 다음 업데이트 루프로 이어집니다. 저는 이 과정에서 코드를 읽지 않습니다. 하네스에게 이렇게 시키고, 머지 후에 스모크와 페르소나 평가 결과를 이렇게 확인합니다. 이 교시는 스모크가 중심이라 시나리오 표가 계속 나옵니다. 설치는 각자 쓰던 도구 그대로입니다. 이 순서는 제가 쓰는 방식이라서, 필요한 단계만 골라 쓰거나 순서를 바꿔도 됩니다.</aside>
 </section>
 
 <!-- 18 에이전트가 물어야 할 질문 -->
 <section data-period="16" class="slide" data-title="전달 흐름 질문 6가지">
   <div class="tag"><b>설계 대화 체크리스트</b><span class="sep"></span>이슈별 워크플로우 9–12 · 18단계 중 17·18 · 에이전트가 묻지 않으면 내가 먼저</div>
-  <h2>하네스는 PR 전에 여섯 가지를 하나씩 묻는다</h2>
+  <h2>PR 전에 하네스가 물을 여섯 가지</h2>
   <table class="tbl">
     <tr><th>단계</th><th>하네스가 물을 것</th><th>예시 답</th><th>빠지면</th></tr>
     <tr><td>9 PR</td><td>PR(Pull Request, 변경 병합 요청) 하나의 범위는</td><td>이슈 #7 하나, 수용 조건 첨부</td><td>일이 섞여 리뷰가 어렵다</td></tr>
@@ -545,8 +545,8 @@ build a similar feature for my project.
 
 <!-- 19 첫 프롬프트와 승인 -->
 <section data-period="16" class="slide" data-title="첫 프롬프트와 승인">
-  <div class="tag"><b>그대로 붙여 넣어도 됩니다</b><span class="sep"></span>각자 쓰는 에이전트 · 질문 → ADR(Architecture Decision Record, 아키텍처 결정 기록) 한 건 → 사람 승인</div>
-  <h2>첫 프롬프트로 질문부터 시키고, 다섯 가지를 보고 승인한다</h2>
+  <div class="tag"><b>그대로 붙여 넣기 가능</b><span class="sep"></span>각자 쓰는 에이전트 · 질문 → ADR(Architecture Decision Record, 아키텍처 결정 기록) 한 건 → 사람 승인</div>
+  <h2>첫 프롬프트: 질문부터 시키고, 다섯 가지 확인 후 승인</h2>
   <div class="row">
     <div class="term" style="font-size:19px"><span class="acc">&gt;</span> 12교시에서 끝낸 이슈 #7로 이어서 한다.
   (예약 앱, <span class="acc">PoC</span>(Proof of Concept, 개념 증명))
@@ -573,13 +573,13 @@ build a similar feature for my project.
       <div class="next">→ 다섯이 ‘예’일 때만 “승인”</div>
     </div>
   </div>
-  <aside>4교시와 같은 방식으로 시작합니다. 아직 PR을 만들지 말 것, 질문은 한 번에 하나씩 할 것, 정리한 ADR(Architecture Decision Record, 아키텍처 결정 기록)을 내가 승인할 때까지 기다릴 것, 이 세 가지를 못 박습니다. 이슈 번호와 앱 이름은 각자 자기 것으로 바꿔 씁니다. 하네스가 ADR을 가져오면 오른쪽 다섯 가지를 확인합니다. 제가 보는 것은 내가 한 답, 정리된 결정의 한 줄 요약, 스모크 시나리오 표입니다. 코드는 보지 않습니다. 하나라도 비어 있으면 승인하지 말고 그 부분을 다시 묻게 합니다. 승인은 사람이 하고 하네스가 대신하지 않습니다.</aside>
+  <aside>4교시와 같은 방식으로 시작합니다. 아직 PR을 만들지 말 것, 질문은 한 번에 하나씩 할 것, 정리한 ADR(Architecture Decision Record, 아키텍처 결정 기록)을 내가 승인할 때까지 기다릴 것, 이 세 가지를 못 박습니다. 이슈 번호와 앱 이름은 각자 자기 것으로 바꿔 씁니다. 하네스가 ADR을 가져오면 오른쪽 다섯 가지를 확인합니다. 승인 전에 볼 것은 내가 한 답, 정리된 결정의 한 줄 요약, 스모크 시나리오 표입니다. 코드는 보지 않습니다. 하나라도 비어 있으면 승인하지 말고 그 부분을 다시 묻게 합니다. 승인은 사람이 하고 하네스가 대신하지 않습니다.</aside>
 </section>
 
 <!-- 20 PR과 CI 결과 -->
 <section data-period="16" class="slide" data-title="PR과 CI 결과 확인">
-  <div class="tag"><b>이슈별 워크플로우 9–10단계</b><span class="sep"></span>하네스에게 시키고 요약을 받는다 · 결과 화면은 예시</div>
-  <h2>PR과 CI는 만들게 시키고, 결과 요약을 보여 달라고 한다</h2>
+  <div class="tag"><b>이슈별 워크플로우 9–10단계</b><span class="sep"></span>요약만 확인 · 결과 화면은 예시</div>
+  <h2>PR·CI는 하네스에게 맡기고 결과 요약만 받기</h2>
   <div class="row" style="grid-template-columns:1.3fr 1fr;gap:36px">
     <div>
       <div class="term" style="font-size:18px;line-height:1.45"><span class="acc">&gt;</span> ADR대로 이슈 #7의 PR을 만들어 줘.
@@ -609,7 +609,7 @@ main 보호  <span class="ok">켜짐</span></div>
 <!-- 21 머지와 스모크 -->
 <section data-period="16" class="slide" data-title="스쿼시 머지와 스모크 시나리오">
   <div class="tag"><b>이슈별 워크플로우 11–12단계</b><span class="sep"></span>머지 후 스모크 · 시나리오 표가 이 교시의 중심 · 실제 결과 열은 예시</div>
-  <h2>머지하고 나면, 합쳐진 앱을 눌러 보고 표로 남긴다</h2>
+  <h2>머지 후: 합쳐진 앱 눌러 보기 → 시나리오 표</h2>
   <div class="row" style="grid-template-columns:1fr 1.45fr;gap:32px">
     <div>
       <div class="term" style="font-size:17px;line-height:1.45"><span class="acc">&gt;</span> 승인한다. 스쿼시로 머지해 줘.
@@ -640,7 +640,7 @@ main 보호  <span class="ok">켜짐</span></div>
 <!-- 22 일부러 어겨 보기 -->
 <section data-period="16" class="slide" data-title="일부러 어겨 보기와 기록">
   <div class="tag"><b>약 10분</b><span class="sep"></span>이슈 하나를 9–12단계로 보내 보고 · 일부러 어기기 세 번 · 결과 열은 예시</div>
-  <h2>이슈 하나를 실제로 보내 보고, 규칙을 일부러 어겨 본다</h2>
+  <h2>이슈 하나 실제로 보내기, 규칙 일부러 어겨 보기</h2>
   <div class="row even">
     <div class="term" style="font-size:18px"><span class="dim"># 1 이슈 #7을 9–12단계로</span>
 <span class="acc">&gt;</span> ADR대로 이슈 #7의 PR을 만들고
@@ -670,15 +670,15 @@ main 보호  <span class="ok">켜짐</span></div>
 
 <!-- 23 페르소나 평가 -> 피드백 이슈 -->
 <section data-period="16" class="slide" data-title="페르소나 평가와 피드백 이슈">
-  <div class="tag"><b>18단계 중 17단계 · 사용자 피드백</b><span class="sep"></span>앞 장의 페르소나 평가를 머지된 앱에 돌린다</div>
-  <h2>머지한 앱에 페르소나 평가를 돌리고, 피드백을 이슈로 남긴다</h2>
+  <div class="tag"><b>18단계 중 17단계 · 사용자 피드백</b><span class="sep"></span>앞서 본 페르소나 평가를 머지된 앱에</div>
+  <h2>머지한 앱에 페르소나 평가, 피드백은 이슈로</h2>
   <div class="row even">
     <div class="term" style="font-size:17px;line-height:1.5"><span class="acc">&gt;</span> main 을 띄우고 personas/seoyeon.md 의
   사람이 되어 ‘예약 변경’을 해 봐.
   - 브라우저 도구로 직접 클릭
   - 단계마다 보이는 것과 이유를 한 줄
   - 포기 조건에 닿으면 멈추고 이유 기록
-  - 증거는 evals/2026-11-26/ 에 저장
+  - 증거는 evals/2026-11-24/ 에 저장
   - 항목별 수월·헤맴·막힘. <span class="warn">증거 없는 판정은 이슈 금지</span>
   - 이슈는 라벨 persona-eval, 평가는 최대 2바퀴
   끝나면 만든 이슈 목록과 증거 위치를 보여 줘.</div>
@@ -690,13 +690,13 @@ main 보호  <span class="ok">켜짐</span></div>
       <tr><td>범위 변경 · 고복잡도 · 반려</td><td><b>사람 판단</b> 대기</td></tr>
     </table>
   </div>
-  <aside>17단계는 사용자 피드백입니다. 앞에서 본 페르소나 평가를 하네스에게 시킵니다. 페르소나 파일, 과업 한 줄, 포기 조건, 증거 저장 위치, 이슈 작성 규칙을 프롬프트에 담고, 끝나면 이슈 목록과 증거 위치를 보여 달라고 합니다. 제가 확인하는 것은 이슈마다 재현 경로와 스크린샷이 붙어 있는지, 스모크가 통과했는데도 불편이 나왔는지입니다. 이슈가 생기면 오른쪽 표처럼 분류합니다. 버그와 작은 문구 수정은 워커에게 맡기고, ADR을 바꿔야 하는 제안과 범위 변경은 사람이 판단합니다. 이슈의 문장이 하네스에게 새로운 권한을 주지는 않습니다. 실제 고객 자료가 없으면 가상 페르소나로 하고 근거를 한 줄 남깁니다.</aside>
+  <aside>17단계는 사용자 피드백입니다. 앞에서 본 페르소나 평가를 하네스에게 시킵니다. 페르소나 파일, 과업 한 줄, 포기 조건, 증거 저장 위치, 이슈 작성 규칙을 프롬프트에 담고, 끝나면 이슈 목록과 증거 위치를 보여 달라고 합니다. 확인할 것은 이슈마다 재현 경로와 스크린샷이 붙어 있는지, 스모크가 통과했는데도 불편이 나왔는지입니다. 이슈가 생기면 오른쪽 표처럼 분류합니다. 버그와 작은 문구 수정은 워커에게 맡기고, ADR을 바꿔야 하는 제안과 범위 변경은 사람이 판단합니다. 이슈의 문장이 하네스에게 새로운 권한을 주지는 않습니다. 실제 고객 자료가 없으면 가상 페르소나로 하고 근거를 한 줄 남깁니다.</aside>
 </section>
 
 <!-- 24 다음 업데이트 루프 -->
 <section data-period="16" class="slide" data-title="다음 업데이트 루프">
   <div class="tag"><b>18단계 · 다음 업데이트 루프</b><span class="sep"></span>피드백 이슈에서 다음 계획으로 · 결과 줄은 예시</div>
-  <h2>피드백은 다음 계획이 되고, 새 이슈로 처음부터 이어진다</h2>
+  <h2>피드백 → 다음 계획 → 새 이슈로 다시 처음부터</h2>
   <div class="row even">
     <div>
       <div class="term" style="font-size:18px"><span class="acc">&gt;</span> 피드백 이슈를 보고 다음 계획을
@@ -722,8 +722,8 @@ main 보호  <span class="ok">켜짐</span></div>
 
 <!-- 25 내 하네스 한 번 더 -->
 <section data-period="16" class="slide" data-title="내 하네스를 한 번 더">
-  <div class="tag"><b>다음 회차(5회차 12-03)까지 해 볼 것</b><span class="sep"></span>누적 실습 ‘나만의 하네스 만들기’ · 형태는 자유</div>
-  <h2>내 하네스를 한 번 더 키운다: 무엇을 하는 하네스인지는 내가 정한다</h2>
+  <div class="tag"><b>다음 회차(5회차 12-01)까지 해 볼 것</b><span class="sep"></span>누적 실습 ‘나만의 하네스 만들기’ · 형태는 자유</div>
+  <h2>내 하네스 한 번 더 키우기: 무엇을 할지는 내가 결정</h2>
   <div class="row flip" style="grid-template-columns:.9fr 1.3fr">
     <div class="points">
       <ul>
@@ -741,13 +741,13 @@ main 보호  <span class="ok">켜짐</span></div>
 <rect x="113.000000" y="171.000000" width="132" height="33" fill="black"></rect>
 </mask></svg></svg></div>
   </div>
-  <aside>이번 실습은 지금까지 쌓은 하네스를 회차마다 한 번씩 키워 온 것의 연장입니다. 무엇을 하는 하네스인지, 어떤 기능과 스펙을 갖는지는 각자 정합니다. 형태나 구조를 정해 두지 않습니다. 오늘 소개한 장치들은 메뉴라고 생각해 주세요. 내 하네스에 필요한 것만 골라 하네스에게 시키면 됩니다. 오른쪽 그림은 제가 쓰는 예시로, 코디네이터가 이슈 원장의 열린 이슈를 읽고 워커에게 나눠 맡기고, 테스트와 스모크를 거쳐 머지한 앱에 페르소나 평가가 돌아 새 이슈를 만드는 형태입니다. 이렇게 만들어도 되고 전혀 다르게 만들어도 됩니다. 만드는 방법은 오늘과 같고 코드는 읽지 않습니다. 동작은 스모크 기록으로 확인합니다.</aside>
+  <aside>이번 실습은 회차마다 하네스를 한 번씩 키워 온 것의 연장입니다. 무엇을 하는 하네스인지, 어떤 기능과 스펙을 갖는지는 각자 정합니다. 형태나 구조를 정해 두지 않습니다. 오늘 소개한 장치들은 메뉴라고 생각해 주세요. 내 하네스에 필요한 것만 골라 하네스에게 시키면 됩니다. 오른쪽 그림은 제가 쓰는 예시입니다. 코디네이터가 이슈 원장의 열린 이슈를 읽고 워커에게 나눠 맡기면, 테스트와 스모크를 거쳐 머지하고, 머지한 앱에 페르소나 평가가 돌아 새 이슈를 만드는 형태입니다. 이렇게 만들어도 되고 전혀 다르게 만들어도 됩니다. 만드는 방법은 오늘과 같고 코드는 읽지 않습니다. 동작은 스모크 기록으로 확인합니다.</aside>
 </section>
 
 <!-- 26 장치 메뉴 -->
 <section data-period="16" class="slide" data-title="고를 수 있는 장치">
-  <div class="tag"><b>예시 메뉴</b><span class="sep"></span>내 하네스에 필요한 것만 골라 쓴다 · 하네스에게 물어볼 것 포함</div>
-  <h2>고를 수 있는 장치 여섯 가지: 필요한 것만 골라 하네스에게 시킨다</h2>
+  <div class="tag"><b>예시 메뉴</b><span class="sep"></span>장치별 물어볼 것·예시·남길 기록</div>
+  <h2>장치 여섯 가지: 필요한 것만 선택</h2>
   <table class="tbl" style="font-size:22px">
     <tr><th>장치</th><th>하네스에게 물어볼 것</th><th>이런 식으로 (예시)</th><th>남기면 좋은 기록</th></tr>
     <tr><td>코디네이터</td><td>무엇을 읽고 언제 멈추나</td><td>이슈 원장을 읽고 워커에 배치</td><td>프롬프트 · 배치 기록</td></tr>
@@ -762,7 +762,7 @@ main 보호  <span class="ok">켜짐</span></div>
 
 <!-- 27 다음 회차까지 -->
 <section data-period="16" class="slide" data-title="다음 회차까지 해 볼 것">
-  <div class="tag"><b>5회차 12-03</b><span class="sep"></span>집에서 이어서 · 있는 만큼만 나눕니다</div>
+  <div class="tag"><b>5회차 12-01</b><span class="sep"></span>집에서 이어서 · 있는 만큼만 공유</div>
   <h2>다음 회차까지 해 볼 것과, 그때 나누면 좋은 것</h2>
   <div class="row even">
     <table class="tbl">
@@ -785,8 +785,8 @@ main 보호  <span class="ok">켜짐</span></div>
 
 <!-- 28 공유 형식과 실행 기록 -->
 <section data-period="16" class="slide" data-title="공유 형식과 실행 기록">
-  <div class="tag"><b>2026-12-03</b><span class="sep"></span>5회차 · 형식 자유로 나누고 이야기합니다 · 예시 값은 가상</div>
-  <h2>자유롭게 나누고 이야기합니다: 돌릴 때마다 한 줄 남겨 두면 이야깃거리가 됩니다</h2>
+  <div class="tag"><b>2026-12-01</b><span class="sep"></span>5회차 · 형식 자유 공유와 토론 · 예시 값은 가상</div>
+  <h2>5회차 자유 공유: 실행마다 남긴 한 줄이 이야깃거리</h2>
   <div class="diagram" style="max-height:200px"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1291 164"><svg class="d2-660904187 d2-svg" width="1291" height="164" viewBox="-9 -9 1291 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="187.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="187.500000" dy="0.000000">자유롭게 나누기</tspan><tspan x="187.500000" dy="38.500000">화면·말·데모</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="433.000000" y="12.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="611.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="611.500000" dy="0.000000">이야기와 토론</tspan><tspan x="611.500000" dy="38.500000">질문 카드는 선택</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="860.000000" y="12.000000" width="401.000000" height="122.000000" class="box-inner"  /></g><text x="1060.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1060.500000" dy="0.000000">스터디로 이어 가기</tspan><tspan x="1060.500000" dy="38.500000">원하는 사람끼리</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u12-mk-d2-660904187-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 365.000000 73.000000 L 429.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u12-mk-d2-660904187-3488378134)" mask="url(#u12-d2-660904187)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 792.000000 73.000000 L 856.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u12-mk-d2-660904187-3488378134)" mask="url(#u12-d2-660904187)" /></g><mask id="u12-d2-660904187" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1291" height="164">
 <rect x="-9" y="-9" width="1291" height="164" fill="white"></rect>
 
@@ -797,13 +797,13 @@ main 보호  <span class="ok">켜짐</span></div>
     <tr><td>2</td><td class="mono">31분</td><td class="mono">1.3M / 0.2M</td><td class="mono">3 / 3</td><td class="mono">4 / 4</td><td>성공</td><td>-</td></tr>
   </table>
   <p class="under">토큰은 도구의 <b>사용량 화면이나 API(Application Programming Interface, 프로그램 연동 규약) 응답의 usage</b>에서 읽습니다. 실패한 회차도 지우지 않습니다.</p>
-  <aside>5회차는 각자 만든 하네스를 자유롭게 나누고 이야기하는 시간입니다. 정해진 발표 양식이나 시간 규칙은 없고, 화면이든 말이든 편한 방식으로 하시면 됩니다. 이야기가 스터디로 이어지면 더 좋습니다. 이야기 거리로 삼기 좋은 것은 하네스 구조도, 내 하네스를 돌려 본 실행 기록, 막혔다가 배운 것입니다. 실행 기록은 돌릴 때마다 한 줄씩 남겨 두면 이야기할 때 편합니다. 시간, 토큰, 처리한 이슈 수, 스모크 통과 수, 결과, 실패했다면 원인과 고친 곳입니다. 표의 숫자는 양식을 보여 드리려는 가상 값입니다. 토큰은 사용하는 도구의 사용량 화면이나 API(Application Programming Interface, 프로그램 연동 규약) 응답에서 읽습니다. 실패한 회차를 지우지 않는 것이 중요합니다. 1회차 실패가 2회차 개선으로 이어지는 흐름이 보이면 하네스가 좋아졌다는 이야기가 됩니다. 진행은 17교시에 다시 안내합니다.</aside>
+  <aside>5회차는 각자 만든 하네스를 자유롭게 나누고 이야기하는 시간입니다. 정해진 발표 양식이나 시간 규칙은 없고, 화면이든 말이든 편한 방식으로 하시면 됩니다. 이야기가 스터디로 이어지면 더 좋습니다. 이야기 거리로 삼기 좋은 것은 하네스 구조도, 내 하네스를 돌려 본 실행 기록, 막혔다가 배운 것입니다. 실행 기록은 돌릴 때마다 한 줄씩 남겨 두면 이야기할 때 편합니다. 적을 항목은 시간, 토큰, 처리한 이슈 수, 스모크 통과 수, 결과, 그리고 실패했다면 원인과 고친 곳입니다. 표의 숫자는 양식을 보여 드리려는 가상 값입니다. 토큰은 사용하는 도구의 사용량 화면이나 API(Application Programming Interface, 프로그램 연동 규약) 응답에서 읽습니다. 실패한 회차를 지우지 않는 것이 중요합니다. 1회차 실패가 2회차 개선으로 이어지는 흐름이 보이면 하네스가 좋아졌다는 이야기가 됩니다. 진행은 17교시에 다시 안내합니다.</aside>
 </section>
 
 <!-- 29 막힐 때 -->
 <section data-period="16" class="slide" data-title="막힐 때">
-  <div class="tag"><b>증상별</b><span class="sep"></span>설치 문제가 아니라 대화 문제가 대부분 · 4회차 마무리, 다음은 5회차 2026-12-03</div>
-  <h2>막힐 때: 하네스에게 이렇게 다시 말한다</h2>
+  <div class="tag"><b>증상별</b><span class="sep"></span>설치 문제가 아니라 대화 문제가 대부분 · 4회차 마무리, 다음은 5회차 2026-12-01</div>
+  <h2>막힐 때: 하네스에게 다시 할 말</h2>
   <table class="tbl" style="font-size:22px">
     <tr><th>증상</th><th>이렇게 다시 말한다</th></tr>
     <tr><td>질문 없이 바로 PR을 만든다</td><td>“질문이 끝나고 내가 ADR을 승인하기 전에는 PR을 만들지 마.”</td></tr>
@@ -830,7 +830,7 @@ main 보호  <span class="ok">켜짐</span></div>
  const periods=[];slides.forEach((s,k)=>{const p=s.dataset.period;if(p&&!periods.find(x=>x.p===p))periods.push({p,k});});
  periods.forEach(({p,k})=>{const o=document.createElement('option');o.value=k;o.textContent=p+'교시';jump.appendChild(o);});
  if(!periods.length)jump.hidden=true;
- const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`scale(${s})`;};
+ const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`translate(-50%,-50%) scale(${s})`;};
  const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
    const p=slides[i].dataset.period;pos.textContent=`${p?p+'교시 · ':''}${i+1} / ${slides.length}`;
    prog.style.width=`${(i+1)/slides.length*100}%`;

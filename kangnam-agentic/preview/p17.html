@@ -28,7 +28,7 @@ html,body{height:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
 .stage{position:fixed;inset:0;display:grid;place-items:center}
-.deck{width:1600px;height:900px;position:relative;transform-origin:center center}
+.deck{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center center}
 .slide{position:absolute;inset:0;display:none;padding:64px 88px 72px;flex-direction:column;gap:28px}
 .slide.on{display:flex}
 .slide aside{display:none}
@@ -161,7 +161,7 @@ p{margin:0}
 .hud button:focus-visible,.hud select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .notes{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:44px;max-height:38vh;overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.65}
 @media (prefers-reduced-motion:no-preference){.slide.on{animation:in .25s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
-@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
+@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;position:static;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
 
 /* keep captures inside their column: the wrapper shrinks, the frame clips from the top */
 .row > div:has(> .frame){display:flex;flex-direction:column;min-height:0;max-height:100%;align-self:stretch;justify-content:center}
@@ -201,7 +201,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <section data-period="17" class="slide section-slide" data-title="표지">
   <div class="big">5회차 · 17교시</div>
   <h1>각자 만든 하네스를<br>나누고 이야기하는 날</h1>
-  <p class="lead">2026-12-03 · 형식은 자유 · 이야기가 스터디로 이어지면 좋겠습니다.</p>
+  <p class="lead">2026-12-01 · 형식은 자유 · 이야기가 스터디로 이어지면 좋겠습니다.</p>
   <div class="strip">
     <figure><div class="thumb"><img src="assets/captures/page-harness.jpg" alt="하네스 엔지니어링 글 화면"></div><figcaption><b>3회차</b><span>하네스</span></figcaption></figure>
     <figure><div class="thumb"><img src="assets/captures/page-skills.jpg" alt="스킬 문서 화면"></div><figcaption><b>3회차</b><span>스킬</span></figcaption></figure>
@@ -213,8 +213,8 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 <!-- 02 오늘 진행 -->
 <section data-period="17" class="slide" data-title="오늘 진행">
-  <div class="tag"><b>2026-12-03</b><span class="sep"></span>5회차 일정 · 17~20교시</div>
-  <h2>형식은 자유입니다. 원하는 사람부터 나눕니다</h2>
+  <div class="tag"><b>2026-12-01</b><span class="sep"></span>5회차 일정 · 17~20교시</div>
+  <h2>오늘 진행: 자유 형식, 원하는 사람부터</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 2108 164"><svg class="d2-3888972184 d2-svg" width="2108" height="164" viewBox="-9 -9 2108 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="169.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="169.000000" dy="0.000000">17교시</tspan><tspan x="169.000000" dy="38.500000">오늘 진행 안내</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="396.000000" y="12.000000" width="375.000000" height="122.000000" class="box-inner hot"  /></g><text x="583.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="583.500000" dy="0.000000">18교시</tspan><tspan x="583.500000" dy="38.500000">나누기와 토론 1부</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="841.000000" y="29.000000" width="214.000000" height="88.000000" class="box-inner"  /></g><text x="948.000000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">휴식 10분</text></g><g class="ZA=="><g class="shape" ><rect x="1125.000000" y="12.000000" width="375.000000" height="122.000000" class="box-inner hot"  /></g><text x="1312.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1312.500000" dy="0.000000">19교시</tspan><tspan x="1312.500000" dy="38.500000">나누기와 토론 2부</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="1570.000000" y="29.000000" width="214.000000" height="88.000000" class="box-inner"  /></g><text x="1677.000000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">휴식 10분</text></g><g class="Zg=="><g class="shape" ><rect x="1854.000000" y="12.000000" width="224.000000" height="122.000000" class="box-inner"  /></g><text x="1966.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1966.000000" dy="0.000000">20교시</tspan><tspan x="1966.000000" dy="38.500000">정리·수료</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u1-mk-d2-3888972184-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 328.000000 73.000000 L 392.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 773.000000 73.000000 L 837.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1057.000000 73.000000 L 1121.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><g class="KGQgLSZndDsgZSlbMF0="><path d="M 1502.000000 73.000000 L 1566.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><g class="KGUgLSZndDsgZilbMF0="><path d="M 1786.000000 73.000000 L 1850.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-3888972184-3488378134)" mask="url(#u1-d2-3888972184)" /></g><mask id="u1-d2-3888972184" maskUnits="userSpaceOnUse" x="-9" y="-9" width="2108" height="164">
 <rect x="-9" y="-9" width="2108" height="164" fill="white"></rect>
 
@@ -225,8 +225,8 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 <!-- 03 이야기 거리 -->
 <section data-period="17" class="slide" data-title="이야기 거리">
-  <div class="tag"><b>이야기 거리</b><span class="sep"></span>토론을 여는 질문 카드 · 고르는 것이지 숙제가 아닙니다</div>
-  <h2>이야기가 막히면 이런 질문에서 시작해 볼 수 있습니다</h2>
+  <div class="tag"><b>이야기 거리</b><span class="sep"></span>토론을 여는 질문 카드 · 골라 쓰기, 숙제 아님</div>
+  <h2>이야기가 막힐 때: 질문 카드 하나로 시작</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1253 356"><svg class="d2-684098539 d2-svg" width="1253" height="356" viewBox="-21 -21 1253 356"><g class="YQ=="><g class="shape" ><rect x="0.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="178.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">내 하네스는</tspan><tspan x="178.500000" dy="38.500000">무엇을 맡기나</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="427.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="605.500000" dy="0.000000">가장 잘 막은 것</tspan><tspan x="605.500000" dy="38.500000">못 막은 것</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="854.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="1032.500000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음에 더할 장치</text></g><g class="ZA=="><g class="shape" ><rect x="0.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="178.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">남의 하네스에서</tspan><tspan x="178.500000" dy="38.500000">가져가고 싶은 것</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="427.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="265.500000" class="label-inner" style="text-anchor:middle;font-size:34px">아직 모르겠는 것</text></g><mask id="u2-d2-684098539" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1253" height="356">
 <rect x="-21" y="-21" width="1253" height="356" fill="white"></rect>
 
@@ -237,14 +237,14 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 <!-- 04 스터디로 이어 가기 -->
 <section data-period="17" class="slide" data-title="스터디로 이어 가기">
-  <div class="tag"><b>그다음</b><span class="sep"></span>오늘 이야기를 스터디로 · 아래는 모두 예시입니다</div>
-  <h2>오늘 나온 것을 모아 두면 스터디로 이어 가기 쉽습니다</h2>
+  <div class="tag"><b>그다음</b><span class="sep"></span>오늘 이야기를 스터디로 · 아래는 모두 예시</div>
+  <h2>스터디로 이어 가기: 나온 것 모으기·자료·다음 모임</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1594 198"><svg class="d2-3064272061 d2-svg" width="1594" height="198" viewBox="-9 -9 1594 198"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="351.000000" height="156.000000" class="box-inner"  /></g><text x="187.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="187.500000" dy="0.000000">오늘 나온 것</tspan><tspan x="187.500000" dy="37.000000">프롬프트·스킬</tspan><tspan x="187.500000" dy="37.000000">스모크 시나리오</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="433.000000" y="12.000000" width="369.000000" height="156.000000" class="box-inner hot"  /></g><text x="617.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="617.500000" dy="0.000000">모아 두기</tspan><tspan x="617.500000" dy="37.000000">예) 공용 저장소나</tspan><tspan x="617.500000" dy="37.000000">문서 하나</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="872.000000" y="29.000000" width="271.000000" height="122.000000" class="box-inner"  /></g><text x="1007.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1007.500000" dy="0.000000">같이 볼 자료</tspan><tspan x="1007.500000" dy="38.500000">함께 고르기</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="1213.000000" y="29.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="1388.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1388.500000" dy="0.000000">다음 모임</tspan><tspan x="1388.500000" dy="38.500000">원하는 사람끼리</tspan></text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u3-mk-d2-3064272061-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 365.000000 90.000000 L 429.000000 90.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3064272061-3488378134)" mask="url(#u3-d2-3064272061)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 804.000000 90.000000 L 868.000000 90.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3064272061-3488378134)" mask="url(#u3-d2-3064272061)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1145.000000 90.000000 L 1209.000000 90.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3064272061-3488378134)" mask="url(#u3-d2-3064272061)" /></g><mask id="u3-d2-3064272061" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1594" height="198">
 <rect x="-9" y="-9" width="1594" height="198" fill="white"></rect>
 
 </mask></svg></svg></div>
   <p class="under">방법과 도구는 <b>예시</b>입니다. 어떻게 모을지, 언제 만날지는 <b>원하는 사람끼리</b> 정합니다.</p>
-  <aside>오늘 이야기가 오늘로 끝나지 않으면 좋겠습니다. 오늘 나온 프롬프트, 스킬, 스모크 시나리오를 서로 모아 두는 방법으로, 예를 들면 공용 저장소나 문서 하나를 두는 방법이 있습니다. 어디에 모을지는 정해진 것이 없습니다. 같이 볼 자료도 이야기하며 고를 수 있고, 다음 모임은 하고 싶은 분들끼리 정하면 됩니다. 일정이나 도구는 오늘 이야기하면서 정해도 되고, 정하지 않아도 됩니다. 저는 18교시부터 듣는 쪽으로 함께하겠습니다.</aside>
+  <aside>오늘 이야기가 오늘로 끝나지 않으면 좋겠습니다. 오늘 나온 프롬프트, 스킬, 스모크 시나리오를 서로 모아 두면 좋습니다. 예를 들면 공용 저장소나 문서 하나를 두는 방법이 있습니다. 어디에 모을지는 정해진 것이 없습니다. 같이 볼 자료도 이야기하며 고를 수 있고, 다음 모임은 하고 싶은 분들끼리 정하면 됩니다. 일정이나 도구는 오늘 이야기하면서 정해도 되고, 정하지 않아도 됩니다. 저는 18교시부터 듣는 쪽으로 함께하겠습니다.</aside>
 </section>
 
 </div></div>
@@ -259,7 +259,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
  const periods=[];slides.forEach((s,k)=>{const p=s.dataset.period;if(p&&!periods.find(x=>x.p===p))periods.push({p,k});});
  periods.forEach(({p,k})=>{const o=document.createElement('option');o.value=k;o.textContent=p+'교시';jump.appendChild(o);});
  if(!periods.length)jump.hidden=true;
- const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`scale(${s})`;};
+ const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`translate(-50%,-50%) scale(${s})`;};
  const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
    const p=slides[i].dataset.period;pos.textContent=`${p?p+'교시 · ':''}${i+1} / ${slides.length}`;
    prog.style.width=`${(i+1)/slides.length*100}%`;

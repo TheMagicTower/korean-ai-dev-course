@@ -1,4 +1,4 @@
-<!-- 9교시 · 더 오래 맡기기: 자동 승인, ‘계속’의 자동화, 1M (60분, 26장). 3회차 2026-11-17. -->
+<!-- 9교시 · 더 오래 맡기기: 자동 승인, ‘계속’의 자동화, 1M (60분, 29장). 3회차 2026-11-17. -->
 
 <!-- 01 표지 -->
 <section class="slide" data-title="표지">
@@ -15,6 +15,72 @@
   </div>
   <div class="arrowline"></div>
   <aside>오늘은 에이전트에게 얼마나 오래 맡길 수 있는가를 다룹니다. 지난 시간까지는 에이전트가 딴길로 새지 않게 하는 장치를 봤습니다. 오늘은 반대로, 사람이 계속 붙어 있어야 하는 이유를 하나씩 없애 나간 과정을 따라갑니다. 승인을 누르는 일, 계속이라고 입력하는 일, 창이 차서 압축하는 일, 이 세 가지를 차례로 봅니다. 아래 네 장은 모두 실제 공식 화면입니다.</aside>
+</section>
+
+<!-- 01a 2회차 보충: 일반 프로토타이핑 -->
+<section class="slide" data-title="프로토타이핑 우선 개발">
+  <div class="tag"><b>2회차 보충</b><span class="sep"></span>Wikipedia ‘Software prototyping’ · 2026-11-10 확인 · Brooks 『The Mythical Man-Month』(1975)</div>
+  <h2>프로토타이핑 우선: 시제품으로 요구사항 알아내기</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">버리는 시제품 · throwaway</div>
+      <ul>
+        <li><b>목적:</b> 무엇을 만들지 알아내기</li>
+        <li><b>결과:</b> 확인이 끝나면 <b>폐기</b>, 본체는 새로 설계</li>
+        <li><b>위험:</b> 버리기로 한 코드가 제품이 됨</li>
+      </ul>
+      <h3>속도 우선, 품질은 나중</h3>
+    </div>
+    <div class="on">
+      <div class="k">키워 쓰는 시제품 · evolutionary</div>
+      <ul>
+        <li><b>목적:</b> 견고하게 만들어 계속 다듬기</li>
+        <li><b>결과:</b> 시제품이 <b>본체의 뼈대</b>가 됨</li>
+        <li><b>위험:</b> 처음부터 구조를 잡아야 함</li>
+      </ul>
+      <h3>구조를 갖춰서, 점진적으로</h3>
+    </div>
+  </div>
+  <p class="under">Brooks(1975)는 “a team will design a throw-away system (whether it intends to or not)”라고 썼습니다. 버릴 것을 <b>알고 버리는 쪽</b>이 낫습니다.</p>
+  <aside>2회차 5교시에서 스펙 먼저와 시제품 먼저를 한 장으로 비교했습니다. 그 약속대로, 오늘은 시제품 먼저 하는 방식을 조금 더 자세히 보고 시작합니다. 프로토타이핑은 요구사항을 알아내려고 시제품을 먼저 만드는 방식입니다. 시제품은 크게 두 가지입니다. 버리는 시제품은 확인이 끝나면 폐기하고, 알아낸 요구사항으로 본체를 새로 설계합니다. 키워 쓰는 시제품은 견고하게 만들어서 계속 다듬고, 결국 본체의 뼈대가 됩니다. 1975년에 Brooks는 『The Mythical Man-Month』에서 팀이 의도하든 아니든 버리게 될 시스템을 한 번은 설계하게 된다고 썼습니다. 어차피 버릴 것이라면 처음부터 버릴 것으로 알고 만드는 편이 낫다는 뜻입니다. 정의는 Wikipedia 문서를 2026년 11월 10일에 확인한 것입니다.</aside>
+</section>
+
+<!-- 01b 강사 운영 방식: UI 먼저 -->
+<section class="slide" data-title="UI 먼저, 본체는 나중">
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>UI(User Interface, 사용자 화면) 먼저 · 데이터는 Mock API로</div>
+  <h2>UI 먼저, 본체는 나중: Mock API로 화면부터</h2>
+  <div class="diagram">{{svg:p09-ui-first-flow}}</div>
+  <p class="under">UI 테스트가 끝난 뒤에야 본체를 붙이고, 그때는 <b>스펙과 테스트를 먼저</b> 씁니다. <span class="next">→ 5교시 SDD · 6교시 TDD</span></p>
+  <aside>제가 실제로 쓰는 방식입니다. 먼저 UI를 만듭니다. 데이터는 본체 없이 Mock API(Application Programming Interface, 응용 프로그램 인터페이스), 즉 정해진 응답을 돌려주는 가짜 API를 먼저 만들어서 처리합니다. 그다음 UI 테스트를 세 단계로 모두 합니다. 첫째, Playwright 시나리오로 자동 테스트를 돌립니다. 둘째, 페르소나 평가입니다. 에이전트가 고객이 되어 화면을 써 보는 방식이고, 16교시에서 다룹니다. 셋째, 사람이 직접 클릭해 봅니다. 여기까지 끝나면 본체를 붙입니다. 이때는 5교시 SDD와 6교시 TDD에서 배운 대로 스펙과 테스트를 먼저 씁니다. 이때 Mock API의 응답 형식을 본체의 계약으로 삼으면 좋습니다. 화면이 이미 그 형식을 믿고 만들어져 있기 때문입니다. 마지막에 Mock을 본체로 교체합니다.</aside>
+</section>
+
+<!-- 01c 사례: 동아리 행사 신청 -->
+<section class="slide" data-title="사례: 동아리 행사 신청">
+  <div class="tag"><b>사례</b><span class="sep"></span>UI 먼저 · Mock API · 가상 예 · 코드는 실제 실행하지 않은 예시</div>
+  <h2>동아리 행사 신청 화면: Mock으로 먼저 확인</h2>
+  <div class="compare" style="--cols:2">
+    <div>
+      <div class="k">Mock API · JSON(JavaScript Object Notation, 자바스크립트 객체 표기) 응답</div>
+      <div class="term" style="font-size:20px"><span class="dim"># POST /api/events/7/apply</span>
+{ "status": "ok", "seatsLeft": 3 }
+<span class="dim"># 정원이 찼을 때</span>
+{ "status": "full", "seatsLeft": 0 }
+<span class="dim"># 이미 신청했을 때</span>
+{ "status": "duplicate" }</div>
+      <h3>화면이 처리할 응답 3가지</h3>
+    </div>
+    <div class="on">
+      <div class="k">Playwright 시나리오</div>
+      <div class="term" style="font-size:20px">await page.goto('/events/7')
+await page.fill('#name', '김하늘')
+await page.click('text=신청')
+await expect(page.locator('.msg'))
+  .toHaveText('신청 완료 · 남은 자리 3')</div>
+      <h3>정원 초과·중복 신청도 같은 방식으로</h3>
+    </div>
+  </div>
+  <p class="under">가상 예이며 <b>실제 출력 아님</b>. 화면이 확정되면 이 응답 형식을 <b>본체 스펙의 출발점</b>으로 삼을 수 있습니다.</p>
+  <aside>동아리 행사 신청 화면을 가정해 보겠습니다. 가상의 예이고, 여기 코드는 실제로 실행한 것이 아니라 모양을 보여 드리기 위한 예시입니다. 왼쪽은 Mock API가 돌려줄 응답입니다. 신청 성공, 정원 초과, 중복 신청 세 가지만 정해 두면 화면은 데이터베이스 없이도 끝까지 만들 수 있습니다. 오른쪽은 Playwright 시나리오의 일부입니다. 이름을 넣고 신청을 누르면 완료 문구가 나오는지 자동으로 확인합니다. 이 단계에서 버튼 위치나 문구가 어색하다는 것을 싸게 발견합니다. 화면이 확정되면 왼쪽의 응답 형식이 그대로 본체 스펙의 초안이 됩니다.</aside>
 </section>
 
 <!-- 02 지난 교시와의 연결 -->
@@ -398,7 +464,7 @@
 <section class="slide section-slide" data-title="질문 시간">
   <div class="big">질문 시간 · 약 5분</div>
   <h1>여기까지,<br>질문 시간</h1>
-  <p class="lead">오늘 다룬 것: 분류기 구조 · 기본 차단과 허용 · Codex 승인 모드 · Ralph 루프 · Stop 훅 · /loop · /goal · 성공 기준 쓰는 법 · 비용과 폭주 방지 · 1M 컨텍스트 · 큰 창의 한계</p>
+  <p class="lead">오늘 다룬 것: 2회차 보충: 프로토타이핑 우선 · 분류기 구조 · 기본 차단과 허용 · Codex 승인 모드 · Ralph 루프 · Stop 훅 · /loop · /goal · 성공 기준 쓰는 법 · 비용과 폭주 방지 · 1M 컨텍스트 · 큰 창의 한계</p>
   <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-auto-mode.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p09-ralph-loop-readme.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-goal.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-onem.jpg" alt="앞에서 본 화면"></div></figure></div>
   <aside>교시를 마무리하기 전에 질문을 받겠습니다. 오늘 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
 </section>

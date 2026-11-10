@@ -109,7 +109,7 @@
 <!-- 08 기본 차단 / 허용 -->
 <section class="slide" data-title="기본 차단과 허용">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 문서 · Permission modes</div>
-  <h2>auto mode 기본값: 배포·강제 푸시 차단, 작업 폴더는 허용</h2>
+  <h2>auto mode: 배포·강제 푸시 차단, 작업 폴더 허용</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/permission-modes</span></div><img src="assets/captures/permission-modes.jpg" alt="Claude Code 권한 모드 표"></div>
@@ -150,7 +150,7 @@
 
 <!-- 10 너무 일찍 멈춘다 -->
 <section class="slide" data-title="너무 일찍 멈춘다">
-  <div class="tag"><b>축 2 · ‘계속’</b><span class="sep"></span>채팅 IDE(Integrated Development Environment, 통합 개발 환경)의 사람 → 터미널 에이전트의 판단</div>
+  <div class="tag"><b>병목 2</b><span class="sep"></span>‘계속’ · 채팅 IDE(Integrated Development Environment, 통합 개발 환경)의 사람 → 터미널 에이전트의 판단</div>
   <h2>에이전트가 “다 했습니다”라고 멈추는 문제</h2>
   <div class="diagram">{{svg:p09-early-stop}}</div>
   <p class="under">채팅 IDE에서는 사람이 <b>‘계속’</b>을 입력했습니다. 터미널 에이전트는 스스로 멈추는데, <b>멈추는 시점이 이르다</b>는 새 문제가 생겼습니다.</p>
@@ -296,7 +296,7 @@
 
 <!-- 18 비교표 -->
 <section class="slide" data-title="/goal vs /loop vs Stop 훅">
-  <div class="tag"><b>공식 문서 · Compare ways to keep a session running</b><span class="sep"></span>다음 턴을 무엇이 시작하나</div>
+  <div class="tag"><b>공식 문서</b><span class="sep"></span>Compare ways to keep a session running · 세 방식의 시작·멈춤 조건</div>
   <h2>/goal·/loop·Stop 훅 비교: 다음 턴의 시작 계기</h2>
   <div class="row">
     <div>
@@ -365,7 +365,7 @@
 
 <!-- 23 1M 정식 -->
 <section class="slide" data-title="1M 정식 출시">
-  <div class="tag"><b>2026-03-13</b><span class="sep"></span>Claude 1M(100만 토큰) 컨텍스트 정식 출시</div>
+  <div class="tag"><b>2026-03-13</b><span class="sep"></span>Opus 4.6·Sonnet 4.6 · Claude 공식 발표</div>
   <h2>1M 정식 출시: 할증 없이, 이미지·PDF 600장</h2>
   <div class="row">
     <div>
@@ -406,7 +406,7 @@
 <!-- 26 정리 + 10교시 예고 -->
 <section class="slide" data-title="정리">
   <div class="tag"><b>정리</b><span class="sep"></span>사람이 하던 일이 기계로, 사람 몫은 조건과 상한</div>
-  <h2>승인·계속·창: 사람 대신 기계가 맡은 세 가지</h2>
+  <h2>정리: 사람 대신 기계가 맡은 승인·계속·창</h2>
   <div class="diagram">{{svg:p09-summary}}</div>
   <p class="under">남는 사람의 일은 <b>완료 조건 쓰기, 상한 정하기, 결과 판정</b>입니다. <span class="next">→ 10교시: 이 모든 장치를 묶는 말, 하네스와 MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)</span></p>
   <aside>오늘 세 가지가 바뀌었습니다. 승인은 분류기가, 계속은 평가자가, 창은 1M이 맡았습니다. 하지만 사람이 없어도 되는 것은 아닙니다. 완료 조건을 검증 가능하게 쓰는 일, 상한과 테스트 보호를 정하는 일, 마지막 결과를 판정하는 일이 남습니다. 다음 시간에는 지금까지 본 장치들, 즉 지침 파일과 권한과 훅과 루프를 한꺼번에 가리키는 하네스라는 말과, 에이전트에 도구를 붙이는 표준인 MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)를 다룹니다.</aside>

@@ -19,7 +19,7 @@
 <!-- 02 지난 교시 -->
 <section class="slide" data-title="지난 교시와의 연결">
   <div class="tag"><b>2025-09-02</b><span class="sep"></span>GitHub Spec Kit · 5교시에서 이어서</div>
-  <h2>스펙이 있어도 남는 두 문제: “다 했다”·범위 확대</h2>
+  <h2>스펙이 있어도 남는 두 문제: 가짜 완료·범위 확대</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit</span></div><img src="assets/captures/page-speckit.jpg" alt="GitHub Spec Kit 발표 글"></div>
@@ -349,7 +349,7 @@ exit=<span class="ok">0</span>   <span class="dim">← 통과</span></div>
 <!-- 14 DDD 도입 -->
 <section class="slide section-slide" data-title="2부 DDD">
   <div class="big">후반 · DDD</div>
-  <h1>범위를 도메인 경계로</h1>
+  <h1>도메인 경계로 범위 묶기</h1>
   <div class="strip">
     <figure><div class="thumb"><img src="assets/captures/p06-fowler-ddd.jpg" alt="Fowler의 DDD 설명"></div><figcaption><b>2020</b><span>DDD란</span></figcaption></figure>
     <figure><div class="thumb"><img src="assets/captures/p06-fowler-ul.jpg" alt="Fowler의 Ubiquitous Language 설명"></div><figcaption><b>2006</b><span>유비쿼터스 언어</span></figcaption></figure>
@@ -362,7 +362,7 @@ exit=<span class="ok">0</span>   <span class="dim">← 통과</span></div>
 <!-- 15 DDD란 -->
 <section class="slide" data-title="DDD란">
   <div class="tag"><b>2020-04-22</b><span class="sep"></span>Martin Fowler bliki · Domain Driven Design</div>
-  <h2>DDD: 업무 영역의 규칙을 코드 안의 모델로</h2>
+  <h2>DDD: 업무 영역의 규칙을 코드 모델로 표현</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/bliki/DomainDrivenDesign.html</span></div><img src="assets/captures/p06-fowler-ddd.jpg" alt="Fowler의 DDD 설명 첫 화면"></div>
@@ -466,7 +466,7 @@ models/customer.py   <span class="dim">class Customer</span>
 <!-- 19 왜 에이전트에게 -->
 <section class="slide" data-title="에이전트에게 경계가 필요한 이유">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>볼 범위 줄이기</div>
-  <h2>왜 에이전트에게 경계가 필요한가: 볼 범위 축소</h2>
+  <h2>에이전트에게 경계가 필요한 이유: 볼 범위 축소</h2>
   <div class="diagram">{{svg:p06-scope}}</div>
   <p class="under">경계는 <b>컨텍스트 창 절약</b>, <b>수정 범위 제한</b>, <b>영역별 테스트 실행</b>을 한꺼번에 줍니다.</p>
   <aside>사람 팀에게 바운디드 컨텍스트가 필요한 이유는 소통 비용이었습니다. 에이전트에게는 보는 범위가 곧 비용입니다. 경계가 없으면 에이전트는 관련 있어 보이는 파일을 다 읽고 다 고쳐서 컨텍스트 창을 낭비하고 회귀를 만듭니다. 경계가 있으면 지원 기록 폴더와 공개 계약만 보고, 그 영역의 테스트만 돌리면 됩니다. 테스트와도 연결됩니다. 영역별 테스트가 있어야 범위를 묶은 채로 통과를 판정할 수 있습니다. 이 효과가 제가 SDD(Spec-Driven Development, 스펙 주도 개발), TDD, DDD를 함께 쓰는 이유입니다.</aside>
@@ -541,7 +541,7 @@ def can_reserve(room, start, now):
 
 <!-- 21 프롬프트 수준 -->
 <section class="slide" data-title="프롬프트에 수준 명시">
-  <div class="tag"><b>기초 중의 기초</b><span class="sep"></span>강사 운영 방식 · 프롬프트에 규모 명시</div>
+  <div class="tag"><b>기초 중의 기초</b><span class="sep"></span>강사 운영 방식</div>
   <h2>프롬프트에 수준 명시: PoC냐, 엔터프라이즈냐</h2>
   <div class="compare" style="--cols:2">
     <div>
@@ -576,7 +576,7 @@ def can_reserve(room, start, now):
 
 <!-- 24 정리 -->
 <section class="slide" data-title="정리와 다음 교시">
-  <div class="tag"><b>정리</b><span class="sep"></span>스펙 · 테스트 · 경계</div>
+  <div class="tag"><b>정리</b><span class="sep"></span>6교시 → 7교시</div>
   <h2>정리: 스펙·테스트·경계의 세 겹 방어</h2>
   <div class="diagram">{{svg:p06-triple}}</div>
   <p class="under">테스트는 <b>먼저 쓰고, 먼저 커밋하고, 못 고치게</b> 합니다. 경계는 <b>작게</b>, 수준은 <b>프롬프트에 한 줄로</b>. <span class="next">→ 7교시 서브에이전트와 워크트리</span></p>

@@ -20,7 +20,7 @@
 <!-- 02 연결: 승인 피로 다음 문제 -->
 <section class="slide" data-title="지난 시간과 연결">
   <div class="tag"><b>2025-07-14</b><span class="sep"></span>3~4교시 승인 피로 → 5교시 딴길 문제 · Kiro 발표문</div>
-  <h2>승인 정리 뒤에도 남는 문제: 딴길</h2>
+  <h2>승인 문제를 풀어도 남는 것: 딴길</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>kiro.dev/blog/introducing-kiro</span></div><img src="assets/captures/page-kiro.jpg" alt="Kiro 발표문 첫 화면: 프롬프트만 반복해서 만든 앱의 문제"></div>
@@ -52,7 +52,7 @@
 <!-- 3a SDD 용어의 계보 -->
 <section class="slide" data-title="SDD 용어의 계보">
   <div class="tag"><b>1987 → 2025</b><span class="sep"></span>IEEE 1016 · Ostroff 외(2004) · Kiro · Spec Kit · Böckeler</div>
-  <h2>SDD의 두 뜻: 1987년 설계 기술서, 2025년 스펙 주도 개발</h2>
+  <h2>SDD의 두 뜻: 1987년 설계 문서, 2025년 개발 방식</h2>
   <div class="diagram">{{svg:p05-sdd-lineage}}</div>
   <p class="under">같은 약어, 다른 말. <b>Software Design Description</b>(IEEE(Institute of Electrical and Electronics Engineers, 전기전자공학자협회) 1016, 1987)은 사람에게 설계를 전하는 <b>문서</b>, <b>Spec-Driven Development</b>는 스펙으로 개발을 <b>이끄는 방식</b>이다.</p>
   <aside>SDD라는 약어는 2025년에 새로 생긴 말이 아닙니다. 1987년 IEEE(Institute of Electrical and Electronics Engineers, 전기전자공학자협회) 1016, ‘소프트웨어 설계 기술서에 관한 권고 실무’가 Software Design Description을 SDD로 불렀습니다. 표준은 SDD를 소프트웨어 시스템의 표현이자 설계 정보를 전달하는 매체로 정의했고, 1998년과 2009년에 개정된 뒤 2020년에 비활성 상태가 됐습니다. 이때의 SDD는 사람이 읽고 사람이 코드를 쓰는 문서였습니다. 2004년에는 Ostroff, Makalsky, Paige가 애자일 학회에서 ‘Agile Specification-Driven Development’를 발표합니다. 테스트 주도 개발과 계약에 의한 설계를 묶어, 명세가 개발을 이끌게 하자는 제안이었습니다. 그 사이 모델에서 코드를 생성하는 MDD(Model-Driven Development, 모델 주도 개발), 시나리오를 실행 가능한 명세로 쓰는 BDD(Behavior-Driven Development, 행동 주도 개발)도 같은 생각을 다른 방식으로 시도했습니다. 그리고 2025년 Kiro와 Spec Kit이 에이전트가 읽는 스펙을 내세우면서 Spec-Driven Development라는 말이 퍼졌습니다. 10월에는 Böckeler의 글이 이를 세 수준으로 정리했습니다. 약어는 같지만 앞은 문서의 이름이고, 뒤는 일하는 방식의 이름입니다.</aside>
@@ -60,7 +60,7 @@
 
 <!-- 3b 문서에서 실행 계약으로 -->
 <section class="slide" data-title="문서에서 실행 계약으로">
-  <div class="tag"><b>무엇이 바뀌었나</b><span class="sep"></span>설계 기술서와 스펙 주도 개발 비교</div>
+  <div class="tag"><b>항목별 비교</b><span class="sep"></span>설계 기술서와 스펙 주도 개발</div>
   <h2>목적은 같고, 바뀐 것은 읽는 쪽·스펙 위상·검증</h2>
   <table class="tbl" style="font-size:24px">
     <thead><tr><th></th><th>설계 기술서 (IEEE 1016, 1987~)</th><th>스펙 주도 개발 (2025~)</th></tr></thead>
@@ -79,7 +79,7 @@
 <!-- 04 SDD 정의 -->
 <section class="slide" data-title="SDD 정의">
   <div class="tag"><b>2025-10-15</b><span class="sep"></span>Birgitta Böckeler · martinfowler.com</div>
-  <h2>SDD(스펙 주도 개발, Spec-Driven Development): 코드보다 스펙 먼저</h2>
+  <h2>SDD(스펙 주도 개발): 코드보다 스펙 먼저</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html</span></div><img src="assets/captures/p05-fowler-sdd.jpg" alt="martinfowler.com의 SDD 설명 글 정의 절"></div>
@@ -101,7 +101,7 @@
 <!-- 04a 사례: 한 줄 프롬프트 vs 수용 기준 -->
 <section class="slide" data-title="사례: 한 줄 vs 스펙">
   <div class="tag"><b>사례</b><span class="sep"></span>SDD 정의 · 빈틈은 추측으로 · 가상 예</div>
-  <h2>“비밀번호 재설정 만들어줘”: 빈칸을 누가 채우나</h2>
+  <h2>“비밀번호 재설정 만들어 줘”: 빈칸을 누가 채우나</h2>
   <div class="compare" style="--cols:2">
     <div>
       <div class="k">한 줄 프롬프트</div>
@@ -132,7 +132,7 @@
 
 <!-- 05 세 수준 -->
 <section class="slide" data-title="SDD 세 수준">
-  <div class="tag"><b>SDD 세 수준</b><span class="sep"></span>Böckeler · martinfowler.com · 2025-10-15</div>
+  <div class="tag"><b>2025-10-15</b><span class="sep"></span>Böckeler · martinfowler.com</div>
   <h2>SDD의 세 수준: 스펙의 수명으로 구분</h2>
   <div class="diagram">{{svg:p05-sdd-levels}}</div>
   <p class="under">같은 SDD라도 <b>스펙의 수명</b>이 다릅니다. 글쓴이는 Kiro와 Spec Kit이 <b>대체로 spec-first</b>라고 평가했습니다.</p>
@@ -608,7 +608,7 @@ UTC로 읽으면 한국 시각: <span class="warn">23:00 KST</span></div>
 
 <!-- 24 정리 -->
 <section class="slide" data-title="정리와 다음 교시">
-  <div class="tag"><b>정리</b><span class="sep"></span>5교시 요약 · 다음은 6교시</div>
+  <div class="tag"><b>정리</b><span class="sep"></span>5교시 → 6교시</div>
   <h2>정리: 딴길은 스펙으로, 압축 망각은 파일로 방지</h2>
   <div class="diagram">{{svg:sdd-tdd-ddd}}</div>
   <p class="under">스펙과 Task 목록은 <b>딴길</b>을, 파일은 <b>압축</b>을 막습니다. 다음 시간에는 스펙을 <b>실패하는 테스트</b>로 바꿉니다. <span class="next">→ 6교시 TDD와 DDD</span></p>

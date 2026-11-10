@@ -324,7 +324,7 @@
 <!-- 18 Playwright MCP -->
 <section class="slide" data-title="Playwright MCP">
   <div class="tag"><b>대표 도구 Playwright MCP</b><span class="sep"></span>2025-03-13 · Microsoft</div>
-  <h2>브라우저 자동화의 대표 도구, Playwright MCP</h2>
+  <h2>요소 목록으로 조작하는 도구, Playwright MCP</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>playwright.dev/mcp/introduction</span></div><img src="assets/captures/p15-playwright-mcp.jpg" alt="Playwright MCP 소개 문서: 접근성 스냅샷으로 브라우저 조작, 비전 모델 불필요"></div>
@@ -388,7 +388,7 @@
 <!-- 21 도구 고르기 -->
 <section class="slide" data-title="도구 고르기">
   <div class="tag"><b>고르는 기준</b><span class="sep"></span>어떤 도구로 눌러 볼까</div>
-  <h2>도구 선택 기준: 무엇을 확인하는가</h2>
+  <h2>도구 선택 기준: 확인 대상</h2>
   <div class="diagram">{{svg:p15-tool-choice}}</div>
   <p class="under">정답은 하나가 아닙니다. 웹 앱이면 <b>Playwright MCP로 흐름, DevTools MCP로 증거</b>가 무난한 조합입니다.</p>
   <aside>도구는 확인 대상으로 고르면 됩니다. 웹 앱의 화면과 흐름이면 Playwright MCP가 기본입니다. 콘솔 오류나 네트워크 요청까지 증거로 남기려면 DevTools MCP를 더합니다. 로그인된 내 Chrome에서 확인해야 하면 Claude in Chrome이 편합니다. 브라우저 밖의 데스크톱 앱이라면 computer use입니다. 특정 도구만 정답은 아닙니다. Codex나 Gemini, Cursor 같은 다른 도구에서도 같은 MCP 서버를 연결해 같은 일을 할 수 있습니다.</aside>
@@ -433,7 +433,7 @@
 
 <!-- 24 증거 -->
 <section class="slide" data-title="증거 남기기">
-  <div class="tag"><b>스크린샷 · 콘솔 로그</b><span class="sep"></span>통과했다는 말이 아니라 통과한 증거</div>
+  <div class="tag"><b>스크린샷</b><span class="sep"></span>콘솔 로그 · 증거 폴더와 PASS/FAIL 보고서</div>
   <h2>“통과했습니다” 대신 증거 파일</h2>
   <div class="diagram">{{svg:p15-evidence}}</div>
   <p class="under">규칙: <b>증거 없는 PASS는 FAIL</b>. 에이전트에게 파일 이름 규칙까지 시키고, PR에 보고서를 붙입니다.</p>

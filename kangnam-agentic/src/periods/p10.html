@@ -19,7 +19,7 @@
 
 <!-- 02 지난 교시 연결 -->
 <section class="slide" data-title="지난 교시와 연결">
-  <div class="tag"><b>9교시 → 10교시</b><span class="sep"></span>오래 맡기기에서 남은 문제</div>
+  <div class="tag"><b>9교시 → 10교시</b><span class="sep"></span>자동화로 풀리지 않은 것</div>
   <h2>오래 맡긴 뒤 남은 세 문제: 기록·연결·비용</h2>
   <div class="diagram">{{svg:p10-roadmap}}</div>
   <p class="under">9교시에서 승인, 계속, 창 크기를 풀었습니다. <b>기록, 연결, 비용</b>은 하네스와 MCP의 몫입니다. <span class="next">→ 9교시</span></p>
@@ -29,7 +29,7 @@
 <!-- 03 하네스 연표 -->
 <section class="slide" data-title="하네스라는 말의 등장">
   <div class="tag"><b>2025-02-24 → 2026-02-11</b><span class="sep"></span>Anthropic · OpenAI 공식 글</div>
-  <h2>‘하네스’의 첫 공식 등장: Claude Code 출시 7개월 뒤</h2>
+  <h2>하네스 첫 공식 등장: Claude Code 출시 7개월 뒤</h2>
   <div class="diagram">{{svg:p10-harness-timeline}}</div>
   <p class="under">Claude Code 출시 때는 없던 말입니다. 하네스는 모델을 둘러싼 장치 전부를 뜻합니다. 공식 글 가운데 <b>첫 사용은 2025-09-29</b>입니다. <span class="next">→ 다음 3장</span></p>
   <aside>Claude Code가 2025년 2월에 나왔을 때는 하네스라는 말을 쓰지 않았습니다. 제가 확인한 공식 글에서 처음 나온 것은 2025년 9월 29일 Anthropic의 Agent SDK(Software Development Kit, 소프트웨어 개발 키트) 글입니다. 그 두 달 뒤 Anthropic이 장기 실행 에이전트를 위한 하네스 글을 냈고, 2026년 2월에는 OpenAI가 하네스 엔지니어링이라는 글로 같은 말을 썼습니다. 말이 퍼졌다는 것은 모델만큼 모델 주변 장치가 중요하다는 합의가 생겼다는 뜻입니다. 이 시기와 방식은 공식 글에서 확인한 범위이고, 블로그나 커뮤니티에서는 더 일찍 쓰였을 수 있습니다.</aside>
@@ -258,7 +258,7 @@
 
 <!-- 17 도구 지도 -->
 <section class="slide" data-title="MCP 도구 지도">
-  <div class="tag"><b>개념 · 도구 지도</b><span class="sep"></span>MCP 도구 9개 · 하는 일별 네 묶음</div>
+  <div class="tag"><b>개념</b><span class="sep"></span>도구 지도 · 예시 목록, 필요한 것만 붙이기</div>
   <h2>MCP 도구 9개: 하는 일별 네 묶음</h2>
   <div class="diagram">{{svg:p10-mcp-map}}</div>
   <p class="under">이 목록은 <b>예시</b>입니다. 필요한 일이 생길 때 하나씩 붙이고, 안 쓰면 뺍니다.</p>
@@ -280,7 +280,7 @@
 <!-- 18 Context7 -->
 <section class="slide" data-title="Context7">
   <div class="tag"><b>2025-03-29 첫 커밋</b><span class="sep"></span>upstash/context7 · 원격 서버 mcp.context7.com</div>
-  <h2>Context7: 버전에 맞는 문서만 가져오는 문서 조회</h2>
+  <h2>Context7: 버전별 공식 문서 조회</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>context7.com</span></div><img src="assets/captures/page-context7.jpg" alt="Context7 첫 화면"></div>
@@ -301,7 +301,7 @@
 <!-- 19 Serena -->
 <section class="slide" data-title="Serena">
   <div class="tag"><b>2025-03-23 첫 커밋</b><span class="sep"></span>oraios/serena · GPL-3.0</div>
-  <h2>Serena: 함수·클래스(심볼) 단위 탐색·편집하는 LSP 도구</h2>
+  <h2>Serena: 심볼(함수·클래스) 단위 탐색·편집 LSP 도구</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/oraios/serena</span></div><img src="assets/captures/page-serena.jpg" alt="Serena GitHub 저장소"></div>
@@ -364,7 +364,7 @@
 <!-- 22 GitHub MCP -->
 <section class="slide" data-title="GitHub MCP 서버">
   <div class="tag"><b>2025-03-10 첫 커밋</b><span class="sep"></span>github/github-mcp-server · 원격 api.githubcopilot.com/mcp/</div>
-  <h2>GitHub MCP 서버: 이슈·PR·Actions 읽기·쓰기</h2>
+  <h2>GitHub MCP: 이슈·PR·Actions 읽기·쓰기</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com · GitHub MCP 서버 설정</span></div><img src="assets/captures/p10-github-mcp.jpg" alt="GitHub MCP 서버 공식 문서"></div>
@@ -469,7 +469,7 @@
 <!-- 27 rtk -->
 <section class="slide" data-title="rtk: CLI 출력 압축">
   <div class="tag"><b>2026-01-22 첫 커밋</b><span class="sep"></span>rtk-ai/rtk · Rust 단일 바이너리</div>
-  <h2>셸 출력 압축 rtk: 잡음 걸러 에이전트에게 전달</h2>
+  <h2>rtk: 셸 출력의 잡음을 걸러 에이전트에게 전달</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>www.rtk-ai.app</span></div><img src="assets/captures/p10-rtk-site.jpg" alt="rtk 공식 사이트"></div>
@@ -513,8 +513,8 @@
 
 <!-- 29 토큰 절약 정리 -->
 <section class="slide" data-title="토큰 절약 정리">
-  <div class="tag"><b>정리 · 토큰 절약</b><span class="sep"></span>들어오는 것을 줄이는 네 가지 길</div>
-  <h2>토큰 절약: 창에 들어오는 것 줄이기</h2>
+  <div class="tag"><b>정리</b><span class="sep"></span>토큰 절약 · CLI 출력·검색 결과·도구 정의·문서 네 갈래</div>
+  <h2>정리: 창에 들어오는 것 줄이기</h2>
   <div class="diagram">{{svg:p10-token-saving}}</div>
   <p class="under">도구는 <b>필요한 만큼만</b>. 서버 수, 도구 수, 출력 길이를 <b>직접 재고</b> 줄이는 것이 순서입니다.</p>
   <aside>오늘 본 것을 창에 들어오는 것 기준으로 다시 묶으면 네 갈래입니다. 셸 출력은 압축 도구 rtk가 줄이고, 검색 결과는 ripgrep이 걸러 줍니다. MCP 도구 정의는 도구 검색이 필요할 때만 싣고, 문서는 문서 조회(Context7)가, 코드는 심볼 탐색(Serena)이 필요한 부분만 가져옵니다. 한 가지 더 짚을 점이 있습니다. Playwright와 Context7 모두 MCP 말고 CLI와 스킬 방식도 내놓고 있고, 토큰 효율이 이유로 거론됩니다. 정답은 도구마다 다르니, 내 작업에서 직접 재 보고 정하는 편이 맞습니다.</aside>
@@ -523,7 +523,7 @@
 <!-- 31 정리 + 예고 -->
 <section class="slide" data-title="정리와 다음 교시">
   <div class="tag"><b>정리</b><span class="sep"></span>10교시 → 11교시</div>
-  <h2>하네스는 장치 총합, MCP는 바깥 연결</h2>
+  <h2>정리: 하네스는 장치 총합, MCP는 바깥 연결</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/effective-harnesses-for-long-running-agents</span></div><img src="assets/captures/page-harness.jpg" alt="Anthropic 장기 실행 하네스 글"></div>

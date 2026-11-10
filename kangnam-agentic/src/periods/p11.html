@@ -448,7 +448,7 @@
 <!-- 21 과열 방지 -->
 <section class="slide" data-title="과열 방지">
   <div class="tag"><b>과열 방지</b><span class="sep"></span>시키지 않은 기능 · 과잉 추상화 · 강사 운영 방식</div>
-  <h2>과열 방지: 시킨 것보다 더 만드는 에이전트 막기</h2>
+  <h2>과열 방지: 시킨 범위 밖 구현 막기</h2>
   <div class="diagram">{{svg:p11-overheat}}</div>
   <p class="under">1교시 DDD(Domain-Driven Design, 도메인 주도 설계)의 “<b>이건 PoC(Proof of Concept, 개념 증명)입니다</b>”와 같은 방향입니다. 수준을 적고, 스킬로 상시 켜 둡니다. <span class="next">→ 6교시 DDD</span></p>
   <aside>에이전트는 잘 만들고 싶어 하기 때문에 시킨 것보다 더 만듭니다. 요청하지 않은 기능, 한 번만 쓰는 코드의 추상화, 옆 코드의 정리, 필요 없는 의존성이 그 증상입니다. 이것을 과열이라고 부릅니다. 과열은 리뷰해야 할 diff를 키우고 버그가 숨을 곳을 늘립니다. 막는 방법은 세 가지입니다. Karpathy guidelines의 단순함 우선과 수술하듯 고치기, Ponytail의 사다리, 그리고 가장 기본인 프롬프트에 수준을 명시하는 것입니다. 스킬은 이것을 매번 적지 않아도 되게 해 줍니다. 다만 과열을 막는 스킬을 켜 둔 채 정말 필요한 검증까지 줄이지는 않는지 한 번씩 점검해 보면 좋습니다.</aside>
@@ -477,8 +477,8 @@
 
 <!-- 23 kdev 8개 -->
 <section class="slide" data-title="강사 스킬 지도 ②">
-  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>한국어 스킬 패키지 8개 · v0.2.0 · kdev-*</div>
-  <h2>스킬 패키지: kdev 여덟 개</h2>
+  <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>한국어 스킬 패키지(스킬 8개) · v0.2.0 · kdev-*</div>
+  <h2>kdev 스킬 패키지: 스킬 여덟 개</h2>
   <div class="diagram">{{svg:p11-skillmap}}</div>
   <p class="under">시작 → 계획 → 구현 → 검토 → 전달 → 인계. 실패하면 <b>debug</b>, 작업마다 <b>model</b>로 모델과 사고 수준을 고릅니다.</p>
   <aside>앞 장이 외부 스킬의 지도였다면, 이것은 제가 직접 만든 한국어 스킬 패키지입니다. 여덟 개가 작업의 흐름을 따라갑니다. kdev-start가 문제와 범위, 완료 조건을 정리하고, kdev-plan이 설계를 세워 작은 작업으로 나누고, kdev-build가 합의한 범위에서 구현하고, kdev-review가 기준에 맞춰 검토합니다. kdev-deliver가 전달 수준과 실제 사용 확인을 맡고, kdev-handoff가 다음 사람이나 세션이 이어받을 상태를 남깁니다. 구현 중에 실패하면 kdev-debug로 재현, 원인, 수정, 재검증을 기록하고, kdev-model은 작업에 맞는 모델과 사고 수준을 고릅니다. 이 흐름은 제 18단계 운영 기준과 이어지고, ADR(Architecture Decision Record, 아키텍처 결정 기록)과 이슈 흐름은 14교시에서 다룹니다.</aside>
@@ -536,7 +536,7 @@
 <!-- 28 정리 -->
 <section class="slide" data-title="정리와 다음 교시">
   <div class="tag"><b>정리</b><span class="sep"></span>11교시 → 12교시 실습 3</div>
-  <h2>스킬: 필요할 때 읽는 지침 폴더</h2>
+  <h2>정리: 스킬은 필요할 때 읽는 지침 폴더</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/DietrichGebert/ponytail</span></div><img src="assets/captures/page-ponytail.jpg" alt="Ponytail 저장소 화면"></div>

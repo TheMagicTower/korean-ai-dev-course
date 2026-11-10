@@ -18,6 +18,11 @@ fw.web -> fw.ad.ctl
 fw.ad.ctl -> fw.ad.uc.reserve
 fw.ad.repo -> fw.ad.uc.port: "구현"
 fw.ad.uc.reserve -> fw.ad.uc.ent.room
+fw.ad.repo -> fw.pg: "SQL 실행(호출)" {
+  style.stroke: "#9aa4b2"
+  style.stroke-dash: 3
+  style.font-color: "#c9d1d9"
+}
 fw.ad.uc.ent.room -> fw.pg: "✗ 금지" {
   style.stroke: "#ff00ff"
   style.stroke-dash: 4

@@ -28,7 +28,7 @@ html,body{height:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
 .stage{position:fixed;inset:0;display:grid;place-items:center}
-.deck{width:1600px;height:900px;position:relative;transform-origin:center center}
+.deck{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center center}
 .slide{position:absolute;inset:0;display:none;padding:64px 88px 72px;flex-direction:column;gap:28px}
 .slide.on{display:flex}
 .slide aside{display:none}
@@ -161,7 +161,7 @@ p{margin:0}
 .hud button:focus-visible,.hud select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .notes{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:44px;max-height:38vh;overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.65}
 @media (prefers-reduced-motion:no-preference){.slide.on{animation:in .25s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
-@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
+@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;position:static;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
 
 /* keep captures inside their column: the wrapper shrinks, the frame clips from the top */
 .row > div:has(> .frame){display:flex;flex-direction:column;min-height:0;max-height:100%;align-self:stretch;justify-content:center}
@@ -195,13 +195,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 </style>
 <div class="stage"><div class="deck" id="deck">
-<!-- 9교시 · 더 오래 맡기기: 자동 승인, ‘계속’의 자동화, 1M (60분, 26장). 3회차 2026-11-19. -->
+<!-- 9교시 · 더 오래 맡기기: 자동 승인, ‘계속’의 자동화, 1M (60분, 26장). 3회차 2026-11-17. -->
 
 <!-- 01 표지 -->
 <section data-period="9" class="slide" data-title="표지">
-  <div class="tag"><b>3회차 · 9교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-19</div>
+  <div class="tag"><b>3회차 · 9교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-17</div>
   <div class="title-wrap">
-    <h1>더 오래 맡기기:<br>자동 승인, ‘계속’의 자동화, 1M</h1>
+    <h1>더 오래 맡기기:<br>자동 승인, 자동 ‘계속’, 1M 창</h1>
     <p class="lead">사람이 누르던 승인과 ‘계속’을 기계가 대신하게 되면서, 몇 시간짜리 일을 맡길 수 있게 된 과정을 봅니다.</p>
   </div>
   <div class="strip">
@@ -211,13 +211,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
     <figure><div class="thumb"><img src="assets/captures/page-onem.jpg" alt="1M 컨텍스트 정식 출시 글"></div><figcaption><b>2026-03</b><span>1M 컨텍스트</span></figcaption></figure>
   </div>
   <div class="arrowline"></div>
-  <aside>오늘은 에이전트에게 얼마나 오래 맡길 수 있는가를 다룹니다. 지난 시간까지는 에이전트가 딴길로 새지 않게 하는 장치를 봤습니다. 오늘은 반대로, 사람이 계속 붙어 있어야 하는 이유를 하나씩 없애 나간 과정입니다. 승인을 누르는 일, 계속이라고 입력하는 일, 창이 차서 압축하는 일, 이 세 가지를 차례로 봅니다. 아래 네 장은 모두 실제 공식 화면입니다.</aside>
+  <aside>오늘은 에이전트에게 얼마나 오래 맡길 수 있는가를 다룹니다. 지난 시간까지는 에이전트가 딴길로 새지 않게 하는 장치를 봤습니다. 오늘은 반대로, 사람이 계속 붙어 있어야 하는 이유를 하나씩 없애 나간 과정을 따라갑니다. 승인을 누르는 일, 계속이라고 입력하는 일, 창이 차서 압축하는 일, 이 세 가지를 차례로 봅니다. 아래 네 장은 모두 실제 공식 화면입니다.</aside>
 </section>
 
 <!-- 02 지난 교시와의 연결 -->
 <section data-period="9" class="slide" data-title="남은 병목">
-  <div class="tag"><b>8교시 → 9교시</b><span class="sep"></span>딴길은 막았지만 사람이 아직 붙어 있다</div>
-  <h2>스펙과 테스트를 갖춰도, 사람이 남는 세 곳</h2>
+  <div class="tag"><b>8교시 → 9교시</b><span class="sep"></span>딴길은 막았지만 아직 사람이 필요</div>
+  <h2>스펙·테스트 다음 병목: 승인·계속·창</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1563 548"><svg class="d2-1286072262 d2-svg" width="1563" height="548" viewBox="-21 -21 1563 548"><g class="dDE="><g class="shape" ><rect x="0.000000" y="0.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="157.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="157.000000" dy="0.000000">8교시</tspan><tspan x="157.000000" dy="38.500000">하네스 v1</tspan></text></g><g class="YQ=="><g class="shape" ><rect x="404.000000" y="0.000000" width="315.000000" height="122.000000" class="box-inner"  /></g><text x="561.500000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">스펙 · Task 목록</text></g><g class="Yg=="><g class="shape" ><rect x="809.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="987.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="987.500000" dy="0.000000">테스트 =</tspan><tspan x="987.500000" dy="38.500000">완료 기준</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="1256.000000" y="0.000000" width="265.000000" height="122.000000" class="box-inner"  /></g><text x="1388.500000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">진행 파일</text></g><g class="dDI="><g class="shape" ><rect x="0.000000" y="192.000000" width="314.000000" height="122.000000" class="box-inner hot"  /></g><text x="157.000000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="157.000000" dy="0.000000">그래도</tspan><tspan x="157.000000" dy="38.500000">사람이 남는 곳</tspan></text></g><g class="cA=="><g class="shape" ><rect x="404.000000" y="192.000000" width="315.000000" height="122.000000" class="box-inner hot"  /></g><text x="561.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="561.500000" dy="0.000000">도구 호출마다</tspan><tspan x="561.500000" dy="38.500000">승인</tspan></text></g><g class="cQ=="><g class="shape" ><rect x="809.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="987.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="987.500000" dy="0.000000">턴이 끝날 때마다</tspan><tspan x="987.500000" dy="38.500000">‘계속’</tspan></text></g><g class="cg=="><g class="shape" ><rect x="1256.000000" y="192.000000" width="265.000000" height="122.000000" class="box-inner hot"  /></g><text x="1388.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1388.500000" dy="0.000000">창이 차면</tspan><tspan x="1388.500000" dy="38.500000">압축</tspan></text></g><g class="dDM="><g class="shape" ><rect x="0.000000" y="384.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="157.000000" y="457.500000" class="label-inner" style="text-anchor:middle;font-size:34px">9교시의 답</text></g><g class="cDI="><g class="shape" ><rect x="404.000000" y="384.000000" width="315.000000" height="122.000000" class="box-inner"  /></g><text x="561.500000" y="440.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="561.500000" dy="0.000000">자동 승인</tspan><tspan x="561.500000" dy="38.500000">(auto mode)</tspan></text></g><g class="cTI="><g class="shape" ><rect x="809.000000" y="384.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="987.500000" y="457.500000" class="label-inner" style="text-anchor:middle;font-size:34px">/goal · 루프</text></g><g class="cjI="><g class="shape" ><rect x="1256.000000" y="384.000000" width="265.000000" height="122.000000" class="box-inner"  /></g><text x="1388.500000" y="457.500000" class="label-inner" style="text-anchor:middle;font-size:34px">1M 컨텍스트</text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u1-mk-d2-1286072262-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 720.500000 61.000000 L 804.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-1286072262-3488378134)" mask="url(#u1-d2-1286072262)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 1167.500000 61.000000 L 1252.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-1286072262-3488378134)" mask="url(#u1-d2-1286072262)" /></g><g class="KHQxIC0mZ3Q7IHQyKVswXQ=="><path d="M 157.000000 124.000000 L 157.000000 188.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-1286072262-3488378134)" mask="url(#u1-d2-1286072262)" /><text x="157.000000" y="167.000000" class="edge-label" style="text-anchor:middle;font-size:26px">딴길 막음</text></g><g class="KHAgLSZndDsgcDIpWzBd"><path d="M 561.500000 316.000000 L 561.500000 380.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-1286072262-3488378134)" mask="url(#u1-d2-1286072262)" /></g><g class="KHEgLSZndDsgcTIpWzBd"><path d="M 987.500000 316.000000 L 987.500000 380.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-1286072262-3488378134)" mask="url(#u1-d2-1286072262)" /></g><g class="KHIgLSZndDsgcjIpWzBd"><path d="M 1388.500000 316.000000 L 1388.500000 380.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-1286072262-3488378134)" mask="url(#u1-d2-1286072262)" /></g><mask id="u1-d2-1286072262" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1563" height="548">
 <rect x="-21" y="-21" width="1563" height="548" fill="white"></rect>
 <rect x="91.000000" y="141.000000" width="132" height="33" fill="black"></rect>
@@ -229,19 +229,19 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 03 승인 방식의 스펙트럼 -->
 <section data-period="9" class="slide" data-title="승인 피로의 해법들">
   <div class="tag"><b>2026-03-25</b><span class="sep"></span>Anthropic Engineering · “Claude Code auto mode”</div>
-  <h2>수동 승인은 93%가 그냥 승인돼, 안전장치 구실을 못 한다</h2>
+  <h2>수동 승인의 한계: 93%는 확인 없이 승인</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1100 1016"><svg class="d2-3333193468 d2-svg" width="1100" height="1016" viewBox="-9 -9 1100 1016"><g class="bWFudWFs"><g class="shape" ><rect x="224.000000" y="12.000000" width="634.000000" height="191.000000" class="box-outer"  /></g><text x="541.000000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">수동 승인</text></g><g class="c2FuZGJveA=="><g class="shape" ><rect x="31.000000" y="273.000000" width="1019.000000" height="191.000000" class="box-outer"  /></g><text x="540.500000" y="312.000000" class="label-outer" style="text-anchor:middle;font-size:34px">샌드박스</text></g><g class="c2tpcA=="><g class="shape" ><rect x="247.000000" y="534.000000" width="588.000000" height="191.000000" class="box-outer"  /></g><text x="541.000000" y="573.000000" class="label-outer" style="text-anchor:middle;font-size:34px">--dangerously-skip-permissions</text></g><g class="YXV0bw=="><g class="shape" ><rect x="12.000000" y="795.000000" width="1058.000000" height="191.000000" class="box-outer hot"  /></g><text x="541.000000" y="834.000000" class="label-outer" style="text-anchor:middle;font-size:34px">auto mode</text></g><g class="bWFudWFsLmE="><g class="shape" ><rect x="274.000000" y="65.000000" width="128.000000" height="88.000000" class="box-inner"  /></g><text x="338.000000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px">안전</text></g><g class="bWFudWFsLmI="><g class="shape" ><rect x="422.000000" y="65.000000" width="386.000000" height="88.000000" class="box-inner"  /></g><text x="615.000000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px">승인 93% 그냥 누름</text></g><g class="c2FuZGJveC5h"><g class="shape" ><rect x="81.000000" y="326.000000" width="128.000000" height="88.000000" class="box-inner"  /></g><text x="145.000000" y="382.500000" class="label-inner" style="text-anchor:middle;font-size:34px">안전</text></g><g class="c2FuZGJveC5i"><g class="shape" ><rect x="229.000000" y="326.000000" width="771.000000" height="88.000000" class="box-inner"  /></g><text x="614.500000" y="382.500000" class="label-inner" style="text-anchor:middle;font-size:34px">기능마다 설정, 네트워크 필요하면 깨짐</text></g><g class="c2tpcC5h"><g class="shape" ><rect x="297.000000" y="587.000000" width="221.000000" height="88.000000" class="box-inner"  /></g><text x="407.500000" y="643.500000" class="label-inner" style="text-anchor:middle;font-size:34px">보호 없음</text></g><g class="c2tpcC5i"><g class="shape" ><rect x="538.000000" y="587.000000" width="247.000000" height="88.000000" class="box-inner"  /></g><text x="661.500000" y="643.500000" class="label-inner" style="text-anchor:middle;font-size:34px">관리 비용 0</text></g><g class="YXV0by5h"><g class="shape" ><rect x="62.000000" y="848.000000" width="307.000000" height="88.000000" class="box-inner"  /></g><text x="215.500000" y="904.500000" class="label-inner" style="text-anchor:middle;font-size:34px">분류기가 판단</text></g><g class="YXV0by5i"><g class="shape" ><rect x="389.000000" y="848.000000" width="631.000000" height="88.000000" class="box-inner"  /></g><text x="704.500000" y="904.500000" class="label-inner" style="text-anchor:middle;font-size:34px">프롬프트 줄고 위험 행동은 차단</text></g><g class="KG1hbnVhbCAtJmd0OyBzYW5kYm94KVswXQ=="><marker id="u2-mk-d2-3333193468-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 541.000000 205.000000 L 541.000000 269.000000" class="edge" style="stroke-width:2;" marker-end="url(#u2-mk-d2-3333193468-3488378134)" mask="url(#u2-d2-3333193468)" /></g><g class="KHNhbmRib3ggLSZndDsgc2tpcClbMF0="><path d="M 541.000000 466.000000 L 541.000000 530.000000" class="edge" style="stroke-width:2;" marker-end="url(#u2-mk-d2-3333193468-3488378134)" mask="url(#u2-d2-3333193468)" /></g><g class="KHNraXAgLSZndDsgYXV0bylbMF0="><path d="M 541.000000 727.000000 L 541.000000 791.000000" class="edge" style="stroke-width:2;" marker-end="url(#u2-mk-d2-3333193468-3488378134)" mask="url(#u2-d2-3333193468)" /></g><mask id="u2-d2-3333193468" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1100" height="1016">
 <rect x="-9" y="-9" width="1100" height="1016" fill="white"></rect>
 
 </mask></svg></svg></div>
   <p class="under">수동 승인 요청 중 사용자가 <b class="hl">93%</b>를 그냥 승인합니다(Anthropic 집계). 확인하지 않고 누르는 승인은 안전장치가 아닙니다. <span class="next">→ 3교시에서 본 내용</span></p>
-  <aside>1회차에서 본 승인 피로의 해법을 다시 짚어 봅니다. Anthropic 엔지니어링 글은 사용자에게 두 가지 길이 있었다고 설명합니다. 도구를 격리하는 샌드박스와, 모든 승인을 끄는 건너뛰기 플래그입니다. 샌드박스는 안전하지만 기능마다 설정해야 하고, 네트워크나 호스트 접근이 필요하면 격리가 깨집니다. 건너뛰기 플래그는 관리가 필요 없지만 보호도 없습니다. 수동 승인은 가운데인데, 사용자가 그 93%를 그냥 승인한다고 합니다. 이 빈자리에 들어온 것이 auto mode입니다.</aside>
+  <aside>1회차에서 본 승인 피로의 해법을 다시 짚어 봅니다. Anthropic 엔지니어링 글은 사용자에게 두 가지 길이 있었다고 설명합니다. 도구를 격리하는 샌드박스와, 모든 승인을 끄는 건너뛰기 플래그입니다. 샌드박스는 안전하지만 기능마다 설정해야 하고, 네트워크나 호스트 접근이 필요하면 격리가 깨집니다. 건너뛰기 플래그는 관리가 필요 없지만 보호도 없습니다. 수동 승인은 그 가운데에 있는데, 사용자가 요청의 93%를 그냥 승인한다고 합니다. 이 빈자리에 들어온 것이 auto mode입니다.</aside>
 </section>
 
 <!-- 04 auto mode 발표 -->
 <section data-period="9" class="slide" data-title="auto mode">
   <div class="tag"><b>2026-03-24</b><span class="sep"></span>Claude Code auto mode 발표</div>
-  <h2>자동 승인(auto mode): 사람의 승인을 분류기 모델이 대신한다</h2>
+  <h2>자동 승인(auto mode): 사람 대신 분류기 모델이 승인</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.com/blog/auto-mode</span></div><img src="assets/captures/page-auto-mode.jpg" alt="Auto mode for Claude Code 발표 글"></div>
@@ -263,7 +263,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 05 분류기 구조 -->
 <section data-period="9" class="slide" data-title="분류기 구조">
   <div class="tag"><b>2026-03-25</b><span class="sep"></span>Anthropic Engineering · System architecture</div>
-  <h2>분류기는 두 겹: 들어오는 글과 나가는 행동</h2>
+  <h2>방어는 두 겹: 들어오는 결과와 나가는 행동</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/claude-code-auto-mode</span></div><img src="assets/captures/p09-auto-eng-arch.jpg" alt="auto mode 시스템 구조 그림"></div>
@@ -283,8 +283,8 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 <!-- 06 3단 판단 -->
 <section data-period="9" class="slide" data-title="3단 판단 흐름">
-  <div class="tag"><b>공식 문서 + Engineering 글</b><span class="sep"></span>모든 호출이 분류기를 거치는 것은 아니다</div>
-  <h2>호출은 세 단계로 걸러진다</h2>
+  <div class="tag"><b>공식 문서 + Engineering 글</b><span class="sep"></span>분류기는 일부 호출만 검사</div>
+  <h2>도구 호출을 거르는 세 단계</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1565 366"><svg class="d2-3623699526 d2-svg" width="1565" height="366" viewBox="-21 -21 1565 366"><g class="dDE="><g class="shape" ><rect x="0.000000" y="0.000000" width="221.000000" height="122.000000" class="box-inner"  /></g><text x="110.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="110.500000" dy="0.000000">1단 · 규칙</tspan><tspan x="110.500000" dy="38.500000">읽기 전용</tspan></text></g><g class="dDI="><g class="shape" ><rect x="371.000000" y="0.000000" width="380.000000" height="122.000000" class="box-inner"  /></g><text x="561.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="561.000000" dy="0.000000">2단 · 프로젝트</tspan><tspan x="561.000000" dy="38.500000">안 편집</tspan></text></g><g class="dDM="><g class="shape" ><rect x="901.000000" y="0.000000" width="344.000000" height="122.000000" class="box-inner hot"  /></g><text x="1073.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1073.000000" dy="0.000000">3단 · 분류기</tspan><tspan x="1073.000000" dy="38.500000">빠른 검사 → 추론</tspan></text></g><g class="b2s="><g class="shape" ><rect x="1395.000000" y="0.000000" width="128.000000" height="122.000000" class="box-inner"  /></g><text x="1459.000000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">실행</text></g><g class="ejQ=" style='opacity:0.000000'><g class="shape" ><rect x="0.000000" y="202.000000" width="221.000000" height="122.000000" class="box-inner"  /></g></g><g class="aHVtYW4="><g class="shape" ><rect x="371.000000" y="202.000000" width="380.000000" height="122.000000" class="box-inner"  /></g><text x="561.000000" y="258.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="561.000000" dy="0.000000">3회 연속·20회 누적</tspan><tspan x="561.000000" dy="38.500000">→ 사람에게 묻기</tspan></text></g><g class="bm8="><g class="shape" ><rect x="901.000000" y="202.000000" width="344.000000" height="122.000000" class="box-inner"  /></g><text x="1073.000000" y="258.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1073.000000" dy="0.000000">차단 → 사유를</tspan><tspan x="1073.000000" dy="38.500000">Claude에게</tspan></text></g><g class="ejc=" style='opacity:0.000000'><g class="shape" ><rect x="1395.000000" y="202.000000" width="128.000000" height="122.000000" class="box-inner"  /></g></g><g class="KHQxIC0mZ3Q7IHQyKVswXQ=="><marker id="u3-mk-d2-3623699526-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 223.000000 61.000000 L 367.000000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3623699526-3488378134)" mask="url(#u3-d2-3623699526)" /><text x="296.500000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">아니면</text></g><g class="KHQyIC0mZ3Q7IHQzKVswXQ=="><path d="M 753.000000 61.000000 L 897.000000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3623699526-3488378134)" mask="url(#u3-d2-3623699526)" /><text x="826.500000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">아니면</text></g><g class="KHQzIC0mZ3Q7IG9rKVswXQ=="><path d="M 1247.000000 61.000000 L 1391.000000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3623699526-3488378134)" mask="url(#u3-d2-3623699526)" /><text x="1320.000000" y="71.000000" class="edge-label" style="text-anchor:middle;font-size:26px">통과</text></g><g class="KHQzIC0mZ3Q7IG5vKVswXQ=="><path d="M 1073.000000 124.000000 L 1073.000000 198.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3623699526-3488378134)" mask="url(#u3-d2-3623699526)" /><text x="1073.000000" y="172.000000" class="edge-label" style="text-anchor:middle;font-size:26px">차단</text></g><g class="KG5vIC0mZ3Q7IGh1bWFuKVswXQ=="><path d="M 899.000000 263.000000 L 755.000000 263.000000" class="edge" style="stroke-width:2;" marker-end="url(#u3-mk-d2-3623699526-3488378134)" mask="url(#u3-d2-3623699526)" /></g><mask id="u3-d2-3623699526" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1565" height="366">
 <rect x="-21" y="-21" width="1565" height="366" fill="white"></rect>
 <rect x="248.000000" y="45.000000" width="97" height="33" fill="black"></rect>
@@ -299,7 +299,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 07 17% -->
 <section data-period="9" class="slide" data-title="한계 수치">
   <div class="tag"><b>2026-03-25</b><span class="sep"></span>Anthropic Engineering · Results</div>
-  <h2>분류기는 위험한 과잉 행동의 17%를 놓친다</h2>
+  <h2>분류기의 한계: 위험한 과잉 행동 17% 놓침</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/claude-code-auto-mode</span></div><img src="assets/captures/p09-auto-eng-results.jpg" alt="auto mode 결과 표"></div>
@@ -318,7 +318,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 08 기본 차단 / 허용 -->
 <section data-period="9" class="slide" data-title="기본 차단과 허용">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 문서 · Permission modes</div>
-  <h2>auto mode는 배포·강제 푸시 같은 위험은 막고, 작업 폴더 안 일은 허용한다</h2>
+  <h2>auto mode 기본값: 배포·강제 푸시는 차단, 작업 폴더 안은 허용</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/permission-modes</span></div><img src="assets/captures/permission-modes.jpg" alt="Claude Code 권한 모드 표"></div>
@@ -339,7 +339,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 09 Codex 승인 모드 -->
 <section data-period="9" class="slide" data-title="Codex 승인 모드">
   <div class="tag"><b>2025-04-16 → 2026-10-28 확인</b><span class="sep"></span>Codex CLI(Command-Line Interface, 명령줄 도구) 승인·샌드박스 문서</div>
-  <h2>Codex는 샌드박스 안은 자동, 밖으로 나갈 때만 승인으로 푼다</h2>
+  <h2>Codex: 샌드박스 안은 자동, 밖으로 나갈 때만 승인</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>developers.openai.com/codex/agent-approvals-security</span></div><img src="assets/captures/p09-codex-approvals.jpg" alt="Codex Agent approvals & security 문서"></div>
@@ -373,7 +373,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 11 Ralph -->
 <section data-period="9" class="slide" data-title="Ralph 루프">
   <div class="tag"><b>2025-07-14</b><span class="sep"></span>Geoffrey Huntley · “Ralph Wiggum as a software engineer”</div>
-  <h2>반복 실행 루프의 대표 기법 Ralph: 같은 프롬프트를 셸 루프로 계속 넣는다</h2>
+  <h2>Ralph 루프: 셸 한 줄로 같은 프롬프트 되풀이</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>ghuntley.com/ralph</span></div><img src="assets/captures/page-ralph.jpg" alt="Geoffrey Huntley의 Ralph 블로그 글"></div>
@@ -406,12 +406,12 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       <div class="pmi col">
         <div class="p">Stop 훅(응답이 끝날 때 실행되는 장치)이 종료를 가로채 같은 프롬프트를 다시 넣어, <b>세션 안에서</b> 완료 문구까지 반복한다.</div>
         <div class="m">완료 문구는 <b>정확한 문자열 일치</b>라 여러 조건을 표현할 수 없다. 최대 반복 횟수를 안전망으로 두라고 안내한다.</div>
-        <div class="i">커뮤니티 꼼수가 <b>공식 기능(훅)</b>이 된 사례. 다음 장에서 Stop 훅이 ‘계속’의 자리임을 확인한다.</div>
+        <div class="i">커뮤니티의 비공식 기법이 <b>공식 기능(훅)</b>이 된 사례. 다음 장에서 Stop 훅이 ‘계속’의 자리임을 확인한다.</div>
       </div>
       <div class="term"><span class="acc">/ralph-loop</span> "…" --completion-promise "DONE" --max-iterations 50</div>
     </div>
   </div>
-  <aside>2025년 11월 Anthropic이 Ralph를 공식 플러그인으로 만들었습니다. 바깥 셸 루프 대신 Stop 훅을 씁니다. Claude가 끝내려고 하면 훅이 종료를 막고 같은 프롬프트를 다시 줍니다. 이전 작업은 파일과 git 기록에 남아 있으니 다음 반복이 그것을 보고 이어 갑니다. 옵션은 두 개입니다. 완료 문구를 정하는 옵션과 최대 반복 횟수입니다. 저장소 안내는 완료 문구가 정확한 문자열 일치라서 여러 조건을 표현할 수 없으니, 최대 반복을 항상 안전망으로 두라고 합니다. 이 플러그인은 현재 공식 플러그인 저장소로 옮겨져 이름이 ralph-loop이고, 중단 명령은 cancel-ralph입니다. 묶어 보면 장점은 바깥 셸 없이 세션 안에서 반복된다는 것이고, 단점은 완료 문구가 문자열 일치뿐이라 복잡한 조건을 못 쓴다는 것입니다. 의미는 커뮤니티의 꼼수가 공식 기능으로 올라왔다는 점입니다.</aside>
+  <aside>2025년 11월 Anthropic이 Ralph를 공식 플러그인으로 만들었습니다. 바깥 셸 루프 대신 Stop 훅을 씁니다. Claude가 끝내려고 하면 훅이 종료를 막고 같은 프롬프트를 다시 줍니다. 이전 작업은 파일과 git 기록에 남아 있으니 다음 반복이 그것을 보고 이어 갑니다. 옵션은 두 개입니다. 완료 문구를 정하는 옵션과 최대 반복 횟수입니다. 저장소 안내는 완료 문구가 정확한 문자열 일치라서 여러 조건을 표현할 수 없으니, 최대 반복을 항상 안전망으로 두라고 합니다. 이 플러그인은 현재 공식 플러그인 저장소로 옮겨져 이름이 ralph-loop이고, 중단 명령은 cancel-ralph입니다. 묶어 보면 장점은 바깥 셸 없이 세션 안에서 반복된다는 것이고, 단점은 완료 문구가 문자열 일치뿐이라 복잡한 조건을 못 쓴다는 것입니다. 의미는 커뮤니티의 비공식 기법이 공식 기능으로 올라왔다는 점입니다.</aside>
 </section>
 
 <!-- 질문 시간 (중간) -->
@@ -420,13 +420,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
   <h1>여기까지,<br>질문 받습니다</h1>
   <p class="lead">지금까지 다룬 것: 분류기 구조 · 3단 판단 흐름 · 한계 수치 · 기본 차단과 허용 · Codex 승인 모드 · 너무 일찍 멈춘다 · Ralph 루프 · 공식 ralph-loop 플러그인</p>
   <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-auto-mode.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p09-auto-eng-results.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p09-codex-approvals.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p09-ralph-loop-readme.jpg" alt="앞에서 본 화면"></div></figure></div>
-  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래의 화면들 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
+  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
 </section>
 
 <!-- 13 Stop 훅 메커니즘 -->
 <section data-period="9" class="slide" data-title="Stop 훅">
   <div class="tag"><b>2025-06-30 → 2025-11-16</b><span class="sep"></span>Claude Code Hooks · Stop 훅이 ‘계속’의 자리</div>
-  <h2>‘계속’의 자리는 턴이 끝나는 순간의 훅</h2>
+  <h2>‘계속’을 정하는 자리: 턴 끝의 Stop 훅</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 793 546"><svg class="d2-3881860709 d2-svg" width="793" height="546" viewBox="-21 -21 793 546"><g class="YQ=="><g class="shape" ><rect x="0.000000" y="0.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="157.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="157.000000" dy="0.000000">작업 ·</tspan><tspan x="157.000000" dy="38.500000">도구 호출</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="444.000000" y="0.000000" width="307.000000" height="122.000000" class="box-inner"  /></g><text x="597.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="597.500000" dy="0.000000">응답 끝,</tspan><tspan x="597.500000" dy="38.500000">멈추려 함</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="0.000000" y="202.000000" width="314.000000" height="122.000000" class="box-inner hot"  /></g><text x="157.000000" y="275.500000" class="label-inner" style="text-anchor:middle;font-size:34px">완료 조건 확인</text></g><g class="Yw=="><g class="shape" ><rect x="444.000000" y="202.000000" width="307.000000" height="122.000000" class="box-inner hot"  /></g><text x="597.500000" y="258.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="597.500000" dy="0.000000">Stop 훅이</tspan><tspan x="597.500000" dy="38.500000">종료 가로채기</tspan></text></g><g class="Zmlu"><g class="shape" ><rect x="0.000000" y="404.000000" width="314.000000" height="100.000000" class="box-inner"  /></g><text x="157.000000" y="466.500000" class="label-inner" style="text-anchor:middle;font-size:34px">종료</text></g><g class="ejU=" style='opacity:0.000000'><g class="shape" ><rect x="444.000000" y="404.000000" width="307.000000" height="100.000000" class="box-inner"  /></g></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u5-mk-d2-3881860709-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 315.500000 61.000000 L 440.500000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3881860709-3488378134)" mask="url(#u5-d2-3881860709)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 597.500000 124.000000 L 597.500000 198.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3881860709-3488378134)" mask="url(#u5-d2-3881860709)" /><text x="597.500000" y="172.000000" class="edge-label" style="text-anchor:middle;font-size:26px">매 턴 끝</text></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 442.000000 263.000000 L 318.000000 263.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3881860709-3488378134)" mask="url(#u5-d2-3881860709)" /></g><g class="KGQgLSZndDsgYSlbMF0="><path d="M 157.000000 200.000000 L 157.000000 126.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3881860709-3488378134)" mask="url(#u5-d2-3881860709)" /><text x="157.500000" y="172.000000" class="edge-label" style="text-anchor:middle;font-size:26px">미충족</text></g><g class="KGQgLSZndDsgZmluKVswXQ=="><path d="M 157.000000 326.000000 L 157.000000 400.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3881860709-3488378134)" mask="url(#u5-d2-3881860709)" /><text x="157.000000" y="374.000000" class="edge-label" style="text-anchor:middle;font-size:26px">충족</text></g><mask id="u5-d2-3881860709" maskUnits="userSpaceOnUse" x="-21" y="-21" width="793" height="546">
 <rect x="-21" y="-21" width="793" height="546" fill="white"></rect>
 <rect x="544.000000" y="146.000000" width="107" height="33" fill="black"></rect>
@@ -440,7 +440,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 14 /loop -->
 <section data-period="9" class="slide" data-title="/loop">
   <div class="tag"><b>2026-03-06</b><span class="sep"></span>Claude Code 2.1.71 · /loop</div>
-  <h2>/loop: 정해진 간격으로 되풀이한다</h2>
+  <h2>/loop: 정해진 간격으로 되풀이</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/scheduled-tasks</span></div><img src="assets/captures/p09-cc-scheduled.jpg" alt="Claude Code 예약 작업 비교 표"></div>
@@ -462,15 +462,15 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 15 Codex /goal -->
 <section data-period="9" class="slide" data-title="Codex /goal">
   <div class="tag"><b>2026-04-30</b><span class="sep"></span>Codex CLI 0.128.0 · 지속되는 /goal</div>
-  <h2>Codex가 먼저: 목표를 주면 끝났다고 판단할 때까지</h2>
+  <h2>Codex /goal: Claude보다 먼저, 목표 달성까지 계속</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/openai/codex/releases/tag/rust-v0.128.0</span></div><img src="assets/captures/p09-codex-goal-release.jpg" alt="Codex 0.128.0 릴리스 노트"></div>
       <div class="kind">공식 릴리스 노트 화면 캡처 · 2026-10-28 확인</div>
-      <div class="ko">OpenAI Codex 0.128.0(2026-04-30) 릴리스 노트. 새 기능 첫 줄에 <b>/goal 워크플로 추가</b>가 적혀 있다.</div>
+      <div class="ko">OpenAI Codex 0.128.0(2026-04-30) 릴리스 노트. 새 기능 첫 줄에 <b>/goal 워크플로우 추가</b>가 적혀 있다.</div>
     </div>
     <div class="points">
-      <div class="quote">“Added persisted /goal workflows … TUI controls for create, pause, resume, and clear.”<span class="tr">지속되는 /goal 워크플로를 추가했다 … 만들기·일시정지·재개·삭제를 위한 TUI(Terminal User Interface, 터미널 화면) 조작.</span><cite>openai/codex · rust-v0.128.0</cite></div>
+      <div class="quote">“Added persisted /goal workflows … TUI controls for create, pause, resume, and clear.”<span class="tr">지속되는 /goal 워크플로우를 추가했다 … 만들기·일시정지·재개·삭제를 위한 TUI(Terminal User Interface, 터미널 화면) 조작.</span><cite>openai/codex · rust-v0.128.0</cite></div>
       <div class="pmi col">
         <div class="p">목표를 <b>저장해 턴이 끝나도 이어 가고</b>, 일시정지·재개·삭제를 화면에서 제어한다.</div>
         <div class="m">릴리스 노트에는 기능 추가가 한 줄뿐이다. Simon Willison은 <b>토큰 예산을 다 쓸 때까지</b> 도는 구조라 설명한다.</div>
@@ -478,13 +478,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       </div>
     </div>
   </div>
-  <aside>/loop는 시간으로 반복하는 것이고, 목표 달성까지 계속하는 기능은 4월 30일 Codex CLI(Command-Line Interface, 명령줄 도구) 0.128.0이 먼저 넣었습니다. 릴리스 노트에는 지속되는 goal 워크플로가 있고, 화면에서 만들고 멈추고 다시 시작하고 지울 수 있다고 적혀 있습니다. Simon Willison은 이것을 OpenAI판 Ralph 루프라고 소개했고, 목표를 달성했다고 평가할 때까지 또는 설정한 토큰 예산을 다 쓸 때까지 계속 도는 구조라고 설명했습니다. 이 발상이 한 달 안에 Claude Code에도 들어옵니다. 묶어 보면 장점은 목표가 저장돼 이어 간다는 것이고, 단점은 릴리스 노트만으로는 세부 동작을 알 수 없고 예산이 소진될 때까지 돌 수 있다는 것입니다. 의미는 목표 기준의 계속이 Codex에서 먼저 나왔다는 점입니다.</aside>
+  <aside>/loop는 시간으로 반복하는 것이고, 목표 달성까지 계속하는 기능은 4월 30일 Codex CLI(Command-Line Interface, 명령줄 도구) 0.128.0이 먼저 넣었습니다. 릴리스 노트에는 지속되는 goal 워크플로우가 있고, 화면에서 만들고 멈추고 다시 시작하고 지울 수 있다고 적혀 있습니다. Simon Willison은 이것을 OpenAI판 Ralph 루프라고 소개했고, 목표를 달성했다고 평가할 때까지 또는 설정한 토큰 예산을 다 쓸 때까지 계속 도는 구조라고 설명했습니다. 이 발상이 한 달 안에 Claude Code에도 들어옵니다. 묶어 보면 장점은 목표가 저장돼 이어 간다는 것이고, 단점은 릴리스 노트만으로는 세부 동작을 알 수 없고 예산이 소진될 때까지 돌 수 있다는 것입니다. 의미는 목표 기준의 계속이 Codex에서 먼저 나왔다는 점입니다.</aside>
 </section>
 
 <!-- 16 Claude Code /goal -->
 <section data-period="9" class="slide" data-title="Claude Code /goal">
   <div class="tag"><b>2026-05-11</b><span class="sep"></span>Claude Code 2.1.139 · /goal</div>
-  <h2>Claude Code /goal: 완료 조건을 주면 해제될 때까지 계속</h2>
+  <h2>Claude Code /goal: 완료 조건 충족까지 계속</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/goal</span></div><img src="assets/captures/page-goal.jpg" alt="Claude Code Keep Claude working toward a goal 문서"></div>
@@ -506,7 +506,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 17 /goal 평가 흐름 -->
 <section data-period="9" class="slide" data-title="/goal 평가 흐름">
   <div class="tag"><b>공식 문서 · How evaluation works</b><span class="sep"></span>/goal은 세션 범위의 Stop 훅</div>
-  <h2>/goal의 한 바퀴: 일하고, 평가하고, 이어 간다</h2>
+  <h2>/goal의 한 바퀴: 작업 → 평가 → 계속</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1609 238"><svg class="d2-2644709946 d2-svg" width="1609" height="238" viewBox="-9 -9 1609 238"><g class="c2V0"><g class="shape" ><rect x="12.000000" y="48.000000" width="260.000000" height="122.000000" class="box-inner"  /></g><text x="142.000000" y="104.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="142.000000" dy="0.000000">/goal 조건</tspan><tspan x="142.000000" dy="38.500000">최대 4,000자</tspan></text></g><g class="dHVybg=="><g class="shape" ><rect x="342.000000" y="48.000000" width="228.000000" height="122.000000" class="box-inner"  /></g><text x="456.000000" y="104.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="456.000000" dy="0.000000">Claude가</tspan><tspan x="456.000000" dy="38.500000">한 턴 수행</tspan></text></g><g class="ZXY="><g class="shape" ><rect x="823.000000" y="48.000000" width="382.000000" height="122.000000" class="box-inner hot"  /></g><text x="1014.000000" y="104.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1014.000000" dy="0.000000">평가자 (작은 모델)</tspan><tspan x="1014.000000" dy="38.500000">대화만 읽음</tspan></text></g><g class="bWV0"><g class="shape" ><rect x="1285.000000" y="12.000000" width="251.000000" height="88.000000" class="box-inner"  /></g><text x="1410.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px">충족 → 해제</text></g><g class="aW1w"><g class="shape" ><rect x="1285.000000" y="120.000000" width="294.000000" height="88.000000" class="box-inner"  /></g><text x="1432.000000" y="176.500000" class="label-inner" style="text-anchor:middle;font-size:34px">불가능 → 해제</text></g><g class="KHNldCAtJmd0OyB0dXJuKVswXQ=="><marker id="u6-mk-d2-2644709946-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 274.000000 110.000000 L 338.000000 110.000000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-2644709946-3488378134)" mask="url(#u6-d2-2644709946)" /></g><g class="KHR1cm4gLSZndDsgZXYpWzBd"><path d="M 572.000000 87.500000 L 819.000000 87.500000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-2644709946-3488378134)" mask="url(#u6-d2-2644709946)" /><text x="696.500000" y="97.000000" class="edge-label" style="text-anchor:middle;font-size:26px">턴 끝</text></g><g class="KGV2IC0mZ3Q7IHR1cm4pWzBd"><path d="M 821.000000 132.500000 L 574.000000 132.500000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-2644709946-3488378134)" mask="url(#u6-d2-2644709946)" /><text x="696.500000" y="142.000000" class="edge-label" style="text-anchor:middle;font-size:26px">미충족</text></g><g class="KGV2IC0mZ3Q7IG1ldClbMF0="><path d="M 1207.000000 89.666000 L 1235.000000 89.666000 S 1245.000000 89.666000 1245.000000 79.666000 L 1245.000000 66.000000 S 1245.000000 56.000000 1255.000000 56.000000 L 1281.000000 56.000000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-2644709946-3488378134)" mask="url(#u6-d2-2644709946)" /></g><g class="KGV2IC0mZ3Q7IGltcClbMF0="><path d="M 1207.000000 130.332993 L 1235.000000 130.332993 S 1245.000000 130.332993 1245.000000 140.332993 L 1245.000000 154.000000 S 1245.000000 164.000000 1255.000000 164.000000 L 1281.000000 164.000000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-2644709946-3488378134)" mask="url(#u6-d2-2644709946)" /></g><mask id="u6-d2-2644709946" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1609" height="238">
 <rect x="-9" y="-9" width="1609" height="238" fill="white"></rect>
 <rect x="661.000000" y="71.000000" width="71" height="33" fill="black"></rect>
@@ -519,7 +519,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 18 비교표 -->
 <section data-period="9" class="slide" data-title="/goal vs /loop vs Stop 훅">
   <div class="tag"><b>공식 문서 · Compare ways to keep a session running</b><span class="sep"></span>다음 턴을 무엇이 시작하나</div>
-  <h2>/goal, /loop, Stop 훅: 다음 턴을 시작하는 쪽이 다르다</h2>
+  <h2>/goal, /loop, Stop 훅 비교: 다음 턴의 시작 계기</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/goal</span></div><img src="assets/captures/p09-goal-compare.jpg" alt="Claude Code 문서의 /goal /loop Stop 훅 비교 표"></div>
@@ -541,7 +541,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 19 성공 기준 -->
 <section data-period="9" class="slide" data-title="성공 기준 쓰는 법">
   <div class="tag"><b>공식 문서 · Write an effective condition</b><span class="sep"></span>검증 가능한 완료 조건</div>
-  <h2>좋은 완료 조건은 네 조각으로 이루어진다</h2>
+  <h2>좋은 완료 조건의 네 조각</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1887 557"><svg class="d2-2071058657 d2-svg" width="1887" height="557" viewBox="-9 -9 1887 557"><g class="YmFk"><g class="shape" ><rect x="12.000000" y="66.000000" width="551.000000" height="407.000000" class="box-outer"  /></g><text x="287.500000" y="105.000000" class="label-outer" style="text-anchor:middle;font-size:34px">나쁜 조건</text></g><g class="Z29vZA=="><g class="shape" ><rect x="892.000000" y="12.000000" width="965.000000" height="515.000000" class="box-outer hot"  /></g><text x="1374.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">좋은 조건 = 네 조각</text></g><g class="YmFkLmIx"><g class="shape" ><rect x="62.000000" y="119.000000" width="451.000000" height="88.000000" class="box-inner"  /></g><text x="287.500000" y="175.500000" class="label-inner" style="text-anchor:middle;font-size:34px">로그인 기능 잘 만들어</text></g><g class="YmFkLmIy"><g class="shape" ><rect x="130.000000" y="227.000000" width="314.000000" height="88.000000" class="box-inner"  /></g><text x="287.000000" y="283.500000" class="label-inner" style="text-anchor:middle;font-size:34px">테스트 좀 고쳐</text></g><g class="YmFkLmIz"><g class="shape" ><rect x="65.000000" y="335.000000" width="444.000000" height="88.000000" class="box-inner"  /></g><text x="287.000000" y="391.500000" class="label-inner" style="text-anchor:middle;font-size:34px">리팩터링 끝날 때까지</text></g><g class="Z29vZC5nMQ=="><g class="shape" ><rect x="1104.000000" y="65.000000" width="541.000000" height="88.000000" class="box-inner"  /></g><text x="1374.500000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px">① 끝 상태 하나: 테스트 통과</text></g><g class="Z29vZC5nMg=="><g class="shape" ><rect x="1067.000000" y="173.000000" width="615.000000" height="88.000000" class="box-inner"  /></g><text x="1374.500000" y="229.500000" class="label-inner" style="text-anchor:middle;font-size:34px">② 확인 방법: npm test 종료 코드 0</text></g><g class="Z29vZC5nMw=="><g class="shape" ><rect x="942.000000" y="281.000000" width="865.000000" height="88.000000" class="box-inner"  /></g><text x="1374.500000" y="337.500000" class="label-inner" style="text-anchor:middle;font-size:34px">③ 건드리면 안 되는 것: 테스트 파일 수정 금지</text></g><g class="Z29vZC5nNA=="><g class="shape" ><rect x="1157.000000" y="389.000000" width="434.000000" height="88.000000" class="box-inner"  /></g><text x="1374.000000" y="445.500000" class="label-inner" style="text-anchor:middle;font-size:34px">④ 상한: 20턴이면 멈춤</text></g><g class="KGJhZCAtJmd0OyBnb29kKVswXQ=="><marker id="u7-mk-d2-2071058657-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 565.000000 269.500000 L 888.000000 269.500000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-2071058657-3488378134)" mask="url(#u7-d2-2071058657)" /><text x="727.500000" y="279.000000" class="edge-label" style="text-anchor:middle;font-size:26px">측정 가능하게</text></g><mask id="u7-d2-2071058657" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1887" height="557">
 <rect x="-9" y="-9" width="1887" height="557" fill="white"></rect>
 <rect x="631.000000" y="253.000000" width="193" height="33" fill="black"></rect>
@@ -567,13 +567,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       <p class="muted" style="font-size:22px">비대화형: claude -p "/goal …" 은 끝날 때까지 한 번에 실행</p>
     </div>
   </div>
-  <aside>화면의 문서는 좋은 조건의 세 요소와 4,000자 한도, 턴 수 상한 조항을 설명합니다. 문서 앞쪽이 예로 드는 조건은 모듈을 새 API(Application Programming Interface, 프로그램 연동 규약)로 옮기고 모든 호출부가 컴파일되며 테스트가 통과할 때까지, 설계 문서의 인수 조건이 모두 성립할 때까지, 파일을 각각 크기 한도 아래로 쪼갤 때까지, 라벨이 붙은 이슈 목록이 빌 때까지 같은 것들입니다. 오른쪽은 이 형식에 맞춰 만든 예시 문장입니다. 테스트를 고쳐서 통과시키는 꼼수를 막으려고 기존 테스트 파일은 수정하지 못하게 제약을 넣습니다. 마지막 줄의 상한은 폭주를 막는 안전망이고 평가자가 대화에서 판단합니다. 비대화형 실행은 모든 반복이 끝날 때까지 출력이 안 보일 수 있으니 stream-json 옵션을 함께 씁니다.</aside>
+  <aside>화면의 문서는 좋은 조건의 세 요소와 4,000자 한도, 턴 수 상한 조항을 설명합니다. 문서 앞쪽이 예로 드는 조건은 모듈을 새 API(Application Programming Interface, 프로그램 연동 규약)로 옮기고 모든 호출부가 컴파일되며 테스트가 통과할 때까지, 설계 문서의 인수 조건이 모두 성립할 때까지, 파일을 각각 크기 한도 아래로 쪼갤 때까지, 라벨이 붙은 이슈 목록이 빌 때까지 같은 것들입니다. 오른쪽은 이 형식에 맞춰 만든 예시 문장입니다. 테스트를 고쳐서 통과시키는 편법을 막으려고 기존 테스트 파일은 수정하지 못하게 제약을 넣습니다. 마지막 줄의 상한은 폭주를 막는 안전망이고 평가자가 대화에서 판단합니다. 비대화형 실행은 모든 반복이 끝날 때까지 출력이 안 보일 수 있으니 stream-json 옵션을 함께 씁니다.</aside>
 </section>
 
 <!-- 21 폭주 방지 -->
 <section data-period="9" class="slide" data-title="비용과 폭주 방지">
   <div class="tag"><b>공식 문서 종합</b><span class="sep"></span>Ralph 플러그인·/loop·/goal·auto mode</div>
-  <h2>오래 맡길수록 상한이 먼저다</h2>
+  <h2>오래 맡기기 전에 정할 것: 다섯 겹 상한</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1830 665"><svg class="d2-2775110635 d2-svg" width="1830" height="665" viewBox="-9 -9 1830 665"><g class="bG9vcA=="><g class="shape" ><rect x="12.000000" y="228.000000" width="622.000000" height="191.000000" class="box-outer"  /></g><text x="323.000000" y="267.000000" class="label-outer" style="text-anchor:middle;font-size:34px">오래 맡긴 루프</text></g><g class="Zw=="><g class="shape" ><rect x="902.000000" y="12.000000" width="898.000000" height="623.000000" class="box-outer hot"  /></g><text x="1351.000000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">폭주를 막는 장치</text></g><g class="bG9vcC5h"><g class="shape" ><rect x="62.000000" y="281.000000" width="221.000000" height="88.000000" class="box-inner"  /></g><text x="172.500000" y="337.500000" class="label-inner" style="text-anchor:middle;font-size:34px">자동 승인</text></g><g class="bG9vcC5i"><g class="shape" ><rect x="353.000000" y="281.000000" width="231.000000" height="88.000000" class="box-inner"  /></g><text x="468.500000" y="337.500000" class="label-inner" style="text-anchor:middle;font-size:34px">/goal · Ralph</text></g><g class="Zy5nMQ=="><g class="shape" ><rect x="991.000000" y="65.000000" width="720.000000" height="88.000000" class="box-inner"  /></g><text x="1351.000000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px">횟수 상한: --max-iterations, ‘20턴’ 조항</text></g><g class="Zy5nMg=="><g class="shape" ><rect x="1112.000000" y="173.000000" width="478.000000" height="88.000000" class="box-inner"  /></g><text x="1351.000000" y="229.500000" class="label-inner" style="text-anchor:middle;font-size:34px">시간 상한: /loop 7일 만료</text></g><g class="Zy5nMw=="><g class="shape" ><rect x="952.000000" y="281.000000" width="798.000000" height="88.000000" class="box-inner"  /></g><text x="1351.000000" y="337.500000" class="label-inner" style="text-anchor:middle;font-size:34px">분류기 차단: 연속 3회·누적 20회에서 멈춤</text></g><g class="Zy5nNA=="><g class="shape" ><rect x="956.000000" y="389.000000" width="789.000000" height="88.000000" class="box-inner"  /></g><text x="1350.500000" y="445.500000" class="label-inner" style="text-anchor:middle;font-size:34px">테스트 파일 보호 · 격리 브랜치/워크트리</text></g><g class="Zy5nNQ=="><g class="shape" ><rect x="1032.000000" y="497.000000" width="637.000000" height="88.000000" class="box-inner"  /></g><text x="1350.500000" y="553.500000" class="label-inner" style="text-anchor:middle;font-size:34px">비용 확인: /goal 상태의 토큰 소비</text></g><g class="bG9vcC4oYSAtJmd0OyBiKVswXQ=="><marker id="u8-mk-d2-2775110635-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 285.000000 325.000000 L 349.000000 325.000000" class="edge" style="stroke-width:2;" marker-end="url(#u8-mk-d2-2775110635-3488378134)" mask="url(#u8-d2-2775110635)" /></g><g class="KGxvb3AgLSZndDsgZylbMF0="><path d="M 636.000000 323.500000 L 898.000000 323.500000" class="edge" style="stroke-width:2;" marker-end="url(#u8-mk-d2-2775110635-3488378134)" mask="url(#u8-d2-2775110635)" /><text x="768.000000" y="333.000000" class="edge-label" style="text-anchor:middle;font-size:26px">항상 같이</text></g><mask id="u8-d2-2775110635" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1830" height="665">
 <rect x="-9" y="-9" width="1830" height="665" fill="white"></rect>
 <rect x="702.000000" y="307.000000" width="132" height="33" fill="black"></rect>
@@ -591,13 +591,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 </mask></svg></svg></div>
   <p class="under">1M 정식 이후에는 최신 Claude 모델이 Claude Code에서 <b>기본으로</b> 1M을 씁니다. OpenAI의 최신 API(Application Programming Interface, 프로그램 연동 규약) 모델 문서도 1.05M입니다. <span class="next">→ 5교시 압축의 한계</span></p>
-  <aside>5교시에서 압축의 한계를 이야기했습니다. 창이 작아서 자주 압축하고, 압축할 때마다 정보가 빠졌습니다. 그 해법 하나가 창 자체를 키우는 것이었습니다. 2023년 5월 Claude 100K, 2025년 4월 GPT-4.1의 1M, 2025년 8월 Sonnet 4의 1M 베타, 2026년 2월 Opus 4.6의 1M 베타를 거쳐 2026년 3월 13일 Claude의 1M이 정식 출시됐습니다. 지금 Claude Code 문서는 Sonnet 5 이상 같은 최신 모델이 1M을 기본으로 쓴다고 적고, 200K를 유지하려면 환경 변수로 끄라고 안내합니다. Codex의 창 크기는 모델과 설정에 따라 달라 이 장에서는 숫자를 단정하지 않습니다. OpenAI API 모델 문서의 최신 모델은 1.05M으로 표시됩니다.</aside>
+  <aside>5교시에서 압축의 한계를 이야기했습니다. 창이 작아서 자주 압축하고, 압축할 때마다 정보가 빠졌습니다. 그 해법의 하나는 창 자체를 키우는 것이었습니다. 2023년 5월 Claude 100K, 2025년 4월 GPT-4.1의 1M, 2025년 8월 Sonnet 4의 1M 베타, 2026년 2월 Opus 4.6의 1M 베타를 거쳐 2026년 3월 13일 Claude의 1M이 정식 출시됐습니다. 지금 Claude Code 문서는 Sonnet 5 이상 같은 최신 모델이 1M을 기본으로 쓴다고 적고, 200K를 유지하려면 환경 변수로 끄라고 안내합니다. Codex의 창 크기는 모델과 설정에 따라 달라 이 장에서는 숫자를 단정하지 않습니다. OpenAI API 모델 문서의 최신 모델은 1.05M으로 표시됩니다.</aside>
 </section>
 
 <!-- 23 1M 정식 -->
 <section data-period="9" class="slide" data-title="1M 정식 출시">
   <div class="tag"><b>2026-03-13</b><span class="sep"></span>Claude 1M(100만 토큰) 컨텍스트 정식 출시</div>
-  <h2>1M 정식 출시: 할증 없이, 기본 한도 그대로</h2>
+  <h2>1M 정식 출시: 할증 없이, 이미지·PDF 600장</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.com/blog/1m-context-ga</span></div><img src="assets/captures/page-onem.jpg" alt="1M context is now generally available 발표 글"></div>
@@ -610,13 +610,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
         <div class="i">‘창이 작아 자주 압축’하던 문제를 <b>창 자체를 키워</b> 푼 해법. 단 다음 장처럼 채울수록 정확도가 떨어질 수 있다.</div>
       </div>
   </div>
-  <aside>3월 13일 발표의 요점은 세 가지입니다. 200K를 넘는 요청도 같은 토큰 단가로 계산하는 할증 폐지, 한 요청의 이미지와 PDF 한도를 100에서 600으로 늘린 것, 베타 헤더 없이 쓸 수 있게 한 것입니다. Opus 4.6이 긴 문맥 검색 벤치마크인 MRCR(Multi-Round Co-reference Resolution, 다회차 지시어 해소) v2에서 78.3%를 기록했다고 발표했습니다. 글에는 고객 후기로 압축 이벤트가 15% 줄었다는 한마디도 있지만 이는 한 고객의 사례라 일반화하기 어렵습니다. 정확한 가격과 포함 여부는 모델과 요금제마다 다르니 문서에서 확인하는 편이 좋습니다. 묶어 보면 장점은 할증 없이 긴 요청을 쓴다는 것이고, 단점은 점수가 공식 발표 수치이고 후기는 한 고객 사례라 일반화할 수 없다는 것입니다. 의미는 압축 문제를 창을 키워서 푼 해법이라는 점입니다.</aside>
+  <aside>3월 13일 발표의 요점은 세 가지입니다. 200K를 넘는 요청도 같은 토큰 단가로 계산하는 할증 폐지, 한 요청의 이미지와 PDF 한도를 100에서 600으로 늘린 것, 베타 헤더 없이 쓸 수 있게 한 것입니다. Anthropic은 Opus 4.6이 긴 문맥 검색 벤치마크인 MRCR(Multi-Round Co-reference Resolution, 다회차 지시어 해소) v2에서 78.3%를 기록했다고 발표했습니다. 글에는 고객 후기로 압축 이벤트가 15% 줄었다는 한마디도 있지만 이는 한 고객의 사례라 일반화하기 어렵습니다. 정확한 가격과 포함 여부는 모델과 요금제마다 다르니 문서에서 확인하는 편이 좋습니다. 묶어 보면 장점은 할증 없이 긴 요청을 쓴다는 것이고, 단점은 점수가 공식 발표 수치이고 후기는 한 고객 사례라 일반화할 수 없다는 것입니다. 의미는 압축 문제를 창을 키워서 푼 해법이라는 점입니다.</aside>
 </section>
 
 <!-- 24 큰 창의 한계 -->
 <section data-period="9" class="slide" data-title="큰 창의 한계">
   <div class="tag"><b>2025-07-14 · 2026-10-28 확인</b><span class="sep"></span>Chroma ‘Context Rot’ · Claude Code 모델 문서</div>
-  <h2>창이 커도 채울수록 정확도는 떨어질 수 있다</h2>
+  <h2>큰 창의 한계: 채울수록 떨어지는 정확도</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>research.trychroma.com/context-rot</span></div><img src="assets/captures/page-context-rot.jpg" alt="Chroma 보고서 Context Rot"></div>
@@ -631,13 +631,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       </div>
     </div>
   </div>
-  <aside>창이 커졌다고 문제가 다 풀린 것은 아닙니다. Chroma의 보고서는 입력이 길어질수록 모델 성능이 불균등하게 떨어진다는 것을 측정했습니다. 그래서 1M이어도 오래 일하면 압축은 일어납니다. 다만 일어나는 시점이 늦어지고 횟수가 줄 뿐입니다. Claude Code 문서는 자동 압축을 시작하는 창 크기를 환경 변수로 조절할 수 있게 하고, 허용 범위를 10만에서 100만 토큰으로 안내합니다. 그래서 8교시에서 만든 진행 파일과 스펙처럼 중요한 결정은 대화가 아니라 파일에 적어 두는 습관은 1M 시대에도 그대로 유효합니다. 묶어 보면 장점은 큰 창의 한계를 측정으로 보여 준다는 것이고, 단점은 창이 커져도 압축이 늦어질 뿐 사라지지 않는다는 것입니다. 의미는 1M 시대에도 중요한 결정은 파일에 남겨야 한다는 점입니다.</aside>
+  <aside>창이 커졌다고 문제가 다 풀린 것은 아닙니다. Chroma의 보고서는 입력이 길어질수록 모델 성능이 불균등하게 떨어진다는 것을 측정했습니다. 그래서 1M이어도 오래 일하면 압축은 일어납니다. 다만 일어나는 시점이 늦어지고 횟수가 줄 뿐입니다. Claude Code 문서는 자동 압축을 시작하는 창 크기를 환경 변수로 조절할 수 있게 하고, 허용 범위를 10만에서 100만 토큰으로 안내합니다. 그래서 8교시에서 만든 진행 파일과 스펙처럼, 중요한 결정을 대화가 아니라 파일에 적어 두는 습관은 1M 시대에도 그대로 유효합니다. 묶어 보면 장점은 큰 창의 한계를 측정으로 보여 준다는 것이고, 단점은 창이 커져도 압축이 늦어질 뿐 사라지지 않는다는 것입니다. 의미는 1M 시대에도 중요한 결정은 파일에 남겨야 한다는 점입니다.</aside>
 </section>
 
 <!-- 26 정리 + 10교시 예고 -->
 <section data-period="9" class="slide" data-title="정리">
   <div class="tag"><b>정리</b><span class="sep"></span>사람이 하던 일이 기계로, 사람 몫은 조건과 상한</div>
-  <h2>승인·계속·창, 세 병목을 기계가 맡았다</h2>
+  <h2>승인·계속·창: 사람 대신 기계가 맡은 세 가지</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1527 491"><svg class="d2-2677334748 d2-svg" width="1527" height="491" viewBox="-9 -9 1527 491"><g class="aA=="><g class="shape" ><rect x="12.000000" y="54.000000" width="411.000000" height="407.000000" class="box-outer"  /></g><text x="217.500000" y="93.000000" class="label-outer" style="text-anchor:middle;font-size:34px">사람이 하던 것</text></g><g class="bQ=="><g class="shape" ><rect x="503.000000" y="54.000000" width="463.000000" height="407.000000" class="box-outer"  /></g><text x="734.500000" y="93.000000" class="label-outer" style="text-anchor:middle;font-size:34px">기계가 맡은 방식</text></g><g class="bmVlZA=="><g class="shape" ><rect x="1036.000000" y="12.000000" width="461.000000" height="407.000000" class="box-outer hot"  /></g><text x="1266.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">그래도 사람 몫</text></g><g class="aC5h"><g class="shape" ><rect x="66.000000" y="107.000000" width="307.000000" height="88.000000" class="box-inner"  /></g><text x="219.500000" y="163.500000" class="label-inner" style="text-anchor:middle;font-size:34px">도구마다 승인</text></g><g class="aC5i"><g class="shape" ><rect x="62.000000" y="215.000000" width="311.000000" height="88.000000" class="box-inner"  /></g><text x="217.500000" y="271.500000" class="label-inner" style="text-anchor:middle;font-size:34px">턴마다 ‘계속’</text></g><g class="aC5j"><g class="shape" ><rect x="99.000000" y="323.000000" width="274.000000" height="88.000000" class="box-inner"  /></g><text x="236.000000" y="379.500000" class="label-inner" style="text-anchor:middle;font-size:34px">창 관리·압축</text></g><g class="bS5hMg=="><g class="shape" ><rect x="553.000000" y="107.000000" width="363.000000" height="88.000000" class="box-inner"  /></g><text x="734.500000" y="163.500000" class="label-inner" style="text-anchor:middle;font-size:34px">분류기 (auto mode)</text></g><g class="bS5iMg=="><g class="shape" ><rect x="553.000000" y="215.000000" width="278.000000" height="88.000000" class="box-inner"  /></g><text x="692.000000" y="271.500000" class="label-inner" style="text-anchor:middle;font-size:34px">평가자 (/goal)</text></g><g class="bS5jMg=="><g class="shape" ><rect x="553.000000" y="323.000000" width="209.000000" height="88.000000" class="box-inner"  /></g><text x="657.500000" y="379.500000" class="label-inner" style="text-anchor:middle;font-size:34px">큰 창 (1M)</text></g><g class="bmVlZC5uMQ=="><g class="shape" ><rect x="1109.000000" y="65.000000" width="314.000000" height="88.000000" class="box-inner"  /></g><text x="1266.000000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px">완료 조건 쓰기</text></g><g class="bmVlZC5uMg=="><g class="shape" ><rect x="1086.000000" y="173.000000" width="361.000000" height="88.000000" class="box-inner"  /></g><text x="1266.500000" y="229.500000" class="label-inner" style="text-anchor:middle;font-size:34px">상한·테스트 보호</text></g><g class="bmVlZC5uMw=="><g class="shape" ><rect x="1156.000000" y="281.000000" width="221.000000" height="88.000000" class="box-inner"  /></g><text x="1266.500000" y="337.500000" class="label-inner" style="text-anchor:middle;font-size:34px">결과 판정</text></g><g class="KGguYSAtJmd0OyBtLmEyKVswXQ=="><marker id="u10-mk-d2-2677334748-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 375.000000 151.500000 L 549.000000 151.500000" class="edge" style="stroke-width:2;" marker-end="url(#u10-mk-d2-2677334748-3488378134)" mask="url(#u10-d2-2677334748)" /></g><g class="KGguYiAtJmd0OyBtLmIyKVswXQ=="><path d="M 375.000000 259.500000 L 549.000000 259.500000" class="edge" style="stroke-width:2;" marker-end="url(#u10-mk-d2-2677334748-3488378134)" mask="url(#u10-d2-2677334748)" /></g><g class="KGguYyAtJmd0OyBtLmMyKVswXQ=="><path d="M 375.000000 367.500000 L 549.000000 367.500000" class="edge" style="stroke-width:2;" marker-end="url(#u10-mk-d2-2677334748-3488378134)" mask="url(#u10-d2-2677334748)" /></g><g class="KG0gLSZndDsgbmVlZClbMF0="><path d="M 968.000000 215.500000 L 1032.000000 215.500000" class="edge" style="stroke-width:2;" marker-end="url(#u10-mk-d2-2677334748-3488378134)" mask="url(#u10-d2-2677334748)" /></g><mask id="u10-d2-2677334748" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1527" height="491">
 <rect x="-9" y="-9" width="1527" height="491" fill="white"></rect>
 
@@ -658,7 +658,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
  const periods=[];slides.forEach((s,k)=>{const p=s.dataset.period;if(p&&!periods.find(x=>x.p===p))periods.push({p,k});});
  periods.forEach(({p,k})=>{const o=document.createElement('option');o.value=k;o.textContent=p+'교시';jump.appendChild(o);});
  if(!periods.length)jump.hidden=true;
- const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`scale(${s})`;};
+ const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`translate(-50%,-50%) scale(${s})`;};
  const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
    const p=slides[i].dataset.period;pos.textContent=`${p?p+'교시 · ':''}${i+1} / ${slides.length}`;
    prog.style.width=`${(i+1)/slides.length*100}%`;

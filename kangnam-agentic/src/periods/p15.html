@@ -17,7 +17,7 @@
 <!-- 02 지난 교시와의 연결 -->
 <section class="slide" data-title="병목의 이동">
   <div class="tag"><b>14교시 → 15교시</b><span class="sep"></span>이슈 원장 다음의 병목</div>
-  <h2>PR이 늘면, 병목은 CI와 검증으로 옮겨 간다</h2>
+  <h2>PR 증가 뒤의 새 병목: CI와 검증</h2>
   <div class="diagram">{{svg:p15-bottleneck}}</div>
   <p class="under">14교시에서 일을 이슈 단위로 쪼갰습니다. 이제 <b>그 결과물(PR(Pull Request, 변경 병합 요청))이 쏟아져 CI(Continuous Integration, 지속적 통합 자동 검사)에 쌓이는 곳</b>을 봅니다. <span class="next">→ 14교시</span></p>
   <aside>14교시에서 이슈 원장으로 일을 쪼개 에이전트에게 병렬로 맡기는 방법을 봤습니다. 일이 병렬로 돌면 코딩 속도는 문제가 아니게 됩니다. 대신 PR마다 도는 CI, 머지할 때마다 다시 도는 검증이 줄을 서기 시작합니다. 그리고 검증은 한 번 더 문제가 됩니다. 테스트가 통과했다는 사실이 정말 앱이 동작한다는 뜻인지 확인해야 하기 때문입니다. 오늘 이 두 병목을 차례로 풉니다.</aside>
@@ -26,7 +26,7 @@
 <!-- 03 단가 인하 -->
 <section class="slide" data-title="단가는 내렸다">
   <div class="tag"><b>2025-12-16 → 2026-01-01</b><span class="sep"></span>GitHub 변경 로그 · Actions 가격 개편</div>
-  <h2>단가는 내렸다: 호스티드 러너 최대 39% 인하</h2>
+  <h2>단가: 호스티드 러너 최대 39% 인하</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/changelog/2025-12-16-coming-soon-simpler-pricing-and-a-better-experience-for-github-actions</span></div><img src="assets/captures/p15-actions-pricing.jpg" alt="GitHub 변경 로그: 호스티드 러너 가격을 2026년 1월 1일에 최대 39% 인하"></div>
@@ -45,7 +45,7 @@
 <!-- 04 실행량 폭증 -->
 <section class="slide" data-title="실행량은 4배">
   <div class="tag"><b>2026-10-06</b><span class="sep"></span>GitHub Blog · 에이전트 규모의 Git 인프라</div>
-  <h2>터진 것은 실행량이다: 한 달 32.6억 회, 1년 전의 4배</h2>
+  <h2>급증한 실행량: 한 달 32.6억 회, 1년 전의 4배 이상</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.blog/engineering/architecture-optimization/building-git-infrastructure-for-agent-scale-development</span></div><img src="assets/captures/p15-git-infra.jpg" alt="GitHub Blog 본문: Actions가 9월에 32.6억 회 실행, 전년 대비 4배 이상"></div>
@@ -63,7 +63,7 @@
 <!-- 05 Scion -->
 <section class="slide" data-title="Anthropic Scion">
   <div class="tag"><b>2026-10-13</b><span class="sep"></span>Anthropic Engineering · Redesigning source control</div>
-  <h2>하루 머지 30,401건: Anthropic은 소스 관리를 새로 만들었다</h2>
+  <h2>하루 머지 30,401건: Anthropic 소스 관리 재설계</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/redesigning-source-control</span></div><img src="assets/captures/scion-merges.jpg" alt="Anthropic 모노레포 하루 머지 수 차트, 9월 9일 30,401건"></div>
@@ -84,7 +84,7 @@
 <!-- 06 줄이는 법 지도 -->
 <section class="slide" data-title="줄이는 네 가지">
   <div class="tag"><b>CI 분량 줄이기</b><span class="sep"></span>실행 횟수 × 실행당 시간 × 단가 중 앞의 두 항</div>
-  <h2>단가는 못 건드리니, 횟수와 시간을 줄인다</h2>
+  <h2>단가 대신 줄일 것: 실행 횟수와 실행당 시간</h2>
   <div class="diagram">{{svg:p15-levers}}</div>
   <p class="under">오른쪽으로 갈수록 효과가 크지만 <b>설정과 위험</b>도 큽니다. 왼쪽부터 하나씩 켭니다.</p>
   <aside>청구서는 실행 횟수, 실행당 시간, 단가의 곱입니다. 단가는 우리가 정할 수 없으니 앞의 두 항을 줄입니다. 방법은 네 단계로 나눠 볼 수 있습니다. 먼저 같은 PR에서 낡은 실행을 취소합니다. 다음으로 바뀐 것과 관계없는 검사를 거릅니다. 그다음 의존성과 빌드 결과를 재사용합니다. 마지막으로 머지 큐로 여러 PR을 묶어 검증합니다. 저는 여기에 PR 개수 자체를 이슈 단위 병합으로 줄이는 방법을 더합니다. 앞 단계일수록 쉽고 안전해서 먼저 켭니다.</aside>
@@ -93,10 +93,10 @@
 <!-- 07 동시 실행 취소 -->
 <section class="slide" data-title="동시 실행 취소">
   <div class="tag"><b>1단계 · 취소</b><span class="sep"></span>GitHub Docs · concurrency</div>
-  <h2>1. 낡은 실행은 취소한다: concurrency</h2>
+  <h2>1. 낡은 실행 취소: concurrency</h2>
   <div class="row even">
     <div>
-      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/…/control-workflow-concurrency</span></div><img src="assets/captures/p15-concurrency.jpg" alt="GitHub Docs: 워크플로와 잡의 동시 실행 제어"></div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/…/control-workflow-concurrency</span></div><img src="assets/captures/p15-concurrency.jpg" alt="GitHub Docs: 워크플로우와 잡의 동시 실행 제어"></div>
       <div class="kind">GitHub Docs 화면 캡처</div>
       <div class="ko">GitHub Docs 동시 실행 제어 문서. 같은 그룹의 실행이 겹칠 때 <b>이전 실행을 취소</b>하는 concurrency 설정을 다룬다.</div>
     </div>
@@ -122,13 +122,13 @@
 
 <!-- 08 경로 필터 -->
 <section class="slide" data-title="경로 필터">
-  <div class="tag"><b>2단계 · 거르기</b><span class="sep"></span>GitHub Docs · 워크플로 구문 · paths</div>
-  <h2>2. 관계없는 변경은 거른다: 경로 필터</h2>
+  <div class="tag"><b>2단계 · 거르기</b><span class="sep"></span>GitHub Docs · 워크플로우 구문 · paths</div>
+  <h2>2. 관계없는 변경 거르기: 경로 필터</h2>
   <div class="row even">
     <div>
-      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/…/workflow-syntax</span></div><img src="assets/captures/p15-paths.jpg" alt="GitHub Docs 워크플로 구문 문서, on.push·pull_request의 paths 항목이 목차에 보임"></div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/…/workflow-syntax</span></div><img src="assets/captures/p15-paths.jpg" alt="GitHub Docs 워크플로우 구문 문서, on.push·pull_request의 paths 항목이 목차에 보임"></div>
       <div class="kind">GitHub Docs 화면 캡처 · paths / paths-ignore</div>
-      <div class="ko">GitHub Docs 워크플로 구문 문서. 목차에 <b>paths</b>(특정 경로가 바뀔 때만 실행) 항목이 보인다.</div>
+      <div class="ko">GitHub Docs 워크플로우 구문 문서. 목차에 <b>paths</b>(특정 경로가 바뀔 때만 실행) 항목이 보인다.</div>
     </div>
     <div class="term"><span class="dim"># 문서만 바뀐 PR은 테스트를 건너뛴다</span>
 <span class="acc">on:</span>
@@ -137,24 +137,24 @@
       - 'docs/**'
       - '**.md'
 
-<span class="warn">!</span> 필수 검사 워크플로 전체를
+<span class="warn">!</span> 필수 검사 워크플로우 전체를
   paths로 생략하면 상태가 안 올라와
   PR·머지 큐가 기다릴 수 있다
-<span class="ok">→</span> 워크플로는 항상 실행하고,
+<span class="ok">→</span> 워크플로우는 항상 실행하고,
   안에서 작업만 고른다</div>
   </div>
   <div class="pmi">
     <div class="p">문서만 바뀐 PR은 <b>테스트를 건너뛰어</b> 실행 횟수가 준다. 가장 쉬운 거르기다.</div>
-    <div class="m">필수 검사 워크플로를 통째로 생략하면 <b>상태가 안 올라와</b> PR·머지 큐가 기다릴 수 있다.</div>
-    <div class="i"><b>워크플로는 항상 실행하고 안에서 작업만 고른다.</b> 이 구조가 13장의 게이트로 이어진다.</div>
+    <div class="m">필수 검사 워크플로우를 통째로 생략하면 <b>상태가 안 올라와</b> PR·머지 큐가 기다릴 수 있다.</div>
+    <div class="i"><b>워크플로우는 항상 실행하고 안에서 작업만 고른다.</b> 이 구조가 13장의 게이트로 이어진다.</div>
   </div>
-  <aside>가장 쉬운 거르기는 경로 필터입니다. 문서만 바뀐 PR에 테스트 전체를 돌릴 이유는 없습니다. 다만 함정이 하나 있습니다. 브랜치 보호에서 필수로 지정한 검사 워크플로를 paths 필터로 통째로 건너뛰면 그 검사의 상태가 보고되지 않아 PR이나 머지 큐가 기다릴 수 있습니다. 그래서 진입과 분석, 최종 게이트는 항상 실행하고, 그 안에서 실제 작업만 선택하는 구조를 권합니다. 이 구조는 뒤의 게이트 장에서 다시 봅니다. 장점은 쉬운 설정으로 실행 횟수를 줄이는 것, 단점은 필수 검사를 통째로 건너뛰면 대기가 걸린다는 것, 의미는 항상 실행하는 게이트가 필요하다는 점입니다.</aside>
+  <aside>가장 쉬운 거르기는 경로 필터입니다. 문서만 바뀐 PR에 테스트 전체를 돌릴 이유는 없습니다. 다만 함정이 하나 있습니다. 브랜치 보호에서 필수로 지정한 검사 워크플로우를 paths 필터로 통째로 건너뛰면 그 검사의 상태가 보고되지 않아 PR이나 머지 큐가 기다릴 수 있습니다. 그래서 진입과 분석, 최종 게이트는 항상 실행하고, 그 안에서 실제 작업만 선택하는 구조를 권합니다. 이 구조는 뒤의 게이트 장에서 다시 봅니다. 장점은 쉬운 설정으로 실행 횟수를 줄이는 것, 단점은 필수 검사를 통째로 건너뛰면 대기가 걸린다는 것, 의미는 항상 실행하는 게이트가 필요하다는 점입니다.</aside>
 </section>
 
 <!-- 09 캐시 -->
 <section class="slide" data-title="캐시">
   <div class="tag"><b>3단계 · 재사용</b><span class="sep"></span>GitHub Docs · 의존성 캐시 · 강사 자료 ci-cd-optimization</div>
-  <h2>3. 받은 것은 다시 받지 않는다: 캐시</h2>
+  <h2>3. 한 번 받은 의존성 재사용: 캐시</h2>
   <div class="row even">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/…/dependency-caching</span></div><img src="assets/captures/p15-caching.jpg" alt="GitHub Docs: 의존성 캐시. 호스티드 러너는 깨끗한 이미지에서 시작"></div>
@@ -184,7 +184,7 @@
 <!-- 10 영향 분석 -->
 <section class="slide" data-title="영향 분석">
   <div class="tag"><b>2단계 · 거르기 심화</b><span class="sep"></span>강사 자료 parallel-ai-merge-train · Nx affected</div>
-  <h2>폴더 필터를 넘어: 영향받는 검사만 고른다</h2>
+  <h2>경로 필터를 넘어: 영향받는 검사만 선택</h2>
   <div class="diagram">{{svg:p15-affected}}</div>
   <p class="under">기본 규칙은 <b>변경 영역 + 전이적 소비자(그 영역을 가져다 쓰는 곳) + 경계 계약 검사</b>. 확실하지 않으면 전체 검사로 돌아갑니다.</p>
   <aside>폴더 필터는 출발점일 뿐입니다. 공고 조회 응답에서 필드 하나가 사라지면 그것을 받아 쓰는 지원 기록과, 그 뒤의 알림까지 영향을 받을 수 있습니다. 그래서 변경 영역에 전이적 소비자를 더하고 경계 계약 검사를 붙여 고릅니다. Nx의 affected 기능도 Git 변경 파일과 프로젝트 의존성 그래프를 함께 씁니다. 이것이 가능하려면 DDD(Domain-Driven Design, 도메인 주도 설계)로 경계를 나눠 둬야 합니다. 6교시에서 본 도메인 경계가 여기서 실제로 비용을 줄입니다. 공통 라이브러리나 설정이 바뀌었거나 영향 범위를 모르겠으면 전체 검사로 돌아가는 것이 안전합니다.</aside>
@@ -192,8 +192,8 @@
 
 <!-- 11 머지 큐 -->
 <section class="slide" data-title="머지 큐">
-  <div class="tag"><b>2023-07-12</b><span class="sep"></span>GitHub merge queue 정식 출시 · GitHub Docs</div>
-  <h2>4. 묶어서 검증한다: 머지 큐</h2>
+  <div class="tag"><b>4단계 · 묶기</b><span class="sep"></span>2023-07-12 정식 출시 · GitHub Docs</div>
+  <h2>4. 묶어서 검증: 머지 큐</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.github.com/…/managing-a-merge-queue</span></div><img src="assets/captures/page-mergequeue.jpg" alt="GitHub 머지 큐 관리 문서"></div>
@@ -214,25 +214,16 @@
 <!-- 12 머지 큐 도식 -->
 <section class="slide" data-title="누적 후보">
   <div class="tag"><b>머지 큐 동작</b><span class="sep"></span>누적 후보 검증 · 실패 시 재구성</div>
-  <h2>큐는 ‘누적 후보’를 만들어 검사한다</h2>
+  <h2>머지 큐의 검사 단위: ‘누적 후보’</h2>
   <div class="diagram">{{svg:p15-mq}}</div>
   <p class="under">PR 하나의 성공은 <b>후보의 성공</b>이 아닙니다. 실패한 PR이 빠지면 뒤 후보는 다시 검사합니다.</p>
   <aside>큐의 핵심은 누적입니다. A, B, C가 줄을 서 있으면 먼저 main에 A를 얹은 후보, 그 위에 B를 얹은 후보, 그 위에 C를 얹은 후보를 차례로 만들어 검사합니다. 각 PR이 따로 통과했더라도 합쳤을 때 깨지는 경우를 머지 전에 잡습니다. B가 실패하면 B는 큐에서 빠지고, B를 포함했던 뒤 후보는 B 없이 다시 만들어 검사합니다. 그래서 실패가 잦으면 오히려 대기가 늘 수 있습니다. 러너가 부족해도 마찬가지입니다. 큐는 충돌을 해결해 주는 도구도, 검토를 대신하는 도구도 아닙니다.</aside>
 </section>
 
-<!-- 질문 시간 (중간) -->
-<section class="slide section-slide" data-title="질문 시간">
-  <div class="big">질문 시간 · 약 5분</div>
-  <h1>여기까지,<br>질문 받습니다</h1>
-  <p class="lead">지금까지 다룬 것: Anthropic Scion · 줄이는 네 가지 · 동시 실행 취소 · 경로 필터 · 캐시 · 영향 분석 · 머지 큐 · 누적 후보</p>
-  <div class="strip"><figure><div class="thumb"><img src="assets/captures/p15-actions-pricing.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/scion-merges.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p15-paths.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-mergequeue.jpg" alt="앞에서 본 화면"></div></figure></div>
-  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
-</section>
-
 <!-- 13 merge_group 설정과 게이트 -->
 <section class="slide" data-title="merge_group 게이트">
   <div class="tag"><b>GitHub Actions 설정</b><span class="sep"></span>강사 자료 parallel-ai-merge-train · 트리거 발췌</div>
-  <h2>큐를 쓰려면 merge_group도 받아야 한다</h2>
+  <h2>머지 큐의 필수 트리거: merge_group</h2>
   <div class="row even">
     <div class="term"><span class="dim"># 발췌. 완성된 workflow가 아님</span>
 <span class="acc">on:</span>
@@ -257,7 +248,7 @@
 <!-- 14 GitLab 머지 트레인 -->
 <section class="slide" data-title="머지 트레인">
   <div class="tag"><b>GitLab</b><span class="sep"></span>GitLab Docs · Merge trains (Premium · Ultimate)</div>
-  <h2>GitLab에서는 머지 큐를 ‘머지 트레인’이라 부른다</h2>
+  <h2>GitLab의 머지 큐: ‘머지 트레인’</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>docs.gitlab.com/ci/pipelines/merge_trains</span></div><img src="assets/captures/p15-gitlab-trains.jpg" alt="GitLab Docs 머지 트레인 문서"></div>
@@ -278,7 +269,7 @@
 <!-- 15 시간 vs 러너 -->
 <section class="slide" data-title="병렬화와 범위 축소">
   <div class="tag"><b>교육용 가정</b><span class="sep"></span>강사 자료 parallel-ai-merge-train · 제품 실측 아님</div>
-  <h2>병렬화는 기다림을, 범위 축소는 러너·분을 줄인다</h2>
+  <h2>병렬화는 대기 시간만, 범위 축소는 러너·분까지 절감</h2>
   <table class="tbl">
     <tr><th>방식 (후보 A·B·C)</th><th>마지막 후보까지</th><th>총 러너 사용량</th></tr>
     <tr><td>전체 검사 12분씩 · 러너 1개</td><td class="mono">36분</td><td class="mono">36 러너·분</td></tr>
@@ -292,8 +283,8 @@
 
 <!-- 16 테스트가 틀리면 -->
 <section class="slide" data-title="가짜 초록불">
-  <div class="tag"><b>2부 · 스모크 테스트</b><span class="sep"></span>강사 운영 방식 · 단계 19</div>
-  <h2>테스트가 틀리면, 통과는 아무것도 증명하지 못한다</h2>
+  <div class="tag"><b>2부 · 스모크 테스트</b><span class="sep"></span>강사 운영 방식 · 6교시와 연결</div>
+  <h2>테스트가 틀리면 통과도 무의미</h2>
   <div class="diagram">{{svg:p15-false-green}}</div>
   <p class="under">에이전트가 <b>테스트와 구현을 둘 다</b> 쓰면, 서로 맞춘 채 틀릴 수 있습니다. 결국 직접 눌러 봐야 확정되는데, 이것이 <b>스모크 테스트</b>(앱이 켜지고 핵심 기능이 도는지 훑는 검사)입니다. <span class="next">→ 6교시 · TDD(Test-Driven Development, 테스트 주도 개발)</span></p>
   <aside>6교시에서 스펙을 테스트로 바꾸고 통과를 완료 기준으로 삼았습니다. 그런데 테스트도 에이전트가 쓰면 문제가 생깁니다. 스펙을 잘못 옮긴 테스트에 맞춰 구현하면 CI는 초록불이어도 실제 화면은 버튼이 안 눌릴 수 있습니다. 테스트가 불량이면 구현도 불량이라는 뜻입니다. 사람은 이럴 때 앱을 띄워 직접 눌러 봤고, 이것이 스모크 테스트입니다. 이 확인은 사람 손이 많이 가서 늘 마지막에 밀렸습니다. 이제 이 일을 AI가 대신합니다.</aside>
@@ -302,7 +293,7 @@
 <!-- 17 computer use -->
 <section class="slide" data-title="computer use">
   <div class="tag"><b>2024-10-22</b><span class="sep"></span>Anthropic · computer use 공개 베타</div>
-  <h2>AI가 사람처럼 화면을 보고 눌러 볼 수 있게 됐다: computer use</h2>
+  <h2>computer use: 사람처럼 화면을 보고 누르는 AI</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/news/3-5-models-and-computer-use</span></div><img src="assets/captures/p15-computer-use.jpg" alt="Anthropic 발표문: 사람처럼 화면을 보고 커서를 움직이고 클릭하는 computer use"></div>
@@ -323,8 +314,8 @@
 
 <!-- 18 Playwright MCP -->
 <section class="slide" data-title="Playwright MCP">
-  <div class="tag"><b>브라우저 자동화 · 대표 도구 Playwright MCP</b><span class="sep"></span>2025-03-13 · Microsoft</div>
-  <h2>브라우저 자동화(접근성 스냅샷)의 대표 도구, Playwright MCP</h2>
+  <div class="tag"><b>대표 도구 Playwright MCP</b><span class="sep"></span>2025-03-13 · Microsoft</div>
+  <h2>요소 목록으로 조작하는 도구, Playwright MCP</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>playwright.dev/mcp/introduction</span></div><img src="assets/captures/p15-playwright-mcp.jpg" alt="Playwright MCP 소개 문서: 접근성 스냅샷으로 브라우저 조작, 비전 모델 불필요"></div>
@@ -345,7 +336,7 @@
 <!-- 19 Chrome DevTools MCP -->
 <section class="slide" data-title="Chrome DevTools MCP">
   <div class="tag"><b>브라우저 디버깅 정보 읽기 · 대표 도구 DevTools MCP</b><span class="sep"></span>2025-09-23 · Chrome for Developers 공개 프리뷰</div>
-  <h2>콘솔과 네트워크를 직접 읽게 하는 도구, Chrome DevTools MCP</h2>
+  <h2>콘솔·네트워크 읽기 도구, Chrome DevTools MCP</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>developer.chrome.com/blog/chrome-devtools-mcp</span></div><img src="assets/captures/page-devtools-mcp.jpg" alt="Chrome DevTools MCP 발표 글"></div>
@@ -367,7 +358,7 @@
 <!-- 20 Claude in Chrome -->
 <section class="slide" data-title="Claude in Chrome">
   <div class="tag"><b>로그인된 내 브라우저 조작 · 대표 도구 Claude in Chrome</b><span class="sep"></span>2025-12-18 확대 · Claude Code 공식 문서</div>
-  <h2>내 로그인 상태 그대로 눌러 보는 확장, Claude in Chrome</h2>
+  <h2>내 로그인 상태로 쓰는 확장, Claude in Chrome</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/chrome</span></div><img src="assets/captures/p15-cc-chrome.jpg" alt="Claude Code 문서: Claude in Chrome 확장으로 웹 앱 테스트, 콘솔 로그 디버깅"></div>
@@ -388,7 +379,7 @@
 <!-- 21 도구 고르기 -->
 <section class="slide" data-title="도구 고르기">
   <div class="tag"><b>고르는 기준</b><span class="sep"></span>어떤 도구로 눌러 볼까</div>
-  <h2>무엇을 확인하느냐로 도구를 고른다</h2>
+  <h2>도구 선택 기준: 확인 대상</h2>
   <div class="diagram">{{svg:p15-tool-choice}}</div>
   <p class="under">정답은 하나가 아닙니다. 웹 앱이면 <b>Playwright MCP로 흐름, DevTools MCP로 증거</b>가 무난한 조합입니다.</p>
   <aside>도구는 확인 대상으로 고르면 됩니다. 웹 앱의 화면과 흐름이면 Playwright MCP가 기본입니다. 콘솔 오류나 네트워크 요청까지 증거로 남기려면 DevTools MCP를 더합니다. 로그인된 내 Chrome에서 확인해야 하면 Claude in Chrome이 편합니다. 브라우저 밖의 데스크톱 앱이라면 computer use입니다. 특정 도구만 정답은 아닙니다. Codex나 Gemini, Cursor 같은 다른 도구에서도 같은 MCP 서버를 연결해 같은 일을 할 수 있습니다.</aside>
@@ -397,7 +388,7 @@
 <!-- 22 시나리오 구조 -->
 <section class="slide" data-title="시나리오 구조">
   <div class="tag"><b>스모크 시나리오 쓰는 법</b><span class="sep"></span>강사 운영 방식</div>
-  <h2>시나리오 한 개는 다섯 칸이면 된다</h2>
+  <h2>스모크 시나리오 한 개: 다섯 칸이면 충분</h2>
   <div class="diagram">{{svg:p15-scenario}}</div>
   <p class="under">핵심 흐름 <b>3~5개</b>만. 로그인, 핵심 기능 한 번, 저장 후 다시 열기 정도가 적당합니다.</p>
   <aside>스모크 시나리오는 길게 쓰지 않습니다. 목적, 전제, 단계, 판정, 증거 다섯 칸이면 됩니다. 목적은 이 시나리오가 어떤 약속을 확인하는지 한 줄로 적습니다. 전제에는 주소와 테스트 계정, 필요한 데이터를 적습니다. 단계는 사용자가 하는 행동을 순서대로 쓰고, 판정은 화면에 무엇이 보여야 하는지를 눈으로 확인 가능한 문장으로 씁니다. 마지막으로 어떤 증거를 남길지 정합니다. 시나리오 수는 핵심 흐름 서너 개로 제한합니다. 많아지면 느려져서 아무도 돌리지 않습니다.</aside>
@@ -406,7 +397,7 @@
 <!-- 23 시나리오 파일 예 -->
 <section class="slide" data-title="시나리오 파일 예">
   <div class="tag"><b>예시 파일</b><span class="sep"></span>smoke/login.md · Playwright MCP로 실행</div>
-  <h2>시나리오는 저장소 안의 마크다운 파일이다</h2>
+  <h2>시나리오 = 저장소 안의 마크다운 파일</h2>
   <div class="row even">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>playwright.dev/mcp/introduction</span></div><img src="assets/captures/p15-playwright-quick.jpg" alt="Playwright MCP 문서: 시작 방법과 주요 기능"></div>
@@ -433,17 +424,26 @@
 
 <!-- 24 증거 -->
 <section class="slide" data-title="증거 남기기">
-  <div class="tag"><b>스크린샷 · 콘솔 로그</b><span class="sep"></span>통과했다는 말이 아니라 통과한 증거</div>
-  <h2>“통과했습니다”가 아니라 증거 파일을 남긴다</h2>
+  <div class="tag"><b>스크린샷</b><span class="sep"></span>콘솔 로그 · 증거 폴더와 PASS/FAIL 보고서</div>
+  <h2>“통과했습니다” 대신 증거 파일</h2>
   <div class="diagram">{{svg:p15-evidence}}</div>
   <p class="under">규칙: <b>증거 없는 PASS는 FAIL</b>. 에이전트에게 파일 이름 규칙까지 시키고, PR에 보고서를 붙입니다.</p>
   <aside>에이전트가 스모크를 돌린 뒤 통과했다고만 말하면 그 말은 검증할 수 없습니다. 그래서 실행마다 증거 폴더를 만들게 합니다. 단계별 스크린샷, 콘솔 로그, 실패한 네트워크 요청, 그리고 PASS 또는 FAIL을 적은 보고서입니다. 프롬프트에는 증거가 없는 항목은 실패로 처리하고, 콘솔 오류가 있으면 화면이 정상이어도 실패로 보고하라고 적습니다. 보고서와 핵심 스크린샷은 PR이나 이슈 댓글로 남기고, 머지 큐에 넣기 전에 사람이 증거를 보고 판정합니다. 비밀번호나 토큰이 스크린샷과 로그에 남지 않는지도 확인합니다.</aside>
 </section>
 
+<!-- 질문 시간 (교시 끝) -->
+<section class="slide section-slide" data-title="질문 시간">
+  <div class="big">질문 시간 · 약 5분</div>
+  <h1>여기까지,<br>질문 시간</h1>
+  <p class="lead">오늘 다룬 것: Anthropic Scion · 줄이는 네 가지 · 경로 필터 · 머지 큐 · 머지 트레인 · 가짜 초록불 · computer use · Playwright MCP · Chrome DevTools MCP · 시나리오 파일 · 증거 남기기</p>
+  <div class="strip"><figure><div class="thumb"><img src="assets/captures/scion-merges.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-mergequeue.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p15-computer-use.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p15-playwright-mcp.jpg" alt="앞에서 본 화면"></div></figure></div>
+  <aside>교시를 마무리하기 전에 질문을 받겠습니다. 오늘 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
+</section>
+
 <!-- 26 정리 -->
 <section class="slide" data-title="오늘 본 것과 다음 교시">
   <div class="tag"><b>오늘 본 것을 묶으면</b><span class="sep"></span>15교시 → 16교시</div>
-  <h2>CI는 줄이고, 초록불은 직접 확인한다</h2>
+  <h2>정리: CI 축소와 초록불 확인</h2>
   <div class="row">
     <div class="diagram">{{svg:p15-levers-b}}</div>
     <div class="points">

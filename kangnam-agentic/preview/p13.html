@@ -28,7 +28,7 @@ html,body{height:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
 .stage{position:fixed;inset:0;display:grid;place-items:center}
-.deck{width:1600px;height:900px;position:relative;transform-origin:center center}
+.deck{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center center}
 .slide{position:absolute;inset:0;display:none;padding:64px 88px 72px;flex-direction:column;gap:28px}
 .slide.on{display:flex}
 .slide aside{display:none}
@@ -161,7 +161,7 @@ p{margin:0}
 .hud button:focus-visible,.hud select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .notes{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:44px;max-height:38vh;overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.65}
 @media (prefers-reduced-motion:no-preference){.slide.on{animation:in .25s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
-@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
+@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;position:static;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
 
 /* keep captures inside their column: the wrapper shrinks, the frame clips from the top */
 .row > div:has(> .frame){display:flex;flex-direction:column;min-height:0;max-height:100%;align-self:stretch;justify-content:center}
@@ -195,11 +195,11 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 </style>
 <div class="stage"><div class="deck" id="deck">
-<!-- 13교시 · 에이전트 팩토리, 병렬 에이전트 관리(Orca), 코디네이터-배치 패턴 (60분, 4회차 2026-11-26) -->
+<!-- 13교시 · 에이전트 팩토리, 병렬 에이전트 관리(Orca), 코디네이터-배치 패턴 (60분, 4회차 2026-11-24) -->
 
 <!-- 01 표지 -->
 <section data-period="13" class="slide" data-title="표지">
-  <div class="tag"><b>4회차 · 13교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-26</div>
+  <div class="tag"><b>4회차 · 13교시</b><span class="sep"></span>Agentic Engineering 실무 · 2026-11-24</div>
   <div class="title-wrap">
     <h1>에이전트 팩토리,<br>병렬 에이전트 관리,<br>코디네이터-배치</h1>
     <p class="lead">하네스 하나를 오래 돌리던 시대에서, 여러 하네스를 동시에 돌리고 점검하는 시대로 넘어갑니다.</p>
@@ -217,19 +217,19 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 02 지난 교시와의 연결 -->
 <section data-period="13" class="slide" data-title="지난 교시와 연결">
   <div class="tag"><b>12교시 → 13교시</b><span class="sep"></span>하네스 1개의 한계</div>
-  <h2>하네스를 오래 돌리게 되자, 병목은 ‘하나뿐’이 되었다</h2>
+  <h2>새 병목: 여러 하네스의 분배와 점검</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1614 400"><svg class="d2-881073180 d2-svg" width="1614" height="400" viewBox="-21 -21 1614 400"><g class="aDE="><g class="shape" ><rect x="0.000000" y="0.000000" width="250.000000" height="122.000000" class="box-inner"  /></g><text x="125.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="125.000000" dy="0.000000">12교시까지</tspan><tspan x="125.000000" dy="38.500000">사람 1명</tspan></text></g><g class="ZTE="><g class="shape" ><rect x="350.000000" y="0.000000" width="394.000000" height="122.000000" class="box-inner"  /></g><text x="547.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="547.000000" dy="0.000000">하네스 1개</tspan><tspan x="547.000000" dy="38.500000">/goal · 스킬 · MCP</tspan></text></g><g class="dDE="><g class="shape" ><rect x="844.000000" y="0.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="1001.000000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">긴 작업 1개</text></g><g class="ejM=" style='opacity:0.000000'><g class="shape" ><rect x="1258.000000" y="0.000000" width="314.000000" height="122.000000" class="box-inner"  /></g></g><g class="aDI="><g class="shape" ><rect x="0.000000" y="202.000000" width="250.000000" height="156.000000" class="box-inner"  /></g><text x="125.000000" y="275.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="125.000000" dy="0.000000">13교시부터</tspan><tspan x="125.000000" dy="38.500000">사람 1명</tspan></text></g><g class="ZTI="><g class="shape" ><rect x="350.000000" y="202.000000" width="394.000000" height="156.000000" class="box-inner"  /></g><text x="547.000000" y="275.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="547.000000" dy="0.000000">하네스 여러 개</tspan><tspan x="547.000000" dy="38.500000">워크트리마다 하나</tspan></text></g><g class="dDI="><g class="shape" ><rect x="844.000000" y="202.000000" width="314.000000" height="156.000000" class="box-inner"  /></g><text x="1001.000000" y="275.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1001.000000" dy="0.000000">작업 여러 개가</tspan><tspan x="1001.000000" dy="38.500000">동시에</tspan></text></g><g class="cQ=="><g class="shape" ><rect x="1258.000000" y="202.000000" width="314.000000" height="156.000000" class="box-inner hot"  /></g><text x="1415.000000" y="258.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1415.000000" dy="0.000000">새 문제</tspan><tspan x="1415.000000" dy="37.000000">누가 나눠 주고</tspan><tspan x="1415.000000" dy="37.000000">점검하나</tspan></text></g><g class="KGgxIC0mZ3Q7IGUxKVswXQ=="><marker id="u1-mk-d2-881073180-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 252.000000 61.000000 L 346.000000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-881073180-3488378134)" mask="url(#u1-d2-881073180)" /></g><g class="KGUxIC0mZ3Q7IHQxKVswXQ=="><path d="M 746.000000 61.000000 L 840.000000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-881073180-3488378134)" mask="url(#u1-d2-881073180)" /></g><g class="KGgyIC0mZ3Q7IGUyKVswXQ=="><path d="M 252.000000 280.000000 L 346.000000 280.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-881073180-3488378134)" mask="url(#u1-d2-881073180)" /></g><g class="KGUyIC0mZ3Q7IHQyKVswXQ=="><path d="M 746.000000 280.000000 L 840.000000 280.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-881073180-3488378134)" mask="url(#u1-d2-881073180)" /></g><g class="KHQyIC0mZ3Q7IHEpWzBd"><path d="M 1160.000000 280.000000 L 1254.000000 280.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-881073180-3488378134)" mask="url(#u1-d2-881073180)" /></g><g class="KGgxIC0mZ3Q7IGgyKVswXQ=="><path d="M 125.000000 124.000000 L 125.000000 198.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-881073180-3488378134)" mask="url(#u1-d2-881073180)" /><text x="125.000000" y="172.000000" class="edge-label" style="text-anchor:middle;font-size:26px">병목</text></g><mask id="u1-d2-881073180" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1614" height="400">
 <rect x="-21" y="-21" width="1614" height="400" fill="white"></rect>
 <rect x="92.000000" y="146.000000" width="66" height="33" fill="black"></rect>
 </mask></svg></svg></div>
   <p class="under">지난 시간까지는 <b>한 하네스가 긴 일을 끝까지</b> 하게 만들었습니다. 이제는 <b>여러 하네스를 누가 나눠 주고 점검하나</b>가 문제입니다.</p>
-  <aside>12교시에서 여러분은 스킬과 MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)를 붙이고 /goal이나 루프로 긴 작업을 맡겨 봤습니다. 그러면 곧 다음 불만이 생깁니다. 한 에이전트가 두 시간 일하는 동안 나는 기다리기만 해야 하나, 하는 불만입니다. 해법은 하네스를 여러 개 동시에 돌리는 것입니다. 하지만 그러면 일을 쪼개고, 진행을 보고, 결과를 합치는 일이 새로 생깁니다. 오늘 이야기는 이 새 일을 도구가 어떻게 돕는지, 그리고 제가 어떻게 사람의 손을 덜어 내는지에 대한 이야기입니다.</aside>
+  <aside>12교시에서 여러분은 스킬과 MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)를 붙이고 /goal이나 루프로 긴 작업을 맡겨 봤습니다. 그러면 곧 다음 불만이 생깁니다. 한 에이전트가 두 시간 일하는 동안 나는 기다리기만 해야 하나, 하는 불만입니다. 해법은 하네스를 여러 개 동시에 돌리는 것입니다. 하지만 그러면 일을 쪼개고, 진행을 보고, 결과를 합치는 일이 새로 생깁니다. 오늘 이야기는 이 새 일을 도구가 어떻게 돕는지, 그리고 제가 사람의 손을 어떻게 덜어 내는지를 다룹니다.</aside>
 </section>
 
 <!-- 03 왜 팩토리 ① 모델 가격 -->
 <section data-period="13" class="slide" data-title="모델마다 가격이 다르다">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Anthropic 공식 가격표 · 에이전트 팩토리의 이유 ①</div>
-  <h2>같은 회사 모델도 입력 단가가 최대 100배 차이 난다</h2>
+  <h2>같은 회사 모델도 입력 단가 최대 100배 차이</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>platform.claude.com/docs/en/about-claude/pricing</span></div><img src="assets/captures/p13-pricing.jpg" alt="Anthropic 모델별 가격표"></div>
@@ -244,13 +244,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       </ul>
     </div>
   </div>
-  <aside>가격표를 보면 같은 회사 안에서도 가장 비싼 모델은 100만 토큰당 입력 10달러, 가장 싼 모델은 10센트로 백 배 차이가 납니다. 성능도 작업마다 다르게 나타납니다. 그렇다면 모든 일을 가장 비싼 모델에 맡기는 것은 낭비이고, 모든 일을 가장 싼 모델에 맡기는 것은 실패의 지름길입니다. 작업 성격에 맞춰 모델을 나눠 쓰려면 하네스를 여러 개 두고 각각 다른 모델을 붙이는 것이 가장 쉽습니다. 이것이 에이전트 팩토리의 첫 번째 이유입니다. 가격은 계속 바뀌므로 저는 숫자 자체보다 격차가 있다는 사실을 봅니다.</aside>
+  <aside>가격표를 보면 같은 회사 안에서도 가장 비싼 모델은 100만 토큰당 입력 10달러, 가장 싼 모델은 10센트로 백 배 차이가 납니다. 성능도 작업마다 다르게 나타납니다. 그렇다면 모든 일을 가장 비싼 모델에 맡기는 것은 낭비이고, 모든 일을 가장 싼 모델에 맡기는 것은 실패의 지름길입니다. 작업 성격에 맞춰 모델을 나눠 쓰려면 하네스를 여러 개 두고 각각 다른 모델을 붙이는 것이 가장 쉽습니다. 이것이 에이전트 팩토리의 첫 번째 이유입니다. 가격은 계속 바뀌므로 숫자 자체보다 격차가 있다는 사실이 중요합니다.</aside>
 </section>
 
 <!-- 04 왜 팩토리 ② 한 개발자 -->
 <section data-period="13" class="slide" data-title="한 개발자, 여러 하네스">
   <div class="tag"><b>에이전트 팩토리</b><span class="sep"></span>왜 팩토리인가 ② · 강사 운영 방식</div>
-  <h2>한 사람이 큰 프로젝트를 맡으려면 하네스가 여러 개여야 한다</h2>
+  <h2>한 사람이 큰 프로젝트를 맡는 조건: 여러 하네스</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1944 746"><svg class="d2-3039392168 d2-svg" width="1944" height="746" viewBox="-9 -9 1944 746"><g class="ZGV2"><g class="shape" ><rect x="12.000000" y="457.000000" width="321.000000" height="122.000000" class="box-inner hot"  /></g><text x="172.500000" y="513.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="172.500000" dy="0.000000">개발자 1명</tspan><tspan x="172.500000" dy="38.500000">목표·기준·판정</tspan></text></g><g class="ZmxlZXQ="><g class="shape" ><rect x="642.000000" y="12.000000" width="687.000000" height="651.000000" class="box-outer"  /></g><text x="985.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">하네스 여러 개 · 워크트리마다 하나</text></g><g class="b3V0"><g class="shape" ><rect x="1668.000000" y="474.000000" width="246.000000" height="88.000000" class="box-inner"  /></g><text x="1791.000000" y="530.500000" class="label-inner" style="text-anchor:middle;font-size:34px">PR · CI · 이슈</text></g><g class="ZmxlZXQuYQ=="><g class="shape" ><rect x="730.000000" y="65.000000" width="511.000000" height="122.000000" class="box-inner"  /></g><text x="985.500000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="985.500000" dy="0.000000">하네스 A</tspan><tspan x="985.500000" dy="38.500000">어려운 설계 · 고성능 모델</tspan></text></g><g class="ZmxlZXQuYg=="><g class="shape" ><rect x="773.000000" y="207.000000" width="425.000000" height="122.000000" class="box-inner"  /></g><text x="985.500000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="985.500000" dy="0.000000">하네스 B</tspan><tspan x="985.500000" dy="38.500000">기능 구현 · 중간 모델</tspan></text></g><g class="ZmxlZXQuYw=="><g class="shape" ><rect x="750.000000" y="349.000000" width="471.000000" height="122.000000" class="box-inner"  /></g><text x="985.500000" y="405.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="985.500000" dy="0.000000">하네스 C</tspan><tspan x="985.500000" dy="38.500000">문서·테스트 · 저가 모델</tspan></text></g><g class="ZmxlZXQuZA=="><g class="shape" ><rect x="692.000000" y="491.000000" width="587.000000" height="122.000000" class="box-inner"  /></g><text x="985.500000" y="547.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="985.500000" dy="0.000000">하네스 D</tspan><tspan x="985.500000" dy="38.500000">같은 작업을 다른 모델로 비교</tspan></text></g><g class="KGRldiAtJmd0OyBmbGVldClbMF0="><marker id="u2-mk-d2-3039392168-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 335.000000 498.415985 L 638.000000 498.415985" class="edge" style="stroke-width:2;" marker-end="url(#u2-mk-d2-3039392168-3488378134)" mask="url(#u2-d2-3039392168)" /><text x="487.500000" y="508.000000" class="edge-label" style="text-anchor:middle;font-size:26px">일을 나눈다</text></g><g class="KGZsZWV0IC0mZ3Q7IG91dClbMF0="><path d="M 1331.000000 504.083008 L 1664.000000 504.083008" class="edge" style="stroke-width:2;" marker-end="url(#u2-mk-d2-3039392168-3488378134)" mask="url(#u2-d2-3039392168)" /><text x="1498.500000" y="514.000000" class="edge-label" style="text-anchor:middle;font-size:26px">결과를 올린다</text></g><g class="KG91dCAtJmd0OyBkZXYpWzBd"><path d="M 1666.000000 533.416016 L 1638.000000 533.416016 S 1628.000000 533.416016 1628.000000 543.416016 L 1628.000000 690.000000 S 1628.000000 700.000000 1618.000000 700.000000 L 383.000000 700.000000 S 373.000000 700.000000 373.000000 690.000000 L 373.000000 549.083008 S 373.000000 539.083008 363.000000 539.083008 L 337.000000 539.083008" class="edge" style="stroke-width:2;" marker-end="url(#u2-mk-d2-3039392168-3488378134)" mask="url(#u2-d2-3039392168)" /><text x="1003.000000" y="710.000000" class="edge-label" style="text-anchor:middle;font-size:26px">검토·판정</text></g><mask id="u2-d2-3039392168" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1944" height="746">
 <rect x="-9" y="-9" width="1944" height="746" fill="white"></rect>
 <rect x="406.000000" y="482.000000" width="163" height="33" fill="black"></rect>
@@ -264,15 +264,15 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 05 연표 -->
 <section data-period="13" class="slide" data-title="2025-10 ~ 2026-04">
   <div class="tag"><b>2025-10-28 → 2026-04-02</b><span class="sep"></span>검증한 연표 · 공식 발표문 · CHANGELOG · 저장소</div>
-  <h2>여섯 달 만에 모든 도구가 같은 방향으로 갔다</h2>
+  <h2>다섯 달 만에 주요 도구가 모두 병렬 에이전트로</h2>
   <div class="diagram pele-theme"><svg xmlns="http://www.w3.org/2000/svg" class="pele pele-timeline" viewBox="0 0 996 208" width="996" height="208" style="max-width:100%;height:auto;--_bg:var(--pele-bg,#fff);--_fg:var(--pele-fg,#1f1f1f);--_m:var(--pele-muted,#6e6e6e);--_l:var(--pele-line,#1f1f1f);--_s:var(--pele-surface,#f3f3f3);--_a:var(--pele-surface-alt,#e6e6e6);--_b:var(--pele-border,#8a8a8a);--_c:var(--pele-accent,#5b7bd5);color:var(--_fg);--_r:var(--pele-radius,4px);--_fm:var(--pele-font-mono,monospace);font:16px sans-serif;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;font-family:var(--pele-font,sans-serif)" fill="var(--_fg)" role="graphics-document document" aria-roledescription="timeline"><path class="pele-axis" d="M8,68H981" fill="none" stroke="var(--_l)"/><path class="pele-marker" d="M988,68L980,71.36L980,64.64Z" fill="var(--_l)" stroke="none"/><g class="pele-node pele-period" data-id="2025-10-28"><rect x="8" y="8" width="176" height="40" fill="var(--pele-series-1,#4c78a8)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="96" y="33.6" text-anchor="middle">2025-10-28</text><path class="pele-edge" d="M96,48V88M96,125V133" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="96" cy="68" r="4" fill="var(--pele-series-1,#4c78a8)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="8" y="88" width="176" height="37" fill="var(--pele-series-1,#4c78a8)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="96" y="111.4" text-anchor="middle">GitHub Agent HQ</text></g><g class="pele-node pele-event"><rect x="8" y="133" width="176" height="52" fill="var(--pele-series-1,#4c78a8)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" text-anchor="middle" xml:space="preserve"><tspan x="96" y="154.9">여러 회사 에이전트를</tspan><tspan x="96" y="172.9">한곳에</tspan></text></g></g><g class="pele-node pele-period" data-id="2026-02 초"><rect x="204" y="8" width="176" height="40" fill="var(--pele-series-2,#f58518)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="292" y="33.6" text-anchor="middle">2026-02 초</text><path class="pele-edge" d="M292,48V88M292,125V133" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="292" cy="68" r="4" fill="var(--pele-series-2,#f58518)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="204" y="88" width="176" height="37" fill="var(--pele-series-2,#f58518)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="292" y="111.4" text-anchor="middle">Codex 앱</text></g><g class="pele-node pele-event"><rect x="204" y="133" width="176" height="52" fill="var(--pele-series-2,#f58518)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" text-anchor="middle" xml:space="preserve"><tspan x="292" y="154.9">워크트리 · 병렬</tspan><tspan x="292" y="172.9">에이전트</tspan></text></g></g><g class="pele-node pele-period" data-id="2026-02-05"><rect x="400" y="8" width="176" height="40" fill="var(--pele-series-3,#54a24b)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="488" y="33.6" text-anchor="middle">2026-02-05</text><path class="pele-edge" d="M488,48V88M488,140V148" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="488" cy="68" r="4" fill="var(--pele-series-3,#54a24b)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="400" y="88" width="176" height="52" fill="var(--pele-series-3,#54a24b)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" text-anchor="middle" xml:space="preserve"><tspan x="488" y="109.9">Claude Code agent</tspan><tspan x="488" y="127.9">teams</tspan></text></g><g class="pele-node pele-event"><rect x="400" y="148" width="176" height="37" fill="var(--pele-series-3,#54a24b)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="488" y="171.4" text-anchor="middle">팀 리드와 팀원 세션</text></g></g><g class="pele-node pele-period" data-id="2026-03-16"><rect x="596" y="8" width="176" height="40" fill="var(--pele-series-4,#e45756)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="684" y="33.6" text-anchor="middle">2026-03-16</text><path class="pele-edge" d="M684,48V88M684,125V133" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="684" cy="68" r="4" fill="var(--pele-series-4,#e45756)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="596" y="88" width="176" height="37" fill="var(--pele-series-4,#e45756)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="684" y="111.4" text-anchor="middle">Orca 첫 커밋</text></g><g class="pele-node pele-event"><rect x="596" y="133" width="176" height="37" fill="var(--pele-series-4,#e45756)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" x="684" y="156.4" text-anchor="middle">워크트리마다 에이전트</text></g></g><g class="pele-node pele-period" data-id="2026-04-02"><rect x="792" y="8" width="176" height="40" fill="var(--pele-series-5,#72b7b2)" style="rx:var(--_r)"/><text fill="var(--_bg)" x="880" y="33.6" text-anchor="middle">2026-04-02</text><path class="pele-edge" d="M880,48V88M880,140V148" fill="none" stroke="var(--_b)"/><circle class="pele-dot" cx="880" cy="68" r="4" fill="var(--pele-series-5,#72b7b2)" stroke="var(--_bg)" stroke-width="2"/><g class="pele-node pele-event"><rect x="792" y="88" width="176" height="52" fill="var(--pele-series-5,#72b7b2)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" text-anchor="middle" xml:space="preserve"><tspan x="880" y="109.9">Cursor 3 Agents</tspan><tspan x="880" y="127.9">Window</tspan></text></g><g class="pele-node pele-event"><rect x="792" y="148" width="176" height="52" fill="var(--pele-series-5,#72b7b2)" fill-opacity="0.16" style="rx:var(--_r)"/><text font-size="14" text-anchor="middle" xml:space="preserve"><tspan x="880" y="169.9">에이전트 여러 개를 한</tspan><tspan x="880" y="187.9">창에서</tspan></text></g></g></svg></div>
-  <aside>연표를 보겠습니다. 2025년 10월 GitHub가 Agent HQ를 내놓고, 2026년 2월 초에 Codex 앱이 나오고, 2월 5일 Claude Code에 agent teams가 들어옵니다. 3월 16일은 Orca 저장소의 첫 커밋이고, 4월 2일 Cursor 3가 Agents Window를 공개합니다. 회사도 제품도 다르지만 공통점은 같습니다. 에이전트 하나를 보여 주는 화면이 아니라 여러 에이전트를 한꺼번에 다루는 화면이라는 점입니다. 다음 네 장에서 하나씩 간단히 봅니다. Orca의 첫 커밋 날짜는 저희가 정리한 연표를 따른 것입니다.</aside>
+  <aside>연표를 보겠습니다. 2025년 10월 GitHub가 Agent HQ를 내놓고, 2026년 2월 초에 Codex 앱이 나오고, 2월 5일 Claude Code에 agent teams가 들어옵니다. 3월 16일은 Orca 저장소의 첫 커밋이고, 4월 2일 Cursor 3가 Agents Window를 공개합니다. 회사도 제품도 다르지만 방향은 같습니다. 에이전트 하나를 보여 주는 화면이 아니라 여러 에이전트를 한꺼번에 다루는 화면이라는 점입니다. 다음 네 장에서 하나씩 간단히 봅니다. Orca의 첫 커밋 날짜는 저희가 정리한 연표를 따른 것입니다.</aside>
 </section>
 
 <!-- 06 Agent HQ -->
 <section data-period="13" class="slide" data-title="GitHub Agent HQ">
   <div class="tag"><b>2025-10-28</b><span class="sep"></span>GitHub Universe 2025 · Agent HQ</div>
-  <h2>GitHub는 여러 회사의 에이전트를 한곳에서 관리하겠다고 밝혔다</h2>
+  <h2>GitHub Agent HQ: 여러 회사 에이전트를 한곳에서 관리</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:280px"><div class="bar"><i></i><i></i><i></i><span>github.blog/news-insights/company-news/welcome-home-agents</span></div><img src="assets/captures/page-agenthq.jpg" alt="GitHub Agent HQ 발표 글 첫 화면"></div>
@@ -297,7 +297,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 07 Codex 앱 -->
 <section data-period="13" class="slide" data-title="Codex 앱">
   <div class="tag"><b>2026-02 초</b><span class="sep"></span>OpenAI Codex 앱(macOS 먼저)</div>
-  <h2>Codex 앱은 에이전트마다 저장소 사본을 따로 준다</h2>
+  <h2>Codex 앱: 에이전트마다 따로 주는 저장소 사본</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>learn.chatgpt.com/docs/app</span></div><img src="assets/captures/p13-codex-app.jpg" alt="Codex 앱 공식 문서 화면"></div>
@@ -323,7 +323,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 08 agent teams -->
 <section data-period="13" class="slide" data-title="Claude Code agent teams">
   <div class="tag"><b>2026-02-05</b><span class="sep"></span>Claude Code 2.1.32 · agent teams 리서치 프리뷰</div>
-  <h2>agent teams: 팀 리드가 독립된 세션의 팀원들을 이끈다</h2>
+  <h2>agent teams: 팀 리드와 독립 세션의 팀원들</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/agent-teams</span></div><img src="assets/captures/p13-cc-agent-teams.jpg" alt="Claude Code agent teams 공식 문서"></div>
@@ -343,13 +343,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       </div>
     </div>
   </div>
-  <aside>Claude Code는 2026년 2월 5일 배포한 2.1.32 버전에 agent teams를 연구 미리보기로 넣었습니다. CHANGELOG에도 토큰을 많이 쓰는 기능이며 환경 변수를 켜야 한다고 적혀 있습니다. 서브에이전트는 결과를 호출한 쪽에 돌려주는 구조인데, 팀원은 서로 직접 메시지를 주고받고 작업 목록을 공유합니다. 문서가 권하는 규모는 팀원 세 명에서 다섯 명입니다. 같은 파일을 두 팀원이 고치면 덮어쓰므로 파일 소유를 나누라는 주의도 있습니다. 오늘 뒤에서 볼 코디네이터 패턴과 가까운 형제입니다. 장점은 팀원이 서로 직접 조율한다는 점이고, 단점은 토큰을 많이 쓰며 같은 파일을 고치면 덮어쓴다는 점입니다. 의미는 코디네이터 패턴과 가까운 형제이며 담당 파일을 나눠야 한다는 것입니다.</aside>
+  <aside>Claude Code는 2026년 2월 5일 배포한 2.1.32 버전에 agent teams를 연구 미리보기로 넣었습니다. CHANGELOG에도 토큰을 많이 쓰는 기능이며 환경 변수로 켜야 한다고 적혀 있습니다. 서브에이전트는 결과를 호출한 쪽에 돌려주는 구조인데, 팀원은 서로 직접 메시지를 주고받고 작업 목록을 공유합니다. 문서가 권하는 규모는 팀원 세 명에서 다섯 명입니다. 같은 파일을 두 팀원이 고치면 덮어쓰므로 파일 소유를 나누라는 주의도 있습니다. 오늘 뒤에서 볼 코디네이터 패턴과 가까운 형제입니다. 장점은 팀원이 서로 직접 조율한다는 점이고, 단점은 토큰을 많이 쓰며 같은 파일을 고치면 덮어쓴다는 점입니다. 의미는 코디네이터 패턴과 가까운 형제이며 담당 파일을 나눠야 한다는 것입니다.</aside>
 </section>
 
 <!-- 09 Cursor 3 -->
 <section data-period="13" class="slide" data-title="Cursor 3 Agents Window">
   <div class="tag"><b>2026-04-02</b><span class="sep"></span>Cursor 3 · Agents Window · /best-of-n</div>
-  <h2>Cursor 3는 에이전트 여러 개를 병렬로 돌리는 새 창을 내놓았다</h2>
+  <h2>Cursor 3 Agents Window: 여러 에이전트 병렬 실행</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>cursor.com/changelog/3-0</span></div><img src="assets/captures/p13-cursor3.jpg" alt="Cursor 3 변경 기록 화면"></div>
@@ -422,7 +422,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 12 지원 에이전트 -->
 <section data-period="13" class="slide" data-title="Orca 지원 에이전트">
   <div class="tag"><b>Orca README · 공식 문서</b><span class="sep"></span>Supported agents</div>
-  <h2>Orca는 터미널에서 도는 에이전트면 모두 돌릴 수 있다</h2>
+  <h2>Orca: 터미널 에이전트라면 모두 실행 가능</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>onorca.dev/docs/agents/supported</span></div><img src="assets/captures/p13-orca-agents.jpg" alt="Orca 지원 에이전트 문서"></div>
@@ -443,7 +443,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 13 화면 구성 -->
 <section data-period="13" class="slide" data-title="Orca 화면 구성">
   <div class="tag"><b>Orca 공식 소개 화면</b><span class="sep"></span>github.com/stablyai/orca · README 대표 이미지 계열</div>
-  <h2>Orca 한 화면에서 열 개 안팎의 작업을 감시한다</h2>
+  <h2>Orca 한 화면: 열 개 안팎의 작업 감시</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/stablyai/orca</span></div><img src="assets/captures/orca-2026.jpg" alt="Orca에서 여러 에이전트를 워크트리별로 돌리는 화면과 모바일 앱"></div>
@@ -464,16 +464,16 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 질문 시간 (중간) -->
 <section data-period="13" class="slide section-slide" data-title="질문 시간">
   <div class="big">질문 시간 · 약 5분</div>
-  <h1>여기까지,<br>질문 받습니다</h1>
+  <h1>여기까지,<br>질문 시간</h1>
   <p class="lead">지금까지 다룬 것: GitHub Agent HQ · Codex 앱 · Claude Code agent teams · Cursor 3 Agents Window · Orca란 · Orca 워크트리 모델 · Orca 지원 에이전트 · Orca 화면 구성</p>
   <div class="strip"><figure><div class="thumb"><img src="assets/captures/p13-pricing.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p13-codex-app.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p13-orca-home.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/orca-2026.jpg" alt="앞에서 본 화면"></div></figure></div>
-  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래의 화면들 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
+  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
 </section>
 
 <!-- 14 설치·사용 흐름 -->
 <section data-period="13" class="slide" data-title="Orca 사용 흐름">
   <div class="tag"><b>Orca 문서 · Your first 3-agent session</b><span class="sep"></span>5분 흐름</div>
-  <h2>Orca: 같은 프롬프트로 세 에이전트를 경주시키고 하나만 고른다</h2>
+  <h2>Orca: 같은 프롬프트로 세 에이전트 경주, 하나만 선택</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>onorca.dev/docs/first-session</span></div><img src="assets/captures/p13-orca-first-session.jpg" alt="Orca 첫 3-에이전트 세션 문서"></div>
@@ -494,7 +494,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 15 오케스트레이션 CLI -->
 <section data-period="13" class="slide" data-title="Orca 오케스트레이션 CLI">
   <div class="tag"><b>Orca 문서 · CLI · Orchestration</b><span class="sep"></span>실험 기능(설정 → Experimental에서 켬)</div>
-  <h2>Orca: 에이전트가 orca 명령으로 작업과 워커를 직접 만든다</h2>
+  <h2>Orca CLI: 에이전트가 직접 만드는 작업과 워커</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>onorca.dev/docs/cli/orchestration</span></div><img src="assets/captures/p13-orca-orchestration.jpg" alt="Orca 오케스트레이션 문서"></div>
@@ -517,7 +517,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 16 Orca 한계 -->
 <section data-period="13" class="slide" data-title="Orca 한계와 주의">
   <div class="tag"><b>2026-10-28</b><span class="sep"></span>Orca v1.4.243(Latest) 릴리스 노트 · 공식 문서</div>
-  <h2>Orca는 빨리 바뀌고, 기본값이 권한 우회라 주의해야 한다</h2>
+  <h2>Orca 주의점: 빠른 변화와 권한 우회 기본값</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/stablyai/orca/releases</span></div><img src="assets/captures/p13-orca-releases.jpg" alt="Orca 릴리스 목록: v1.4.243"></div>
@@ -534,13 +534,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       <div class="next">→ 편리하지만 실험적이니 권한 설정부터 확인</div>
     </div>
   </div>
-  <aside>Orca의 한계도 짚어 두겠습니다. 첫째, 공식 문서는 새 실행의 기본값으로 각 에이전트의 권한 우회 플래그를 채워 둔다고 밝히고, 워크트리는 버릴 수 있는 사본이라는 이유를 댑니다. 하지만 저장소의 같은 문서에는 워크트리가 파일 격리일 뿐이고 에이전트는 여전히 접근 가능한 파일과 네트워크를 쓸 수 있다는 경고가 있습니다. 저는 수동 승인으로 바꾸는 설정부터 확인합니다. 둘째, 오케스트레이션은 실험 기능이고 옛 명령은 폐기되었습니다. 셋째, README가 하루에 한 번씩 배포한다고 할 정도로 변화가 빨라서, 오늘 본 화면은 다음 달에는 다를 수 있습니다. 넷째, 병렬로 만든 PR을 합치는 부담은 도구가 없애 주지 않습니다.</aside>
+  <aside>Orca의 한계도 짚어 두겠습니다. 첫째, 공식 문서는 새 실행의 기본값으로 각 에이전트의 권한 우회 플래그를 채워 둔다고 밝히고, 워크트리는 버릴 수 있는 사본이라는 이유를 댑니다. 하지만 저장소의 같은 문서에는 워크트리가 파일 격리일 뿐이고 에이전트는 여전히 접근 가능한 파일과 네트워크를 쓸 수 있다는 경고가 있습니다. 수동 승인으로 바꾸는 설정부터 확인합니다. 둘째, 오케스트레이션은 실험 기능이고 옛 명령은 폐기되었습니다. 셋째, README가 하루에 한 번씩 배포한다고 할 정도로 변화가 빨라서, 오늘 본 화면은 다음 달에는 다를 수 있습니다. 넷째, 병렬로 만든 PR을 합치는 부담은 도구가 없애 주지 않습니다.</aside>
 </section>
 
 <!-- 17 코디네이터-배치 패턴 소개 -->
 <section data-period="13" class="slide" data-title="코디네이터-배치 패턴">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>에이전트 팩토리를 실제로 굴리는 법</div>
-  <h2>코디네이터-배치 패턴: 코딩하지 않는 세션이 일을 나눈다</h2>
+  <h2>코디네이터-배치 패턴: 코딩 없이 일만 나누는 세션</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1228 376"><svg class="d2-1002156260 d2-svg" width="1228" height="376" viewBox="-21 -21 1228 376"><g class="Z29hbA=="><g class="shape" ><rect x="0.000000" y="0.000000" width="508.000000" height="122.000000" class="box-inner hot"  /></g><text x="254.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="254.000000" dy="0.000000">코디네이터 (코딩 안 함)</tspan><tspan x="254.000000" dy="38.500000">목표·완료 조건·진행 기록</tspan></text></g><g class="cGxhbg=="><g class="shape" ><rect x="638.000000" y="0.000000" width="548.000000" height="122.000000" class="box-inner"  /></g><text x="912.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="912.000000" dy="0.000000">배치 계획</tspan><tspan x="912.000000" dy="38.500000">(독립 작업 묶음)</tspan></text></g><g class="bGVkZ2Vy"><g class="shape" ><rect x="0.000000" y="212.000000" width="508.000000" height="122.000000" class="box-inner"  /></g><text x="254.000000" y="268.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="254.000000" dy="0.000000">이슈 원장 · PR · CI</tspan><tspan x="254.000000" dy="38.500000">(상태의 단일 출처)</tspan></text></g><g class="d3Q="><g class="shape" ><rect x="638.000000" y="212.000000" width="548.000000" height="122.000000" class="box-inner"  /></g><text x="912.000000" y="268.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="912.000000" dy="0.000000">워커 3개 · 워크트리</tspan><tspan x="912.000000" dy="38.500000">서브에이전트 · 서브 하네스</tspan></text></g><g class="KGdvYWwgLSZndDsgcGxhbilbMF0="><marker id="u4-mk-d2-1002156260-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 510.000000 61.000000 L 634.000000 61.000000" class="edge" style="stroke-width:2;" marker-end="url(#u4-mk-d2-1002156260-3488378134)" mask="url(#u4-d2-1002156260)" /></g><g class="KHBsYW4gLSZndDsgd3QpWzBd"><path d="M 912.000000 124.000000 L 912.000000 208.000000" class="edge" style="stroke-width:2;" marker-end="url(#u4-mk-d2-1002156260-3488378134)" mask="url(#u4-d2-1002156260)" /><text x="912.000000" y="177.000000" class="edge-label" style="text-anchor:middle;font-size:26px">배치 발송</text></g><g class="KHd0IC0mZ3Q7IGxlZGdlcilbMF0="><path d="M 636.000000 273.000000 L 512.000000 273.000000" class="edge" style="stroke-width:2;" marker-end="url(#u4-mk-d2-1002156260-3488378134)" mask="url(#u4-d2-1002156260)" /><text x="573.500000" y="283.000000" class="edge-label" style="text-anchor:middle;font-size:26px">PR·결과</text></g><g class="KGxlZGdlciAtJmd0OyBnb2FsKVswXQ=="><path d="M 254.000000 210.000000 L 254.000000 126.000000" class="edge" style="stroke-width:2;" marker-end="url(#u4-mk-d2-1002156260-3488378134)" mask="url(#u4-d2-1002156260)" /><text x="254.000000" y="177.000000" class="edge-label" style="text-anchor:middle;font-size:26px">읽기</text></g><mask id="u4-d2-1002156260" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1228" height="376">
 <rect x="-21" y="-21" width="1228" height="376" fill="white"></rect>
 <rect x="846.000000" y="151.000000" width="132" height="33" fill="black"></rect>
@@ -554,7 +554,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 18 역할 분리 -->
 <section data-period="13" class="slide" data-title="코디네이터와 워커">
   <div class="tag"><b>역할 분리</b><span class="sep"></span>강사 운영 방식</div>
-  <h2>코디네이터는 읽고 보내고, 워커는 코딩한다</h2>
+  <h2>코디네이터는 읽기·보내기, 워커는 코딩</h2>
   <div class="compare" style="--cols:2">
     <div class="on">
       <div class="k">코디네이터 세션 · 오래 산다</div>
@@ -574,7 +574,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 19 /batch -->
 <section data-period="13" class="slide" data-title="/batch">
   <div class="tag"><b>2026-02-28</b><span class="sep"></span>Claude Code 2.1.63 · /simplify · /batch 번들 스킬</div>
-  <h2>/batch: 큰 변경을 독립 단위로 쪼개 워크트리에 뿌린다</h2>
+  <h2>/batch: 큰 변경을 독립 단위로 쪼개 워크트리에 분배</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/commands</span></div><img src="assets/captures/p13-cc-batch.jpg" alt="Claude Code 명령 문서의 /batch 항목"></div>
@@ -594,13 +594,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       </div>
     </div>
   </div>
-  <aside>/batch는 Claude Code 2.1.63 버전에 /simplify와 함께 들어온 번들 스킬이고, 이 버전은 2026년 2월 28일에 배포되었습니다. 문서를 보면 코드베이스를 조사해서 다섯 개에서 서른 개의 독립 단위로 나누고 계획을 제시합니다. 제가 승인하면 단위마다 백그라운드 서브에이전트가 격리된 워크트리에서 구현하고 테스트하고 변경을 게시합니다. 예를 들어 소스 전체를 자바스크립트에서 타입스크립트로 옮기는 일에 씁니다. 이것이 배치 한 번입니다. 코디네이터-배치 패턴은 이 한 번을 며칠에 걸쳐 여러 번, 상태를 읽어 가며 반복하는 것입니다. 장점은 큰 변경을 독립 단위로 나눠 병렬로 처리하고 계획을 먼저 보여 준다는 점입니다. 한계는 단위가 서로 겹치면 합치는 비용이 커진다는 점입니다. 의미는 코디네이터 패턴이 이 배치를 여러 번 반복한다는 것입니다.</aside>
+  <aside>/batch는 Claude Code 2.1.63 버전에 /simplify와 함께 들어온 번들 스킬이고, 이 버전은 2026년 2월 28일에 배포되었습니다. 문서를 보면 코드베이스를 조사해서 다섯 개에서 서른 개의 독립 단위로 나누고 계획을 제시합니다. 승인하면 단위마다 백그라운드 서브에이전트가 격리된 워크트리에서 구현하고 테스트하고 변경을 게시합니다. 예를 들어 소스 전체를 자바스크립트에서 타입스크립트로 옮기는 일에 씁니다. 이것이 배치 한 번입니다. 코디네이터-배치 패턴은 이 한 번을 며칠에 걸쳐 여러 번, 상태를 읽어 가며 반복하는 것입니다. 장점은 큰 변경을 독립 단위로 나눠 병렬로 처리하고 계획을 먼저 보여 준다는 점입니다. 한계는 단위가 서로 겹치면 합치는 비용이 커진다는 점입니다. 의미는 코디네이터 패턴이 이 배치를 여러 번 반복한다는 것입니다.</aside>
 </section>
 
 <!-- 20 /loop -->
 <section data-period="13" class="slide" data-title="/loop 자기 깨우기">
   <div class="tag"><b>2026-03-06 · 2026-08-27</b><span class="sep"></span>Claude Code 2.1.71 /loop · 2.1.248 자기 페이스 모드 상시 제공</div>
-  <h2>/loop: 간격을 생략하면 Claude가 스스로 깨울 시각을 정한다</h2>
+  <h2>/loop: 간격 생략 시 깨울 시각은 Claude가 결정</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/scheduled-tasks</span></div><img src="assets/captures/p09-cc-scheduled.jpg" alt="Claude Code 예약 작업 문서: 클라우드·데스크톱·/loop 비교"></div>
@@ -625,7 +625,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 21 한 사이클 -->
 <section data-period="13" class="slide" data-title="깨어나는 한 사이클">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>/loop 자기 깨우기 + 이슈 원장</div>
-  <h2>한 사이클: 깨어나서 읽고, 판단하고, 보내고, 다시 잔다</h2>
+  <h2>한 사이클: 깨어나기 → 읽기 → 판단 → 보내기 → 잠들기</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1621 616"><svg class="d2-3098187706 d2-svg" width="1621" height="616" viewBox="-21 -21 1621 616"><g class="ejA=" style='opacity:0.000000'><g class="shape" ><rect x="0.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g></g><g class="ejE=" style='opacity:0.000000'><g class="shape" ><rect x="467.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g></g><g class="c2VuZA=="><g class="shape" ><rect x="934.000000" y="0.000000" width="314.000000" height="122.000000" class="box-inner"  /></g><text x="1091.000000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1091.000000" dy="0.000000">다음 배치 발송</tspan><tspan x="1091.000000" dy="38.500000">→ 다시 잔다</tspan></text></g><g class="ejM=" style='opacity:0.000000'><g class="shape" ><rect x="1358.000000" y="0.000000" width="221.000000" height="122.000000" class="box-inner"  /></g></g><g class="c2xlZXA="><g class="shape" ><rect x="0.000000" y="192.000000" width="357.000000" height="156.000000" class="box-inner"  /></g><text x="178.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">잠든다</tspan><tspan x="178.500000" dy="37.000000">다음 깨우기 예약</tspan><tspan x="178.500000" dy="37.000000">(1분~1시간)</tspan></text></g><g class="cmVhZA=="><g class="shape" ><rect x="467.000000" y="192.000000" width="357.000000" height="156.000000" class="box-inner hot"  /></g><text x="645.500000" y="265.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="645.500000" dy="0.000000">깨어나 상태 읽기</tspan><tspan x="645.500000" dy="38.500000">이슈 · PR · CI</tspan></text></g><g class="anVkZ2U="><g class="shape" ><rect x="934.000000" y="192.000000" width="314.000000" height="156.000000" class="box-inner"  /></g><text x="1091.000000" y="282.500000" class="label-inner" style="text-anchor:middle;font-size:34px">판단</text></g><g class="ZG9uZQ=="><g class="shape" ><rect x="1358.000000" y="192.000000" width="221.000000" height="156.000000" class="box-inner"  /></g><text x="1468.500000" y="265.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1468.500000" dy="0.000000">목표 달성</tspan><tspan x="1468.500000" dy="38.500000">루프 종료</tspan></text></g><g class="ejg=" style='opacity:0.000000'><g class="shape" ><rect x="0.000000" y="418.000000" width="357.000000" height="156.000000" class="box-inner"  /></g></g><g class="ejk=" style='opacity:0.000000'><g class="shape" ><rect x="467.000000" y="418.000000" width="357.000000" height="156.000000" class="box-inner"  /></g></g><g class="Zml4"><g class="shape" ><rect x="934.000000" y="418.000000" width="314.000000" height="156.000000" class="box-inner"  /></g><text x="1091.000000" y="474.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1091.000000" dy="0.000000">막힌 것 정리</tspan><tspan x="1091.000000" dy="37.000000">실패 PR 재배정</tspan><tspan x="1091.000000" dy="37.000000">→ 다시 잔다</tspan></text></g><g class="ejEx" style='opacity:0.000000'><g class="shape" ><rect x="1358.000000" y="418.000000" width="221.000000" height="156.000000" class="box-inner"  /></g></g><g class="KHNsZWVwIC0mZ3Q7IHJlYWQpWzBd"><marker id="u5-mk-d2-3098187706-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 358.500000 270.000000 L 462.500000 270.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3098187706-3488378134)" mask="url(#u5-d2-3098187706)" /><text x="411.500000" y="280.000000" class="edge-label" style="text-anchor:middle;font-size:26px">깨어남</text></g><g class="KHJlYWQgLSZndDsganVkZ2UpWzBd"><path d="M 826.000000 270.000000 L 930.000000 270.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3098187706-3488378134)" mask="url(#u5-d2-3098187706)" /></g><g class="KGp1ZGdlIC0mZ3Q7IHNlbmQpWzBd"><path d="M 1091.000000 190.000000 L 1091.000000 126.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3098187706-3488378134)" mask="url(#u5-d2-3098187706)" /><text x="1091.000000" y="167.000000" class="edge-label" style="text-anchor:middle;font-size:26px">빈 자리</text></g><g class="KGp1ZGdlIC0mZ3Q7IGZpeClbMF0="><path d="M 1091.000000 350.000000 L 1091.000000 414.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3098187706-3488378134)" mask="url(#u5-d2-3098187706)" /><text x="1091.000000" y="393.000000" class="edge-label" style="text-anchor:middle;font-size:26px">실패·충돌</text></g><g class="KGp1ZGdlIC0mZ3Q7IGRvbmUpWzBd"><path d="M 1249.500000 270.000000 L 1354.500000 270.000000" class="edge" style="stroke-width:2;" marker-end="url(#u5-mk-d2-3098187706-3488378134)" mask="url(#u5-d2-3098187706)" /><text x="1303.000000" y="280.000000" class="edge-label" style="text-anchor:middle;font-size:26px">충족</text></g><mask id="u5-d2-3098187706" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1621" height="616">
 <rect x="-21" y="-21" width="1621" height="616" fill="white"></rect>
 <rect x="363.000000" y="254.000000" width="97" height="33" fill="black"></rect>
@@ -639,7 +639,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 <!-- 22 수일 완주 -->
 <section data-period="13" class="slide" data-title="수일에 걸친 완주">
-  <div class="tag"><b>강사 운영 방식 · 예시 도식</b><span class="sep"></span>배치를 여러 번 반복해 목표에 닿는다</div>
+  <div class="tag"><b>강사 운영 방식 · 예시 도식</b><span class="sep"></span>배치 반복으로 목표 도달</div>
   <h2>며칠에 걸친 완주: 배치 → 점검 → 재배정 → 마무리</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1757 409"><svg class="d2-849035640 d2-svg" width="1757" height="409" viewBox="-9 -9 1757 409"><g class="ZDE="><g class="shape" ><rect x="12.000000" y="83.000000" width="389.000000" height="225.000000" class="box-outer"  /></g><text x="206.500000" y="122.000000" class="label-outer" style="text-anchor:middle;font-size:34px">1일차</text></g><g class="ZDI="><g class="shape" ><rect x="471.000000" y="12.000000" width="343.000000" height="367.000000" class="box-outer"  /></g><text x="642.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">2일차</text></g><g class="ZDM="><g class="shape" ><rect x="884.000000" y="29.000000" width="392.000000" height="333.000000" class="box-outer"  /></g><text x="1080.000000" y="68.000000" class="label-outer" style="text-anchor:middle;font-size:34px">3일차</text></g><g class="ZDQ="><g class="shape" ><rect x="1346.000000" y="12.000000" width="381.000000" height="367.000000" class="box-outer"  /></g><text x="1536.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">4일차</text></g><g class="ZDEuYjE="><g class="shape" ><rect x="62.000000" y="136.000000" width="289.000000" height="122.000000" class="box-inner"  /></g><text x="206.500000" y="192.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="206.500000" dy="0.000000">배치 1</tspan><tspan x="206.500000" dy="38.500000">기반 작업 5개</tspan></text></g><g class="ZDIuYjI="><g class="shape" ><rect x="544.000000" y="65.000000" width="196.000000" height="122.000000" class="box-inner"  /></g><text x="642.000000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="642.000000" dy="0.000000">배치 2</tspan><tspan x="642.000000" dy="38.500000">기능 8개</tspan></text></g><g class="ZDIucjI="><g class="shape" ><rect x="521.000000" y="207.000000" width="243.000000" height="122.000000" class="box-inner"  /></g><text x="642.500000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="642.500000" dy="0.000000">실패 PR 2개</tspan><tspan x="642.500000" dy="38.500000">재배정</tspan></text></g><g class="ZDMuYjM="><g class="shape" ><rect x="934.000000" y="82.000000" width="292.000000" height="122.000000" class="box-inner"  /></g><text x="1080.000000" y="138.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1080.000000" dy="0.000000">배치 3</tspan><tspan x="1080.000000" dy="38.500000">연동·화면 6개</tspan></text></g><g class="ZDMubTM="><g class="shape" ><rect x="944.000000" y="224.000000" width="271.000000" height="88.000000" class="box-inner"  /></g><text x="1079.500000" y="280.500000" class="label-inner" style="text-anchor:middle;font-size:34px">머지 큐 통과</text></g><g class="ZDQuYjQ="><g class="shape" ><rect x="1396.000000" y="65.000000" width="281.000000" height="122.000000" class="box-inner"  /></g><text x="1536.500000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1536.500000" dy="0.000000">마무리</tspan><tspan x="1536.500000" dy="38.500000">스모크 · 문서</tspan></text></g><g class="ZDQuZW5k"><g class="shape" ><rect x="1426.000000" y="207.000000" width="221.000000" height="122.000000" class="box-inner hot"  /></g><text x="1536.500000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1536.500000" dy="0.000000">목표 달성</tspan><tspan x="1536.500000" dy="38.500000">루프 종료</tspan></text></g><g class="KGQxIC0mZ3Q7IGQyKVswXQ=="><marker id="u6-mk-d2-849035640-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 403.000000 195.500000 L 467.000000 195.500000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-849035640-3488378134)" mask="url(#u6-d2-849035640)" /></g><g class="KGQyIC0mZ3Q7IGQzKVswXQ=="><path d="M 816.000000 195.500000 L 880.000000 195.500000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-849035640-3488378134)" mask="url(#u6-d2-849035640)" /></g><g class="KGQzIC0mZ3Q7IGQ0KVswXQ=="><path d="M 1278.000000 195.500000 L 1342.000000 195.500000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-849035640-3488378134)" mask="url(#u6-d2-849035640)" /></g><mask id="u6-d2-849035640" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1757" height="409">
 <rect x="-9" y="-9" width="1757" height="409" fill="white"></rect>
@@ -652,7 +652,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 23 실제 화면 모형 -->
 <section data-period="13" class="slide" data-title="실행 화면(모형)">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>코디네이터 세션 · 한 번 깨어난 장면</div>
-  <h2>코디네이터는 깨어나 PR·이슈를 읽고 실패한 일을 재배정한다</h2>
+  <h2>깨어난 코디네이터: PR·이슈 읽기, 실패한 일 재배정</h2>
   <div class="term" style="font-size:20px"><span class="dim">&gt;</span> /loop plan/GOAL.md 완료 조건 기준으로 이슈·PR·CI를 읽고 다음 배치를 보낸다. 끝나면 루프를 종료한다
 <span class="dim">● 깨우기 #14 · 2일차 09:42</span>
 <span class="dim">$</span> gh pr list --state open --json number,title,statusCheckRollup
@@ -671,7 +671,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 24 실패 모드와 안전장치 -->
 <section data-period="13" class="slide" data-title="실패 모드와 안전장치">
   <div class="tag"><b>실패 모드 → 안전장치</b><span class="sep"></span>강사 운영 방식 · 공식 문서의 제약 반영</div>
-  <h2>이렇게 망가지고, 이렇게 막는다</h2>
+  <h2>오래 도는 시스템의 다섯 가지 실패 모드와 안전장치</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1527 835"><svg class="d2-393263767 d2-svg" width="1527" height="835" viewBox="-9 -9 1527 835"><g class="Zg=="><g class="shape" ><rect x="12.000000" y="12.000000" width="681.000000" height="793.000000" class="box-outer"  /></g><text x="352.500000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">실패 모드</text></g><g class="cw=="><g class="shape" ><rect x="773.000000" y="12.000000" width="724.000000" height="793.000000" class="box-outer hot"  /></g><text x="1135.000000" y="51.000000" class="label-outer" style="text-anchor:middle;font-size:34px">안전장치</text></g><g class="Zi5mMQ=="><g class="shape" ><rect x="242.000000" y="65.000000" width="401.000000" height="122.000000" class="box-inner"  /></g><text x="442.500000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="442.500000" dy="0.000000">폭주</tspan><tspan x="442.500000" dy="38.500000">루프가 끝없이 돈다</tspan></text></g><g class="Zi5mMg=="><g class="shape" ><rect x="106.000000" y="207.000000" width="537.000000" height="122.000000" class="box-inner"  /></g><text x="374.500000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="374.500000" dy="0.000000">충돌</tspan><tspan x="374.500000" dy="38.500000">워커가 같은 파일을 고친다</tspan></text></g><g class="Zi5mMw=="><g class="shape" ><rect x="152.000000" y="349.000000" width="491.000000" height="122.000000" class="box-inner"  /></g><text x="397.500000" y="405.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="397.500000" dy="0.000000">비용 급증</tspan><tspan x="397.500000" dy="38.500000">워커·깨우기가 늘어난다</tspan></text></g><g class="Zi5mNA=="><g class="shape" ><rect x="62.000000" y="491.000000" width="581.000000" height="122.000000" class="box-inner"  /></g><text x="352.500000" y="547.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="352.500000" dy="0.000000">깨우기 유실</tspan><tspan x="352.500000" dy="38.500000">세션이 끊기면 루프도 멈춘다</tspan></text></g><g class="Zi5mNQ=="><g class="shape" ><rect x="69.000000" y="633.000000" width="574.000000" height="122.000000" class="box-inner"  /></g><text x="356.000000" y="689.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="356.000000" dy="0.000000">역할 붕괴</tspan><tspan x="356.000000" dy="38.500000">코디네이터가 직접 코딩한다</tspan></text></g><g class="cy5zMQ=="><g class="shape" ><rect x="823.000000" y="65.000000" width="494.000000" height="122.000000" class="box-inner"  /></g><text x="1070.000000" y="121.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1070.000000" dy="0.000000">완료 조건을 먼저 적는다</tspan><tspan x="1070.000000" dy="38.500000">7일 만료 · 배치 상한</tspan></text></g><g class="cy5zMg=="><g class="shape" ><rect x="823.000000" y="207.000000" width="624.000000" height="122.000000" class="box-inner"  /></g><text x="1135.000000" y="263.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1135.000000" dy="0.000000">워커마다 워크트리와 담당 파일</tspan><tspan x="1135.000000" dy="38.500000">머지 큐로 합친다</tspan></text></g><g class="cy5zMw=="><g class="shape" ><rect x="823.000000" y="349.000000" width="469.000000" height="122.000000" class="box-inner"  /></g><text x="1057.500000" y="405.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1057.500000" dy="0.000000">/usage의 Loops 표로 점검</tspan><tspan x="1057.500000" dy="38.500000">워커 수·모델 등급 상한</tspan></text></g><g class="cy5zNA=="><g class="shape" ><rect x="823.000000" y="491.000000" width="531.000000" height="122.000000" class="box-inner"  /></g><text x="1088.500000" y="547.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1088.500000" dy="0.000000">백그라운드 세션으로 유지</tspan><tspan x="1088.500000" dy="38.500000">진행 기록은 이슈에</tspan></text></g><g class="cy5zNQ=="><g class="shape" ><rect x="823.000000" y="633.000000" width="534.000000" height="122.000000" class="box-inner"  /></g><text x="1090.000000" y="689.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="1090.000000" dy="0.000000">코디네이터는 읽기·발송만</tspan><tspan x="1090.000000" dy="38.500000">코딩은 워커에게</tspan></text></g><g class="KGYuZjEgLSZndDsgcy5zMSlbMF0="><marker id="u7-mk-d2-393263767-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 645.000000 126.000000 L 819.000000 126.000000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-393263767-3488378134)" mask="url(#u7-d2-393263767)" /></g><g class="KGYuZjIgLSZndDsgcy5zMilbMF0="><path d="M 645.000000 268.000000 L 819.000000 268.000000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-393263767-3488378134)" mask="url(#u7-d2-393263767)" /></g><g class="KGYuZjMgLSZndDsgcy5zMylbMF0="><path d="M 645.000000 410.000000 L 819.000000 410.000000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-393263767-3488378134)" mask="url(#u7-d2-393263767)" /></g><g class="KGYuZjQgLSZndDsgcy5zNClbMF0="><path d="M 645.000000 552.000000 L 819.000000 552.000000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-393263767-3488378134)" mask="url(#u7-d2-393263767)" /></g><g class="KGYuZjUgLSZndDsgcy5zNSlbMF0="><path d="M 645.000000 694.000000 L 819.000000 694.000000" class="edge" style="stroke-width:2;" marker-end="url(#u7-mk-d2-393263767-3488378134)" mask="url(#u7-d2-393263767)" /></g><mask id="u7-d2-393263767" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1527" height="835">
 <rect x="-9" y="-9" width="1527" height="835" fill="white"></rect>
 
@@ -682,7 +682,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 25 안전장치 구체 -->
 <section data-period="13" class="slide" data-title="안전장치: 만료와 사용량">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 공식 문서 · CHANGELOG 2.1.243(2026-08-24)</div>
-  <h2>안전장치는 도구가 이미 갖고 있다</h2>
+  <h2>도구에 이미 들어 있는 안전장치</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/scheduled-tasks</span></div><img src="assets/captures/p13-cc-loop-expiry.jpg" alt="Claude Code 예약 작업 문서의 7일 만료와 제약"></div>
@@ -698,13 +698,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       <div class="next">→ 며칠 가는 일은 만료·세션 제약부터 확인</div>
     </div>
   </div>
-  <aside>다행히 몇 가지 안전장치는 도구가 이미 갖고 있습니다. 문서에 따르면 반복 작업은 만든 지 7일이 지나면 마지막으로 한 번 실행하고 스스로 사라집니다. 잊힌 루프가 영원히 도는 것을 막기 위해서입니다. 2.1.243 버전부터는 사용량 화면에 루프별 실행 횟수와 총 토큰과 회당 토큰이 나와서, 폭주하거나 수다스러운 루프를 쉽게 찾습니다. 한 가지 제약도 있습니다. 예약은 세션 범위라서 터미널을 닫으면 멈춥니다. 문서는 세션을 백그라운드로 돌려 유지하거나 클라우드 예약 작업을 쓰라고 안내합니다. 며칠 가는 일일수록 저는 이 제약부터 확인합니다.</aside>
+  <aside>다행히 몇 가지 안전장치는 도구가 이미 갖고 있습니다. 문서에 따르면 반복 작업은 만든 지 7일이 지나면 마지막으로 한 번 실행하고 스스로 사라집니다. 잊힌 루프가 영원히 도는 것을 막기 위해서입니다. 2.1.243 버전부터는 사용량 화면에 루프별 실행 횟수와 총 토큰과 회당 토큰이 나와서, 폭주하거나 수다스러운 루프를 쉽게 찾습니다. 한 가지 제약도 있습니다. 예약은 세션 범위라서 터미널을 닫으면 멈춥니다. 문서는 세션을 백그라운드로 돌려 유지하거나 클라우드 예약 작업을 쓰라고 안내합니다. 며칠 가는 일일수록 이 제약부터 확인합니다.</aside>
 </section>
 
 <!-- 27 정리 -->
 <section data-period="13" class="slide" data-title="오늘 본 것과 다음 교시">
   <div class="tag"><b>오늘 본 것을 묶으면</b><span class="sep"></span>13교시 → 14교시</div>
-  <h2>묶으면: 병렬은 쉽고, 나눠 주고 점검하는 일이 어렵다</h2>
+  <h2>묶으면: 병렬 실행보다 어려운 분배와 점검</h2>
   <div class="row">
     <div class="points">
       <ol>
@@ -721,7 +721,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       <div class="ko">다음 교시에서 볼 Nygard의 ADR 원문(2011). 큰 문서는 낡는다는 문제의 출발점.</div>
     </div>
   </div>
-  <aside>오늘 본 것을 묶으면, 모델마다 가격과 성능이 다르고 한 사람이 큰 프로젝트를 맡게 되면서 하네스를 여러 개 돌리는 팩토리가 나왔습니다. 주요 도구가 모두 같은 방향으로 갔고, Orca는 그것을 워크트리 단위로 가장 투명하게 보여 주는 도구입니다. 하지만 병렬로 돌리는 것은 쉽고 어려운 것은 나눠 주고 점검하는 일입니다. 코디네이터-배치 패턴은 코딩하지 않는 세션이 원장을 읽고 배치를 보내는 방식이며, 완료 조건과 만료와 사용량 점검이 안전장치입니다. 다음 교시에는 코디네이터가 읽을 원장, 즉 ADR(Architecture Decision Record, 아키텍처 결정 기록)과 이슈 원장 원칙을 다룹니다.</aside>
+  <aside>오늘 본 것을 묶으면, 모델마다 가격과 성능이 다르고 한 사람이 큰 프로젝트를 맡게 되면서 하네스를 여러 개 돌리는 팩토리가 나왔습니다. 주요 도구가 모두 같은 방향으로 갔고, Orca는 그것을 워크트리 단위로 가장 투명하게 보여 주는 도구입니다. 하지만 병렬로 돌리는 일은 쉽고, 어려운 일은 나눠 주고 점검하는 것입니다. 코디네이터-배치 패턴은 코딩하지 않는 세션이 원장을 읽고 배치를 보내는 방식이며, 완료 조건과 만료와 사용량 점검이 안전장치입니다. 다음 교시에는 코디네이터가 읽을 원장, 즉 ADR(Architecture Decision Record, 아키텍처 결정 기록)과 이슈 원장 원칙을 다룹니다.</aside>
 </section>
 
 </div></div>
@@ -736,7 +736,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
  const periods=[];slides.forEach((s,k)=>{const p=s.dataset.period;if(p&&!periods.find(x=>x.p===p))periods.push({p,k});});
  periods.forEach(({p,k})=>{const o=document.createElement('option');o.value=k;o.textContent=p+'교시';jump.appendChild(o);});
  if(!periods.length)jump.hidden=true;
- const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`scale(${s})`;};
+ const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`translate(-50%,-50%) scale(${s})`;};
  const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
    const p=slides[i].dataset.period;pos.textContent=`${p?p+'교시 · ':''}${i+1} / ${slides.length}`;
    prog.style.width=`${(i+1)/slides.length*100}%`;

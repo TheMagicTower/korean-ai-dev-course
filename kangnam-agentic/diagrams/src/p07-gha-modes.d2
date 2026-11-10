@@ -1,0 +1,15 @@
+direction: right
+local: "로컬 병렬\n서브에이전트 · 워크트리\n(내 컴퓨터)"
+ev1: "① 대화형\n이슈·PR 댓글\n@claude 멘션"
+ev2: "② 자동화\nPR 열림 · cron 일정\n(prompt 지정)"
+runner: "GitHub Actions 러너\n체크아웃 + 에이전트 실행\n(권한·비밀값 제한)"
+runner.style.stroke: "#ff00ff"
+out1: "PR·이슈 댓글\n커밋 · PR"
+out2: "실행 로그\n출력 파일"
+local -> runner: "원격으로 옮김"
+ev1 -> runner
+ev2 -> runner
+runner -> out1
+runner -> out2
+**.style.font-size: 30
+(** -> **)[*].style.font-size: 24

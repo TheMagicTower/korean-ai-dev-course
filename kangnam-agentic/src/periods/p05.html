@@ -20,7 +20,7 @@
 <!-- 02 연결: 승인 피로 다음 문제 -->
 <section class="slide" data-title="지난 시간과 연결">
   <div class="tag"><b>2025-07-14</b><span class="sep"></span>3~4교시 승인 피로 → 5교시 딴길 문제 · Kiro 발표문</div>
-  <h2>승인을 정리해도, 에이전트는 딴길로 샌다</h2>
+  <h2>승인 문제를 풀어도 남는 것: 딴길</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>kiro.dev/blog/introducing-kiro</span></div><img src="assets/captures/page-kiro.jpg" alt="Kiro 발표문 첫 화면: 프롬프트만 반복해서 만든 앱의 문제"></div>
@@ -43,7 +43,7 @@
 <!-- 03 두 갈래 -->
 <section class="slide" data-title="두 갈래">
   <div class="tag"><b>2025-06 → 2025-10</b><span class="sep"></span>Claude Code CHANGELOG · Kiro · GitHub Blog · Cursor Blog</div>
-  <h2>Plan 모드와 SDD는 같은 시기에 같은 문제를 푼다</h2>
+  <h2>Plan 모드와 SDD: 같은 시기, 같은 문제</h2>
   <div class="diagram">{{svg:p05-two-branches}}</div>
   <p class="under">도구 안의 <b>Plan 모드</b>와 문서 중심의 <b>SDD(Spec-Driven Development, 스펙 주도 개발)</b>는 서로 대립하지 않습니다. 둘 다 <b>실행 전에 계획을 고정</b>합니다. <span class="next">→ 오늘 둘 다 봅니다</span></p>
   <aside>날짜를 보면 이 둘이 한 해 안에 거의 동시에 나왔습니다. Claude Code는 2025년 6월 CHANGELOG에 Plan 모드를 처음 언급했습니다. Kiro는 7월 14일, GitHub Spec Kit은 9월 2일, Cursor는 10월 7일에 Plan Mode를 내놓았습니다. 앞쪽은 도구 안에서 읽기 전용으로 먼저 계획하게 하는 방식이고, 뒤쪽은 요구사항, 설계, Task를 파일로 남기는 방식입니다. 강의의 순서는 문제에서 해결로 가지만 실제 날짜는 겹칩니다. 여러분이 쓰는 도구에는 둘 중 하나, 혹은 둘 다 있을 것입니다. 여기서 Plan 모드는 파일을 고치기 전에 읽기 전용으로 먼저 계획을 세우게 하는 기능을, SDD는 스펙 문서를 먼저 쓰는 개발 방식을 가리킵니다.</aside>
@@ -52,7 +52,7 @@
 <!-- 3a SDD 용어의 계보 -->
 <section class="slide" data-title="SDD 용어의 계보">
   <div class="tag"><b>1987 → 2025</b><span class="sep"></span>IEEE 1016 · Ostroff 외(2004) · Kiro · Spec Kit · Böckeler</div>
-  <h2>SDD는 새 말이 아니다: 1987년 ‘설계 기술서’에서 2025년 ‘스펙 주도 개발’로</h2>
+  <h2>SDD의 두 뜻: 1987년 설계 문서, 2025년 개발 방식</h2>
   <div class="diagram">{{svg:p05-sdd-lineage}}</div>
   <p class="under">같은 약어, 다른 말. <b>Software Design Description</b>(IEEE(Institute of Electrical and Electronics Engineers, 전기전자공학자협회) 1016, 1987)은 사람에게 설계를 전하는 <b>문서</b>, <b>Spec-Driven Development</b>는 스펙으로 개발을 <b>이끄는 방식</b>이다.</p>
   <aside>SDD라는 약어는 2025년에 새로 생긴 말이 아닙니다. 1987년 IEEE(Institute of Electrical and Electronics Engineers, 전기전자공학자협회) 1016, ‘소프트웨어 설계 기술서에 관한 권고 실무’가 Software Design Description을 SDD로 불렀습니다. 표준은 SDD를 소프트웨어 시스템의 표현이자 설계 정보를 전달하는 매체로 정의했고, 1998년과 2009년에 개정된 뒤 2020년에 비활성 상태가 됐습니다. 이때의 SDD는 사람이 읽고 사람이 코드를 쓰는 문서였습니다. 2004년에는 Ostroff, Makalsky, Paige가 애자일 학회에서 ‘Agile Specification-Driven Development’를 발표합니다. 테스트 주도 개발과 계약에 의한 설계를 묶어, 명세가 개발을 이끌게 하자는 제안이었습니다. 그 사이 모델에서 코드를 생성하는 MDD(Model-Driven Development, 모델 주도 개발), 시나리오를 실행 가능한 명세로 쓰는 BDD(Behavior-Driven Development, 행동 주도 개발)도 같은 생각을 다른 방식으로 시도했습니다. 그리고 2025년 Kiro와 Spec Kit이 에이전트가 읽는 스펙을 내세우면서 Spec-Driven Development라는 말이 퍼졌습니다. 10월에는 Böckeler의 글이 이를 세 수준으로 정리했습니다. 약어는 같지만 앞은 문서의 이름이고, 뒤는 일하는 방식의 이름입니다.</aside>
@@ -60,8 +60,8 @@
 
 <!-- 3b 문서에서 실행 계약으로 -->
 <section class="slide" data-title="문서에서 실행 계약으로">
-  <div class="tag"><b>무엇이 바뀌었나</b><span class="sep"></span>목적은 같고, 읽는 쪽과 스펙의 위상이 바뀌었다</div>
-  <h2>설계도를 먼저 그린다는 목적은 같다. 바뀐 것은 읽는 쪽과 스펙의 위상이다</h2>
+  <div class="tag"><b>항목별 비교</b><span class="sep"></span>설계 기술서와 스펙 주도 개발</div>
+  <h2>목적은 같고, 바뀐 것은 읽는 쪽·스펙 위상·검증</h2>
   <table class="tbl" style="font-size:24px">
     <thead><tr><th></th><th>설계 기술서 (IEEE 1016, 1987~)</th><th>스펙 주도 개발 (2025~)</th></tr></thead>
     <tbody>
@@ -79,7 +79,7 @@
 <!-- 04 SDD 정의 -->
 <section class="slide" data-title="SDD 정의">
   <div class="tag"><b>2025-10-15</b><span class="sep"></span>Birgitta Böckeler · martinfowler.com</div>
-  <h2>SDD(스펙 주도 개발, Spec-Driven Development): 코드보다 스펙을 먼저 쓴다</h2>
+  <h2>SDD(스펙 주도 개발): 코드보다 스펙 먼저</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html</span></div><img src="assets/captures/p05-fowler-sdd.jpg" alt="martinfowler.com의 SDD 설명 글 정의 절"></div>
@@ -100,8 +100,8 @@
 
 <!-- 04a 사례: 한 줄 프롬프트 vs 수용 기준 -->
 <section class="slide" data-title="사례: 한 줄 vs 스펙">
-  <div class="tag"><b>사례</b><span class="sep"></span>SDD 정의 · 빈틈은 추측이 된다 · 가상 예</div>
-  <h2>“비밀번호 재설정 만들어줘”: 빈칸을 누가 채우나</h2>
+  <div class="tag"><b>사례</b><span class="sep"></span>SDD 정의 · 빈틈은 추측으로 · 가상 예</div>
+  <h2>“비밀번호 재설정 만들어 줘”: 빈칸을 누가 채우나</h2>
   <div class="compare" style="--cols:2">
     <div>
       <div class="k">한 줄 프롬프트</div>
@@ -132,8 +132,8 @@
 
 <!-- 05 세 수준 -->
 <section class="slide" data-title="SDD 세 수준">
-  <div class="tag"><b>SDD 세 수준</b><span class="sep"></span>Böckeler · martinfowler.com · 2025-10-15</div>
-  <h2>SDD는 스펙을 얼마나 오래 쓰느냐로 세 수준이 나뉜다</h2>
+  <div class="tag"><b>2025-10-15</b><span class="sep"></span>Böckeler · martinfowler.com</div>
+  <h2>SDD의 세 수준: 스펙의 수명으로 구분</h2>
   <div class="diagram">{{svg:p05-sdd-levels}}</div>
   <p class="under">같은 SDD라도 <b>스펙의 수명</b>이 다릅니다. 글쓴이는 Kiro와 Spec Kit이 <b>대체로 spec-first</b>라고 평가했습니다.</p>
   <aside>세 수준을 구분하면 이야기가 선명해집니다. 첫째 spec-first는 작업 전에 스펙을 쓰고, 작업이 끝나면 그 스펙의 역할이 끝납니다. 모든 SDD 도구가 공유하는 수준입니다. 둘째 spec-anchored는 스펙을 작업 뒤에도 남겨 두고 기능을 고치고 유지할 때 다시 씁니다. 셋째 spec-as-source는 사람이 스펙만 고치고 코드는 손대지 않는 단계입니다. 글쓴이는 Kiro가 대체로 spec-first이고, Spec Kit은 기능마다 브랜치를 새로 만들기 때문에 역시 spec-first에 가깝다고 봤습니다. Tessl만이 anchored와 as-source를 목표로 탐색 중이라고 했습니다.</aside>
@@ -142,7 +142,7 @@
 <!-- 05a 사례: 세 수준에서 같은 변경 -->
 <section class="slide" data-title="사례: 세 수준의 변경">
   <div class="tag"><b>사례</b><span class="sep"></span>SDD 세 수준 · 재설정 링크 만료 30분 → 15분 · 가상 예</div>
-  <h2>“만료를 15분으로 줄여 주세요”가 들어왔을 때</h2>
+  <h2>“만료를 15분으로 줄여 주세요”: 세 수준의 차이</h2>
   <table class="tbl" style="font-size:24px">
     <thead><tr><th></th><th>사람이 고치는 것</th><th>끝난 뒤 남는 것</th><th>흔한 문제</th></tr></thead>
     <tbody>
@@ -164,7 +164,7 @@
 <!-- 06 Kiro 구조 -->
 <section class="slide" data-title="Kiro 스펙 구조">
   <div class="tag"><b>2025-07-14</b><span class="sep"></span>Kiro 공식 문서 · Specs</div>
-  <h2>Kiro는 요구사항, 설계, 작업 파일 세 개를 차례로 만든다</h2>
+  <h2>Kiro의 세 파일: 요구사항 → 설계 → 작업</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:250px"><div class="bar"><i></i><i></i><i></i><span>kiro.dev/docs/specs</span></div><img src="assets/captures/p05-kiro-specs.jpg" alt="Kiro 문서의 Specs 개요 화면"></div>
@@ -190,7 +190,7 @@
 <!-- 07 Kiro 파일 -->
 <section class="slide" data-title="Kiro 실제 파일">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Kiro 공식 문서 · Feature Specs · Requirements-First</div>
-  <h2>Kiro는 요구사항을 “WHEN…SHALL…” 문장 틀(EARS)로 쓴다</h2>
+  <h2>Kiro 요구사항의 “WHEN…SHALL…” 문장 틀(EARS)</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>kiro.dev/docs/specs/feature-specs</span></div><img src="assets/captures/p05-kiro-requirements.jpg" alt="Kiro Feature Specs 문서 화면"></div>
@@ -213,7 +213,7 @@
 <!-- 08 Spec Kit 흐름 -->
 <section class="slide" data-title="Spec Kit 흐름">
   <div class="tag"><b>2025-09-02</b><span class="sep"></span>GitHub Blog · Spec Kit 발표</div>
-  <h2>Spec Kit은 슬래시 명령으로 스펙에서 구현까지 단계를 밟는다</h2>
+  <h2>Spec Kit: 원칙 → 구현, 슬래시 명령 다섯 단계</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:240px"><div class="bar"><i></i><i></i><i></i><span>github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit</span></div><img src="assets/captures/page-speckit.jpg" alt="GitHub Spec Kit 발표 글"></div>
@@ -238,7 +238,7 @@
 <!-- 09 Spec Kit 파일 -->
 <section class="slide" data-title="Spec Kit 실제 파일">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>github/spec-kit · templates/ · Böckeler 관찰</div>
-  <h2>Spec Kit은 기능마다 spec.md와 tasks.md 뼈대를 채운다</h2>
+  <h2>Spec Kit의 기능별 spec.md·tasks.md 뼈대</h2>
   <div class="frames">
     <div>
       <div class="frame" style="max-height:300px"><div class="bar"><i></i><i></i><i></i><span>github.com/github/spec-kit/blob/main/templates/spec-template.md</span></div><img src="assets/captures/p05-speckit-spec-template.jpg" alt="Spec Kit의 spec-template.md"></div>
@@ -280,25 +280,16 @@
 <!-- 11 Kiro vs Spec Kit -->
 <section class="slide" data-title="Kiro와 Spec Kit 비교">
   <div class="tag"><b>정리</b><span class="sep"></span>Kiro 문서 · Spec Kit 저장소 · Böckeler 2025-10-15</div>
-  <h2>두 도구의 파일 흐름은 거의 같다</h2>
+  <h2>두 도구의 공통 흐름: 무엇을 → 어떻게 → 할 일</h2>
   <div class="diagram">{{svg:p05-kiro-vs-speckit}}</div>
   <p class="under">이름만 다릅니다. <b>무엇을 → 어떻게 → 할 일</b> 세 층을 파일로 남기고, 마지막 <b>tasks.md</b>를 하나씩 소화합니다.</p>
   <aside>두 도구를 나란히 놓으면 구조가 같습니다. 위쪽 Kiro는 requirements, design, tasks 순서입니다. 아래쪽 Spec Kit은 앞에 constitution이 하나 더 있고, spec, plan, tasks 순서입니다. 이름이 달라도 무엇을 만들지, 어떻게 만들지, 어떤 순서로 할지를 세 층의 파일로 남기고, 마지막 Task 목록을 하나씩 소화하게 합니다. 그래서 어느 도구를 쓰는지보다 이 세 층을 직접 쓸 수 있는지가 중요합니다. 8교시 실습에서는 도구 없이 마크다운 파일 세 개만으로 같은 흐름을 만들어 볼 수 있습니다.</aside>
 </section>
 
-<!-- 질문 시간 (중간) -->
-<section class="slide section-slide" data-title="질문 시간">
-  <div class="big">질문 시간 · 약 5분</div>
-  <h1>여기까지,<br>질문 받습니다</h1>
-  <p class="lead">지금까지 다룬 것: SDD 정의 · SDD 세 수준 · Kiro 스펙 구조 · Kiro 실제 파일 · Spec Kit 흐름 · Spec Kit 실제 파일 · constitution · Kiro와 Spec Kit 비교</p>
-  <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-kiro.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p05-kiro-specs.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-speckit.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p05-speckit-constitution-template.jpg" alt="앞에서 본 화면"></div></figure></div>
-  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
-</section>
-
 <!-- 12 SDD 비판 -->
 <section class="slide" data-title="SDD의 한계">
   <div class="tag"><b>2025-10-15</b><span class="sep"></span>Böckeler · martinfowler.com · Observations</div>
-  <h2>SDD가 항상 답은 아니다</h2>
+  <h2>SDD의 한계: 작은 일에는 과한 절차</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html</span></div><img src="assets/captures/p05-fowler-obs.jpg" alt="martinfowler.com SDD 글의 관찰과 질문 절"></div>
@@ -357,7 +348,7 @@ def test_exactly_50000_is_free():
 <!-- 13 Plan 모드 흐름 -->
 <section class="slide" data-title="Plan 모드 흐름">
   <div class="tag"><b>2025-06</b><span class="sep"></span>Claude Code CHANGELOG 1.0.33 · 공식 문서 2026-10-28 확인</div>
-  <h2>Plan 모드: 읽고, 계획하고, 승인받고, 편집한다</h2>
+  <h2>Plan 모드: 읽기 → 계획 → 승인 → 편집</h2>
   <div class="diagram">{{svg:p05-planmode-flow}}</div>
   <p class="under">승인 전에는 <b>소스를 수정하지 않습니다</b>. 계획이 마음에 들지 않으면 <b>“계속 계획”</b>으로 되돌립니다.</p>
   <aside>Plan 모드는 Claude Code 안에서 파일을 만들지 않고 계획만 세우게 하는 권한 모드입니다. 2025년 6월 23일 배포된 1.0.33 CHANGELOG에서 처음 언급됩니다. 진입은 Shift+Tab으로 모드를 순환하거나, 한 번만 쓰려면 프롬프트 앞에 슬래시 plan을 붙이거나, 시작할 때 permission-mode plan 옵션을 줍니다. Claude는 파일을 읽고 탐색 명령을 실행해 조사한 뒤 계획을 씁니다. 그다음 승인 화면에서 자동 실행으로 승인할지, 편집마다 확인하며 승인할지, 계속 계획할지를 고릅니다. 사람이 방향을 확인하는 지점이 코드를 고치기 전에 생깁니다.</aside>
@@ -366,7 +357,7 @@ def test_exactly_50000_is_free():
 <!-- 14 Plan 모드 문서 -->
 <section class="slide" data-title="Plan 모드 공식 문서">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 공식 문서 · Permission modes</div>
-  <h2>Plan 모드는 승인 전에 소스를 안 고치고, 계획은 직접 고친다</h2>
+  <h2>Plan 모드: 승인 전엔 소스 그대로, 계획은 사람이 편집</h2>
   <div class="frames">
     <div>
       <div class="frame" style="max-height:200px"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/permission-modes</span></div><img src="assets/captures/p05-cc-planmode.jpg" alt="Claude Code 문서: Plan 모드 진입 방법"></div>
@@ -390,7 +381,7 @@ def test_exactly_50000_is_free():
 <!-- 14a 사례: 승인 전에 고친 계획 -->
 <section class="slide" data-title="사례: 계획 고치기">
   <div class="tag"><b>사례</b><span class="sep"></span>Plan 모드 · 팀 과제 게시판에 닉네임 표시 · 가상 예</div>
-  <h2>승인 전에 계획 두 곳을 고친다</h2>
+  <h2>승인 전에 바로잡은 계획 두 곳</h2>
   <div class="compare" style="--cols:2">
     <div>
       <div class="k">에이전트가 낸 계획</div>
@@ -426,7 +417,7 @@ def test_exactly_50000_is_free():
 <!-- 15 Cursor Plan -->
 <section class="slide" data-title="Cursor Plan Mode">
   <div class="tag"><b>2025-10-07</b><span class="sep"></span>Cursor Blog · Introducing Plan Mode</div>
-  <h2>Cursor도 계획을 파일로 남기고, 사람이 고친 뒤 실행한다</h2>
+  <h2>Cursor Plan Mode: 계획 파일 → 수정 → 실행</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>cursor.com/blog/plan-mode</span></div><img src="assets/captures/p05-cursor-plan.jpg" alt="Cursor Plan Mode 발표문과 계획 파일 화면"></div>
@@ -447,11 +438,11 @@ def test_exactly_50000_is_free():
 <!-- 16 강사 이슈별 흐름 -->
 <section class="slide" data-title="이슈별 흐름">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>프로젝트 구성·개발·운영 기준 · 이슈별 구현 워크플로우</div>
-  <h2>강사 방식: 이슈 하나가 열두 단계를 지난다</h2>
+  <h2>강사 방식: 이슈 하나에 열두 단계</h2>
   <div class="diagram pele-theme" style="flex:none;width:1028px;height:126px;margin-top:0px">{{svg:p05-issue-flow-1}}</div>
   <div class="diagram pele-theme" style="flex:none;width:1085px;height:126px;margin-top:6px">{{svg:p05-issue-flow-2}}</div>
   <div class="diagram pele-theme" style="flex:none;width:785px;height:178px;margin-top:6px">{{svg:p05-issue-flow-3}}</div>
-  <p class="under"><b>스펙 · 계획 · 구현</b> 세 곳에서 리뷰하고, 블로커가 없을 때만 다음으로 넘어갑니다. <span class="kind" style="display:inline">직접 도식 · 강사 실제 화면으로 교체 예정</span></p>
+  <p class="under"><b>스펙 · 계획 · 구현</b> 세 곳에서 리뷰하고, 블로커가 없을 때만 다음으로 넘어갑니다. <span class="kind" style="display:inline">직접 도식</span></p>
   <aside>SDD를 프로젝트 전체에 쓰면 무겁다는 비판을 앞에서 봤습니다. 저는 단위를 이슈 하나로 줄였습니다. 이슈를 분석하고, 기존 ADR을 점검하고, 그 이슈만을 위한 작은 스펙을 씁니다. 스펙 리뷰에서 블로커가 없으면 구현 계획을 쓰고, 계획 리뷰를 통과하면 구현합니다. 구현 리뷰 뒤에 PR(Pull Request, 병합 요청)을 만들고, 그 PR 버전의 CI(Continuous Integration, 지속적 통합)가 통과해야 스쿼시 머지를 합니다. 머지 뒤에는 스모크 테스트를 합니다. 앞의 Spec Kit과 비교하면 spec, plan, tasks가 이슈 하나의 크기로 작아진 모양입니다. ADR과 이슈 원장, 스모크는 4회차에서 자세히 다룹니다.</aside>
   <div class="next">→ 14교시 ADR·이슈 원장 · 15교시 스모크</div>
 </section>
@@ -459,7 +450,7 @@ def test_exactly_50000_is_free():
 <!-- 17 세 번의 리뷰 -->
 <section class="slide" data-title="세 번의 리뷰">
   <div class="tag"><b>강사 운영 방식</b><span class="sep"></span>리뷰 대상을 구분하고, 블로커가 없으면 종료</div>
-  <h2>세 번의 리뷰: 대상이 다르면 질문도 다르다</h2>
+  <h2>세 번의 리뷰: 대상마다 다른 질문</h2>
   <div class="diagram">{{svg:p05-three-reviews}}</div>
   <p class="under">같은 문서 전체를 매번 다시 쓰지 않습니다. <b>비차단 개선은 후속 이슈</b>로 넘기고, 블로커가 남으면 <b>자동으로 통과시키지 않습니다</b>.</p>
   <aside>리뷰를 세 번 하는 이유는 대상이 다르기 때문입니다. 스펙 리뷰는 무엇이 맞는 동작인가를 봅니다. 계획 리뷰는 어디를 어떤 순서로 바꿀지를 봅니다. 구현 리뷰는 실제 변경이 요구와 결정을 지켰는지를 봅니다. 대상을 나누면 같은 문서를 처음부터 다시 쓰는 비용이 줄어듭니다. 블로커가 없고 필수 수용 조건을 만족하면 그 단계는 끝내고, 사소한 개선은 후속 작업으로 분리합니다. 예산이 다 떨어졌는데 블로커가 남아 있으면 통과시키지 않고 중단해서 사람에게 넘깁니다.</aside>
@@ -469,7 +460,7 @@ def test_exactly_50000_is_free():
 <!-- 18 컨텍스트 창 -->
 <section class="slide" data-title="컨텍스트 창">
   <div class="tag"><b>2025-03-18</b><span class="sep"></span>Claude Code 0.2.47 자동 압축 · 공식 문서 2026-10-28 확인</div>
-  <h2>스펙을 써도, 일이 길어지면 창이 찬다</h2>
+  <h2>스펙으로도 못 막는 것: 차오르는 컨텍스트 창</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/context-window</span></div><img src="assets/captures/page-cc-context.jpg" alt="Claude Code 문서: 컨텍스트 창 시뮬레이션"></div>
@@ -491,7 +482,7 @@ def test_exactly_50000_is_free():
 <!-- 19 압축 후 남는 것 -->
 <section class="slide" data-title="압축 뒤에 남는 것">
   <div class="tag"><b>2026-10-28 확인</b><span class="sep"></span>Claude Code 공식 문서 · What survives compaction</div>
-  <h2>압축 뒤: 디스크의 파일은 남고, 대화는 요약된다</h2>
+  <h2>압축 뒤: 디스크의 파일은 그대로, 대화는 요약만</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/context-window</span></div><img src="assets/captures/p05-cc-contextwindow.jpg" alt="Claude Code 문서: 압축 후 남는 것 표"></div>
@@ -512,7 +503,7 @@ def test_exactly_50000_is_free():
 <!-- 20 Context Rot -->
 <section class="slide" data-title="Context Rot">
   <div class="tag"><b>2025-07-14</b><span class="sep"></span>Chroma 기술 보고서 · Context Rot</div>
-  <h2>입력이 길어질수록 성능이 흔들린다: Context Rot</h2>
+  <h2>Context Rot: 입력이 길수록 불안정한 성능</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:290px"><div class="bar"><i></i><i></i><i></i><span>trychroma.com/research/context-rot</span></div><img src="assets/captures/p05-chroma-rot.jpg" alt="Chroma Context Rot 기술 보고서 첫 화면"></div>
@@ -537,7 +528,7 @@ def test_exactly_50000_is_free():
 <!-- 21 진행 파일 -->
 <section class="slide" data-title="진행 파일">
   <div class="tag"><b>2025-11-26</b><span class="sep"></span>Anthropic Engineering · Effective harnesses for long-running agents</div>
-  <h2>압축 대비: 진행 파일에 적어 둔다</h2>
+  <h2>압축 대비: 파일로 인계</h2>
   <div class="row">
     <div>
       <div class="frame" style="max-height:270px"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/effective-harnesses-for-long-running-agents</span></div><img src="assets/captures/p05-anthropic-harness.jpg" alt="Anthropic Engineering 장기 실행 에이전트 하네스 글"></div>
@@ -564,7 +555,7 @@ def test_exactly_50000_is_free():
 <!-- 21a 사례: 압축 뒤 잊힌 결정 -->
 <section class="slide" data-title="사례: 잊힌 UTC 결정">
   <div class="tag"><b>사례</b><span class="sep"></span>압축과 진행 파일 · 스터디룸 예약 · 상황은 가상 예, 시간 계산은 실제 실행</div>
-  <h2>초반에 정한 “시간은 UTC로 저장”이 압축 뒤 사라진다</h2>
+  <h2>압축 뒤 사라진 초반 결정 “시간은 UTC로 저장”</h2>
   <div class="compare" style="--cols:2">
     <div>
       <div class="k">대화에만 있던 결정</div>
@@ -599,17 +590,26 @@ UTC로 읽으면 한국 시각: <span class="warn">23:00 KST</span></div>
 
 <!-- 22 파일이 세션을 넘는다 -->
 <section class="slide" data-title="세션 경계">
-  <div class="tag"><b>정리</b><span class="sep"></span>SDD와 압축 대비는 같은 해법이다</div>
-  <h2>세션 경계를 넘는 것은 파일뿐이다</h2>
+  <div class="tag"><b>정리</b><span class="sep"></span>SDD와 압축 대비: 같은 해법</div>
+  <h2>압축·새 세션 뒤에도 남는 것: 파일</h2>
   <div class="diagram">{{svg:p05-files-survive}}</div>
   <p class="under">스펙, 계획, 진행 기록을 <b>파일에 남기면</b>, 압축이나 새 세션 뒤에도 <b>같은 기준에서 다시 시작</b>합니다.</p>
   <aside>여기서 오늘 전반부와 후반부가 이어집니다. SDD의 스펙과 Task 목록은 에이전트가 딴길로 새지 않게 붙잡는 장치였고, 동시에 압축을 건너 살아남는 장치이기도 합니다. 대화에 있던 결정은 압축 때 흐려지지만 디스크의 파일은 그대로 있습니다. 새 세션이든 압축 뒤든 에이전트는 파일을 다시 읽어서 같은 기준으로 이어 갑니다. 그래서 스펙에 무엇이 맞는 동작인지, 계획 파일에 어디까지 했는지, 진행 파일에 왜 그렇게 결정했는지를 나누어 적습니다. 8교시 실습에서 이 세 파일을 만들어 볼 수 있습니다.</aside>
 </section>
 
+<!-- 질문 시간 (교시 끝) -->
+<section class="slide section-slide" data-title="질문 시간">
+  <div class="big">질문 시간 · 약 5분</div>
+  <h1>여기까지,<br>질문 시간</h1>
+  <p class="lead">오늘 다룬 것: SDD 정의 · SDD 세 수준 · Kiro와 Spec Kit · SDD의 한계 · Plan 모드 · 이슈별 흐름 · 컨텍스트 창과 압축 · Context Rot · 진행 파일</p>
+  <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-kiro.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-speckit.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p05-cc-planmode.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p05-chroma-rot.jpg" alt="앞에서 본 화면"></div></figure></div>
+  <aside>교시를 마무리하기 전에 질문을 받겠습니다. 오늘 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
+</section>
+
 <!-- 24 정리 -->
 <section class="slide" data-title="정리와 다음 교시">
-  <div class="tag"><b>정리</b><span class="sep"></span>5교시 요약 · 다음은 6교시</div>
-  <h2>스펙이 붙잡고, 파일이 남는다</h2>
+  <div class="tag"><b>정리</b><span class="sep"></span>5교시 → 6교시</div>
+  <h2>정리: 딴길은 스펙으로, 압축 망각은 파일로 막기</h2>
   <div class="diagram">{{svg:sdd-tdd-ddd}}</div>
   <p class="under">스펙과 Task 목록은 <b>딴길</b>을, 파일은 <b>압축</b>을 막습니다. 다음 시간에는 스펙을 <b>실패하는 테스트</b>로 바꿉니다. <span class="next">→ 6교시 TDD와 DDD</span></p>
   <aside>오늘 본 것을 묶으면 이렇습니다. 에이전트가 딴길로 새는 문제를 풀려고 도구 안의 Plan 모드와 문서 중심의 SDD가 같은 시기에 나왔습니다. SDD는 스펙을 얼마나 오래 쓰는지에 따라 spec-first, spec-anchored, spec-as-source 세 수준으로 나뉘고, 지금 도구는 대체로 첫째 수준입니다. 비판처럼 작은 일에는 무겁기 때문에 저는 이슈 하나 단위로 작게 씁니다. 압축은 대화를 요약하므로 결정의 이유가 사라지기 쉽고, 그래서 스펙, 계획, 진행 파일을 디스크에 남깁니다. 다음 6교시에서는 이 스펙을 실패하는 테스트로 바꾸고, 에이전트가 테스트를 속이는 문제를 다룹니다.</aside>

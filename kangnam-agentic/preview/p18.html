@@ -28,7 +28,7 @@ html,body{height:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
 .stage{position:fixed;inset:0;display:grid;place-items:center}
-.deck{width:1600px;height:900px;position:relative;transform-origin:center center}
+.deck{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center center}
 .slide{position:absolute;inset:0;display:none;padding:64px 88px 72px;flex-direction:column;gap:28px}
 .slide.on{display:flex}
 .slide aside{display:none}
@@ -161,7 +161,7 @@ p{margin:0}
 .hud button:focus-visible,.hud select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .notes{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:44px;max-height:38vh;overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.65}
 @media (prefers-reduced-motion:no-preference){.slide.on{animation:in .25s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
-@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
+@media print{body{overflow:visible}.hud,.notes{display:none}.stage{position:static;display:block}.deck{transform:none!important;position:static;width:1600px;height:auto}.slide{position:relative;display:flex!important;height:900px;break-after:page}}
 
 /* keep captures inside their column: the wrapper shrinks, the frame clips from the top */
 .row > div:has(> .frame){display:flex;flex-direction:column;min-height:0;max-height:100%;align-self:stretch;justify-content:center}
@@ -214,7 +214,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 02 진행 -->
 <section data-period="18" class="slide" data-title="진행">
   <div class="tag"><b>진행</b><span class="sep"></span>원하는 사람부터 · 화면·말·데모 무엇이든</div>
-  <h2>원하는 사람부터 나누고, 이야기가 이어지면 이어 갑니다</h2>
+  <h2>진행: 원하는 사람부터, 이야기는 이어지는 대로</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1453 164"><svg class="d2-860352702 d2-svg" width="1453" height="164" viewBox="-9 -9 1453 164"><g class="YQ=="><g class="shape" ><rect x="12.000000" y="29.000000" width="351.000000" height="88.000000" class="box-inner"  /></g><text x="187.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">원하는 사람부터</text></g><g class="Yg=="><g class="shape" ><rect x="433.000000" y="12.000000" width="278.000000" height="122.000000" class="box-inner"  /></g><text x="572.000000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="572.000000" dy="0.000000">화면·말·데모</tspan><tspan x="572.000000" dy="38.500000">형식은 자유</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="781.000000" y="12.000000" width="351.000000" height="122.000000" class="box-inner hot"  /></g><text x="956.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="956.500000" dy="0.000000">이야기와 질문</tspan><tspan x="956.500000" dy="38.500000">길어져도 괜찮음</tspan></text></g><g class="ZA=="><g class="shape" ><rect x="1202.000000" y="29.000000" width="221.000000" height="88.000000" class="box-inner"  /></g><text x="1312.500000" y="85.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음 사람</text></g><g class="KGEgLSZndDsgYilbMF0="><marker id="u1-mk-d2-860352702-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 365.000000 73.000000 L 429.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-860352702-3488378134)" mask="url(#u1-d2-860352702)" /></g><g class="KGIgLSZndDsgYylbMF0="><path d="M 713.000000 73.000000 L 777.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-860352702-3488378134)" mask="url(#u1-d2-860352702)" /></g><g class="KGMgLSZndDsgZClbMF0="><path d="M 1134.000000 73.000000 L 1198.000000 73.000000" class="edge" style="stroke-width:2;" marker-end="url(#u1-mk-d2-860352702-3488378134)" mask="url(#u1-d2-860352702)" /></g><mask id="u1-d2-860352702" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1453" height="164">
 <rect x="-9" y="-9" width="1453" height="164" fill="white"></rect>
 
@@ -225,8 +225,8 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 <!-- 03 이야기 거리 -->
 <section data-period="18" class="slide" data-title="이야기 거리">
-  <div class="tag"><b>이야기 거리</b><span class="sep"></span>토론을 여는 질문 카드 · 고르는 것</div>
-  <h2>이야기가 막히면 이 카드 중 하나에서 시작해 봅니다</h2>
+  <div class="tag"><b>이야기 거리</b><span class="sep"></span>토론을 여는 질문 카드 · 하나만 골라도 충분</div>
+  <h2>이야기가 막힐 때: 질문 카드 하나로 시작</h2>
   <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1253 356"><svg class="d2-684098539 d2-svg" width="1253" height="356" viewBox="-21 -21 1253 356"><g class="YQ=="><g class="shape" ><rect x="0.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="178.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">내 하네스는</tspan><tspan x="178.500000" dy="38.500000">무엇을 맡기나</tspan></text></g><g class="Yg=="><g class="shape" ><rect x="427.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="56.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="605.500000" dy="0.000000">가장 잘 막은 것</tspan><tspan x="605.500000" dy="38.500000">못 막은 것</tspan></text></g><g class="Yw=="><g class="shape" ><rect x="854.000000" y="0.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="1032.500000" y="73.500000" class="label-inner" style="text-anchor:middle;font-size:34px">다음에 더할 장치</text></g><g class="ZA=="><g class="shape" ><rect x="0.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner hot"  /></g><text x="178.500000" y="248.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="178.500000" dy="0.000000">남의 하네스에서</tspan><tspan x="178.500000" dy="38.500000">가져가고 싶은 것</tspan></text></g><g class="ZQ=="><g class="shape" ><rect x="427.000000" y="192.000000" width="357.000000" height="122.000000" class="box-inner"  /></g><text x="605.500000" y="265.500000" class="label-inner" style="text-anchor:middle;font-size:34px">아직 모르겠는 것</text></g><mask id="u2-d2-684098539" maskUnits="userSpaceOnUse" x="-21" y="-21" width="1253" height="356">
 <rect x="-21" y="-21" width="1253" height="356" fill="white"></rect>
 
@@ -244,7 +244,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 
 </mask></svg></svg></div>
   <p class="under">잠깐 쉬세요. <span class="next">→ 19교시</span></p>
-  <aside>여기서 10분 쉽니다. 이야기에 참여해 주신 분들 고맙습니다. 쉬는 동안 나누지 못한 이야기가 있으면 편하게 이어서 해도 좋고, 시계가 10분이 되면 다음 시간을 시작합니다.</aside>
+  <aside>여기서 10분 쉽니다. 이야기에 참여해 주신 분들께 감사합니다. 쉬는 동안 나누지 못한 이야기가 있으면 편하게 이어서 해도 좋고, 시계가 10분이 되면 다음 시간을 시작합니다.</aside>
 </section>
 
 </div></div>
@@ -259,7 +259,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
  const periods=[];slides.forEach((s,k)=>{const p=s.dataset.period;if(p&&!periods.find(x=>x.p===p))periods.push({p,k});});
  periods.forEach(({p,k})=>{const o=document.createElement('option');o.value=k;o.textContent=p+'교시';jump.appendChild(o);});
  if(!periods.length)jump.hidden=true;
- const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`scale(${s})`;};
+ const fit=()=>{const s=Math.min(innerWidth/1600,(innerHeight-40)/900);deck.style.transform=`translate(-50%,-50%) scale(${s})`;};
  const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
    const p=slides[i].dataset.period;pos.textContent=`${p?p+'교시 · ':''}${i+1} / ${slides.length}`;
    prog.style.width=`${(i+1)/slides.length*100}%`;

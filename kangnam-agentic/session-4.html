@@ -461,15 +461,6 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
   <aside>화면 구성을 보겠습니다. 왼쪽 사이드바에 워크트리가 줄지어 있고, 각 줄에 이슈나 PR 링크와 에이전트 상태가 점으로 붙어 있습니다. 공식 문서에 따르면 돌아가는 중, 사용자의 승인을 기다리는 중, 끝남, 실패 같은 상태를 터미널 제목 신호와 에이전트 훅으로 읽어 냅니다. 가운데는 워크트리마다 에이전트 터미널이 열려 있습니다. 이 화면에서는 Claude Code와 Codex가 나란히 있습니다. 오른쪽 아래의 휴대폰은 모바일 동반 앱으로, 에이전트가 끝나면 알림을 받고 후속 지시를 보낼 수 있습니다. 한 사람이 열 개 안팎의 작업을 감시하려면 이런 상태 표시가 필수입니다.</aside>
 </section>
 
-<!-- 질문 시간 (중간) -->
-<section data-period="13" class="slide section-slide" data-title="질문 시간">
-  <div class="big">질문 시간 · 약 5분</div>
-  <h1>여기까지,<br>질문 시간</h1>
-  <p class="lead">지금까지 다룬 것: GitHub Agent HQ · Codex 앱 · Claude Code agent teams · Cursor 3 Agents Window · Orca란 · Orca 워크트리 모델 · Orca 지원 에이전트 · Orca 화면 구성</p>
-  <div class="strip"><figure><div class="thumb"><img src="assets/captures/p13-pricing.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p13-codex-app.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p13-orca-home.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/orca-2026.jpg" alt="앞에서 본 화면"></div></figure></div>
-  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
-</section>
-
 <!-- 14 설치·사용 흐름 -->
 <section data-period="13" class="slide" data-title="Orca 사용 흐름">
   <div class="tag"><b>Orca 문서 · Your first 3-agent session</b><span class="sep"></span>5분 흐름</div>
@@ -699,6 +690,15 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
     </div>
   </div>
   <aside>다행히 몇 가지 안전장치는 도구가 이미 갖고 있습니다. 문서에 따르면 반복 작업은 만든 지 7일이 지나면 마지막으로 한 번 실행하고 스스로 사라집니다. 잊힌 루프가 영원히 도는 것을 막기 위해서입니다. 2.1.243 버전부터는 사용량 화면에 루프별 실행 횟수와 총 토큰과 회당 토큰이 나와서, 폭주하거나 수다스러운 루프를 쉽게 찾습니다. 한 가지 제약도 있습니다. 예약은 세션 범위라서 터미널을 닫으면 멈춥니다. 문서는 세션을 백그라운드로 돌려 유지하거나 클라우드 예약 작업을 쓰라고 안내합니다. 며칠 가는 일일수록 이 제약부터 확인합니다.</aside>
+</section>
+
+<!-- 질문 시간 (교시 끝) -->
+<section data-period="13" class="slide section-slide" data-title="질문 시간">
+  <div class="big">질문 시간 · 약 5분</div>
+  <h1>여기까지,<br>질문 시간</h1>
+  <p class="lead">오늘 다룬 것: GitHub Agent HQ · Codex 앱 · agent teams · Cursor 3 · Orca · 코디네이터-배치 패턴 · /batch · /loop 자기 깨우기 · 수일에 걸친 완주 · 실패 모드와 안전장치</p>
+  <div class="strip"><figure><div class="thumb"><img src="assets/captures/p13-codex-app.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p13-orca-home.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p13-cc-batch.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p13-cc-loop-expiry.jpg" alt="앞에서 본 화면"></div></figure></div>
+  <aside>교시를 마무리하기 전에 질문을 받겠습니다. 오늘 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
 </section>
 
 <!-- 27 정리 -->
@@ -995,15 +995,6 @@ ADR ID·제목·상태·날짜:
   <aside>제가 쓰는 서식은 여덟 칸입니다. 앞의 여섯 칸은 두 공개 서식과 거의 같습니다. 새로 붙인 것이 파란 글씨의 두 칸입니다. 다시 판단할 조건은 에이전트 시대에 맞게 추가한 칸으로, 이 숫자를 넘거나 이 상황이 오면 결정을 다시 보라는 신호를 미리 적어 둡니다. 사용자 판단은 새 ADR을 고르는 일이나 큰 상충관계처럼 에이전트가 정하면 안 되는 결정을 사람에게 올렸는지, 사람이 뭐라고 답했는지 남기는 칸입니다. 다음 두 장에서 이 서식을 채운 예를 봅니다. 장점은 다시 판단할 조건과 사용자 판단 칸이 있다는 점입니다. 한계는 여덟 칸으로 가장 길고 이득을 측정한 것은 아니라는 점입니다. 의미는 스펙과 달리 스스로 낡음을 알리는 문서라는 것입니다.</aside>
 </section>
 
-<!-- 질문 시간 (중간) -->
-<section data-period="14" class="slide section-slide" data-title="질문 시간">
-  <div class="big">질문 시간 · 약 5분</div>
-  <h1>여기까지,<br>질문 시간</h1>
-  <p class="lead">지금까지 다룬 것: 병렬 작업의 스펙 충돌 · 나눠 두기 · ADR이란 · Nygard 원형 · Status의 생애 · MADR · 세 서식 비교 · 강사 서식</p>
-  <div class="strip"><figure><div class="thumb"><img src="assets/captures/page-speckit.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-fowler-sdd.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-adr-github-io.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-madr.jpg" alt="앞에서 본 화면"></div></figure></div>
-  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
-</section>
-
 <!-- 13 예시 ADR 1 -->
 <section data-period="14" class="slide" data-title="예시 ADR 1/2">
   <div class="tag"><b>교육용 예시 ADR</b><span class="sep"></span>가상의 프로젝트 · 실제 기록이 아님 · 1/2</div>
@@ -1245,6 +1236,15 @@ Related: #204</div>
 </mask></svg></svg></div>
   <p class="under">스펙·계획·구현은 각각 리뷰하고, <b>블로커가 있으면 그 단계로 되돌아갑니다</b>. CI(Continuous Integration, 지속적 통합) 실패는 구현으로 돌아갑니다.</p>
   <aside>이슈 하나는 열두 칸을 지납니다. 이슈를 분석하고, 관련 ADR을 점검하고, 이슈 단위 스펙을 쓴 다음 스펙 리뷰를 합니다. 블로커가 없으면 계획을 쓰고 계획 리뷰, 구현과 구현 리뷰를 거쳐 PR을 올립니다. 해당 PR 버전의 CI(Continuous Integration, 지속적 통합)가 통과하면 스쿼시 머지하고 머지 후 스모크 테스트를 합니다. 7단계의 ADR 정의가 프로젝트 전체의 결정을 남기는 일이라면, 이슈별 2단계의 ADR 점검은 이 이슈가 기존 결정에 걸리는지 확인하는 일입니다. 여기서 앞의 다시 판단할 조건이 작동합니다.</aside>
+</section>
+
+<!-- 질문 시간 (교시 끝) -->
+<section data-period="14" class="slide section-slide" data-title="질문 시간">
+  <div class="big">질문 시간 · 약 5분</div>
+  <h1>여기까지,<br>질문 시간</h1>
+  <p class="lead">오늘 다룬 것: 병렬 작업의 스펙 충돌 · ADR이란 · Nygard 원형 · MADR · 강사 서식 · 예시 ADR · 이슈 원장 원칙 · GitHub 프로젝트 · 종료 키워드 · 18단계 운영 기준</p>
+  <div class="strip"><figure><div class="thumb"><img src="assets/captures/p14-adr-github-io.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-madr.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-gh-projects.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p14-gh-closing.jpg" alt="앞에서 본 화면"></div></figure></div>
+  <aside>교시를 마무리하기 전에 질문을 받겠습니다. 오늘 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
 </section>
 
 <!-- 26 정리 -->
@@ -1503,15 +1503,6 @@ Related: #204</div>
   <aside>큐의 핵심은 누적입니다. A, B, C가 줄을 서 있으면 먼저 main에 A를 얹은 후보, 그 위에 B를 얹은 후보, 그 위에 C를 얹은 후보를 차례로 만들어 검사합니다. 각 PR이 따로 통과했더라도 합쳤을 때 깨지는 경우를 머지 전에 잡습니다. B가 실패하면 B는 큐에서 빠지고, B를 포함했던 뒤 후보는 B 없이 다시 만들어 검사합니다. 그래서 실패가 잦으면 오히려 대기가 늘 수 있습니다. 러너가 부족해도 마찬가지입니다. 큐는 충돌을 해결해 주는 도구도, 검토를 대신하는 도구도 아닙니다.</aside>
 </section>
 
-<!-- 질문 시간 (중간) -->
-<section data-period="15" class="slide section-slide" data-title="질문 시간">
-  <div class="big">질문 시간 · 약 5분</div>
-  <h1>여기까지,<br>질문 시간</h1>
-  <p class="lead">지금까지 다룬 것: Anthropic Scion · 줄이는 네 가지 · 동시 실행 취소 · 경로 필터 · 캐시 · 영향 분석 · 머지 큐 · 누적 후보</p>
-  <div class="strip"><figure><div class="thumb"><img src="assets/captures/p15-actions-pricing.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/scion-merges.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p15-paths.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-mergequeue.jpg" alt="앞에서 본 화면"></div></figure></div>
-  <aside>여기서 잠시 멈추고 질문을 받겠습니다. 지금까지 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
-</section>
-
 <!-- 13 merge_group 설정과 게이트 -->
 <section data-period="15" class="slide" data-title="merge_group 게이트">
   <div class="tag"><b>GitHub Actions 설정</b><span class="sep"></span>강사 자료 parallel-ai-merge-train · 트리거 발췌</div>
@@ -1736,6 +1727,15 @@ Related: #204</div>
 </mask></svg></svg></div>
   <p class="under">규칙: <b>증거 없는 PASS는 FAIL</b>. 에이전트에게 파일 이름 규칙까지 시키고, PR에 보고서를 붙입니다.</p>
   <aside>에이전트가 스모크를 돌린 뒤 통과했다고만 말하면 그 말은 검증할 수 없습니다. 그래서 실행마다 증거 폴더를 만들게 합니다. 단계별 스크린샷, 콘솔 로그, 실패한 네트워크 요청, 그리고 PASS 또는 FAIL을 적은 보고서입니다. 프롬프트에는 증거가 없는 항목은 실패로 처리하고, 콘솔 오류가 있으면 화면이 정상이어도 실패로 보고하라고 적습니다. 보고서와 핵심 스크린샷은 PR이나 이슈 댓글로 남기고, 머지 큐에 넣기 전에 사람이 증거를 보고 판정합니다. 비밀번호나 토큰이 스크린샷과 로그에 남지 않는지도 확인합니다.</aside>
+</section>
+
+<!-- 질문 시간 (교시 끝) -->
+<section data-period="15" class="slide section-slide" data-title="질문 시간">
+  <div class="big">질문 시간 · 약 5분</div>
+  <h1>여기까지,<br>질문 시간</h1>
+  <p class="lead">오늘 다룬 것: Anthropic Scion · 줄이는 네 가지 · 경로 필터 · 머지 큐 · 머지 트레인 · 가짜 초록불 · computer use · Playwright MCP · Chrome DevTools MCP · 시나리오 파일 · 증거 남기기</p>
+  <div class="strip"><figure><div class="thumb"><img src="assets/captures/scion-merges.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/page-mergequeue.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p15-computer-use.jpg" alt="앞에서 본 화면"></div></figure><figure><div class="thumb"><img src="assets/captures/p15-playwright-mcp.jpg" alt="앞에서 본 화면"></div></figure></div>
+  <aside>교시를 마무리하기 전에 질문을 받겠습니다. 오늘 본 내용 가운데 이해가 안 된 곳, 자기 도구에서는 어떻게 되는지 궁금한 곳, 동의하지 않는 곳 무엇이든 좋습니다. 질문이 바로 나오지 않으면 화면 아래 썸네일 가운데 다시 보고 싶은 장을 말해 달라고 합니다.</aside>
 </section>
 
 <!-- 26 정리 -->
@@ -1983,7 +1983,7 @@ Related: #204</div>
   <aside>이 부분이 13교시의 코디네이터와 14교시의 이슈 원장이 이어지는 곳입니다. 코디네이터가 평가 에이전트를 부르면 페르소나들이 앱을 눌러보고 피드백을 이슈로 남깁니다. 이슈는 워커에게 배치되고, 워커의 수정은 테스트와 스모크를 통과해야 합니다. 그다음 같은 페르소나로 다시 평가합니다. 멈춤 조건부터 정해 둡니다. 막힘이 없어지거나 반복 횟수가 상한에 닿으면 멈춥니다. 상한이 없으면 에이전트가 끝없이 사소한 불편을 고치려 합니다.</aside>
 </section>
 
-<!-- 질문 시간 (중간) -->
+<!-- 질문 시간 (교시 끝) -->
 <section data-period="16" class="slide section-slide" data-title="질문 시간">
   <div class="big">질문 시간 · 약 5분</div>
   <h1>여기까지,<br>질문 시간</h1>

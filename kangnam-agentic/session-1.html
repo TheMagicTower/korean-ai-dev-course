@@ -737,7 +737,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
   <div class="pmi">
     <div class="p">작업마다 <b>맞는 에이전트를 골라</b> 여러 개를 병렬로 돌려, 한 개발자가 큰 프로젝트를 맡는다.</div>
     <div class="m">합칠 때 <b>충돌</b>은 사람이 판단하고 PR(Pull Request, 병합 요청)·CI(Continuous Integration, 지속적 통합) 부담이 커진다(앞뒤 장).</div>
-    <div class="i">도구가 아니라 <b>운영 방식의 변화</b>. 하네스 여러 개를 동시에 돌린다. 13교시에서 Orca를 시연.</div>
+    <div class="i">도구가 아니라 <b>운영 방식의 변화</b>. 하네스 여러 개를 동시에 돌린다. 13교시에서 Orca를 소개.</div>
   </div>
   <aside>모델마다 가격과 성능이 다르다는 것이 드러나고, 한 개발자가 큰 프로젝트를 맡게 되면서 여러 하네스를 동시에 돌리는 방식이 나왔습니다. 저는 이것을 에이전트 팩토리라고 부릅니다. GitHub Agent HQ는 여러 회사의 에이전트를 한 화면에 모았고, Codex 앱과 Cursor 3도 여러 에이전트를 나란히 돌리는 창을 넣었습니다. 워크트리 기반 병렬 에이전트 관리라는 방식이 있고, 대표 도구가 Orca입니다. 워크트리마다 에이전트를 하나씩 붙여 병렬로 돌립니다. 13교시에 Orca를 자세히 시연합니다. 장점은 작업마다 맞는 에이전트를 병렬로 돌린다는 점이고, 단점은 합칠 때의 충돌과 CI 부담입니다. 의미는 하네스 여러 개를 동시에 돌리는 운영 방식의 변화라는 것입니다.</aside>
 </section>
@@ -753,7 +753,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
         <li>주기적으로 깨어나 PR · CI · 이슈를 읽고 다음 배치를 보낸다</li>
         <li>최종 목표에 닿을 때까지 <b class="hl">수일 동안</b> 멈추지 않는다</li>
       </ul>
-      <div class="next">→ 13교시에서 실제 화면으로</div>
+      <div class="next">→ 13교시에서 자세히</div>
     </div>
     <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 600 774"><svg class="d2-3034468049 d2-svg" width="600" height="774" viewBox="-9 -9 600 774"><g class="Y29vcmQ="><g class="shape" ><rect x="171.000000" y="12.000000" width="351.000000" height="122.000000" class="box-inner hot"  /></g><text x="346.500000" y="68.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="346.500000" dy="0.000000">코디네이터 세션</tspan><tspan x="346.500000" dy="38.500000">목표 · 완료 조건</tspan></text></g><g class="d29ya2Vycw=="><g class="shape" ><rect x="12.000000" y="317.000000" width="380.000000" height="122.000000" class="box-inner"  /></g><text x="202.000000" y="373.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="202.000000" dy="0.000000">워커 A · B · C</tspan><tspan x="202.000000" dy="38.500000">/batch · 워크트리별</tspan></text></g><g class="bGVkZ2Vy"><g class="shape" ><rect x="236.000000" y="622.000000" width="221.000000" height="122.000000" class="box-inner"  /></g><text x="346.500000" y="678.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="346.500000" dy="0.000000">이슈 원장</tspan><tspan x="346.500000" dy="38.500000">PR · CI</tspan></text></g><g class="KGNvb3JkIC0mZ3Q7IHdvcmtlcnMpWzBd"><marker id="u6-mk-d2-3034468049-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 202.000000 136.000000 L 202.000000 313.000000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-3034468049-3488378134)" mask="url(#u6-d2-3034468049)" /><text x="202.000000" y="235.000000" class="edge-label" style="text-anchor:middle;font-size:26px">나눠 줌</text></g><g class="KHdvcmtlcnMgLSZndDsgbGVkZ2VyKVswXQ=="><path d="M 309.915985 441.000000 L 309.915985 618.000000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-3034468049-3488378134)" mask="url(#u6-d2-3034468049)" /><text x="310.000000" y="540.000000" class="edge-label" style="text-anchor:middle;font-size:26px">기록</text></g><g class="KGxlZGdlciAtJmd0OyBjb29yZClbMF0="><path d="M 383.583008 620.000000 L 383.583008 592.000000 S 383.583008 582.000000 393.583008 582.000000 L 481.500000 582.000000 S 491.500000 582.000000 491.500000 572.000000 L 491.500000 138.000000" class="edge" style="stroke-width:2;" marker-end="url(#u6-mk-d2-3034468049-3488378134)" mask="url(#u6-d2-3034468049)" /><text x="491.500000" y="441.000000" class="edge-label" style="text-anchor:middle;font-size:26px">깨어나 점검</text></g><mask id="u6-d2-3034468049" maskUnits="userSpaceOnUse" x="-9" y="-9" width="600" height="774">
 <rect x="-9" y="-9" width="600" height="774" fill="white"></rect>
@@ -1545,8 +1545,8 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
   <aside>방금 본 세 단계를 도구 이름과 함께 다시 그렸습니다. 프롬프트가 들어오면 검색 도구로 맥락을 모으고, 편집과 셸 도구로 행동하고, 테스트 결과를 읽어 확인합니다. 더 할 일이 있으면 다시 돌고, 도구 호출이 없으면 응답하고 멈춥니다. 사람이 하던 계속이 모델의 판단으로 옮겨 간 것입니다. 이 계속의 자동화는 9교시에서 더 길게 다룹니다. 사람의 끼어들기와 승인은 이 루프 바깥에서 들어옵니다.</aside>
 </section>
 
-<!-- 10 시연 -->
-<section data-period="3" class="slide" data-title="시연: 같은 버그">
+<!-- 10 예시 -->
+<section data-period="3" class="slide" data-title="예시: 같은 버그">
   <div class="tag"><b>재현 예시</b><span class="sep"></span>장바구니 합계 버그 맡기기 · 실제 출력 아님</div>
   <h2>버그 하나 맡기기: 찾기 → 고치기 → 재시험</h2>
   <div class="row even">

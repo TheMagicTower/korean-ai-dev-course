@@ -31,7 +31,7 @@
 - `claude auto-mode defaults` 명령으로 기본 규칙 열어 두기(12장). 질문 시간(30장)에는 앞 장 캡처를 다시 띄울 수 있게 해 둔다. 캡처 대기 장 없음.
 
 ---
-### 10교시 · 하네스와 MCP: 주로 쓰는 MCP 도구 (56장, 60분)
+### 10교시 · 하네스와 MCP: 주로 쓰는 MCP 도구 (61장, 60분)
 목표: 하네스를 ‘모델 주변 장치의 총합’으로 보고, 모델과 주고받는 메시지 구조, 토큰 증가와 앞부분 캐싱, MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)의 구조·보안·토큰 비용과 대표 도구 및 대응 CLI(Command-Line Interface, 명령줄 도구)의 쓰임을 말하게 한다.
 | 구간 | 장 | 분 | 꼭 짚을 말 |
 | --- | --- | --- | --- |
@@ -44,11 +44,12 @@
 | MCP 구조·연결 | 22–24 | 4 | 2024-11-25 발표. 호스트·클라이언트·서버, 도구/리소스/프롬프트, stdio vs Streamable HTTP(HyperText Transfer Protocol, 웹 통신 규약). `claude mcp add`, scope local/project/user |
 | 보안·토큰 비용 | 25–27 | 4 | 도구 설명 주입(Invariant 2025-04-01). 도구=임의 코드 실행, 동의 필수. 도구 정의가 창을 채우고 바뀌면 캐시가 깨짐 |
 | 도구 검색 | 28 | 2 | 이름만 싣고 필요할 때 불러오는 도구 검색이 기본값(출력 경고 1만, 상한 2.5만 토큰). tools 고정이라 캐시에도 유리 |
-| 대표 MCP 도구 | 29–39 | 7 | 도구 지도(29장), 개념: LSP(Language Server Protocol, 언어 서버 프로토콜)와 문서 조회(30장)에서 용어부터 세운 뒤 문서 조회의 대표 Context7, LSP 기반 Serena, 브라우저 자동화 Playwright(조작)·진단 Chrome DevTools, GitHub, Figma, Supabase, Sentry, Vercel. 한 장에 하나, 언제 쓰나 한 줄 |
-| MCP에서 CLI로 | 40–51 | 10 | 흐름(40장, 2025-11-04 Anthropic 150,000→2,000 토큰), 왜 CLI인가(41장, MCP는 정의가 바뀔 때마다 캐시 깨짐), MCP가 남는 곳(42장), 짝 6종: gh·Playwright CLI(2026-01-26 첫 배포)·supabase·vercel·새 sentry·ctx7(2026-01-21 첫 배포)(43–48장), 비교표(49장), CLI+스킬 패턴(50장, 11교시 연결), 결론: CLI 먼저(51장) |
-| 토큰 절약 | 52–54 | 3 | rtk(셸 출력 압축), ripgrep(gitignore 존중), 정리(CLI 우선 한 줄). 필요한 부분만 가져오기 |
-| 정리 | 55 | 1 | 하네스=장치의 총합, MCP=그중 연결. 메시지 구조·제곱·캐싱 한 줄, CLI 먼저 한 줄. 연결하는 순간 권한도 준다 |
-| 질문 시간 | 56 | 5 | 정리 뒤 교시 끝. 하네스·MCP·CLI·도구까지 질문 받기 |
+| 대표 MCP 도구 | 29–33, 39–44 | 5 | 도구 지도(29장), 개념: LSP(Language Server Protocol, 언어 서버 프로토콜)와 문서 조회(30장)에서 용어부터 세운 뒤 문서 조회의 대표 Context7, LSP 기반 Serena, 브라우저 자동화 Playwright(조작)·진단 Chrome DevTools, GitHub, Figma, Supabase, Sentry, Vercel. 한 장에 하나, 언제 쓰나 한 줄 |
+| 에이전트용 브라우저 | 34–38 | 4 | 세 갈래(34장: MCP로 연결·CLI로 조작·브라우저 자체가 에이전트용), agent-browser(35장, Vercel Labs Rust CLI, 첫 커밋 2026-01-10), ego lite(36장, CitroLabs, 사람 로그인 브라우저를 분리 공간에서, 권한 위험 → 3교시), Aside(37장, 에이전트가 들어 있는 소비자용 브라우저, 회사 주장 수치는 싣지 않음), 비교표(38장: 셸이 있나·로그인 세션이 필요한가) |
+| MCP에서 CLI로 | 45–56 | 8 | 흐름(45장, 2025-11-04 Anthropic 150,000→2,000 토큰), 왜 CLI인가(46장, MCP는 정의가 바뀔 때마다 캐시 깨짐), MCP가 남는 곳(47장), 짝 6종: gh·Playwright CLI(2026-01-26 첫 배포)·supabase·vercel·새 sentry·ctx7(2026-01-21 첫 배포)(43–53장), 비교표(54장), CLI+스킬 패턴(55장, 11교시 연결), 결론: CLI 먼저(61장) |
+| 토큰 절약 | 57–59 | 3 | rtk(셸 출력 압축), ripgrep(gitignore 존중), 정리(CLI 우선 한 줄). 필요한 부분만 가져오기 |
+| 정리 | 60 | 1 | 하네스=장치의 총합, MCP=그중 연결. 메시지 구조·제곱·캐싱 한 줄, CLI 먼저 한 줄. 연결하는 순간 권한도 준다 |
+| 질문 시간 | 61 | 5 | 정리 뒤 교시 끝. 하네스·MCP·CLI·도구까지 질문 받기 |
 
 **주의 (흔한 오해)**
 - “하네스” 최초 사용은 ‘제가 확인한 공식 글’ 범위(2025-09-29). 블로그·커뮤니티는 더 일찍일 수 있다고 단서를 단다(3장).
@@ -58,24 +59,24 @@
 - 캐싱 수치(쓰기 1.25배·읽기 약 0.1배·5분/1시간·최소 512~4096토큰·breakpoint 4개)는 Anthropic 공식 문서 기준. 모델별 정확한 읽기 단가는 단정하지 않는다. OpenAI는 1,024토큰 이상 자동 캐싱까지만 말한다(13장 작은 글씨).
 - Context7은 LSP가 아니라 문서 조회, LSP 기반은 Serena다. 30장 개념 장에서 먼저 구분하고 둘을 한 범주로 묶어 말하지 않는다.
 - Context7(03-29)·Serena(03-23)·Playwright MCP(03-21)·GitHub MCP(03-10)·Sentry(03-29) 첫 커밋은 모두 2025-03으로 생각보다 이르다. Chrome DevTools MCP는 2025-09-23 프리뷰.
-- Trae가 grep을 rg로 바꿨다는 얘기는 1차 출처가 없어 하지 않는다(53장 그대로). 근거는 Claude Code 문서의 내장 ripgrep.
-- rtk는 MCP가 아니라 CLI 프록시이며 Bash 호출에만 걸린다(내장 Read·Grep 제외). 줄어드는 건 셸 출력이지 청구서 전체가 아니다(52장).
-- Playwright 저장소 README 자체가 코딩 에이전트에는 CLI+스킬이 토큰 효율이 낫다고 안내(44장·54장도 같은 취지). Serena는 GPL-3.0. Figma 캔버스 쓰기는 베타·유료 좌석.
+- Trae가 grep을 rg로 바꿨다는 얘기는 1차 출처가 없어 하지 않는다(58장 그대로). 근거는 Claude Code 문서의 내장 ripgrep.
+- rtk는 MCP가 아니라 CLI 프록시이며 Bash 호출에만 걸린다(내장 Read·Grep 제외). 줄어드는 건 셸 출력이지 청구서 전체가 아니다(57장).
+- Playwright 저장소 README 자체가 코딩 에이전트에는 CLI+스킬이 토큰 효율이 낫다고 안내(49장·59장도 같은 취지). Serena는 GPL-3.0. Figma 캔버스 쓰기는 베타·유료 좌석.
 - Supabase는 읽기 전용·project_ref 한정·운영 데이터 연결 금지. Vercel은 연결 순간 내 계정과 같은 권한.
 - OpenAI 하네스 글(20장)은 한 작은 팀의 사례로 약 100만 줄·5개월 주장이다. 일반화하지 않는다.
-- 새 `sentry` CLI(47장, cli.sentry.dev)와 예전 `sentry-cli`(릴리스·디버그 파일용)는 별개다. chrome-devtools-cli는 MCP 서버와 함께 도는 형태라 단독 대체 사례로 내지 않았다(42장).
-- CLI 묶음(40–51장)의 날짜·수치·인용은 1차 출처 확인분만. 150,000→2,000 토큰·98.7%는 Anthropic 글(2025-11-04)의 예시 작업 수치다.
+- 새 `sentry` CLI(52장, cli.sentry.dev)와 예전 `sentry-cli`(릴리스·디버그 파일용)는 별개다. chrome-devtools-cli는 MCP 서버와 함께 도는 형태라 단독 대체 사례로 내지 않았다(47장).
+- CLI 묶음(40–56장)의 날짜·수치·인용은 1차 출처 확인분만. 150,000→2,000 토큰·98.7%는 Anthropic 글(2025-11-04)의 예시 작업 수치다.
 
 **예상 질문**
 - “MCP 서버를 많이 붙이면 좋은가요?” → 필요한 만큼만. 도구 검색 덕에 영향은 줄었으나 출력·권한 위험은 그대로.
-- “MCP와 CLI 중 뭘 쓰나요?” → 셸이 있고 CLI가 있으면 CLI 먼저(49장 비교표). 같은 작업을 두 방식으로 돌려 재 보고 정한다.
+- “MCP와 CLI 중 뭘 쓰나요?” → 셸이 있고 CLI가 있으면 CLI 먼저(54장 비교표). 같은 작업을 두 방식으로 돌려 재 보고 정한다.
 - “원격과 로컬 서버 차이?” → 로컬은 stdio, 서비스 호스팅 원격은 HTTP(SSE(Server-Sent Events, 서버 전송 이벤트)는 비권장).
-- “sentry-cli를 쓰면 되나요?” → 이슈 읽기는 새 `sentry` CLI, 릴리스·디버그 파일 관리는 예전 `sentry-cli`다(47장).
+- “sentry-cli를 쓰면 되나요?” → 이슈 읽기는 새 `sentry` CLI, 릴리스·디버그 파일 관리는 예전 `sentry-cli`다(52장).
 - “캐시가 됐는지 어떻게 아나요?” → 응답 usage의 cache_read·cache_creation·input 세 필드로 확인(13장). 둘 다 0이면 최소 길이 미달 등 조용한 미적용.
 
 **시연·준비**
 - `claude mcp add`로 Context7 연결, `claude mcp list`·`/mcp` 확인(24장, 12교시 실습 예고).
-- 20장은 OpenAI 원문 그림(`oai-limits.jpg`)으로 교체되어 캡처 대기 없음. 34·36·53·54장 GitHub 저장소 첫 화면(별 수 포함)은 선택 교체 대상, 현재는 공식 문서·사이트 캡처(plan/capture-todo.md).
+- 20장은 OpenAI 원문 그림(`oai-limits.jpg`)으로 교체되어 캡처 대기 없음. 34·36·53·59장 GitHub 저장소 첫 화면(별 수 포함)은 선택 교체 대상, 현재는 공식 문서·사이트 캡처(plan/capture-todo.md).
 
 ---
 ### 11교시 · 스킬: Superpowers에서 Ponytail까지 (29장, 60분)

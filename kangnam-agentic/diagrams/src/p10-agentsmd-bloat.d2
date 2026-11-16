@@ -1,0 +1,22 @@
+direction: right
+one: "큰 AGENTS.md 하나" {
+  direction: right
+  rules: "모든 규칙을 한 파일에\n빌드 · 테스트 · 데이터베이스 · API · 배포 …"
+  request: "매 요청의 고정 앞부분 S\n지침 전체가 컨텍스트 윈도우에" {
+    style.stroke: "#ff00ff"
+  }
+  rules -> request: "항상 실림"
+}
+two: "짧은 목차 + 문서 파일들" {
+  direction: right
+  toc: "AGENTS.md\n공통 규칙 + 읽는 조건"
+  docs: "docs/\n데이터베이스 · API · 테스트 · ADR"
+  request: "평소 요청의 고정 앞부분 S\n짧은 목차만 컨텍스트 윈도우에" {
+    style.stroke: "#ff00ff"
+  }
+  toc -> request: "항상 실림"
+  toc -> docs: "해당 작업 때 읽기"
+}
+
+**.style.font-size: 26
+(** -> **)[*].style.font-size: 22

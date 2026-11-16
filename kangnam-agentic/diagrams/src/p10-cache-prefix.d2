@@ -1,0 +1,20 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 24
+vertical-gap: 60
+p1: "tools ▼"
+p2: "system ▼"
+p3: "messages ▼"
+x1: "현재 시각을\n맨 앞에?"
+x2: "바뀐 지점 이후\n전부 다시 계산" {
+  style.stroke: "#ff00ff"
+}
+z: "" {
+  style.opacity: 0
+}
+p1 -> p2
+p2 -> p3
+x1 -> x2
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

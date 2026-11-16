@@ -1,0 +1,24 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 90
+vertical-gap: 90
+s1: "① 사용자\n프롬프트"
+s2: "② 하네스\nsystem+tools+messages\n요청"
+s3: "③ 모델\ntool_use 응답" {
+  style.stroke: "#ff00ff"
+}
+s6: "⑥ 모델 end_turn\n사용자에게 답"
+s5: "⑤ tool_result 붙여\n다시 요청" {
+  style.stroke: "#ff00ff"
+}
+s4: "④ 하네스\n권한 확인 후 실행" {
+  style.stroke: "#ff00ff"
+}
+s1 -> s2
+s2 -> s3
+s3 -> s4
+s4 -> s5
+s5 -> s6
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26

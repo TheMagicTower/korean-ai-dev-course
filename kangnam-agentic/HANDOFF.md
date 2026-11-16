@@ -29,7 +29,7 @@ tools/node_modules             pele@1.12.0, @terrastruct/d2@0.1.33 (오프라인
 
 ## 환경 메모
 - kroki.io, jsdelivr, openai.com, x.com은 샌드박스에서 막힘. D2는 로컬 wasm으로, Kroki는 필요 없음.
-- 아티팩트 게시는 스크래치패드 경로에서만 됨. 이미지는 `files` 맵으로 같이 올림.
+- 강의 주소는 Cloudflare Pages 프로젝트 `agentic-lecture`(https://lecture.themagictower.io). Git 연결 저장소는 이 저장소가 아니라 `TheMagicTower/agentic-lecture-site`(main 자동 배포). claude.ai 아티팩트로 게시하지 않음(CHANGELOG의 아티팩트 주소는 옛 기록).
 - 강사 기기 폴더: SkillProject/kangnam-agentic/ (device_commit_files 또는 tar로 동기화). 기기 셸은 파일 삭제 불가.
 - 비용: 큰 작업은 Sonnet 서브에이전트에게 교시 단위로 맡기고(공용 파일 수정 금지, 파일 이름에 pNN- 접두어), Opus는 검토.
 
@@ -37,4 +37,7 @@ tools/node_modules             pele@1.12.0, @terrastruct/d2@0.1.33 (오프라인
 20교시 전부 작성·검사 완료(2026-10-29). 게시 주소와 남은 일은 CHANGELOG.md 끝.
 강의 노트(강사 전용 Docs): https://claude.ai/artifact/2QTf7CBKNZEJ2G9ZSxBgWM · 원본 plan/notes/*.md
 도식 규칙 보충: plan/diagram-brief.md의 ‘행 컨테이너’ 방식은 이 렌더러에서 안 됨 → grid-rows 먼저, grid-columns 다음, 인접 칸만 연결.
-게시 갱신: python3 tools/build.py N 후 _artifact/session-N.html을 같은 경로로 다시 게시(이미지는 files로).
+배포:
+1. 이 저장소에서 브랜치 → `python3 tools/build.py N` → QA → PR → squash 병합(main). 여기까지는 GitHub Pages(themagictower.github.io/korean-ai-dev-course)에만 반영됨.
+2. `TheMagicTower/agentic-lecture-site`를 받아 `kangnam-agentic/session-N.html`(루트 것, `_artifact/` 아님)을 같은 이름으로 복사하고, 새로 쓴 캡처가 있으면 `assets/captures/`에도 복사해 main에 커밋·푸시(메시지 `fix: …`/`feat: …`, 원본 커밋 표기).
+3. 약 20초 뒤 `npx wrangler@4 pages deployment list --project-name agentic-lecture`의 최신 Source가 방금 커밋인지, https://lecture.themagictower.io/session-N 에 바뀐 문구가 있는지 확인.

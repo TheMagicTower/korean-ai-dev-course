@@ -58,4 +58,4 @@
 - 3회차(9–12교시) 점검·수정: Brooks 인용을 원문(“plan to throw one away; you will, anyhow”)으로, 10교시 진행 파일 ‘2교시’→‘8교시’, 11교시 ‘컨텍스트 비용은 모두 같다’ 정정, 12교시 대체 루프 상한을 수업용(최대 2회·회당 1분)으로, ‘완성도보다’ 삭제, 약어 첫 등장 풀이(API·PR·SDD·TDD·PoC·ADR·MCP), 구어체(못 박다·헛돈다·과복잡) 정리, 11·12교시 노트 7문장 이하로.
 - 도식 재렌더: p11-progressive, p11-superpowers-flow, p11-overheat, p12-flow.
 - 강의 노트 원본 plan/notes/session3.md: 날짜 11-19→11-17, 9교시 구간표를 29장 기준으로.
-- 재게시: 기존 3회차 아티팩트는 다른 조직 계정 소유라 갱신 불가 → 새 주소 https://claude.ai/artifact/DXaHxP4DvkysFUd2LdKWeq (비공개).
+- 배포: GitHub Pages(main 루트) https://themagictower.github.io/korean-ai-dev-course/kangnam-agentic/session-3.html

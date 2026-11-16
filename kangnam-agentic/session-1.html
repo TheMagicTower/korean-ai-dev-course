@@ -365,7 +365,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
       <div class="next">→ 3교시: 권한 모델 · 9교시: 자동 승인</div>
     </div>
   </div>
-  <aside>초기 터미널 에이전트는 파일을 고칠 때마다, 명령을 실행할 때마다 허락을 구했습니다. 프롬프트 하나에 승인을 열 번 누르는 일이 흔했습니다. 컨텍스트 창은 작고 모델은 미숙해서, 이때까지는 코드 자동 작성 수준에 머물렀습니다. Anthropic은 사용자가 수동 승인 요청의 93%를 그냥 승인했다고 밝혔습니다. 확인하지 않고 누르는 승인은 안전장치가 아닙니다. 이 문제가 권한 모드와 자동 승인 모드로 이어집니다.</aside>
+  <aside>초기 터미널 에이전트는 파일을 고칠 때마다, 명령을 실행할 때마다 허락을 구했습니다. 프롬프트 하나에 승인을 열 번 누르는 일이 흔했습니다. 컨텍스트 윈도우(context window, 모델이 한 번에 보는 입력 범위)는 작고 모델은 미숙해서, 이때까지는 코드 자동 작성 수준에 머물렀습니다. Anthropic은 사용자가 수동 승인 요청의 93%를 그냥 승인했다고 밝혔습니다. 확인하지 않고 누르는 승인은 안전장치가 아닙니다. 이 문제가 권한 모드와 자동 승인 모드로 이어집니다.</aside>
 </section>
 
 <!-- 10 2부 -->
@@ -420,14 +420,14 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
     </div>
     <div class="points">
       <div class="pmi col">
-    <div class="p">자동 압축(요약해 다시 시작)으로 작은 창(AI가 한 번에 보는 분량)에서도 <b>일을 이어 간다</b>.</div>
+    <div class="p">자동 압축(요약해 다시 시작)으로 작은 컨텍스트 윈도우(AI가 한 번에 보는 분량)에서도 <b>일을 이어 간다</b>.</div>
     <div class="m">요약할 때마다 <b>결정 이유·실패한 시도</b>가 빠진다. 입력이 길수록 성능도 떨어진다.</div>
-    <div class="i">압축에 기대지 않는 장치(테스트·서브에이전트·큰 창)가 뒤따르는 <b>이유</b>.</div>
+    <div class="i">압축에 기대지 않는 장치(테스트·서브에이전트·큰 컨텍스트 윈도우)가 뒤따르는 <b>이유</b>.</div>
   </div>
       <div class="next">→ 5교시에서 자세히</div>
     </div>
   </div>
-  <aside>스펙을 쓰고 Task를 쪼개도, 일이 길어지면 컨텍스트 창이 찹니다. Claude Code는 2025년 3월부터 대화를 자동으로 요약해 이어 가는 자동 압축을 넣었습니다. 문제는 요약할 때마다 정보가 빠진다는 점입니다. 왜 그렇게 결정했는지, 무엇을 이미 시도했다 실패했는지가 사라지면 에이전트는 같은 실수를 반복합니다. Chroma의 보고서는 입력이 길어질수록 모델 성능이 떨어진다는 것을 측정했습니다. 참고로 날짜로는 자동 압축이 Plan 모드보다 먼저였습니다. 장점은 창이 작아도 일을 이어 간다는 점이고, 단점은 요약할 때마다 정보가 빠지고 입력이 길수록 성능이 떨어진다는 점입니다. 그래서 압축에 기대지 않는 장치가 뒤따릅니다.</aside>
+  <aside>스펙을 쓰고 Task를 쪼개도, 일이 길어지면 컨텍스트 윈도우가 찹니다. Claude Code는 2025년 3월부터 대화를 자동으로 요약해 이어 가는 자동 압축을 넣었습니다. 문제는 요약할 때마다 정보가 빠진다는 점입니다. 왜 그렇게 결정했는지, 무엇을 이미 시도했다 실패했는지가 사라지면 에이전트는 같은 실수를 반복합니다. Chroma의 보고서는 입력이 길어질수록 모델 성능이 떨어진다는 것을 측정했습니다. 참고로 날짜로는 자동 압축이 Plan 모드보다 먼저였습니다. 장점은 컨텍스트 윈도우가 작아도 일을 이어 간다는 점이고, 단점은 요약할 때마다 정보가 빠지고 입력이 길수록 성능이 떨어진다는 점입니다. 그래서 압축에 기대지 않는 장치가 뒤따릅니다.</aside>
 </section>
 
 <!-- 13 TDD -->
@@ -466,23 +466,23 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 15 서브에이전트 -->
 <section data-period="1" class="slide" data-title="서브에이전트">
   <div class="tag"><b>2025-07-24</b><span class="sep"></span>Claude Code 커스텀 서브에이전트</div>
-  <h2>서브에이전트: 맥락 분리로 메인 창 절약</h2>
+  <h2>서브에이전트: 맥락 분리로<br>메인 컨텍스트 윈도우 절약</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>code.claude.com/docs/en/sub-agents</span></div><img src="assets/captures/page-cc-subagents.jpg" alt="Claude Code 서브에이전트 공식 문서"></div>
       <div class="kind">공식 문서 화면 캡처</div>
-      <div class="ko">Claude Code 문서 ‘커스텀 서브에이전트 만들기’. 서브에이전트는 <b>자기만의 컨텍스트 창</b>에서 일하고 요약만 돌려준다.</div>
+      <div class="ko">Claude Code 문서 ‘커스텀 서브에이전트 만들기’. 서브에이전트는 <b>자기만의 컨텍스트 윈도우</b>에서 일하고 요약만 돌려준다.</div>
     </div>
     <div class="points">
       <div class="pmi col">
-    <div class="p">탐색한 파일 목록·긴 로그는 <b>서브에이전트 창</b>에 남고 요약만 돌아와 메인 창을 아낀다.</div>
-    <div class="m">메인에는 <b>요약만</b> 오므로 세부 과정은 서브에이전트 창에 남는다.</div>
-    <div class="i">창이 한정되면 <b>나눠 쓴다</b>. 압축 대신 맥락을 분리하는 해법. 7교시.</div>
+    <div class="p">탐색한 파일 목록·긴 로그는 <b>서브에이전트 컨텍스트 윈도우</b>에 남고 요약만 돌아와 메인 컨텍스트 윈도우를 아낀다.</div>
+    <div class="m">메인에는 <b>요약만</b> 오므로 세부 과정은 서브에이전트 컨텍스트 윈도우에 남는다.</div>
+    <div class="i">컨텍스트 윈도우가 한정되면 <b>나눠 쓴다</b>. 압축 대신 맥락을 분리하는 해법. 7교시.</div>
   </div>
       <div class="next">→ 7교시에서 자세히</div>
     </div>
   </div>
-  <aside>창이 한정돼 있다면 나눠 쓰면 됩니다. 서브에이전트는 자기만의 컨텍스트 창을 가진 별도 에이전트입니다. 코드베이스를 뒤지거나 긴 테스트 로그를 읽는 일을 맡기면, 그 과정은 서브에이전트 창에 남고 메인에는 요약만 돌아옵니다. 메인 에이전트의 창을 계획과 판단에 아껴 쓸 수 있습니다. Claude Code는 2025년 7월에 사용자가 직접 정의하는 서브에이전트를 넣었습니다. 장점은 메인 창을 계획과 판단에 아낀다는 점이고, 단점은 세부 과정이 서브에이전트 창에 남는다는 점입니다. 의미는 압축 대신 맥락을 분리하는 해법이라는 것입니다.</aside>
+  <aside>컨텍스트 윈도우가 한정돼 있다면 나눠 쓰면 됩니다. 서브에이전트는 자기만의 컨텍스트 윈도우를 가진 별도 에이전트입니다. 코드베이스를 뒤지거나 긴 테스트 로그를 읽는 일을 맡기면, 그 과정은 서브에이전트 컨텍스트 윈도우에 남고 메인에는 요약만 돌아옵니다. 메인 에이전트의 컨텍스트 윈도우를 계획과 판단에 아껴 쓸 수 있습니다. Claude Code는 2025년 7월에 사용자가 직접 정의하는 서브에이전트를 넣었습니다. 장점은 메인 컨텍스트 윈도우를 계획과 판단에 아낀다는 점이고, 단점은 세부 과정이 서브에이전트 컨텍스트 윈도우에 남는다는 점입니다. 의미는 압축 대신 맥락을 분리하는 해법이라는 것입니다.</aside>
 </section>
 
 <!-- 16 워크트리 -->
@@ -522,7 +522,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
     <figure><div class="thumb"><img src="assets/captures/page-onem.jpg" alt="1M 컨텍스트 정식 출시 글"></div><figcaption><b>2026</b><span>1M</span></figcaption></figure>
     <figure><div class="thumb"><img src="assets/captures/page-skills.jpg" alt="Agent Skills 발표 글"></div><figcaption><b>2025</b><span>스킬</span></figcaption></figure>
   </div>
-  <aside>3부는 3회차 범위입니다. 에이전트가 딴길로 새지 않게 되자, 이제는 더 오래 맡기고 싶어졌습니다. 승인을 자동화하고, 계속을 자동화하고, 창을 키우고, 반복하는 방법론을 스킬로 묶었습니다. 이 장치들을 통틀어 하네스라고 부르기 시작한 것도 이 시기입니다.</aside>
+  <aside>3부는 3회차 범위입니다. 에이전트가 딴길로 새지 않게 되자, 이제는 더 오래 맡기고 싶어졌습니다. 승인을 자동화하고, 계속을 자동화하고, 컨텍스트 윈도우를 키우고, 반복하는 방법론을 스킬로 묶었습니다. 이 장치들을 통틀어 하네스라고 부르기 시작한 것도 이 시기입니다.</aside>
 </section>
 
 <!-- 18 자동 승인 -->
@@ -606,16 +606,16 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
   </div>
   <div class="pmi">
     <div class="p">파일 전체 대신 <b>필요한 심볼(LSP)과 최신 문서(문서 조회)</b>만 가져와 토큰을 아낀다.</div>
-    <div class="m">MCP 서버마다 <b>도구 정의가 창을 차지</b>하고, 도구 설명에 숨은 지시가 섞일 위험도 있다(→ 10교시).</div>
-    <div class="i">오래 일하려면 창을 아껴야 한다. 압축·큰 창과 함께 쓰는 <b>토큰 절약</b> 수단. 10교시.</div>
+    <div class="m">MCP 서버마다 <b>도구 정의가 컨텍스트 윈도우를 차지</b>하고, 도구 설명에 숨은 지시가 섞일 위험도 있다(→ 10교시).</div>
+    <div class="i">오래 일하려면 컨텍스트 윈도우를 아껴야 한다. 압축·큰 컨텍스트 윈도우와 함께 쓰는 <b>토큰 절약</b> 수단. 10교시.</div>
   </div>
-  <aside>오래 일하려면 창을 아껴 써야 합니다. 여기서 개념 두 가지를 먼저 잡습니다. 첫째는 LSP(Language Server Protocol, 언어 서버 프로토콜)입니다. 2016년 마이크로소프트가 내놓은 규약으로, 편집기가 언어 서버에게 정의로 이동, 참조 찾기, 오류 진단을 묻는 표준입니다. 에이전트도 이것을 쓰면 파일 전체 대신 필요한 함수와 클래스만 읽습니다. 대표 도구가 Serena입니다. 둘째는 문서 조회입니다. 모델이 모르는 최신 라이브러리 문서를 버전에 맞게 찾아 필요한 부분만 넣어 줍니다. 대표 도구가 Context7이고, LSP와는 다른 방식입니다. 두 도구 모두 2025년 3월에 나왔고 MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)라는 표준으로 에이전트에 연결합니다. 2026년 1월에는 rtk가 테스트 로그 같은 CLI(Command-Line Interface, 명령줄 인터페이스) 출력을 압축하는 방식으로 토큰을 줄였습니다. Claude Code의 검색 도구가 ripgrep 기반인 것도 같은 맥락입니다. 10교시에 자주 쓰는 MCP 도구를 하나씩 소개합니다. 장점은 필요한 코드와 문서만 가져와 토큰을 아낀다는 점이고, 단점은 MCP 서버로 따로 연결해야 하고 쓰임이 나뉜다는 점입니다. 의미는 오래 일하기 위한 토큰 절약 수단이라는 것입니다.</aside>
+  <aside>오래 일하려면 컨텍스트 윈도우를 아껴 써야 합니다. 여기서 개념 두 가지를 먼저 잡습니다. 첫째는 LSP(Language Server Protocol, 언어 서버 프로토콜)입니다. 2016년 마이크로소프트가 내놓은 규약으로, 편집기가 언어 서버에게 정의로 이동, 참조 찾기, 오류 진단을 묻는 표준입니다. 에이전트도 이것을 쓰면 파일 전체 대신 필요한 함수와 클래스만 읽습니다. 대표 도구가 Serena입니다. 둘째는 문서 조회입니다. 모델이 모르는 최신 라이브러리 문서를 버전에 맞게 찾아 필요한 부분만 넣어 줍니다. 대표 도구가 Context7이고, LSP와는 다른 방식입니다. 두 도구 모두 2025년 3월에 나왔고 MCP(Model Context Protocol, 모델 컨텍스트 프로토콜)라는 표준으로 에이전트에 연결합니다. 2026년 1월에는 rtk가 테스트 로그 같은 CLI(Command-Line Interface, 명령줄 인터페이스) 출력을 압축하는 방식으로 토큰을 줄였습니다. Claude Code의 검색 도구가 ripgrep 기반인 것도 같은 맥락입니다. 10교시에 자주 쓰는 MCP 도구를 하나씩 소개합니다. 장점은 필요한 코드와 문서만 가져와 토큰을 아낀다는 점이고, 단점은 MCP 서버로 따로 연결해야 하고 쓰임이 나뉜다는 점입니다. 의미는 오래 일하기 위한 토큰 절약 수단이라는 것입니다.</aside>
 </section>
 
 <!-- 22 1M -->
 <section data-period="1" class="slide" data-title="1M 컨텍스트">
   <div class="tag"><b>2026-03-13</b><span class="sep"></span>Claude 1M 컨텍스트 정식 출시 · 할증 없음</div>
-  <h2>Claude 창 10만 → 100만 토큰: 압축 감소, 더 긴 작업</h2>
+  <h2>Claude 컨텍스트 윈도우 10만 → 100만 토큰:<br>압축 감소, 더 긴 작업</h2>
   <div class="row">
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.com/blog/1m-context-ga</span></div><img src="assets/captures/page-onem.jpg" alt="1M context is now generally available 발표 글"></div>
@@ -630,10 +630,10 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
   </div>
   <div class="pmi">
     <div class="p">압축 횟수가 줄어 <b>결정 이유·실패 기록</b>이 덜 사라지고, 긴 입력 할증도 없다.</div>
-    <div class="m">Codex는 40만 토큰이라 <b>‘모두 1M’은 아니다</b>. 창이 크다고 성능이 그대로인 것도 아니다.</div>
-    <div class="i">창을 키우는 길과 나눠 쓰는 길(서브에이전트)은 <b>함께 쓰는</b> 해법. 9교시.</div>
+    <div class="m">Codex는 40만 토큰이라 <b>‘모두 1M’은 아니다</b>. 컨텍스트 윈도우가 크다고 성능이 그대로인 것도 아니다.</div>
+    <div class="i">컨텍스트 윈도우를 키우는 길과 나눠 쓰는 길(서브에이전트)은 <b>함께 쓰는</b> 해법. 9교시.</div>
   </div>
-  <aside>창 자체를 키우는 길도 있었습니다. 2023년 100K였던 Claude의 창이 2026년 3월 1M으로 정식 출시됐고, 긴 입력에 붙던 할증도 없앴습니다. 압축 횟수가 줄면 결정의 이유나 실패 기록이 덜 사라집니다. 다만 모든 에이전트가 1M은 아닙니다. Claude와 Gemini는 1M, Codex는 400K입니다. 창이 크다고 성능이 그대로인 것도 아니라는 점은 앞의 Context Rot 보고서와 함께 봐 주세요. 장점은 압축이 줄고 할증이 없다는 점이고, 단점은 모든 에이전트가 1M은 아니며 성능이 그대로도 아니라는 점입니다. 의미는 창 키우기와 나눠 쓰기를 함께 쓴다는 것입니다.</aside>
+  <aside>컨텍스트 윈도우 자체를 키우는 길도 있었습니다. 2023년 100K였던 Claude의 컨텍스트 윈도우가 2026년 3월 1M으로 정식 출시됐고, 긴 입력에 붙던 할증도 없앴습니다. 압축 횟수가 줄면 결정의 이유나 실패 기록이 덜 사라집니다. 다만 모든 에이전트가 1M은 아닙니다. Claude와 Gemini는 1M, Codex는 400K입니다. 컨텍스트 윈도우가 크다고 성능이 그대로인 것도 아니라는 점은 앞의 Context Rot 보고서와 함께 봐 주세요. 장점은 압축이 줄고 할증이 없다는 점이고, 단점은 모든 에이전트가 1M은 아니며 성능이 그대로도 아니라는 점입니다. 의미는 컨텍스트 윈도우 키우기와 나눠 쓰기를 함께 쓴다는 것입니다.</aside>
 </section>
 
 <!-- 23 하네스 -->
@@ -644,7 +644,7 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
     <div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>anthropic.com/engineering/effective-harnesses-for-long-running-agents</span></div><img src="assets/captures/page-harness.jpg" alt="Anthropic Effective harnesses for long-running agents 글"></div>
       <div class="kind">Anthropic Engineering 화면 캡처 · 2025-11-26</div>
-      <div class="ko">Anthropic 글 <b>‘장시간 실행 에이전트를 위한 효과적 하네스’</b>. 여러 컨텍스트 창에 걸친 긴 작업을 다룬다.</div>
+      <div class="ko">Anthropic 글 <b>‘장시간 실행 에이전트를 위한 효과적 하네스’</b>. 여러 컨텍스트 윈도우에 걸친 긴 작업을 다룬다.</div>
     </div>
     <div class="points">
       <div class="quote">에이전트 = 모델 + 하네스</div>
@@ -1775,13 +1775,13 @@ h1,h2,h3,.lead,.points,.under,.ko,.pmi,.quote,.stat .d,.compare,.box,.tbl{word-b
 <!-- 21 왜 아직 -->
 <section data-period="3" class="slide" data-title="왜 아직 자동 작성 수준이었나">
   <div class="tag"><b>2025</b><span class="sep"></span>강사 정리 · 공식 통계 아님</div>
-  <h2>짧은 일만 맡긴 이유: 승인 비용·작은 창·미숙한 모델</h2>
-  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1091 672"><svg class="d2-4085295266 d2-svg" width="1091" height="672" viewBox="-9 -9 1091 672"><g class="Yw=="><g class="shape" ><rect x="12.000000" y="12.000000" width="1049.000000" height="208.000000" class="box-outer"  /></g></g><g class="cg=="><g class="shape" ><rect x="332.000000" y="290.000000" width="408.000000" height="88.000000" class="box-inner hot"  /></g><text x="536.000000" y="346.500000" class="label-inner" style="text-anchor:middle;font-size:34px">코드 자동 작성 수준</text></g><g class="bmV4dA=="><g class="shape" ><rect x="189.000000" y="554.000000" width="694.000000" height="88.000000" class="box-inner"  /></g><text x="536.000000" y="610.500000" class="label-inner" style="text-anchor:middle;font-size:34px">2회차 · 스펙 · 테스트 · 서브에이전트</text></g><g class="Yy53"><g class="shape" ><rect x="72.000000" y="72.000000" width="357.000000" height="88.000000" class="box-inner"  /></g><text x="250.500000" y="128.500000" class="label-inner" style="text-anchor:middle;font-size:34px">작은 컨텍스트 창</text></g><g class="Yy5t"><g class="shape" ><rect x="469.000000" y="72.000000" width="264.000000" height="88.000000" class="box-inner"  /></g><text x="601.000000" y="128.500000" class="label-inner" style="text-anchor:middle;font-size:34px">미숙한 모델</text></g><g class="Yy5z"><g class="shape" ><rect x="773.000000" y="72.000000" width="228.000000" height="88.000000" class="box-inner"  /></g><text x="887.000000" y="128.500000" class="label-inner" style="text-anchor:middle;font-size:34px">승인 열 번</text></g><g class="KGMgLSZndDsgcilbMF0="><marker id="u21-mk-d2-4085295266-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 536.500000 222.000000 L 536.500000 286.000000" class="edge" style="stroke-width:2;" marker-end="url(#u21-mk-d2-4085295266-3488378134)" mask="url(#u21-d2-4085295266)" /></g><g class="KHIgLSZndDsgbmV4dClbMF0="><path d="M 536.500000 380.000000 L 536.500000 550.000000" class="edge" style="stroke-width:2;" marker-end="url(#u21-mk-d2-4085295266-3488378134)" mask="url(#u21-d2-4085295266)" /><text x="537.000000" y="476.000000" class="edge-label" style="text-anchor:middle;font-size:28px">딴길로 새고 맥락을 잃는다</text></g><mask id="u21-d2-4085295266" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1091" height="672">
-<rect x="-9" y="-9" width="1091" height="672" fill="white"></rect>
-<rect x="344.000000" y="448.000000" width="386" height="36" fill="black"></rect>
+  <h2>짧은 일만 맡긴 이유: 승인 비용·작은 컨텍스트 윈도우·미숙한 모델</h2>
+  <div class="diagram"><svg class="d2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.0-HEAD" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1085 706"><svg class="d2-3911010966 d2-svg" width="1085" height="706" viewBox="-9 -9 1085 706"><g class="Yw=="><g class="shape" ><rect x="12.000000" y="12.000000" width="1043.000000" height="242.000000" class="box-outer"  /></g></g><g class="cg=="><g class="shape" ><rect x="329.000000" y="324.000000" width="408.000000" height="88.000000" class="box-inner hot"  /></g><text x="533.000000" y="380.500000" class="label-inner" style="text-anchor:middle;font-size:34px">코드 자동 작성 수준</text></g><g class="bmV4dA=="><g class="shape" ><rect x="186.000000" y="588.000000" width="694.000000" height="88.000000" class="box-inner"  /></g><text x="533.000000" y="644.500000" class="label-inner" style="text-anchor:middle;font-size:34px">2회차 · 스펙 · 테스트 · 서브에이전트</text></g><g class="Yy53"><g class="shape" ><rect x="72.000000" y="72.000000" width="351.000000" height="122.000000" class="box-inner"  /></g><text x="247.500000" y="128.500000" class="label-inner" style="text-anchor:middle;font-size:34px"><tspan x="247.500000" dy="0.000000">작은</tspan><tspan x="247.500000" dy="38.500000">컨텍스트 윈도우</tspan></text></g><g class="Yy5t"><g class="shape" ><rect x="463.000000" y="72.000000" width="264.000000" height="122.000000" class="box-inner"  /></g><text x="595.000000" y="145.500000" class="label-inner" style="text-anchor:middle;font-size:34px">미숙한 모델</text></g><g class="Yy5z"><g class="shape" ><rect x="767.000000" y="72.000000" width="228.000000" height="122.000000" class="box-inner"  /></g><text x="881.000000" y="145.500000" class="label-inner" style="text-anchor:middle;font-size:34px">승인 열 번</text></g><g class="KGMgLSZndDsgcilbMF0="><marker id="u21-mk-d2-3911010966-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="arrow-head" stroke-width="2" /> </marker><path d="M 533.500000 256.000000 L 533.500000 320.000000" class="edge" style="stroke-width:2;" marker-end="url(#u21-mk-d2-3911010966-3488378134)" mask="url(#u21-d2-3911010966)" /></g><g class="KHIgLSZndDsgbmV4dClbMF0="><path d="M 533.500000 414.000000 L 533.500000 584.000000" class="edge" style="stroke-width:2;" marker-end="url(#u21-mk-d2-3911010966-3488378134)" mask="url(#u21-d2-3911010966)" /><text x="534.000000" y="510.000000" class="edge-label" style="text-anchor:middle;font-size:28px">딴길로 새고 맥락을 잃는다</text></g><mask id="u21-d2-3911010966" maskUnits="userSpaceOnUse" x="-9" y="-9" width="1085" height="706">
+<rect x="-9" y="-9" width="1085" height="706" fill="white"></rect>
+<rect x="341.000000" y="482.000000" width="386" height="36" fill="black"></rect>
 </mask></svg></svg></div>
-  <p class="under">승인 비용, 작은 창(한 번에 볼 수 있는 분량), 미숙한 모델이 겹쳐 <b>짧은 일</b>만 맡길 수 있었습니다. 긴 일은 딴길로 새고 맥락을 잃었습니다. <span class="next">→ 2회차</span></p>
-  <aside>터미널 에이전트가 나왔다고 곧바로 며칠짜리 일을 맡길 수 있었던 것은 아닙니다. 승인을 계속 눌러야 했고, 컨텍스트 창은 작았고, 모델도 지금보다 미숙했습니다. 그래서 사람이 옆에서 지켜보는 짧은 작업, 즉 코드 자동 작성 수준에 머물렀습니다. 일을 길게 시키자 이번에는 에이전트가 딴길로 새고 맥락을 잃는 문제가 나타났습니다. 2회차의 스펙, 테스트, 서브에이전트가 그 답입니다. 이 장의 진단은 제 경험과 정리이며 공식 통계가 아닙니다.</aside>
+  <p class="under">승인 비용, 작은 컨텍스트 윈도우(한 번에 볼 수 있는 분량), 미숙한 모델이 겹쳐 <b>짧은 일</b>만 맡길 수 있었습니다. 긴 일은 딴길로 새고 맥락을 잃었습니다. <span class="next">→ 2회차</span></p>
+  <aside>터미널 에이전트가 나왔다고 곧바로 며칠짜리 일을 맡길 수 있었던 것은 아닙니다. 승인을 계속 눌러야 했고, 컨텍스트 윈도우는 작았고, 모델도 지금보다 미숙했습니다. 그래서 사람이 옆에서 지켜보는 짧은 작업, 즉 코드 자동 작성 수준에 머물렀습니다. 일을 길게 시키자 이번에는 에이전트가 딴길로 새고 맥락을 잃는 문제가 나타났습니다. 2회차의 스펙, 테스트, 서브에이전트가 그 답입니다. 이 장의 진단은 제 경험과 정리이며 공식 통계가 아닙니다.</aside>
 </section>
 
 <!-- 질문 시간 (교시 끝) -->

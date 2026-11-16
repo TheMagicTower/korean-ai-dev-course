@@ -79,19 +79,20 @@
 - 20장은 OpenAI 원문 그림(`oai-limits.jpg`)으로 교체되어 캡처 대기 없음. 34·36·53·59장 GitHub 저장소 첫 화면(별 수 포함)은 선택 교체 대상, 현재는 공식 문서·사이트 캡처(plan/capture-todo.md).
 
 ---
-### 11교시 · 스킬: Superpowers에서 Ponytail까지 (29장, 60분)
+### 11교시 · 스킬: Superpowers에서 Ponytail까지 (32장, 60분)
 목표: 스킬의 구조(SKILL.md, 점진적 공개)와 대표 스킬을 이해하고, description이 호출을 좌우함을 알아 내 스킬을 만들 준비를 한다.
 | 구간 | 장 | 분 | 꼭 짚을 말 |
 | --- | --- | --- | --- |
 | 열기·문제 | 1–2 | 3 | 같은 지침을 대화에 계속 붙여 넣는다면 스킬로. CLAUDE.md는 항상 컨텍스트 윈도우에, 스킬은 설명만 |
 | 구조·표준 | 3–8 | 12 | SKILL.md 폴더, 필수는 name·description(1,024자). 점진적 공개(메타 약 100토큰, 본문 5,000토큰 미만·500줄). Agent Skills 2025-10-16, 오픈 표준 2025-12-18, 플러그인 2025-10-09 |
-| Superpowers | 9–13 | 11 | 방법론 전체를 스킬로. brainstorming → worktrees → writing-plans(2~5분 Task) → subagent-driven → TDD(Test-Driven Development, 테스트 주도 개발) 강제(어기면 지우고 다시) |
+| Superpowers | 9–13 | 10 | 방법론 전체를 스킬로. brainstorming → worktrees → writing-plans(2~5분 Task) → subagent-driven → TDD(Test-Driven Development, 테스트 주도 개발) 강제(어기면 지우고 다시) |
 | skill-creator | 14 | 2 | 스킬을 쓰고 시험 프롬프트로 돌려 보고 평가해 고치는 순서. 12교시 실습에서 직접 쓴다 |
-| 대표 스킬 | 15–21 | 11 | frontend-design, 문서 4종, webapp-testing, grill-me, Karpathy guidelines, Ponytail(2026-06-12, 사다리 7단), 스킬 비교 표(성격·쓰는 때·장점·한계, 21장) |
+| 대표 스킬 | 15–21 | 10 | frontend-design, 문서 4종, webapp-testing, grill-me, Karpathy guidelines, Ponytail(2026-06-12, 사다리 7단), 스킬 비교 표(성격·쓰는 때·장점·한계, 21장) |
 | 과열 방지·내 지도 | 22–25 | 8 | 시키지 않은 기능·과잉 추상화. 스킬 지도(작업 시점별), kdev 8개, 한국어 SKILL.md |
-| description·만들기 | 26–27 | 6 | “Helps with PDFs”는 나쁜 설명. 하는 일+쓰는 때+낱말. 호출 안 되면 본문보다 설명부터. 다섯 단계 |
-| 정리 | 28 | 2 | 방법론은 폴더로 옮겨 다닌다. 내 스킬은 설명 한 문장부터 시험해서 고친다. 12교시 예고 |
-| 질문 시간 | 29 | 5 | 정리 뒤 교시 끝. 구조·스킬까지 질문 받기 |
+| description·만들기 | 26–27 | 5 | “Helps with PDFs”는 나쁜 설명. 하는 일+쓰는 때+낱말. 호출 안 되면 본문보다 설명부터. 다섯 단계 |
+| task-observer | 28–30 | 3 | 관찰 기록 → 제안 → 사람 검토·설치. 작은 추가는 검토용 복사본에 적용, cross-cutting principles와 skill-creator 연결. 12교시 수정 기록 파일 |
+| 정리 | 31 | 2 | 방법론은 폴더로 옮겨 다닌다. 내 스킬은 설명 한 문장부터 시험해서 고친다. 12교시 예고 |
+| 질문 시간 | 32 | 5 | 정리 뒤 교시 끝. 구조·스킬까지 질문 받기 |
 
 **주의 (흔한 오해)**
 - Superpowers는 SDD(Spec-Driven Development, 스펙 주도 개발)·서브에이전트 주도 개발의 ‘시초’가 아니라 “스킬로 패키징된 첫 완성형 방법론”. 2025-10-09로 Agent Skills 발표(10-16)보다 1주 앞서고 SDD 도구는 그 전에도 있었다(9장).

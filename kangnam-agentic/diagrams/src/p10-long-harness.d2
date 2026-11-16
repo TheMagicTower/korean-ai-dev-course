@@ -2,17 +2,17 @@ grid-rows: 2
 grid-columns: 3
 horizontal-gap: 110
 vertical-gap: 90
-ini: "첫 세션 ·\n초기화 에이전트"
-files: "세션 사이에 남는 것\ninit.sh · claude-progress.txt\nfeature_list.json · git 커밋" { style.stroke: "#ff00ff" }
-c1: "코딩 에이전트\n진행·git 로그 읽기"
+ini: "첫 세션\n초기화 에이전트"
+notes: "인수인계 노트\n할 일 목록 · 진행 기록\ngit 커밋 · 실행 준비" { style.stroke: "#ff00ff" }
+c1: "다음 세션\n코딩 에이전트\n노트를 읽고 시작"
 z3: "" { style.opacity: 0 }
-c3: "테스트 후\npasses 갱신·커밋"
-c2: "기능 하나만\n구현"
-ini -> files: "만든다"
-files -> c1: "읽는다"
+c3: "노트 갱신\n완료 표시 · 기록 · 커밋"
+c2: "기능 하나만\n구현 · 테스트"
+ini -> notes: "만든다"
+notes -> c1: "읽는다"
 c1 -> c2
 c2 -> c3
-c3 -> files: "갱신"
+c3 -> notes: "갱신"
 
 **.style.font-size: 34
 (** -> **)[*].style.font-size: 26

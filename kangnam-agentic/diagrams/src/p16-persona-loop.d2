@@ -4,12 +4,11 @@ horizontal-gap: 170
 vertical-gap: 120
 p: "1. 페르소나 주입\n고객 한 명을 적은 파일"
 c: "2. 그 사람처럼 클릭\n브라우저로 앱 사용"
-fix: "4. 고치고 재평가\n같은 페르소나로"
-f: "3. 피드백을 이슈로\n막힌 곳·증거·재현"
+r: "3. 관찰 기록\n생각 · 행동 수 · 화면 기록"
+f: "4. 막힌 곳 · 불편 보고"
 p -> c
-c -> f
-f -> fix
-fix -> c: "개선 루프"
+c -> r
+r -> f
 c.style.stroke: "#ff00ff"
 
 **.style.font-size: 34

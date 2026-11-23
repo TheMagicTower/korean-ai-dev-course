@@ -1,0 +1,16 @@
+direction: right
+orch: "오케스트레이터\n(중앙 LLM)\n일을 나누고 결과를 합친다" { style.stroke: "#ff00ff" }
+w: "워커" {
+  w1: "워커 1\n파일 A"
+  w2: "워커 2\n파일 B"
+  w3: "워커 3\n파일 C"
+}
+orch -> w.w1: "나누기"
+orch -> w.w2: "나누기"
+orch -> w.w3: "나누기"
+w.w1 -> orch: "합치기"
+w.w2 -> orch: "합치기"
+w.w3 -> orch: "합치기"
+
+**.style.font-size: 26
+(** -> **)[*].style.font-size: 22

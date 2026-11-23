@@ -315,7 +315,7 @@
     <div>
       <div class="diagram">{{svg:p14-orchestrator}}</div>
       <div class="kind">직접 도식 · 원문의 워크플로 그림을 단순화</div>
-      <div class="ko">일반 패턴 도식. 중앙 LLM(Large Language Model, 대형 언어 모델)이 일을 나누고, 워커가 각자 맡고, 중앙이 결과를 합친다.</div>
+      <div class="ko">일반 패턴 도식. 중앙 LLM(Large Language Model, 대규모 언어 모델)이 일을 나누고, 워커가 각자 맡고, 중앙이 결과를 합친다.</div>
     </div>
     <div class="points">
       <div class="quote">“dynamically breaks down tasks, delegates them to worker LLMs, and synthesizes their results”<span class="tr">작업을 동적으로 나누고 워커 LLM에게 맡긴 뒤 결과를 종합한다</span><cite>Anthropic · Building effective agents · 2024-12-19</cite></div>
@@ -326,7 +326,7 @@
       </ul>
     </div>
   </div>
-  <aside>이 패턴의 출발점은 2024년 12월 19일에 공개된 Anthropic의 “Building effective agents”입니다. 원문은 중앙 LLM(Large Language Model, 대형 언어 모델)이 작업을 동적으로 나누고 워커 LLM에게 맡긴 뒤 결과를 종합한다고 설명합니다. 미리 하위 작업을 정해 두는 병렬 실행과 달리, 무엇을 나눌지를 오케스트레이터가 입력에 따라 정하는 점이 다릅니다. 원문이 든 예는 여러 파일을 함께 고치는 코딩 작업과 여러 출처에서 정보를 모아 분석하는 조사입니다. 이 교시에서 본 agent teams, Orca 오케스트레이션, 뒤에 볼 코디네이터-배치는 모두 이 패턴의 변형입니다.</aside>
+  <aside>이 패턴의 출발점은 2024년 12월 19일에 공개된 Anthropic의 “Building effective agents”입니다. 원문은 중앙 LLM(Large Language Model, 대규모 언어 모델)이 작업을 동적으로 나누고 워커 LLM에게 맡긴 뒤 결과를 종합한다고 설명합니다. 미리 하위 작업을 정해 두는 병렬 실행과 달리, 무엇을 나눌지를 오케스트레이터가 입력에 따라 정하는 점이 다릅니다. 원문이 든 예는 여러 파일을 함께 고치는 코딩 작업과 여러 출처에서 정보를 모아 분석하는 조사입니다. 이 교시에서 본 agent teams, Orca 오케스트레이션, 뒤에 볼 코디네이터-배치는 모두 이 패턴의 변형입니다.</aside>
 </section>
 <!-- 18 강사가 더한 것: 코디네이터-배치 운영 -->
 <section class="slide" data-title="강사가 더한 것: 코디네이터-배치">

@@ -1,0 +1,20 @@
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 170
+vertical-gap: 130
+goal: "큰 목표"
+issues: "이슈 · 하위 이슈\n= 작업 목록의 원본"
+pr: "PR\nCloses #N"
+proj: "프로젝트\n표 · 보드 · 로드맵"
+closed: "이슈 자동 닫힘"
+merge: "기본 브랜치에\n머지"
+goal -> issues: "쪼개 등록"
+issues -> pr: "하나씩 작업"
+pr -> merge
+merge -> closed
+closed -> proj: "보기에 반영"
+issues -> proj: "양방향 동기화" {style.stroke-dash: 4}
+issues.style.stroke: "#ff00ff"
+
+**.style.font-size: 34
+(** -> **)[*].style.font-size: 26
